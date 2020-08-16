@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const Note = require("../models/Note.model");
 const moment = require("moment");
-const marked = require("marked");
 const { isAuth } = require("../utils/functions");
 
 router.get("/", isAuth, async (req, res) => {
@@ -30,13 +29,15 @@ router.put("/:noteId", isAuth, async (req, res) => {
     });
   });
 
-  note.title = title;
+  console.log(body);
+  note.title = title ? title : note.title;
   note.body = body;
 
   try {
     await note.save();
+    const notes = await Note.find({ user_id: req.user.id });
 
-    return res.json({ msg: "Updated", status: "success" });
+    return res.json({ msg: "Updated", status: "success", note, notes });
   } catch (e) {
     console.log(e);
     return res.json({ error: "Something went wrong", status: "error" });
@@ -59,7 +60,7 @@ router.post("/", isAuth, async (req, res) => {
     const newNote = new Note({
       user_id: req.user.id,
       title,
-      body: marked(body),
+      body,
       created_at,
     });
 

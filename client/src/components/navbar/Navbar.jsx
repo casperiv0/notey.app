@@ -5,13 +5,12 @@ import {
   NavTitle,
   NavLinks,
 } from "../../styles/Navbar";
-import { DeleteBtn } from "../../styles/Global";
+import { DeleteBtn, EditBtn } from "../../styles/Global";
 import { useEffect } from "react";
 
-const Navbar = ({ note, deleteNote }) => {
+const Navbar = ({ note, deleteNote, editNote, editing }) => {
   useEffect(() => {
-    console.log(note);
-    document.title = note ? `${note.title} - Notey.app` : "" + "Notey.app";
+    document.title = note ? `Notey.app - ${note.title}` : "" + "Notey.app";
   });
 
   return (
@@ -21,7 +20,12 @@ const Navbar = ({ note, deleteNote }) => {
         <NavTitle>{note && note.title}</NavTitle>
         <NavLinks>
           {note && note._id ? (
-            <DeleteBtn onClick={() => deleteNote(note._id)}>Delete</DeleteBtn>
+            <>
+              <DeleteBtn onClick={() => deleteNote(note._id)}>Delete</DeleteBtn>
+              <EditBtn onClick={() => editNote(editing ? "save": null, note._id)}>
+                {editing ? "Save" : "Edit"}
+              </EditBtn>
+            </>
           ) : null}
         </NavLinks>
       </NavbarStyle>

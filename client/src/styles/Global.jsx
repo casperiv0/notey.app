@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, GREEN, RED, WHITE } from "./colors";
+import { DARK_GRAY, DARK_GRAY_2, GREEN, RED, WHITE } from "./colors";
 
 export const AppLayout = styled.div`
   width: 100%;
@@ -25,8 +25,8 @@ export const ErrorBody = styled.p`
 export const TextArea = styled.textarea`
   padding: 7px;
   font-size: 1.2rem;
-  border: 1px solid ${GREEN};
-  background-color: ${DARK_GRAY};
+  border: 2px solid ${GREEN};
+  background-color: ${DARK_GRAY_2};
   color: ${GREEN};
   resize: vertical;
   max-height: ${props => props.maxHeight ? props.maxHeight : ""};
@@ -44,4 +44,14 @@ export const DeleteBtn = styled.button`
   font-size: 1.2rem;
   cursor: pointer;
   border: 1px solid ${RED}
+`
+
+export const EditBtn = styled.button`
+  margin-left: 10px;
+  padding: 7px 20px;
+  color: ${DARK_GRAY};
+  background-color: ${GREEN};
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: 1px solid ${GREEN}
 `

@@ -4,6 +4,7 @@ import {
   GET_ACTIVE_NOTE,
   CREATE_NOTE_ERR,
   DELETE_NOTE,
+  UPDATE_NOTE,
 } from "../utils/types";
 
 const initState = {
@@ -41,6 +42,12 @@ export default function (state = initState, action) {
       return {
         ...state,
         notes: action.notes,
+      };
+    case UPDATE_NOTE:
+      return {
+        ...state,
+        notes: action.notes,
+        note: action.note,
       };
     default:
       return {

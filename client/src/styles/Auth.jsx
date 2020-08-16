@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, GREEN, LIGHT_GRAY } from "./colors";
+import { DARK_GRAY, GREEN, LIGHT_GRAY, DARK_GRAY_2 } from "./colors";
 
 export const AuthContainer = styled.div`
   height: 100vh;
@@ -13,7 +13,7 @@ export const AuthForm = styled.form`
   width: ${(props) => (props.width ? props.width : "500px")};
   max-width: 90%;
   background-color: ${DARK_GRAY};
-  padding: 10px;
+  padding: 10px 20px;
   box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
 `;
 
@@ -44,8 +44,8 @@ export const FormLabel = styled.label`
 export const FormInput = styled.input`
   padding: 7px;
   font-size: 1.2rem;
-  border: 1px solid ${GREEN};
-  background-color: ${DARK_GRAY};
+  border: 2px solid ${GREEN};
+  background-color: ${DARK_GRAY_2};
   color: ${GREEN};
 `;
 

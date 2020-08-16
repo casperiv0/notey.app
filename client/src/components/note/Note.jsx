@@ -1,11 +1,21 @@
-import React from "react";
-import { NoteStyle } from "../../styles/Notes";
+import React, { useEffect } from "react";
+import { NoteStyle, NoteTextArea } from "../../styles/Notes";
 
-const Note = ({ note }) => {
+const Note = ({ note, editing, noteBody, setNoteBody }) => {
   // TODO: change to markdown area
+
+  useEffect(() => {
+    setNoteBody(note.body)
+  }, [note])
+
   return (
     <NoteStyle>
-      <div dangerouslySetInnerHTML={{ __html: note && note.body }} />
+      <NoteTextArea
+        onChange={(e) => setNoteBody(e.target.value)}
+        disabled={!editing}
+        value={noteBody}
+        id="note-text-area"
+      ></NoteTextArea>
     </NoteStyle>
   );
 };

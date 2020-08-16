@@ -5,6 +5,7 @@ import {
   CREATE_NOTE,
   CREATE_NOTE_ERR,
   DELETE_NOTE,
+  UPDATE_NOTE
 } from "../utils/types";
 
 export const getNotes = () => (dispatch) => {
@@ -56,6 +57,22 @@ export const updateLastActiveNote = (id) => (dispatch) => {
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: GET_NOTES, notes: res.data.notes });
+      }
+    })
+    .catch((e) => console.log(e));
+};
+
+export const updateNoteById = (id, data) => (dispatch) => {
+  handleRequest(`/notes/${id}`, "PUT", data)
+    .then((res) => {
+      if (isSuccess(res)) {
+        dispatch({
+          type: UPDATE_NOTE,
+          note: res.data.note,
+          notes: res.data.notes,
+        });
+      } else {
+        console.log(res.data);
       }
     })
     .catch((e) => console.log(e));
