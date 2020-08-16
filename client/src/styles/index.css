@@ -1,0 +1,23 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Assistant", sans-serif !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: white;
+  color: #242424;
+  min-height: 100vh;
+}
+
+button:focus,
+input:focus {
+  outline: 2px dotted #4ecec4;
+}
