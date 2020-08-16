@@ -11,8 +11,8 @@ const AuthRouteHandler = ({ component, auth, checkAuth, ...rest }) => {
     checkAuth();
     setTimeout(() => {
       setLoading(false);
-    }, 300);
-  }, []);
+    }, 500);
+  }, [checkAuth]);
 
   if (loading) return null;
 

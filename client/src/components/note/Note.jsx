@@ -6,7 +6,7 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
 
   useEffect(() => {
     setNoteBody(note.body);
-  }, [note]);
+  }, [setNoteBody, note]);
 
   return (
     <NoteStyle>

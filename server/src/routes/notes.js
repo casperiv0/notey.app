@@ -29,7 +29,6 @@ router.put("/:noteId", isAuth, async (req, res) => {
     });
   });
 
-  console.log(body);
   note.title = title ? title : note.title;
   note.body = body;
 

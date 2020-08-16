@@ -10,7 +10,7 @@ import SidebarSearch from "./SidebarSearch";
 import Loader from "../../components/Loader";
 import { GREEN } from "../../styles/colors";
 
-const Sidebar = ({ notes, activeNote, loading, updateLastActive }) => {
+const Sidebar = ({ notes, activeNote, loading }) => {
   const filterNotes = (filter) => {};
   const createNew = () => {
     document.querySelector("#createNoteModal").classList.add("active");
@@ -35,7 +35,6 @@ const Sidebar = ({ notes, activeNote, loading, updateLastActive }) => {
               );
               return (
                 <SidebarNote
-                  onClick={() => updateLastActive(note._id)}
                   href={`/?noteId=${note._id}`}
                   className={isActiveNote ? "active" : ""}
                   key={i}

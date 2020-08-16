@@ -24,17 +24,17 @@ const CreateNote = ({ createNote, error, createdNote }) => {
     setHasSubmitted(true);
   };
 
-  // TODO: clean this up and make it work
   useEffect(() => {
-    console.log(hasSubmitted);
-    console.log(error);
     if (error !== "" || error !== null) {
       setCanClose(false);
     }
 
-    console.log(title);
-    console.log(body);
-    if (error === null && hasSubmitted && title !== "" && body !== "") {
+    if (
+      (error === null || error === "") &&
+      hasSubmitted &&
+      title !== "" &&
+      body !== ""
+    ) {
       setCanClose(true);
       setTimeout(() => {
         setTitle("");
@@ -46,7 +46,16 @@ const CreateNote = ({ createNote, error, createdNote }) => {
       document.getElementById("createNoteModal").classList.remove("active");
       document.getElementById("createNoteModalBg").classList.remove("active");
     }
-  });
+  }, [
+    setTitle,
+    setBody,
+    setCanClose,
+    canClose,
+    body,
+    title,
+    hasSubmitted,
+    error,
+  ]);
 
   return (
     <Modal title="Create new note" id="createNoteModal">

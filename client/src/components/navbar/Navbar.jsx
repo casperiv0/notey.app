@@ -10,11 +10,10 @@ import { useEffect } from "react";
 
 const Navbar = ({ note, deleteNote, editNote, editing }) => {
   useEffect(() => {
-    document.title = note ? `Notey.app - ${note.title}` : "" + "Notey.app";
+    document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
   });
 
   return (
-    // todo: add edit button
     <NavbarContainer>
       <NavbarStyle>
         <NavTitle>{note && note.title}</NavTitle>

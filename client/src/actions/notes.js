@@ -52,16 +52,6 @@ export const deleteNoteById = (id) => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
-export const updateLastActiveNote = (id) => (dispatch) => {
-  handleRequest(`/notes/${id}`, "PUT")
-    .then((res) => {
-      if (isSuccess(res)) {
-        dispatch({ type: GET_NOTES, notes: res.data.notes });
-      }
-    })
-    .catch((e) => console.log(e));
-};
-
 export const updateNoteById = (id, data) => (dispatch) => {
   handleRequest(`/notes/${id}`, "PUT", data)
     .then((res) => {
