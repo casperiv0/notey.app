@@ -47,6 +47,7 @@ const App = ({
     setEditing(!editing);
 
     if (saving === "save") {
+      if (note && note.body === noteBody) return;
       updateNoteById(id, { body: noteBody });
     }
   };

@@ -1,12 +1,21 @@
 import styled from "styled-components";
 import { DARK_GRAY, DARK_GRAY_2, GREEN, RED, WHITE } from "./colors";
+import {
+  SIDEBAR_WIDTH_FULL,
+  DEFAULT_MIN_WIDTH,
+} from "./constants";
 
 export const AppLayout = styled.div`
   width: 100%;
   height: 100vh;
   display: grid;
-  grid-template-columns: 300px auto;
-  grid-template-areas: "aside main";
+  grid-template-columns: 0px auto;
+  grid-template-areas: "main";
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    grid-template-areas: "aside main";
+    grid-template-columns: ${SIDEBAR_WIDTH_FULL} auto;
+  }
 `;
 
 export const ErrorBox = styled.div`
@@ -29,8 +38,8 @@ export const TextArea = styled.textarea`
   background-color: ${DARK_GRAY_2};
   color: ${GREEN};
   resize: vertical;
-  max-height: ${props => props.maxHeight ? props.maxHeight : ""};
-  min-height: ${props => props.minHeight ? props.minHeight : ""};
+  max-height: ${(props) => (props.maxHeight ? props.maxHeight : "")};
+  min-height: ${(props) => (props.minHeight ? props.minHeight : "")};
 
   &:focus {
     outline: 2px dotted ${GREEN};
@@ -43,8 +52,8 @@ export const DeleteBtn = styled.button`
   background-color: ${RED};
   font-size: 1.2rem;
   cursor: pointer;
-  border: 1px solid ${RED}
-`
+  border: 1px solid ${RED};
+`;
 
 export const EditBtn = styled.button`
   margin-left: 10px;
@@ -53,5 +62,5 @@ export const EditBtn = styled.button`
   background-color: ${GREEN};
   font-size: 1.2rem;
   cursor: pointer;
-  border: 1px solid ${GREEN}
-`
+  border: 1px solid ${GREEN};
+`;

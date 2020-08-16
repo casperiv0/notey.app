@@ -18,8 +18,9 @@ const Sidebar = ({ notes, activeNote, loading }) => {
   };
 
   return (
-    <SidebarStyle>
+    <SidebarStyle id="sidebar">
       <SidebarHeader>
+        {/* // TODO: convert to flex and add closeSidebar */}
         <SidebarSearch filterNotes={filterNotes} />
       </SidebarHeader>
       <SidebarBody>

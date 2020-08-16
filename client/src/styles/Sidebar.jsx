@@ -1,23 +1,38 @@
 import styled from "styled-components";
 import { DARK_GRAY, WHITE, GREEN } from "./colors";
+import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 
 export const SidebarContainer = styled.div`
   position: relative;
   grid-area: aside;
   width: 100%;
   height: 100%;
+  display: none;
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    display: block;
+  }
 `;
 
 export const SidebarStyle = styled.div`
   z-index: 10;
-  width: 300px;
+  width: ${SIDEBAR_WIDTH_FULL};
   padding: 10px;
   position: fixed;
   background-color: ${DARK_GRAY};
   top: 0;
-  left: 0;
+  left: -${SIDEBAR_WIDTH_FULL};
   bottom: 0;
   overflow-y: scroll;
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    left: 0;
+    width: ${SIDEBAR_WIDTH_FULL};
+  }
+
+  &.active {
+    left: 0;
+  }
 `;
 
 export const SidebarHeader = styled.div``;

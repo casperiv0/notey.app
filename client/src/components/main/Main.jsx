@@ -3,6 +3,7 @@ import Navbar from "../navbar/Navbar";
 import { MainStyle } from "../../styles/Main";
 import Note from "../note/Note";
 import Loader from "../Loader";
+import { GREEN } from "../../styles/colors";
 
 const Main = ({
   notes,
@@ -23,7 +24,7 @@ const Main = ({
         note={activeNote ? activeNote : notes[0]}
       />
       {loading ? (
-        <Loader></Loader>
+        <Loader color={GREEN}></Loader>
       ) : (
         <Note
           noteBody={noteBody}
