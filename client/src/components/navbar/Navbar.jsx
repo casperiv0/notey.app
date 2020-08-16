@@ -22,7 +22,9 @@ const Navbar = ({ note, deleteNote, editNote, editing }) => {
           {note && note._id ? (
             <>
               <DeleteBtn onClick={() => deleteNote(note._id)}>Delete</DeleteBtn>
-              <EditBtn onClick={() => editNote(editing ? "save": null, note._id)}>
+              <EditBtn
+                onClick={() => editNote(editing ? "save" : null, note._id)}
+              >
                 {editing ? "Save" : "Edit"}
               </EditBtn>
             </>

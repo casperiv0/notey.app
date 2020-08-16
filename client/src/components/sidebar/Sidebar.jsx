@@ -29,7 +29,10 @@ const Sidebar = ({ notes, activeNote, loading, updateLastActive }) => {
         ) : (
           <>
             {notes.map((note, i) => {
-              const isActiveNote = isActive(activeNote ? activeNote : notes[0], note);
+              const isActiveNote = isActive(
+                activeNote ? activeNote : notes[0],
+                note
+              );
               return (
                 <SidebarNote
                   onClick={() => updateLastActive(note._id)}

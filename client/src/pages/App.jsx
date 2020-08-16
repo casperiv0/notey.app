@@ -8,7 +8,7 @@ import {
   getNotes,
   deleteNoteById,
   updateLastActiveNote,
-  updateNoteById
+  updateNoteById,
 } from "../actions/notes";
 import { checkAuth } from "../actions/auth";
 import qs from "qs";
@@ -24,7 +24,7 @@ const App = ({
   user,
   deleteNoteById,
   updateLastActiveNote,
-  updateNoteById
+  updateNoteById,
 }) => {
   const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
   const [loading, setLoading] = useState(true);
@@ -38,7 +38,7 @@ const App = ({
 
     setTimeout(() => {
       setLoading(false);
-      setNoteBody(note.body)
+      setNoteBody(note.body);
     }, 300);
   }, []);
 
@@ -53,9 +53,8 @@ const App = ({
   const editNote = (saving, id) => {
     setEditing(!editing);
 
-    if (saving==="save") {
-      updateNoteById(id, { body: noteBody })
-      // TODO: make request to update note
+    if (saving === "save") {
+      updateNoteById(id, { body: noteBody });
     }
   };
 
@@ -96,5 +95,5 @@ export default connect(mapStateToProps, {
   getActiveNote,
   deleteNoteById,
   updateLastActiveNote,
-  updateNoteById
+  updateNoteById,
 })(App);

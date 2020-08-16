@@ -5,8 +5,8 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
   // TODO: change to markdown area
 
   useEffect(() => {
-    setNoteBody(note.body)
-  }, [note])
+    setNoteBody(note.body);
+  }, [note]);
 
   return (
     <NoteStyle>

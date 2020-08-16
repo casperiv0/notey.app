@@ -24,6 +24,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
     setHasSubmitted(true);
   };
 
+  // TODO: clean this up and make it work
   useEffect(() => {
     console.log(hasSubmitted);
     console.log(error);

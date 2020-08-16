@@ -14,8 +14,7 @@ const AuthRouteHandler = ({ component, auth, checkAuth, ...rest }) => {
     }, 300);
   }, []);
 
-
-  if (loading) return null
+  if (loading) return null;
 
   return (
     <Route
