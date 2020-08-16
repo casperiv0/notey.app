@@ -32,7 +32,10 @@ const App = ({
     getNotes();
     getActiveNote(noteId);
 
-    setTimeout(() => setLoading(false), 300);
+    setTimeout(() => {
+      setLoading(false)
+    }, 300);
+
   }, []);
 
   const deleteNote = (id) => {

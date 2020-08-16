@@ -20,20 +20,14 @@ export const SidebarStyle = styled.div`
   overflow-y: scroll;
 `;
 
-export const SidebarHeader = styled.div`
-  width: 100%;
-  height: 20px;
-`;
+export const SidebarHeader = styled.div``;
 
 export const SearchForm = styled.form`
-  position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
 `;
 
 export const SearchInput = styled.input`
-  width: 100%;
+  width: 75%;
   padding: 5px;
   font-size: 1.2rem;
   border: 1px solid ${GREEN};

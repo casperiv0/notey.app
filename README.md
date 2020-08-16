@@ -11,3 +11,7 @@ Simple notes app to keep track of important things
 - [ ] Update page title to title of note
 - [ ] icons
 - [ ] better markdown support
+
+## Docs
+
+[View](docs/README.md)

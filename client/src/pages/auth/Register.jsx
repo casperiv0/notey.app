@@ -44,7 +44,7 @@ const Register = ({ register, error }) => {
     <AuthContainer>
       <AuthForm onSubmit={onSubmit}>
         <FormGroup>
-          <FormTitle>Sign in</FormTitle>
+          <FormTitle>Register</FormTitle>
         </FormGroup>
         {error ? <ErrorMessage>{error}</ErrorMessage> : null}
         <FormGroup>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   ModalStyle,
   ModalHeader,
@@ -12,6 +13,14 @@ const Modal = ({ id, title, children }) => {
     document.getElementById(id).classList.remove("active");
     document.getElementById(id + "Bg").classList.remove("active");
   };
+
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    })
+  })
 
   return (
     <>

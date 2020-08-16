@@ -6,8 +6,13 @@ import {
   NavLinks,
 } from "../../styles/Navbar";
 import { DeleteBtn } from "../../styles/Global";
+import { useEffect } from "react";
 
 const Navbar = ({ note, deleteNote }) => {
+
+  useEffect(() => {
+    document.title = note && note.title + " - Notey.app"
+  })
 
   return (
     // todo: add edit button

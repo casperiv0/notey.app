@@ -14,7 +14,7 @@ export const AuthForm = styled.form`
   max-width: 90%;
   background-color: ${DARK_GRAY};
   padding: 10px;
-  box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
 `;
 
 export const FormGroup = styled.div`
@@ -28,7 +28,8 @@ export const FormTitle = styled.h2`
   font-size: 2rem;
   color: ${GREEN};
   border-bottom: 1px solid ${GREEN};
-  padding-bottom: 5px;
+  padding-bottom: 7px;
+  margin-bottom: 5px;
   text-transform: capitalize;
 `;
 
