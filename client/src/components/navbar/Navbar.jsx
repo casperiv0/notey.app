@@ -9,10 +9,10 @@ import { DeleteBtn } from "../../styles/Global";
 import { useEffect } from "react";
 
 const Navbar = ({ note, deleteNote }) => {
-
   useEffect(() => {
-    document.title = note && note.title + " - Notey.app"
-  })
+    console.log(note);
+    document.title = note ? `${note.title} - Notey.app` : "" + "Notey.app";
+  });
 
   return (
     // todo: add edit button
@@ -20,11 +20,9 @@ const Navbar = ({ note, deleteNote }) => {
       <NavbarStyle>
         <NavTitle>{note && note.title}</NavTitle>
         <NavLinks>
-          {
-            note && note._id ? 
+          {note && note._id ? (
             <DeleteBtn onClick={() => deleteNote(note._id)}>Delete</DeleteBtn>
-            : null
-          }
+          ) : null}
         </NavLinks>
       </NavbarStyle>
     </NavbarContainer>
