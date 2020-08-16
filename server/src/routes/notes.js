@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const Note = require("../models/Note.model");
-const User = require("../models/User.model");
 const moment = require("moment");
 const marked = require("marked");
 const { isAuth } = require("../utils/functions");
@@ -21,41 +20,16 @@ router.get("/:noteId", isAuth, async (req, res) => {
 });
 
 router.put("/:noteId", isAuth, async (req, res) => {
-  const note = await Note.findById(req.params.noteId);
-  const user = await User.findById(req.user.id);
-
-  console.log(note._id);
-  console.log(user.last_active_note);
-  user.last_active_note = note._id;
-
-  try {
-    await user.save();
-    const notes = await Note.find({ user_id: req.user.id });
-
-    return res.json({ msg: "Updated", status: "success", notes });
-  } catch (e) {
-    console.log(e);
-    return res.json({ error: "Something went wrong", status: "error" });
-  }
-});
-
-router.put("/update/:noteId", isAuth, async (req, res) => {
   const { title, body } = req.body;
   const note = await Note.findById(req.params.noteId).catch((e) =>
     console.log(e)
   );
-  const active = req.query.active;
-
-  // Update all notes to false, removes conflicting
-  // if (active !== note.active.toString()) {
   Note.find().then((notes) => {
     notes.forEach((note) => {
       note.active = "false";
     });
   });
-  // }
 
-  note.active = active;
   note.title = title;
   note.body = body;
 

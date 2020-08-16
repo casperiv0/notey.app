@@ -30,12 +30,7 @@ const App = ({
   useEffect(() => {
     checkAuth();
     getNotes();
-
-    if (!noteId) {
-      getActiveNote(user.last_active_note);
-    } else {
-      getActiveNote(noteId);
-    }
+    getActiveNote(noteId);
 
     setTimeout(() => setLoading(false), 300);
   }, []);

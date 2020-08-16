@@ -18,11 +18,6 @@ const noteSchema = new Schema({
     type: String,
     required: true,
   },
-  active: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
 });
 
 module.exports = model("Note", noteSchema);

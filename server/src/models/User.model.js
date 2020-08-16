@@ -9,11 +9,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  last_active_note: {
-    type: String,
-    required: false,
-    default: "None",
-  },
 });
 
 module.exports = model("User", userSchema);
