@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { DARK_GRAY, DARK_GRAY_2, GREEN, RED, WHITE } from "./colors";
-import {
-  SIDEBAR_WIDTH_FULL,
-  DEFAULT_MIN_WIDTH,
-} from "./constants";
+import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 
 export const AppLayout = styled.div`
   width: 100%;
@@ -47,20 +44,28 @@ export const TextArea = styled.textarea`
 `;
 
 export const DeleteBtn = styled.button`
-  padding: 7px 20px;
+  padding: 5px 10px;
   color: ${WHITE};
   background-color: ${RED};
   font-size: 1.2rem;
   cursor: pointer;
   border: 1px solid ${RED};
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    padding: 7px 20px;
+  }
 `;
 
 export const EditBtn = styled.button`
   margin-left: 10px;
-  padding: 7px 20px;
+  padding: 5px 10px;
   color: ${DARK_GRAY};
   background-color: ${GREEN};
   font-size: 1.2rem;
   cursor: pointer;
   border: 1px solid ${GREEN};
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    padding: 7px 20px;
+  }
 `;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   NavbarContainer,
   NavbarStyle,
@@ -7,22 +7,18 @@ import {
   OpenSidebar,
 } from "../../styles/Navbar";
 import { DeleteBtn, EditBtn } from "../../styles/Global";
-import { useEffect } from "react";
+import { openSidebar } from "../../utils/functions";
 
 const Navbar = ({ note, deleteNote, editNote, editing }) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
   });
 
-  const openSidebar = () => {
-    document.getElementById("sidebar").classList.add("active");
-  }
-
   return (
     <NavbarContainer>
       <NavbarStyle>
         <NavTitle>
-          <OpenSidebar onClick={openSidebar}>
+          <OpenSidebar onClick={() => openSidebar("sidebar")}>
             <MenuIcon />
           </OpenSidebar>
           {note && note.title}

@@ -21,3 +21,11 @@ export const handleRequest = (path, method, data) => {
 export const isSuccess = (res) => {
   return res.data.status === "success";
 };
+
+export const openSidebar = (id) => {
+  document.querySelector(`#${id}`).classList.add("active");
+};
+
+export const closeSidebar = (id) => {
+  document.querySelector(`#${id}`).classList.remove("active");
+};

@@ -6,7 +6,7 @@ export const login = (data) => (dispatch) => {
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
-        window.location = "/#/";
+        window.location = "/";
       } else {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
@@ -19,7 +19,7 @@ export const register = (data) => (dispatch) => {
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
-        window.location = "/#/";
+        window.location = "/";
       } else {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }

@@ -35,7 +35,31 @@ export const SidebarStyle = styled.div`
   }
 `;
 
-export const SidebarHeader = styled.div``;
+export const SidebarHeader = styled.div`
+  display: grid;
+  grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 75px) auto;
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    grid-template-columns: auto;
+  }
+`;
+
+export const CloseSidebarBtn = styled.button`
+  padding: 0 0 0 15px;
+  border: none;
+  background: none;
+  font-size: 2rem;
+  cursor: pointer;
+  display: flex;
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    display: none;
+  }
+
+  & svg {
+    fill: ${GREEN};
+  }
+`;
 
 export const SearchForm = styled.form`
   display: flex;

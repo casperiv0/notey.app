@@ -26,6 +26,7 @@ export default function (state = initState, action) {
         ...state,
         notes: action.notes,
         createdNote: action.createdNote,
+        note: action.createdNote,
         error: "",
       };
     case GET_ACTIVE_NOTE:

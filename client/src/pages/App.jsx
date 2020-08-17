@@ -31,6 +31,7 @@ const App = ({
   useEffect(() => {
     checkAuth();
     getNotes();
+    // TODO: ondelete: set active note to last note in list
     getActiveNote(noteId);
 
     setTimeout(() => {
