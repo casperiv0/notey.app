@@ -5,8 +5,10 @@ import {
   CREATE_NOTE,
   CREATE_NOTE_ERR,
   DELETE_NOTE,
-  UPDATE_NOTE
+  UPDATE_NOTE,
 } from "../utils/types";
+
+const noError = "Something went wrong making the request, please try again later";
 
 export const getNotes = () => (dispatch) => {
   handleRequest("/notes", "GET")
@@ -29,17 +31,28 @@ export const getActiveNote = (id) => (dispatch) => {
 };
 
 export const createNote = (data) => (dispatch) => {
-  handleRequest("/notes", "POST", data).then((res) => {
-    if (isSuccess(res)) {
+  handleRequest("/notes", "POST", data)
+  .then((res) => {
+      if (isSuccess(res)) {
+        dispatch({
+          type: CREATE_NOTE,
+          createdNote: res.data.note,
+          notes: res.data.notes,
+        });
+      } else {
+        dispatch({
+          type: CREATE_NOTE_ERR,
+          error: res.data.error ? res.data.error : noError,
+        });
+      }
+    })
+    .catch((e) => {
+      console.log(e);
       dispatch({
-        type: CREATE_NOTE,
-        createdNote: res.data.note,
-        notes: res.data.notes,
+        type: CREATE_NOTE_ERR,
+        error: noError,
       });
-    } else {
-      dispatch({ type: CREATE_NOTE_ERR, error: res.data.error });
-    }
-  });
+    });
 };
 
 export const deleteNoteById = (id) => (dispatch) => {

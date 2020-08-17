@@ -19,6 +19,7 @@ export const handleRequest = (path, method, data) => {
  * @param {string} status The returned status from server
  */
 export const isSuccess = (res) => {
+  if (!res.data.status) return false;
   return res.data.status === "success";
 };
 
