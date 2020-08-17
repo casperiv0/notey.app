@@ -39,6 +39,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
       setTimeout(() => {
         setTitle("");
         setBody("");
+        setHasSubmitted(false);
       }, 200);
     }
 

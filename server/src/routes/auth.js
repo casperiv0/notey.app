@@ -32,6 +32,8 @@ router.post("/login", async (req, res) => {
     res.cookie("__token", token, {
       expires: new Date(Date.now() + 3600000),
       httpOnly: true,
+      sameSite: true,
+      secure: true
     }); // expires after 1hour
 
     return res.json({
@@ -77,6 +79,8 @@ router.post("/register", async (req, res) => {
     res.cookie("__token", token, {
       expires: new Date(Date.now() + 3600000),
       httpOnly: true,
+      sameSite: true,
+      secure: true
     }); // expires after 1hour
 
     return res.json({

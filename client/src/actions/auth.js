@@ -1,6 +1,9 @@
 import { AUTHENTICATE, AUTH_ERR } from "../utils/types";
 import { handleRequest, isSuccess } from "../utils/functions";
 
+const noError =
+  "Something went wrong making the request, please try again later";
+
 export const login = (data) => (dispatch) => {
   handleRequest("/auth/login", "POST", data)
     .then((res) => {
@@ -11,7 +14,10 @@ export const login = (data) => (dispatch) => {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      console.log(e);
+      dispatch({ type: AUTH_ERR, error: noError });
+    });
 };
 
 export const register = (data) => (dispatch) => {
@@ -24,7 +30,10 @@ export const register = (data) => (dispatch) => {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      console.log(e);
+      dispatch({ type: AUTH_ERR, error: noError });
+    });
 };
 
 export const checkAuth = () => (dispatch) => {
@@ -36,5 +45,8 @@ export const checkAuth = () => (dispatch) => {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      console.log(e);
+      dispatch({ type: AUTH_ERR, error: noError });
+    });
 };
