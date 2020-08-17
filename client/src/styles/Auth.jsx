@@ -47,6 +47,7 @@ export const FormInput = styled.input`
   border: 2px solid ${GREEN};
   background-color: ${DARK_GRAY_2};
   color: ${GREEN};
+  border-radius: 0;
 `;
 
 export const SubmitBtn = styled.button`
@@ -58,6 +59,7 @@ export const SubmitBtn = styled.button`
   cursor: pointer;
   font-weight: 700;
   text-transform: capitalize;
+  border-radius: 0;
 
   &:disabled {
     cursor: not-allowed;

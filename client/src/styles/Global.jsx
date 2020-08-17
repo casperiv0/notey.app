@@ -29,6 +29,7 @@ export const ErrorBody = styled.p`
 `;
 
 export const TextArea = styled.textarea`
+  position: relative;
   padding: 7px;
   font-size: 1.2rem;
   border: 2px solid ${GREEN};
@@ -37,6 +38,7 @@ export const TextArea = styled.textarea`
   resize: vertical;
   max-height: ${(props) => (props.maxHeight ? props.maxHeight : "")};
   min-height: ${(props) => (props.minHeight ? props.minHeight : "")};
+  border-radius: 0;
 
   &:focus {
     outline: 2px dotted ${GREEN};
@@ -50,6 +52,7 @@ export const DeleteBtn = styled.button`
   font-size: 1.2rem;
   cursor: pointer;
   border: 1px solid ${RED};
+  border-radius: 0;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     padding: 7px 20px;
@@ -64,6 +67,7 @@ export const EditBtn = styled.button`
   font-size: 1.2rem;
   cursor: pointer;
   border: 1px solid ${GREEN};
+  border-radius: 0;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     padding: 7px 20px;

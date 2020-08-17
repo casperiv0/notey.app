@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, WHITE, GREEN } from "./colors";
+import { DARK_GRAY, WHITE, GREEN, DARK_GRAY_2 } from "./colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 
 export const SidebarContainer = styled.div`
@@ -69,9 +69,11 @@ export const SearchInput = styled.input`
   width: 75%;
   padding: 5px;
   font-size: 1.2rem;
-  border: 1px solid ${GREEN};
+  border: 2px solid ${GREEN};
   border-right: none;
+  background-color: ${DARK_GRAY_2};
   color: ${DARK_GRAY};
+  border-radius: 0;
 `;
 
 export const SearchBtn = styled.button`
@@ -82,6 +84,7 @@ export const SearchBtn = styled.button`
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
+  border-radius: 0;
 `;
 
 export const SidebarBody = styled.div`
@@ -105,10 +108,13 @@ export const SidebarNote = styled.a`
   display: block;
   background-color: ${DARK_GRAY};
   border: 1px solid ${DARK_GRAY};
+  border-radius: 0;
 
-  &:hover {
-    color: ${DARK_GRAY};
-    background-color: ${GREEN};
+  @media (hover: hover) {
+    &:hover {
+      color: ${DARK_GRAY};
+      background-color: ${GREEN};
+    }
   }
 
   &.active {

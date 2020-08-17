@@ -41,7 +41,7 @@ const App = ({
 
   const deleteNote = (id) => {
     deleteNoteById(id);
-    getActiveNote(notes[0])
+    getActiveNote(notes[0]);
   };
 
   const editNote = (saving, id) => {

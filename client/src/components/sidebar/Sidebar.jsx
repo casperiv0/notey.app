@@ -49,7 +49,7 @@ const Sidebar = ({ notes, activeNote, loading }) => {
                 </SidebarNote>
               );
             })}
-            <SidebarNote onClick={createNew} href="#create">
+            <SidebarNote onClick={createNew}>
               Create new
             </SidebarNote>
           </>

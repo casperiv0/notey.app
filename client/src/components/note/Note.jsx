@@ -5,7 +5,7 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
   // TODO: change to markdown area
 
   useEffect(() => {
-    setNoteBody(note.body);
+    setNoteBody(note && note.body); 
   }, [setNoteBody, note]);
 
   return (
@@ -13,7 +13,7 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
       <NoteTextArea
         onChange={(e) => setNoteBody(e.target.value)}
         disabled={!editing}
-        value={noteBody}
+        value={noteBody ? noteBody : ""}
         id="note-text-area"
       ></NoteTextArea>
     </NoteStyle>

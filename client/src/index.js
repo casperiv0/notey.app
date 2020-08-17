@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import store from "./utils/store";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import NotFound from "./components/notfound/NotFound";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,6 +18,8 @@ ReactDOM.render(
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
           <AuthRoute path="/" exact component={App} />
+
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </Provider>
