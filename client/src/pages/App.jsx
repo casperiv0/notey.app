@@ -14,7 +14,6 @@ import qs from "qs";
 import CreateNote from "../components/modal/CreateNote";
 
 const App = ({
-  checkAuth,
   getNotes,
   getActiveNote,
   notes,
@@ -29,19 +28,23 @@ const App = ({
   const [noteBody, setNoteBody] = useState("");
 
   useEffect(() => {
-    checkAuth();
     getNotes();
     getActiveNote(noteId);
 
     setTimeout(() => {
       setLoading(false);
-      setNoteBody(note && note.body);
     }, 300);
-  }, []);
+  }, [getNotes, getActiveNote, noteId, setLoading]);
+
+  useEffect(() => {
+    if (!loading) {
+      setNoteBody(note && note.body);
+    }
+  }, [loading, note]);
 
   const deleteNote = (id) => {
     deleteNoteById(id);
-    getActiveNote(notes[0]);
+    getActiveNote(notes[0]._id);
   };
 
   const editNote = (saving, id) => {

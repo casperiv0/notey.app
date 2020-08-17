@@ -45,8 +45,5 @@ export const checkAuth = () => (dispatch) => {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
     })
-    .catch((e) => {
-      console.log(e);
-      dispatch({ type: AUTH_ERR, error: noError });
-    });
+    .catch((e) => console.log(e));
 };

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, DARK_GRAY_2, GREEN, RED, WHITE } from "./colors";
-import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
+import { DARK_GRAY, GREEN } from "./colors";
 
 export const NotFoundContainer = styled.div`
   display: flex;

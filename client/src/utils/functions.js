@@ -1,5 +1,5 @@
 import axios from "axios";
-const SERVER_URL = "http://192.168.0.178:3030";
+const SERVER_URL = "http://localhost:3030";
 
 /**
  * @param {string} path the path for the request
