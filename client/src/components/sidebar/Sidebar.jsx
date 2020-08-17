@@ -14,6 +14,7 @@ import { closeSidebar } from "../../utils/functions";
 
 const Sidebar = ({ notes, activeNote, loading }) => {
   const filterNotes = (filter) => {};
+
   const createNew = () => {
     document.querySelector("#createNoteModal").classList.add("active");
     document.querySelector("#createNoteModalBg").classList.add("active");
@@ -41,6 +42,7 @@ const Sidebar = ({ notes, activeNote, loading }) => {
               );
               return (
                 <SidebarNote
+                  title={note.title}
                   href={`/?noteId=${note._id}`}
                   className={isActiveNote ? "active" : ""}
                   key={i}
@@ -49,9 +51,7 @@ const Sidebar = ({ notes, activeNote, loading }) => {
                 </SidebarNote>
               );
             })}
-            <SidebarNote onClick={createNew}>
-              Create new
-            </SidebarNote>
+            <SidebarNote onClick={createNew}>Create new</SidebarNote>
           </>
         )}
       </SidebarBody>

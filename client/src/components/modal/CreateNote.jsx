@@ -6,15 +6,18 @@ import Modal from "../modal/Modal";
 import { connect } from "react-redux";
 import { createNote } from "../../actions/notes";
 import { Redirect } from "react-router-dom";
+import Loader from "../Loader"
 
 const CreateNote = ({ createNote, error, createdNote }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [canClose, setCanClose] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoading(true)
 
     const data = {
       title,
@@ -27,6 +30,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
   useEffect(() => {
     if (error !== "" || error !== null) {
       setCanClose(false);
+      setLoading(false);
     }
 
     if (
@@ -40,6 +44,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
         setTitle("");
         setBody("");
         setHasSubmitted(false);
+        setLoading(false);
       }, 200);
     }
 
@@ -88,7 +93,9 @@ const CreateNote = ({ createNote, error, createdNote }) => {
           ></TextArea>
         </FormGroup>
         <FormGroup>
-          <SubmitBtn type="submit">Create</SubmitBtn>
+        <SubmitBtn type="submit" disabled={loading}>
+            {loading ? <Loader /> : "Create"}
+          </SubmitBtn>
         </FormGroup>
       </form>
 
