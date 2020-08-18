@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "../navbar/Navbar";
-import { MainStyle } from "../../styles/Main";
-import Note from "../note/Note";
 import Loader from "../Loader";
+import Note from "../note/Note";
+import { MainStyle } from "../../styles/Main";
 import { GREEN } from "../../styles/colors";
 
 const Main = ({

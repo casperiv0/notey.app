@@ -23,9 +23,11 @@ export const isSuccess = (res) => {
 };
 
 export const openSidebar = (id) => {
+  document.querySelector(`#${id}Active`).classList.add("active");
   document.querySelector(`#${id}`).classList.add("active");
 };
 
 export const closeSidebar = (id) => {
+  document.querySelector(`#${id}Active`).classList.remove("active");
   document.querySelector(`#${id}`).classList.remove("active");
 };

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
+import Loader from "../Loader";
+import Modal from "../modal/Modal";
+import ErrorMessage from "../ErrorMessage";
 import { FormGroup, FormLabel, FormInput, SubmitBtn } from "../../styles/Auth";
 import { TextArea } from "../../styles/Global";
-import ErrorMessage from "../ErrorMessage";
-import Modal from "../modal/Modal";
 import { connect } from "react-redux";
 import { createNote } from "../../actions/notes";
 import { Redirect } from "react-router-dom";
-import Loader from "../Loader";
 
 const CreateNote = ({ createNote, error, createdNote }) => {
   const [title, setTitle] = useState("");

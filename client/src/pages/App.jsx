@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { AppLayout } from "../styles/Global";
+import CreateNote from "../components/modal/CreateNote";
 import Sidebar from "../components/sidebar/Sidebar";
 import Main from "../components/main/Main";
+import qs from "qs";
+import { AppLayout } from "../styles/Global";
 import { connect } from "react-redux";
+import { checkAuth } from "../actions/auth";
 import {
   getActiveNote,
   getNotes,
   deleteNoteById,
   updateNoteById,
 } from "../actions/notes";
-import { checkAuth } from "../actions/auth";
-import qs from "qs";
-import CreateNote from "../components/modal/CreateNote";
 
 const App = ({
   getNotes,
