@@ -5,6 +5,7 @@ import {
   NavTitle,
   NavLinks,
   OpenSidebar,
+  NavTitleInput,
 } from "../../styles/Navbar";
 import { DeleteBtn, EditBtn } from "../../styles/Global";
 import { openSidebar } from "../../utils/functions";
@@ -21,7 +22,7 @@ const Navbar = ({ note, deleteNote, editNote, editing }) => {
           <OpenSidebar onClick={() => openSidebar("sidebar")}>
             <MenuIcon />
           </OpenSidebar>
-          {note && note.title}
+          <NavTitleInput value={note && note.title} />
         </NavTitle>
         <NavLinks>
           {note && note._id ? (

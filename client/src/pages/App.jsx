@@ -37,6 +37,17 @@ const App = ({
   }, [getNotes, getActiveNote, noteId, setLoading]);
 
   useEffect(() => {
+    if (editing) {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          setEditing(!editing);
+          setNoteBody(note && note.body)
+        }
+      });
+    }
+  }, [editing, setEditing, note]);
+
+  useEffect(() => {
     if (!loading) {
       setNoteBody(note && note.body);
     }
@@ -52,7 +63,7 @@ const App = ({
 
     if (saving === "save") {
       if (note && note.body === noteBody) return;
-      updateNoteById(id, { body: noteBody });
+      updateNoteById(id, { title: note && note.title, body: noteBody });
     }
   };
 
@@ -79,7 +90,6 @@ const App = ({
 const mapStateToProps = (state) => ({
   notes: state.note.notes,
   note: state.note.note,
-  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, {

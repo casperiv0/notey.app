@@ -13,6 +13,20 @@ export const NoteStyle = styled.div`
   }
 `;
 
+export const NoteTextAreaBg = styled.div`
+  z-index: 9;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 2px);
+  background-color: rgba(0, 0, 0, 0.1);
+
+  &.active {
+    background: none;
+    pointer-events: none;
+  }
+`;
+
 export const NoteTextArea = styled.textarea`
   padding: 10px;
   width: 100%;

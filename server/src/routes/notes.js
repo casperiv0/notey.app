@@ -26,20 +26,15 @@ router.get("/:noteId", isAuth, async (req, res) => {
 
 router.put("/:noteId", isAuth, async (req, res) => {
   const { title, body } = req.body;
-  const note = await Note.findById(req.params.noteId).catch((e) =>
-    console.log(e)
-  );
-  Note.find().then((notes) => {
-    notes.forEach((note) => {
-      note.active = "false";
-    });
-  });
-
-  note.title = title ? title : note.title;
-  note.body = body;
+  const { noteId } = req.params;
+  const note = await Note.findById(noteId);
 
   try {
+    note.title = title;
+    note.body = body;
+
     await note.save();
+
     const notes = await Note.find({ user_id: req.user.id });
 
     return res.json({ msg: "Updated", status: "success", note, notes });

@@ -9,6 +9,7 @@ export const NavbarContainer = styled.div`
 `;
 
 export const NavbarStyle = styled.div`
+  z-index: 10;
   position: fixed;
   left: 0;
   top: 0;
@@ -34,10 +35,23 @@ export const NavTitle = styled.h1`
   font-size: 1.2rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     font-size: 1.5rem;
   }
+`;
+
+export const NavTitleInput = styled.input`
+  padding: 10px;
+  width: 450px;
+  height: 100%;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: ${GREEN};
+  pointer-events: none; //TODO: change this to class (=> same as NoteTextArea)
 `;
 
 export const NavLinks = styled.div`

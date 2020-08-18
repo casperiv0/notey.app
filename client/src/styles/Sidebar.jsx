@@ -15,7 +15,7 @@ export const SidebarContainer = styled.div`
 `;
 
 export const SidebarStyle = styled.div`
-  z-index: 10;
+  z-index: 25;
   width: ${SIDEBAR_WIDTH_FULL};
   padding: 10px;
   position: fixed;
@@ -24,6 +24,7 @@ export const SidebarStyle = styled.div`
   left: -${SIDEBAR_WIDTH_FULL};
   bottom: 0;
   overflow-y: scroll;
+  overflow-x: hidden;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     left: 0;

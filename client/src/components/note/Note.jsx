@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
-import { NoteStyle, NoteTextArea } from "../../styles/Notes";
+import { NoteStyle, NoteTextArea, NoteTextAreaBg } from "../../styles/Notes";
 
 const Note = ({ note, editing, noteBody, setNoteBody }) => {
   // TODO: change to markdown area
 
   useEffect(() => {
-    setNoteBody(note && note.body); 
+    setNoteBody(note && note.body);
   }, [setNoteBody, note]);
 
   return (
     <NoteStyle>
+      <NoteTextAreaBg className={editing ? "active" : ""}></NoteTextAreaBg>
       <NoteTextArea
+        spellCheck={false}
         onChange={(e) => setNoteBody(e.target.value)}
-        disabled={!editing}
         value={noteBody ? noteBody : ""}
         id="note-text-area"
       ></NoteTextArea>
