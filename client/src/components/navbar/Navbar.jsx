@@ -10,7 +10,14 @@ import {
 import { DeleteBtn, EditBtn } from "../../styles/Global";
 import { openSidebar } from "../../utils/functions";
 
-const Navbar = ({ note, deleteNote, editNote, editing }) => {
+const Navbar = ({
+  note,
+  deleteNote,
+  editNote,
+  editing,
+  noteTitle,
+  setNoteTitle,
+}) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
   });
@@ -22,7 +29,11 @@ const Navbar = ({ note, deleteNote, editNote, editing }) => {
           <OpenSidebar onClick={() => openSidebar("sidebar")}>
             <MenuIcon />
           </OpenSidebar>
-          <NavTitleInput value={note && note.title} />
+          <NavTitleInput
+            className={editing ? "active" : ""}
+            onChange={(e) => setNoteTitle(e.target.value)}
+            value={noteTitle ? noteTitle : ""}
+          />
         </NavTitle>
         <NavLinks>
           {note && note._id ? (

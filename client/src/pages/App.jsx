@@ -26,6 +26,7 @@ const App = ({
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [noteBody, setNoteBody] = useState("");
+  const [noteTitle, setNoteTitle] = useState("");
 
   useEffect(() => {
     getNotes();
@@ -41,7 +42,8 @@ const App = ({
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           setEditing(!editing);
-          setNoteBody(note && note.body)
+          setNoteBody(note && note.body);
+          setNoteTitle(note && note.title);
         }
       });
     }
@@ -50,6 +52,7 @@ const App = ({
   useEffect(() => {
     if (!loading) {
       setNoteBody(note && note.body);
+      setNoteTitle(note && note.title);
     }
   }, [loading, note]);
 
@@ -62,8 +65,7 @@ const App = ({
     setEditing(!editing);
 
     if (saving === "save") {
-      if (note && note.body === noteBody) return;
-      updateNoteById(id, { title: note && note.title, body: noteBody });
+      updateNoteById(id, { title: noteTitle, body: noteBody });
     }
   };
 
@@ -80,7 +82,9 @@ const App = ({
           loading={loading}
           activeNote={note}
           noteBody={noteBody}
+          noteTitle={noteTitle}
           setNoteBody={setNoteBody}
+          setNoteTitle={setNoteTitle}
         />
       </AppLayout>
     </>

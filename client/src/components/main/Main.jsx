@@ -12,7 +12,9 @@ const Main = ({
   deleteNote,
   editNote,
   noteBody,
+  noteTitle,
   setNoteBody,
+  setNoteTitle,
   editing,
 }) => {
   return (
@@ -21,6 +23,8 @@ const Main = ({
         editing={editing}
         editNote={editNote}
         deleteNote={deleteNote}
+        noteTitle={noteTitle}
+        setNoteTitle={setNoteTitle}
         note={activeNote ? activeNote : notes[0]}
       />
       {loading ? (

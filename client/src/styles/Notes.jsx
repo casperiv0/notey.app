@@ -19,7 +19,6 @@ export const NoteTextAreaBg = styled.div`
   left: 0;
   width: 100%;
   height: calc(100% - 2px);
-  background-color: rgba(0, 0, 0, 0.1);
 
   &.active {
     background: none;
