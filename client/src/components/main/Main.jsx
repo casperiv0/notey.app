@@ -26,6 +26,7 @@ const Main = ({
         noteTitle={noteTitle}
         setNoteTitle={setNoteTitle}
         note={activeNote ? activeNote : notes[0]}
+        loading={loading}
       />
       {loading ? (
         <Loader color={GREEN}></Loader>

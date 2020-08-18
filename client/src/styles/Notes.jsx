@@ -14,11 +14,12 @@ export const NoteStyle = styled.div`
 `;
 
 export const NoteTextAreaBg = styled.div`
-  z-index: 9;
-  position: absolute;
+  z-index: 15;
+  position: fixed;
   left: 0;
   width: 100%;
   height: calc(100% - 2px);
+  pointer-events: all;
 
   &.active {
     background: none;

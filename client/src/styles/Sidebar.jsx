@@ -15,7 +15,7 @@ export const SidebarContainer = styled.div`
 `;
 
 export const SidebarActive = styled.div`
-z-index: 20;
+  z-index: 20;
   position: fixed;
   top: 0;
   left: 0;
@@ -23,9 +23,11 @@ z-index: 20;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   display: none;
+  pointer-events: none;
 
   &.active {
     display: block;
+    pointer-events: all;
   }
 `;
 

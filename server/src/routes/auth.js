@@ -49,14 +49,19 @@ router.post("/register", async (req, res) => {
   const { username, password, password2 } = req.body;
 
   if (username && password && password2) {
-    if (password !== password2)
+    if (password !== password2) {
       return res.json({ error: "Passwords do not match!", status: "error" });
+    }
 
     // check if user exists
     const user = await User.findOne({ username }).catch((e) => console.log(e));
 
-    if (user)
-      return res.json({ error: "username is already in use!", status: "error" });
+    if (user) {
+      return res.json({
+        error: "username is already in use!",
+        status: "error",
+      });
+    }
 
     // Hash password
     const hash = bcrypt.hashSync(password, 15);

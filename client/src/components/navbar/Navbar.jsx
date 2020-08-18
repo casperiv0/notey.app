@@ -17,6 +17,7 @@ const Navbar = ({
   editing,
   noteTitle,
   setNoteTitle,
+  loading,
 }) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
@@ -34,7 +35,7 @@ const Navbar = ({
           <NavTitleInput
             className={editing ? "active" : ""}
             onChange={(e) => setNoteTitle(e.target.value)}
-            value={noteTitle ? noteTitle : ""}
+            value={loading ? "" : noteTitle ? noteTitle : "No notes found"}
           />
         </NavTitle>
         <NavLinks>
