@@ -49,13 +49,6 @@ const App = ({
     }
   }, [editing, setEditing, note]);
 
-  useEffect(() => {
-    if (!loading) {
-      setNoteBody(note && note.body);
-      setNoteTitle(note && note.title);
-    }
-  }, [loading, note]);
-
   const deleteNote = (id) => {
     deleteNoteById(id);
     getActiveNote(notes[0]);

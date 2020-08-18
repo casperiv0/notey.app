@@ -6,7 +6,7 @@ import Modal from "../modal/Modal";
 import { connect } from "react-redux";
 import { createNote } from "../../actions/notes";
 import { Redirect } from "react-router-dom";
-import Loader from "../Loader"
+import Loader from "../Loader";
 
 const CreateNote = ({ createNote, error, createdNote }) => {
   const [title, setTitle] = useState("");
@@ -17,7 +17,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     const data = {
       title,
@@ -72,6 +72,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
         <FormGroup>
           <FormLabel htmlFor="title">Title</FormLabel>
           <FormInput
+            autoFocus
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -93,7 +94,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
           ></TextArea>
         </FormGroup>
         <FormGroup>
-        <SubmitBtn type="submit" disabled={loading}>
+          <SubmitBtn type="submit" disabled={loading}>
             {loading ? <Loader /> : "Create"}
           </SubmitBtn>
         </FormGroup>

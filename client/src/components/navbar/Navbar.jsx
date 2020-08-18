@@ -20,7 +20,9 @@ const Navbar = ({
 }) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
-  });
+
+    setNoteTitle(note && note.title);
+  }, [note, setNoteTitle]);
 
   return (
     <NavbarContainer>
