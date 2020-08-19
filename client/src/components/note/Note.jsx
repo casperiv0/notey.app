@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NoteStyle, NoteTextArea, NoteTextAreaBg } from "../../styles/Notes";
+import { NoteStyle, NoteTextArea } from "../../styles/Notes";
 
 const Note = ({ note, editing, noteBody, setNoteBody }) => {
   // TODO: change to markdown area
@@ -10,14 +10,24 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
 
   return (
     <NoteStyle>
-      <NoteTextAreaBg className={editing ? "active" : ""}></NoteTextAreaBg>
-      <NoteTextArea
-        spellCheck={false}
-        onChange={(e) => setNoteBody(e.target.value)}
-        value={noteBody ? noteBody : ""}
-        id="note-text-area"
-      ></NoteTextArea>
+      {editing ? (
+        <EditingArea setNoteBody={setNoteBody} noteBody={noteBody} />
+      ) : (
+        <NoteTextArea defaultValue={noteBody} readOnly >
+        </NoteTextArea>
+      )}
     </NoteStyle>
+  );
+};
+
+const EditingArea = ({ setNoteBody, noteBody }) => {
+  return (
+    <NoteTextArea
+      spellCheck={false}
+      onChange={(e) => setNoteBody(e.target.value)}
+      value={noteBody ? noteBody : ""}
+      id="note-text-area"
+    ></NoteTextArea>
   );
 };
 
