@@ -7,6 +7,7 @@ import { TextArea } from "../../styles/Global";
 import { connect } from "react-redux";
 import { createNote } from "../../actions/notes";
 import { Redirect } from "react-router-dom";
+import { closeSidebar } from "../../utils/functions";
 
 const CreateNote = ({ createNote, error, createdNote }) => {
   const [title, setTitle] = useState("");
@@ -25,6 +26,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
     };
     createNote(data);
     setHasSubmitted(true);
+    closeSidebar("sidebar")
   };
 
   useEffect(() => {
