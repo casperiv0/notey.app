@@ -58,7 +58,7 @@ const App = ({
     deleteNoteById(id);
     getActiveNote(notes[0]);
 
-    setAlertMsg("Note was successfully deleted!");
+    setAlertMsg("Note was successfully deleted.");
   };
 
   const editNote = (saving, id) => {
@@ -94,7 +94,12 @@ const App = ({
       <CreateNote />
       <AppLayout>
         <AlertMessage active={alertMsg !== ""} message={alertMsg} />
-        <Sidebar loading={loading} notes={notes} activeNote={note} />
+        <Sidebar
+          deleteNote={deleteNote}
+          loading={loading}
+          notes={notes}
+          activeNote={note}
+        />
         <Main
           editNote={editNote}
           editing={editing}

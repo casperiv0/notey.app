@@ -123,7 +123,9 @@ export const SidebarNote = styled.a`
   color: ${GREEN};
   transition: background 0.2s, color 0.1s;
   text-decoration: none;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: ${DARK_GRAY};
   border: 1px solid ${DARK_GRAY};
   border-radius: 0;
