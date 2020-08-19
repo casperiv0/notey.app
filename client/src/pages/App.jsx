@@ -52,6 +52,7 @@ const App = ({
   }, [editing, setEditing, note]);
 
   const deleteNote = (id) => {
+    console.log("here");
     if (editing) {
       setEditing(false);
     }
@@ -95,10 +96,10 @@ const App = ({
       <AppLayout>
         <AlertMessage active={alertMsg !== ""} message={alertMsg} />
         <Sidebar
-          deleteNote={deleteNote}
           loading={loading}
           notes={notes}
           activeNote={note}
+          getActiveNote={getActiveNote}
         />
         <Main
           editNote={editNote}

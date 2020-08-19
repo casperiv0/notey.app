@@ -17,7 +17,6 @@ const Navbar = ({
   editing,
   noteTitle,
   setNoteTitle,
-  loading,
 }) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
