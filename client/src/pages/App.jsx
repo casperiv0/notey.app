@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import qs from "qs";
 import CreateNote from "../components/modal/CreateNote";
 import Sidebar from "../components/sidebar/Sidebar";
 import Main from "../components/main/Main";
-import qs from "qs";
+import AlertMessage from "../components/AlertMessage";
 import { AppLayout } from "../styles/Global";
 import { connect } from "react-redux";
 import { checkAuth } from "../actions/auth";
@@ -25,8 +26,9 @@ const App = ({
   const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
-  const [noteBody, setNoteBody] = useState("");
   const [noteTitle, setNoteTitle] = useState("");
+  const [noteBody, setNoteBody] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
 
   useEffect(() => {
     getNotes();
@@ -50,28 +52,48 @@ const App = ({
   }, [editing, setEditing, note]);
 
   const deleteNote = (id) => {
+    if (editing) {
+      setEditing(false);
+    }
     deleteNoteById(id);
     getActiveNote(notes[0]);
+
+    setAlertMsg("Note was successfully deleted!");
   };
 
   const editNote = (saving, id) => {
-    setEditing(!editing);
-
     if (saving === "save") {
-      if (noteTitle === "") {
-        setNoteTitle(note && note.title);
-      } else if (noteBody === "") {
-        return setNoteBody(note && note.body)
-      } else {
-        updateNoteById(id, { title: noteTitle, body: noteBody });
+      if (noteTitle.length > 40) {
+        return setAlertMsg("Note title has a limit of 40 characters.");
       }
+      if (noteTitle === "") {
+        return setAlertMsg("Note title can not be empty");
+      }
+      if (noteBody === "") {
+        return setAlertMsg("Note body can not be empty");
+      }
+
+      updateNoteById(id, { title: noteTitle, body: noteBody });
+      setAlertMsg("Note was successfully edited!");
     }
+
+    setEditing(!editing);
   };
+
+  // Clear alert message
+  useEffect(() => {
+    if (alertMsg !== "") {
+      setTimeout(() => {
+        setAlertMsg("");
+      }, 3000);
+    }
+  }, [alertMsg]);
 
   return (
     <>
       <CreateNote />
       <AppLayout>
+        <AlertMessage active={alertMsg !== ""} message={alertMsg} />
         <Sidebar loading={loading} notes={notes} activeNote={note} />
         <Main
           editNote={editNote}

@@ -32,11 +32,18 @@ const Navbar = ({
           <OpenSidebar onClick={() => openSidebar("sidebar")}>
             <MenuIcon />
           </OpenSidebar>
-          <NavTitleInput
-            className={editing ? "active" : ""}
-            onChange={(e) => setNoteTitle(e.target.value)}
-            value={loading ? "" : noteTitle}
-          />
+          {note && note.title ? (
+            editing ? (
+              <EditingTitleNote
+                setNoteTitle={setNoteTitle}
+                noteTitle={noteTitle}
+              />
+            ) : (
+              <NavTitleInput defaultValue={noteTitle} readOnly />
+            )
+          ) : (
+            "No notes found"
+          )}
         </NavTitle>
         <NavLinks>
           {note && note._id ? (
@@ -52,6 +59,15 @@ const Navbar = ({
         </NavLinks>
       </NavbarStyle>
     </NavbarContainer>
+  );
+};
+
+const EditingTitleNote = ({ setNoteTitle, noteTitle }) => {
+  return (
+    <NavTitleInput
+      value={noteTitle}
+      onChange={(e) => setNoteTitle(e.target.value)}
+    />
   );
 };
 

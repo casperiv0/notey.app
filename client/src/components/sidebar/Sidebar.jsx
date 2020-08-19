@@ -25,7 +25,6 @@ const Sidebar = ({ notes, activeNote, loading }) => {
     <>
       <SidebarStyle id="sidebar">
         <SidebarHeader>
-          {/* // TODO: convert to flex and add closeSidebar */}
           <SidebarSearch filterNotes={filterNotes} />
           <CloseSidebarBtn onClick={() => closeSidebar("sidebar")}>
             <CloseIcon />

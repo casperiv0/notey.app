@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./utils/store";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import NotFound from "./components/notfound/NotFound";
+import NotFound from "./components/NotFound";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -19,12 +19,12 @@ const Modal = ({ id, title, children }) => {
       if (e.key === "Escape") {
         closeModal();
       }
-    })
-  })
+    });
+  });
 
   return (
     <>
-      <ModalBg id={id+"Bg"} onClick={closeModal}></ModalBg>
+      <ModalBg id={id + "Bg"} onClick={closeModal}></ModalBg>
       <ModalStyle id={id}>
         <ModalHeader>
           {title} <CloseModal onClick={closeModal}>&times;</CloseModal>

@@ -51,10 +51,9 @@ export const NavTitleInput = styled.input`
   font-size: 1.2rem;
   font-weight: 600;
   color: ${GREEN};
-  pointer-events: none;
 
-  &.active {
-    pointer-events: all;
+  &:focus {
+    outline: none;
   }
 `;
 

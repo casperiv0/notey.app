@@ -3,7 +3,7 @@ import {
   NotFoundContainer,
   NotFoundTitle,
   NotFoundBtn,
-} from "../../styles/NotFound";
+} from "../styles/NotFound";
 
 const NotFound = () => {
   return (

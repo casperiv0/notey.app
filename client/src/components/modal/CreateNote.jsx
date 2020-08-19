@@ -26,7 +26,7 @@ const CreateNote = ({ createNote, error, createdNote }) => {
     };
     createNote(data);
     setHasSubmitted(true);
-    closeSidebar("sidebar")
+    closeSidebar("sidebar");
   };
 
   useEffect(() => {

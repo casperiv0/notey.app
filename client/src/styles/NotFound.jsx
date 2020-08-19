@@ -23,5 +23,6 @@ export const NotFoundBtn = styled.a`
   max-width: 90%;
   text-align: center;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 `;

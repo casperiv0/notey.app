@@ -13,8 +13,7 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
       {editing ? (
         <EditingArea setNoteBody={setNoteBody} noteBody={noteBody} />
       ) : (
-        <NoteTextArea defaultValue={noteBody} readOnly >
-        </NoteTextArea>
+        <NoteTextArea defaultValue={note && note.body ? noteBody : ""} readOnly></NoteTextArea>
       )}
     </NoteStyle>
   );
