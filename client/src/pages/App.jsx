@@ -58,7 +58,13 @@ const App = ({
     setEditing(!editing);
 
     if (saving === "save") {
-      updateNoteById(id, { title: noteTitle, body: noteBody });
+      if (noteTitle === "") {
+        setNoteTitle(note && note.title);
+      } else if (noteBody === "") {
+        return setNoteBody(note && note.body)
+      } else {
+        updateNoteById(id, { title: noteTitle, body: noteBody });
+      }
     }
   };
 

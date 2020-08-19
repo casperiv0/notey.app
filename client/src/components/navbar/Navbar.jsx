@@ -35,7 +35,7 @@ const Navbar = ({
           <NavTitleInput
             className={editing ? "active" : ""}
             onChange={(e) => setNoteTitle(e.target.value)}
-            value={loading ? "" : noteTitle ? noteTitle : "No notes found"}
+            value={loading ? "" : noteTitle}
           />
         </NavTitle>
         <NavLinks>
