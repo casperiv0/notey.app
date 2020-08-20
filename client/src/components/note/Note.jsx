@@ -10,10 +10,17 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
 
   return (
     <NoteStyle>
-      {editing ? (
-        <EditingArea setNoteBody={setNoteBody} noteBody={noteBody} />
+      {note && note.body ? (
+        editing ? (
+          <EditingArea setNoteBody={setNoteBody} noteBody={noteBody} />
+        ) : (
+          <NoteTextArea
+            defaultValue={note && note.body ? noteBody : ""}
+            readOnly
+          />
+        )
       ) : (
-        <NoteTextArea defaultValue={note && note.body ? noteBody : ""} readOnly></NoteTextArea>
+        ""
       )}
     </NoteStyle>
   );
