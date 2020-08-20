@@ -13,6 +13,7 @@ import {
   deleteNoteById,
   updateNoteById,
 } from "../actions/notes";
+import { clearMessage } from "../actions/message";
 
 const App = ({
   getNotes,
@@ -22,6 +23,8 @@ const App = ({
   location,
   deleteNoteById,
   updateNoteById,
+  message,
+  clearMessage,
 }) => {
   const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
   const [loading, setLoading] = useState(true);
@@ -52,14 +55,11 @@ const App = ({
   }, [editing, setEditing, note]);
 
   const deleteNote = (id) => {
-    console.log("here");
     if (editing) {
       setEditing(false);
     }
     deleteNoteById(id);
     getActiveNote(notes[0]);
-
-    setAlertMsg("Note was successfully deleted.");
   };
 
   const editNote = (saving, id) => {
@@ -75,7 +75,6 @@ const App = ({
       }
 
       updateNoteById(id, { title: noteTitle, body: noteBody });
-      setAlertMsg("Note was successfully edited!");
     }
 
     setEditing(!editing);
@@ -83,12 +82,15 @@ const App = ({
 
   // Clear alert message
   useEffect(() => {
-    if (alertMsg !== "") {
+    if (message !== "") {
+      setAlertMsg(message);
+
       setTimeout(() => {
+        clearMessage();
         setAlertMsg("");
       }, 3000);
     }
-  }, [alertMsg]);
+  }, [message, clearMessage, alertMsg]);
 
   return (
     <>
@@ -121,6 +123,7 @@ const App = ({
 const mapStateToProps = (state) => ({
   notes: state.note.notes,
   note: state.note.note,
+  message: state.message.content,
 });
 
 export default connect(mapStateToProps, {
@@ -129,4 +132,5 @@ export default connect(mapStateToProps, {
   getActiveNote,
   deleteNoteById,
   updateNoteById,
+  clearMessage,
 })(App);

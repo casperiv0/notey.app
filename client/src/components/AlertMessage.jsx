@@ -8,6 +8,7 @@ const AlertMessage = ({ active, message }) => {
 
   return (
     <AlertMessageStyle
+      title="Click to dismiss"
       id="alert-message"
       onClick={closeAlert}
       className={active ? "active" : ""}
