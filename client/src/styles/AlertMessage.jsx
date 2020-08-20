@@ -3,7 +3,7 @@ import { DARK_GRAY, GREEN } from "./colors";
 
 export const AlertMessageStyle = styled.div`
   position: fixed;
-  z-index: 22;
+  z-index: 26;
   left: 50%;
   bottom: -100%;
   min-width: 300px;

@@ -40,8 +40,8 @@ export const SidebarStyle = styled.div`
   top: 0;
   left: -${SIDEBAR_WIDTH_FULL};
   bottom: 0;
-  overflow-y: scroll;
   overflow-x: hidden;
+  transition: left 200ms;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     left: 0;
@@ -50,6 +50,7 @@ export const SidebarStyle = styled.div`
 
   &.active {
     left: 0;
+    transition: left 0.3s;
   }
 `;
 
@@ -140,5 +141,29 @@ export const SidebarNote = styled.a`
   &.active {
     color: ${DARK_GRAY};
     background-color: ${GREEN};
+  }
+`;
+
+export const SidebarFooterBg = styled.div`
+  background: ${DARK_GRAY};
+  width: ${SIDEBAR_WIDTH_FULL};
+  padding: 10px;
+  height: 50px;
+`;
+
+export const SidebarFooter = styled.div`
+  background: ${DARK_GRAY};
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: ${SIDEBAR_WIDTH_FULL};
+  border-top: 2px solid ${GREEN};
+  color: ${GREEN};
+  font-size: 1.2rem;
+
+  & a {
+    color: ${GREEN};
+    text-decoration: underline;
   }
 `;

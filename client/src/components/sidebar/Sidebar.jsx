@@ -9,6 +9,8 @@ import {
   SidebarBody,
   SidebarTitle,
   CloseSidebarBtn,
+  SidebarFooterBg,
+  SidebarFooter,
 } from "../../styles/Sidebar";
 import { GREEN } from "../../styles/colors";
 import { closeSidebar } from "../../utils/functions";
@@ -60,6 +62,18 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
             </>
           )}
         </SidebarBody>
+        <SidebarFooterBg>
+          <SidebarFooter>
+            Made with ❤ by{" "}
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://caspertheghost.me"
+            >
+              CasperTheGhost
+            </a>
+          </SidebarFooter>
+        </SidebarFooterBg>
       </SidebarStyle>
       <SidebarActive
         onClick={() => closeSidebar("sidebar")}

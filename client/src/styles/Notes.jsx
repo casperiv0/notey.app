@@ -3,7 +3,6 @@ import { DARK_GRAY, GREEN } from "./colors";
 import { DEFAULT_MIN_WIDTH } from "./constants";
 
 export const NoteStyle = styled.div`
-  overflow-y: scroll;
   height: 100%;
   width: calc(100vw - 1px);
   grid-area: note;

@@ -19,9 +19,8 @@ export const NavbarStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: ${DARK_GRAY};
-  border-bottom: 1px solid #666;
-  border-left: 1px solid ${GREEN};
-  border-bottom: 1px solid ${GREEN};
+  border-left: 2px solid ${GREEN};
+  border-bottom: 2px solid ${GREEN};
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     width: calc(100% - ${SIDEBAR_WIDTH_FULL});

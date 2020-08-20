@@ -22,16 +22,17 @@ export const ModalStyle = styled.div`
   position: fixed;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0);
   padding: 10px;
   background-color: ${DARK_GRAY};
   width: 600px;
   max-width: 90%;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.75);
-  display: none;
+  transition: transform 200ms;
 
   &.active {
-    display: block;
+    transition: transform 0.3s;
+    transform: translate(-50%, -50%) scale(1);
   }
 `;
 

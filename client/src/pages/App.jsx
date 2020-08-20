@@ -75,6 +75,8 @@ const App = ({
       }
 
       updateNoteById(id, { title: noteTitle, body: noteBody });
+      setNoteTitle("");
+      setNoteBody("");
     }
 
     setEditing(!editing);
@@ -88,7 +90,7 @@ const App = ({
       setTimeout(() => {
         clearMessage();
         setAlertMsg("");
-      }, 3000);
+      }, 4000);
     }
   }, [message, clearMessage, alertMsg]);
 

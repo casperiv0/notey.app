@@ -58,6 +58,10 @@ export const createNote = (data) => (dispatch) => {
         type: CREATE_NOTE_ERR,
         error: noError,
       });
+      dispatch({
+        type: SET_MESSAGE,
+        message: `An error occurred while creating the note`,
+      });
     });
 };
 

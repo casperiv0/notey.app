@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { DARK_GRAY, GREEN } from "./colors";
 
 export const MainStyle = styled.div`
-  border-left: 1px solid ${GREEN};
+  border-left: 2px solid ${GREEN};
   grid-area: main;
   color: white;
   position: relative;
