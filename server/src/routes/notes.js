@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Note = require("../models/Note.model");
+const User = require("../models/User.model");
 const moment = require("moment");
 const { isAuth } = require("../utils/functions");
 
@@ -13,11 +14,16 @@ router.get("/", isAuth, async (req, res) => {
 
 router.get("/:noteId", isAuth, async (req, res) => {
   const noteId = req.params.noteId;
+  const user = await User.findById(req.user.id).catch((e) => console.log(e));
   let note;
 
   try {
     note = await Note.findById(noteId);
   } catch (e) {
+    note = undefined;
+  }
+
+  if (note.user_id !== user._id) {
     note = undefined;
   }
 
