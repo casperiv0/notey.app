@@ -14,16 +14,17 @@ router.get("/", isAuth, async (req, res) => {
 
 router.get("/:noteId", isAuth, async (req, res) => {
   const noteId = req.params.noteId;
-  const user = await User.findById(req.user.id).catch((e) => console.log(e));
   let note;
+  let user;
 
   try {
     note = await Note.findById(noteId);
+    user = await User.findById(req.user.id);
   } catch (e) {
     note = undefined;
   }
 
-  if (note.user_id !== user._id) {
+  if (note.user_id.toString() !== user._id.toString()) {
     note = undefined;
   }
 
