@@ -33,7 +33,6 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
     }
   }, [notes, setFilteredNotes]);
 
-  // TODO: make filterable notes.
 
   const createNew = () => {
     document.querySelector("#createNoteModal").classList.add("active");
@@ -101,7 +100,7 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
 };
 
 function isActive(activeNote, note) {
-  return activeNote._id === note._id;
+  return activeNote && activeNote._id === note._id;
 }
 
 const CloseIcon = () => {

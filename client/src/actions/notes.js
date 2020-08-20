@@ -19,7 +19,13 @@ export const getNotes = () => (dispatch) => {
         dispatch({ type: GET_NOTES, notes: res.data.notes });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      dispatch({
+        type: SET_MESSAGE,
+        message: "An error occurred while getting the notes",
+      });
+      console.log(e);
+    });
 };
 
 export const getActiveNote = (id) => (dispatch) => {
@@ -29,7 +35,13 @@ export const getActiveNote = (id) => (dispatch) => {
         dispatch({ type: GET_ACTIVE_NOTE, note: res.data.note });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      dispatch({
+        type: SET_MESSAGE,
+        message: "An error occurred while getting the note",
+      });
+      console.log(e);
+    });
 };
 
 export const createNote = (data) => (dispatch) => {
