@@ -9,6 +9,7 @@ import store from "./utils/store";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import NotFound from "./components/NotFound";
+import * as serviceWorker from "./utils/serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,3 +27,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("app-mount")
 );
+
+serviceWorker.register();
