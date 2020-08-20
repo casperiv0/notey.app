@@ -7,16 +7,16 @@ Simple notes app to keep track of important things
 <details>
     <summary>View screenshots</summary>
 
-## Sign in & Register
+### Sign in & Register
 
 ![signin](./docs/screens/signin.png)
 ![register](./docs/screens/register.png)
 
-## Create note modal
+### Create note modal
 
 ![Create note](./docs/screens/create-note.png)
 
-## Main app
+### Main app
 
 ![main](./docs/screens/main-app.png)
 
