@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
 import {
@@ -16,7 +16,24 @@ import { GREEN } from "../../styles/colors";
 import { closeSidebar } from "../../utils/functions";
 
 const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
-  const filterNotes = (filter) => {};
+  const [filteredNotes, setFilteredNotes] = useState(notes);
+
+  const filterNotes = (filter) => {
+    if (filter === "") return setFilteredNotes(notes)
+    setFilteredNotes(
+      filteredNotes.filter((note) => {
+        return note.title.includes(filter);
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (notes) {
+      setFilteredNotes(notes);
+    }
+  }, [notes, setFilteredNotes]);
+
+  // TODO: make filterable notes.
 
   const createNew = () => {
     document.querySelector("#createNoteModal").classList.add("active");
@@ -42,7 +59,7 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
             <Loader color={GREEN}></Loader>
           ) : (
             <>
-              {notes.map((note, i) => {
+              {filteredNotes.map((note, i) => {
                 const isActiveNote = isActive(
                   activeNote ? activeNote : notes[0],
                   note

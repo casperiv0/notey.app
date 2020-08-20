@@ -91,7 +91,7 @@ export const SearchInput = styled.input`
   border: 2px solid ${GREEN};
   border-right: none;
   background-color: ${DARK_GRAY_2};
-  color: ${DARK_GRAY};
+  color: ${GREEN};
   border-radius: 0;
 `;
 

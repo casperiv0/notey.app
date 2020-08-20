@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { SearchForm, SearchInput, SearchBtn } from "../../styles/Sidebar";
 
-const SidebarSearch = () => {
+const SidebarSearch = ({ filterNotes }) => {
   const [query, setQuery] = useState("");
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // TODO: make request for search
-    // TODO: maybe filter a list
-    // TODO: bring query up to main sidebar to filter
+    filterNotes(query);
   };
 
   return (
@@ -19,7 +17,7 @@ const SidebarSearch = () => {
         name="q"
         onChange={(e) => setQuery(e.target.value)}
       />
-      <SearchBtn>Search</SearchBtn>
+      <SearchBtn type="submit">Search</SearchBtn>
     </SearchForm>
   );
 };
