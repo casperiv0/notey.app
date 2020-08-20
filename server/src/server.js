@@ -1,6 +1,8 @@
 require("dotenv").config();
 require("./utils/db")();
 
+const Logger = require("./utils/Logger");
+const logger = new Logger();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -18,4 +20,4 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use("/api/v1", api);
 
-app.listen(port, () => console.log(`App running on ${port}`));
+app.listen(port, () => logger.started(port));
