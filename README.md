@@ -1,6 +1,26 @@
-# Notey.app
+# 📝 Notey.app
 
-Simple notes app to keep track of important things (WIP)
+Simple notes app to keep track of important things
+
+## Screenshots
+
+<details>
+    <summary>View screenshots</summary>
+
+## Sign in & Register
+
+![signin](./docs/screens/signin.png)
+![register](./docs/screens/register.png)
+
+## Create note modal
+
+![Create note](./docs/screens/create-note.png)
+
+## Main app
+
+![main](./docs/screens/main-app.png)
+
+</details>
 
 ## Docs
 

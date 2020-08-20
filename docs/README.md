@@ -1,6 +1,5 @@
 # Documentation
 
-- [Screenshots](./SCREENSHOTS.md)
 - [Contributing](./CONTRIBUTING.md)
 
 ##

@@ -161,6 +161,7 @@ export const SidebarFooter = styled.div`
   border-top: 2px solid ${GREEN};
   color: ${GREEN};
   font-size: 1.2rem;
+  text-align: center;
 
   & a {
     color: ${GREEN};

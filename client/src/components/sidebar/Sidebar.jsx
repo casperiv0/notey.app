@@ -19,7 +19,7 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
   const [filteredNotes, setFilteredNotes] = useState(notes);
 
   const filterNotes = (filter) => {
-    if (filter === "") return setFilteredNotes(notes)
+    if (filter === "") return setFilteredNotes(notes);
     setFilteredNotes(
       filteredNotes.filter((note) => {
         return note.title.includes(filter);
@@ -32,7 +32,6 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
       setFilteredNotes(notes);
     }
   }, [notes, setFilteredNotes]);
-
 
   const createNew = () => {
     document.querySelector("#createNoteModal").classList.add("active");
@@ -87,6 +86,14 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
               href="https://caspertheghost.me"
             >
               CasperTheGhost
+            </a>{" "}
+            on{" "}
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://github.com/dev-caspertheghost/notey.app"
+            >
+              Github
             </a>
           </SidebarFooter>
         </SidebarFooterBg>
