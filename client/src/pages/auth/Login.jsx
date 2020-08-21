@@ -22,14 +22,13 @@ const Login = ({ login, error, location }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const from = location.state.from.pathname;
     setLoading(true);
 
     const data = {
       username,
       password,
     };
-    login(data, from);
+    login(data);
   };
 
   useEffect(() => {
