@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./pages/App";
 import "./styles/index.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import AuthRoute from "./components/AuthRoute";
 import { Provider } from "react-redux";
 import store from "./utils/store";
