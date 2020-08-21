@@ -24,7 +24,7 @@ router.get("/:noteId", isAuth, async (req, res) => {
     note = undefined;
   }
 
-  if (note.user_id.toString() !== user._id.toString()) {
+  if (note && note.user_id.toString() !== user._id.toString()) {
     note = undefined;
   }
 
