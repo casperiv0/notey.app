@@ -13,6 +13,7 @@ export const NoteStyle = styled.div`
 `;
 
 export const NoteTextArea = styled.textarea`
+  padding-top: 50px;
   padding: 10px;
   width: 100%;
   height: 100%;

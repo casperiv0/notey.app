@@ -42,6 +42,9 @@ export const SidebarStyle = styled.div`
   bottom: 0;
   overflow-x: hidden;
   transition: left 200ms;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 30px auto 70px;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     left: 0;
@@ -59,7 +62,7 @@ export const SidebarHeader = styled.div`
   grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 75px) auto;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
-    grid-template-columns: auto;
+    grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 20px)
   }
 `;
 
@@ -108,6 +111,7 @@ export const SearchBtn = styled.button`
 
 export const SidebarBody = styled.div`
   margin-top: 10px;
+  width: calc(${SIDEBAR_WIDTH_FULL} - 20px);
 `;
 
 export const SidebarTitle = styled.h1`
@@ -152,10 +156,9 @@ export const SidebarFooterBg = styled.div`
 `;
 
 export const SidebarFooter = styled.div`
+  position: absolute;
   background: ${DARK_GRAY};
-  padding: 10px;
-  position: fixed;
-  bottom: 0;
+  padding: 0 10px;
   left: 0;
   width: ${SIDEBAR_WIDTH_FULL};
   border-top: 2px solid ${GREEN};
