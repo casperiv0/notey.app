@@ -4,12 +4,12 @@ import { handleRequest, isSuccess } from "../utils/functions";
 const noError =
   "Something went wrong making the request, please try again later";
 
-export const login = (data) => (dispatch) => {
+export const login = (data, from) => (dispatch) => {
   handleRequest("/auth/login", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
-        window.location = "/";
+        window.location = from ? from : "/";
       } else {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }

@@ -8,6 +8,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const { notFound } = require("./utils/functions");
 
 const app = express();
 const api = require("./routes/api");
@@ -19,5 +20,9 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(helmet());
 app.use(morgan("dev"));
 app.use("/api/v1", api);
+
+app.use((req, res) => {
+  notFound(req, res);
+});
 
 app.listen(port, () => logger.started(port));

@@ -15,20 +15,21 @@ import {
 import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";
 
-const Login = ({ login, error }) => {
+const Login = ({ login, error, location }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const from = location.state.from.pathname;
     setLoading(true);
 
     const data = {
       username,
       password,
     };
-    login(data);
+    login(data, from);
   };
 
   useEffect(() => {

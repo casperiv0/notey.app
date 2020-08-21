@@ -64,7 +64,10 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
                 );
                 return (
                   <SidebarNote
-                    onClick={() => setActiveNote(note._id)}
+                    onClick={() => {
+                      setActiveNote(note._id);
+                      closeSidebar("sidebar");
+                    }}
                     title={note.title}
                     className={isActiveNote ? "active" : ""}
                     key={i}
