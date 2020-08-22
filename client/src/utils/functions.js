@@ -31,3 +31,13 @@ export const closeSidebar = (id) => {
   document.querySelector(`#${id}Active`).classList.remove("active");
   document.querySelector(`#${id}`).classList.remove("active");
 };
+
+export const openModal = (id) => {
+  document.querySelector(`#modalActive`).classList.add("active");
+  document.querySelector(`#${id}`).classList.add("active");
+};
+
+export const closeModal = (id) => {
+  document.querySelector(`#modalActive`).classList.remove("active");
+  document.querySelector(`#${id}`).classList.remove("active");
+};

@@ -11,9 +11,10 @@ import {
   CloseSidebarBtn,
   SidebarFooterBg,
   SidebarFooter,
+  OpenOptionsModalBtn
 } from "../../styles/Sidebar";
 import { GREEN } from "../../styles/colors";
-import { closeSidebar } from "../../utils/functions";
+import { closeSidebar, openModal } from "../../utils/functions";
 
 const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
   const [filteredNotes, setFilteredNotes] = useState(notes);
@@ -21,7 +22,7 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
   const filterNotes = (filter) => {
     if (filter === "") return setFilteredNotes(notes);
     setFilteredNotes(
-      filteredNotes.filter((note) => {
+      notes && notes.filter((note) => {
         return note.title.includes(filter);
       })
     );
@@ -32,11 +33,6 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
       setFilteredNotes(notes);
     }
   }, [notes, setFilteredNotes]);
-
-  const createNew = () => {
-    document.querySelector("#createNoteModal").classList.add("active");
-    document.querySelector("#createNoteModalBg").classList.add("active");
-  };
 
   const setActiveNote = (id) => {
     getActiveNote(id);
@@ -76,28 +72,13 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
                   </SidebarNote>
                 );
               })}
-              <SidebarNote onClick={createNew}>Create new</SidebarNote>
+              <SidebarNote onClick={() => openModal("createNoteModal")}>Create new</SidebarNote>
             </>
           )}
         </SidebarBody>
         <SidebarFooterBg>
           <SidebarFooter>
-            Made with ❤ by{" "}
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://caspertheghost.me"
-            >
-              CasperTheGhost
-            </a>{" "}
-            on{" "}
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://github.com/dev-caspertheghost/notey.app"
-            >
-              Github
-            </a>
+            <OpenOptionsModalBtn onClick={() => openModal("optionsModal")}>Options</OpenOptionsModalBtn>
           </SidebarFooter>
         </SidebarFooterBg>
       </SidebarStyle>

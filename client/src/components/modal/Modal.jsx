@@ -7,27 +7,24 @@ import {
   CloseModal,
   ModalBg,
 } from "../../styles/Modal";
+import { closeModal } from "../../utils/functions";
 
 const Modal = ({ id, title, children }) => {
-  const closeModal = () => {
-    document.getElementById(id).classList.remove("active");
-    document.getElementById(id + "Bg").classList.remove("active");
-  };
-
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
-        closeModal();
+        closeModal(id);
       }
     });
   });
 
   return (
     <>
-      <ModalBg id={id + "Bg"} onClick={closeModal}></ModalBg>
+      <ModalBg id="modalActive"></ModalBg>
       <ModalStyle id={id}>
         <ModalHeader>
-          {title} <CloseModal onClick={closeModal}>&times;</CloseModal>
+          {title}
+          <CloseModal onClick={() => closeModal(id)}>&times;</CloseModal>
         </ModalHeader>
         <ModalBody>{children}</ModalBody>
       </ModalStyle>

@@ -4,22 +4,23 @@ import CreateNote from "../components/modal/CreateNote";
 import Sidebar from "../components/sidebar/Sidebar";
 import Main from "../components/main/Main";
 import AlertMessage from "../components/AlertMessage";
+import OptionsModal from "../components/modal/OptionsModal";
 import { AppLayout } from "../styles/Global";
 import { connect } from "react-redux";
 import { checkAuth } from "../actions/auth";
+import { clearMessage } from "../actions/message";
 import {
   getActiveNote,
   getNotes,
   deleteNoteById,
   updateNoteById,
 } from "../actions/notes";
-import { clearMessage } from "../actions/message";
 
 const App = ({
   getNotes,
   getActiveNote,
   notes,
-  note,
+  note: activeNote,
   location,
   deleteNoteById,
   updateNoteById,
@@ -47,19 +48,37 @@ const App = ({
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           setEditing(!editing);
-          setNoteBody(note && note.body);
-          setNoteTitle(note && note.title);
+          setNoteBody(activeNote && activeNote.body);
+          setNoteTitle(activeNote && activeNote.title);
         }
       });
     }
-  }, [editing, setEditing, note]);
+  }, [editing, setEditing, activeNote]);
 
-  const deleteNote = (id) => {
-    if (editing) {
-      setEditing(false);
+  // Clear alert message
+  useEffect(() => {
+    if (message !== "") {
+      setAlertMsg(message);
+
+      setTimeout(() => {
+        clearMessage();
+        setAlertMsg("");
+      }, 4000);
     }
-    deleteNoteById(id);
-    getActiveNote(notes[0]);
+  }, [message, clearMessage, alertMsg]);
+
+  const getActiveNoteFunc = (id) => {
+    if (editing) {
+      setAlertMsg(
+        "Please save your current progress or press ESC to cancel changes"
+      );
+
+      return setTimeout(() => {
+        setAlertMsg("");
+      }, 4000);
+    }
+
+    getActiveNote(id);
   };
 
   const editNote = (saving, id) => {
@@ -82,28 +101,25 @@ const App = ({
     setEditing(!editing);
   };
 
-  // Clear alert message
-  useEffect(() => {
-    if (message !== "") {
-      setAlertMsg(message);
-
-      setTimeout(() => {
-        clearMessage();
-        setAlertMsg("");
-      }, 4000);
+  const deleteNote = (id) => {
+    if (editing) {
+      setEditing(false);
     }
-  }, [message, clearMessage, alertMsg]);
+    deleteNoteById(id);
+    getActiveNote(notes[0]);
+  };
 
   return (
     <>
       <CreateNote />
+      <OptionsModal />
       <AppLayout>
         <AlertMessage active={alertMsg !== ""} message={alertMsg} />
         <Sidebar
           loading={loading}
           notes={notes}
-          activeNote={note}
-          getActiveNote={getActiveNote}
+          activeNote={activeNote}
+          getActiveNote={getActiveNoteFunc}
         />
         <Main
           editNote={editNote}
@@ -111,7 +127,7 @@ const App = ({
           notes={notes}
           deleteNote={deleteNote}
           loading={loading}
-          activeNote={note}
+          activeNote={activeNote}
           noteBody={noteBody}
           noteTitle={noteTitle}
           setNoteBody={setNoteBody}

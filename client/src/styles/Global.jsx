@@ -73,3 +73,17 @@ export const EditBtn = styled.button`
     padding: 7px 20px;
   }
 `;
+
+export const ReportBtn = styled.a`
+  text-align: center;
+  padding: 7px 20px;
+  margin-bottom: 10px;
+  color: ${DARK_GRAY};
+  background-color: ${GREEN};
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: 1px solid ${GREEN};
+  border-radius: 0;
+  text-decoration: none;
+  display: block;
+`;

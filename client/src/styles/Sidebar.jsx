@@ -44,7 +44,7 @@ export const SidebarStyle = styled.div`
   transition: left 200ms;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 30px auto 70px;
+  grid-template-rows: 30px auto 50px;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     left: 0;
@@ -62,7 +62,7 @@ export const SidebarHeader = styled.div`
   grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 75px) auto;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
-    grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 20px)
+    grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 20px);
   }
 `;
 
@@ -152,22 +152,35 @@ export const SidebarFooterBg = styled.div`
   background: ${DARK_GRAY};
   width: ${SIDEBAR_WIDTH_FULL};
   padding: 10px;
-  height: 50px;
+  height: 30px;
 `;
 
 export const SidebarFooter = styled.div`
   position: absolute;
   background: ${DARK_GRAY};
-  padding: 0 10px;
   left: 0;
   width: ${SIDEBAR_WIDTH_FULL};
-  border-top: 2px solid ${GREEN};
-  color: ${GREEN};
-  font-size: 1.2rem;
-  text-align: center;
 
   & a {
     color: ${GREEN};
     text-decoration: underline;
+  }
+`;
+
+export const OpenOptionsModalBtn = styled.button`
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  background-color: ${DARK_GRAY};
+  color: ${GREEN};
+  border: solid ${GREEN};
+  border-width: 2px 0px 2px 0px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${GREEN};
+    color: ${DARK_GRAY};
   }
 `;

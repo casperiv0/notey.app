@@ -27,7 +27,7 @@ export const FormTitle = styled.h2`
   text-align: center;
   font-size: 2rem;
   color: ${GREEN};
-  border-bottom: 1px solid ${GREEN};
+  border-bottom: 2px solid ${GREEN};
   padding-bottom: 7px;
   margin-bottom: 5px;
   text-transform: capitalize;

@@ -44,7 +44,7 @@ export const ModalHeader = styled.div`
   color: ${GREEN};
   font-size: 1.2rem;
   font-weight: 600;
-  border-bottom: 1px solid ${GREEN};
+  border-bottom: 2px solid ${GREEN};
   margin-bottom: 15px;
 `;
 
@@ -59,3 +59,30 @@ export const CloseModal = styled.button`
 `;
 
 export const ModalBody = styled.div``;
+
+// OptionsModal
+export const OptionsModalStyle = styled.div`
+  color: ${GREEN};
+`;
+
+export const OptionsModalContent = styled.div`
+  display: grid;
+  grid-template-rows: auto 50px;
+`;
+
+export const OptionsModalBody = styled.div`
+  padding: 10px 0;
+`;
+
+export const OptionsModalFooter = styled.div`
+  border-top: 2px solid ${GREEN};
+  padding: 10px 0;
+  color: ${GREEN};
+  font-size: 1.2rem;
+  text-align: center;
+
+  & a {
+    color: ${GREEN};
+    text-decoration: underline;
+  }
+`;
