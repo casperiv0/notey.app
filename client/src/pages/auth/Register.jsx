@@ -50,6 +50,7 @@ const Register = ({ register, error }) => {
         <FormGroup>
           <FormLabel htmlFor="username">Username</FormLabel>
           <FormInput
+            spellCheck={false}
             type="text"
             id="username"
             value={username}

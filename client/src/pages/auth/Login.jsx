@@ -47,6 +47,7 @@ const Login = ({ login, error, location }) => {
         <FormGroup>
           <FormLabel htmlFor="username">Username</FormLabel>
           <FormInput
+            spellCheck={false}
             type="text"
             id="username"
             value={username}
