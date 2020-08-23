@@ -30,6 +30,10 @@ td {
   border-collapse: collapse;
 }
 
+img {
+  max-width: 95%;
+}
+
 th,
 td {
   padding: 10px;

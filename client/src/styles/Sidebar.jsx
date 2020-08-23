@@ -29,6 +29,13 @@ export const SidebarActive = styled.div`
     display: block;
     pointer-events: all;
   }
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    &.active {
+      display: none;
+      pointer-events: none;
+    }
+  }
 `;
 
 export const SidebarStyle = styled.div`
