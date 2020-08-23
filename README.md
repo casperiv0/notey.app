@@ -27,3 +27,8 @@ Simple notes app to keep track of important things
 [View project board](https://github.com/Dev-CasperTheGhost/notey.app/projects/1)
 
 [View Docs](docs/README.md)
+
+## What I learned
+
+- better understanding of react hooks
+- Authentication in react

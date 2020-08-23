@@ -43,18 +43,6 @@ const App = ({
     }, 300);
   }, [getNotes, getActiveNote, noteId, setLoading]);
 
-  useEffect(() => {
-    if (editing) {
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          setEditing(!editing);
-          setNoteBody(activeNote && activeNote.body);
-          setNoteTitle(activeNote && activeNote.title);
-        }
-      });
-    }
-  }, [editing, setEditing, activeNote]);
-
   // Clear alert message
   useEffect(() => {
     if (message !== "") {
@@ -70,7 +58,7 @@ const App = ({
   const getActiveNoteFunc = (id) => {
     if (editing) {
       setAlertMsg(
-        "Please save your current progress or press ESC to cancel changes"
+        "Please save your current progress or reload to cancel changes"
       );
 
       return setTimeout(() => {
@@ -82,7 +70,7 @@ const App = ({
   };
 
   const editNote = (saving, id) => {
-    if (saving === "save") {
+    if (editing && saving === "save") {
       if (noteTitle.length > 40) {
         return setAlertMsg("Note title has a limit of 40 characters.");
       }

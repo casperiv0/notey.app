@@ -11,7 +11,6 @@ const cookieParser = require("cookie-parser");
 const { notFound } = require("./utils/functions");
 
 const app = express();
-const api = require("./routes/api");
 const port = process.env.PORT || 3030;
 
 app.use(cookieParser());
@@ -19,7 +18,7 @@ app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(helmet());
 app.use(morgan("dev"));
-app.use("/api/v1", api);
+app.use("/api/v1", require("./routes/api"));
 
 app.use((req, res) => {
   notFound(req, res);

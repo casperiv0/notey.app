@@ -11,7 +11,7 @@ import {
   CloseSidebarBtn,
   SidebarFooterBg,
   SidebarFooter,
-  OpenOptionsModalBtn
+  OpenOptionsModalBtn,
 } from "../../styles/Sidebar";
 import { GREEN } from "../../styles/colors";
 import { closeSidebar, openModal } from "../../utils/functions";
@@ -22,9 +22,10 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
   const filterNotes = (filter) => {
     if (filter === "") return setFilteredNotes(notes);
     setFilteredNotes(
-      notes && notes.filter((note) => {
-        return note.title.includes(filter);
-      })
+      notes &&
+        notes.filter((note) => {
+          return note.title.includes(filter);
+        })
     );
   };
 
@@ -72,13 +73,17 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
                   </SidebarNote>
                 );
               })}
-              <SidebarNote onClick={() => openModal("createNoteModal")}>Create new</SidebarNote>
+              <SidebarNote onClick={() => openModal("createNoteModal")}>
+                Create new
+              </SidebarNote>
             </>
           )}
         </SidebarBody>
         <SidebarFooterBg>
           <SidebarFooter>
-            <OpenOptionsModalBtn onClick={() => openModal("optionsModal")}>Options</OpenOptionsModalBtn>
+            <OpenOptionsModalBtn onClick={() => openModal("optionsModal")}>
+              Options
+            </OpenOptionsModalBtn>
           </SidebarFooter>
         </SidebarFooterBg>
       </SidebarStyle>
