@@ -40,7 +40,7 @@ router.post("/", isAuth, async (req, res) => {
       return res.json({ error: "Something went wrong creating a category" });
     }
 
-    return res.json({ msg: "Created", categories });
+    return res.json({ msg: "Created", categories, status: "success" });
   } else {
     return res.json({ error: "Please fill in all fields", status: "error" });
   }
@@ -54,7 +54,7 @@ router.delete("/:id", isAuth, async (req, res) => {
       user_id: req.user.id,
       category_id: catId,
     });
-    
+
     notesByCat.forEach(async (note) => {
       await Note.findByIdAndUpdate(note._id, { category_id: "no_category" });
     });
