@@ -3,12 +3,13 @@ import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
 import { GREEN } from "../../styles/colors";
 import { closeSidebar, openModal } from "../../utils/functions";
+import { Divider } from "../../styles/Global";
+import { CloseIcon, DeleteIcon } from "../icons";
 import {
   CategoryDiv,
   CategoryTitle,
   DeleteCategory,
 } from "../../styles/Category";
-import { Divider } from "../../styles/Global";
 import {
   SidebarActive,
   SidebarStyle,
@@ -50,6 +51,31 @@ const Sidebar = ({
   const setActiveNote = (id) => {
     getActiveNote(id);
   };
+
+  const noCategoryNotesLength = filteredNotes.filter(
+    (note) => note.category_id === "no_category"
+  );
+  const noCategoryNotes =
+    filteredNotes &&
+    // eslint-disable-next-line
+    filteredNotes.map((note, i) => {
+      const isActiveNote = isActive(activeNote ? activeNote : notes[0], note);
+      if (note.category_id === "no_category") {
+        return (
+          <SidebarNote
+            onClick={() => {
+              setActiveNote(note._id);
+              closeSidebar("sidebar");
+            }}
+            key={i}
+            title={note.title}
+            className={isActiveNote ? "active" : ""}
+          >
+            {note.title}
+          </SidebarNote>
+        );
+      }
+    });
 
   return (
     <>
@@ -105,32 +131,13 @@ const Sidebar = ({
                   </CategoryDiv>
                 );
               })}
-              <CategoryDiv>
-                <CategoryTitle>No category</CategoryTitle>
-                {filteredNotes &&
-                  // eslint-disable-next-line
-                  filteredNotes.map((note, i) => {
-                    const isActiveNote = isActive(
-                      activeNote ? activeNote : notes[0],
-                      note
-                    );
-                    if (note.category_id === "no_category") {
-                      return (
-                        <SidebarNote
-                          onClick={() => {
-                            setActiveNote(note._id);
-                            closeSidebar("sidebar");
-                          }}
-                          key={i}
-                          title={note.title}
-                          className={isActiveNote ? "active" : ""}
-                        >
-                          {note.title}
-                        </SidebarNote>
-                      );
-                    }
-                  })}
-              </CategoryDiv>
+              {notes && !noCategoryNotesLength[0] ? null : (
+                <>
+                  <CategoryTitle>No category</CategoryTitle>
+                  {noCategoryNotes}
+                </>
+              )}
+              <CategoryDiv></CategoryDiv>
               <Divider />
               <SidebarNote onClick={() => openModal("createNoteModal")}>
                 Create new Note
@@ -160,45 +167,5 @@ const Sidebar = ({
 function isActive(activeNote, note) {
   return activeNote && activeNote._id === note._id;
 }
-
-const CloseIcon = () => {
-  return (
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      className="bi bi-x"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fillRule="evenodd"
-        d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
-      />
-      <path
-        fillRule="evenodd"
-        d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
-      />
-    </svg>
-  );
-};
-
-const DeleteIcon = () => {
-  return (
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      className="bi bi-trash-fill"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fillRule="evenodd"
-        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"
-      />
-    </svg>
-  );
-};
 
 export default Sidebar;
