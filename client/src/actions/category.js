@@ -4,6 +4,7 @@ import {
   CREATE_CATEGORY,
   CREATE_CATEGORY_ERR,
   DELETE_CATEGORY,
+  SET_MESSAGE,
 } from "../utils/types";
 
 export const getCategories = () => (dispatch) => {
@@ -20,6 +21,10 @@ export const createCategory = (data) => (dispatch) => {
   handleRequest("/categories", "POST", data).then((res) => {
     if (isSuccess(res)) {
       dispatch({ type: CREATE_CATEGORY, categories: res.data.categories });
+      dispatch({
+        type: SET_MESSAGE,
+        message: `Successfully created category with name: ${data.name}`,
+      });
     } else {
       dispatch({ type: CREATE_CATEGORY_ERR, error: res.data.error });
     }
@@ -30,6 +35,10 @@ export const deleteCategory = (id) => (dispatch) => {
   handleRequest(`/categories/${id}`, "DELETE").then((res) => {
     if (isSuccess(res)) {
       dispatch({ type: DELETE_CATEGORY, categories: res.data.categories });
+      dispatch({
+        type: SET_MESSAGE,
+        message: `Successfully deleted category`,
+      });
     }
   });
 };

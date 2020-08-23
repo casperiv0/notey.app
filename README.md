@@ -33,3 +33,4 @@ Simple notes app to keep track of important things
 - Better understanding of React functional components
 - Better understanding of react hooks
 - Authentication in react
+- convert text to markdown using [marked](https://www.npmjs.com/package/marked)

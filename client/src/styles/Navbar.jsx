@@ -28,7 +28,7 @@ export const NavbarStyle = styled.div`
   }
 `;
 
-export const NavTitle = styled.h1`
+export const NavTitle = styled.div`
   margin-left: 10px;
   color: ${GREEN};
   font-size: 1.2rem;

@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const moment = require("moment");
 
 const noteSchema = new Schema({
   user_id: {
@@ -18,9 +19,13 @@ const noteSchema = new Schema({
     type: String,
     required: true,
   },
-  created_at: {
+  markdown: {
     type: String,
     required: true,
+  },
+  created_at: {
+    type: String,
+    default: () => moment().format("MM/DD/YYYY")
   },
 });
 

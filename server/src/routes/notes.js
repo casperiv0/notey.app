@@ -1,7 +1,10 @@
 const router = require("express").Router();
 const Note = require("../models/Note.model");
 const User = require("../models/User.model");
-const moment = require("moment");
+const createDomPurify = require("dompurify");
+const marked = require("marked");
+const { JSDOM } = require("jsdom");
+const dompurify = createDomPurify(new JSDOM().window);
 const { isAuth } = require("../utils/functions");
 
 router.get("/", isAuth, async (req, res) => {
@@ -35,11 +38,20 @@ router.put("/:noteId", isAuth, async (req, res) => {
   const { title, body, categoryId } = req.body;
   const { noteId } = req.params;
   const note = await Note.findById(noteId);
+  const markdown = dompurify.sanitize(marked(body));
+
+  if (markdown === "" || !markdown) {
+    return res.json({
+      error: "Please do not include any malicious  code.",
+      status: "error",
+    });
+  }
 
   try {
     note.category_id = categoryId;
     note.title = title;
     note.body = body;
+    note.markdown = markdown;
 
     await note.save();
 
@@ -63,13 +75,20 @@ router.post("/", isAuth, async (req, res) => {
       });
     }
 
-    const created_at = moment().format("MM/DD/YYYY");
+    const markdown = dompurify.sanitize(marked(body));
+
+    if (markdown === "" || !markdown) {
+      return res.json({
+        error: "Please do not include any malicious  code.",
+        status: "error",
+      });
+    }
 
     const newNote = new Note({
       user_id: req.user.id,
       title,
       body,
-      created_at,
+      markdown,
       category_id: categoryId,
     });
 

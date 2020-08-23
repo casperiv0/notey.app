@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const Note = require("../models/Note.model");
-const moment = require("moment");
 const Category = require("../models/Category.model");
 const { isAuth } = require("../utils/functions");
 
@@ -22,13 +21,11 @@ router.get("/", isAuth, async (req, res) => {
 
 router.post("/", isAuth, async (req, res) => {
   const { name } = req.body;
-  const created_at = moment().format("MM/DD/YYYY");
   let categories;
 
   if (name) {
     const newCategory = new Category({
       user_id: req.user.id,
-      created_at,
       name,
     });
 
