@@ -114,11 +114,6 @@ export const SidebarBody = styled.div`
   width: calc(${SIDEBAR_WIDTH_FULL} - 20px);
 `;
 
-export const SidebarTitle = styled.h1`
-  font-size: 1.8rem;
-  color: ${GREEN};
-`;
-
 export const SidebarNote = styled.a`
   cursor: pointer;
   margin-bottom: 5px;

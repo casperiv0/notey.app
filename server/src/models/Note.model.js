@@ -5,10 +5,10 @@ const noteSchema = new Schema({
     type: String,
     required: true,
   },
-  // category_id: { //* Soon™ 
-  //   type: String,
-  //   required: true,
-  // },
+  category_id: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,

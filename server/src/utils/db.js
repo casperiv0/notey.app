@@ -9,6 +9,7 @@ async function db() {
       useCreateIndex: true,
       useUnifiedTopology: true,
       useNewUrlParser: true,
+      useFindAndModify: true,
     });
 
     logger.connected();

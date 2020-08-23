@@ -1,22 +1,34 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
+import { GREEN } from "../../styles/colors";
+import { closeSidebar, openModal } from "../../utils/functions";
+import {
+  CategoryDiv,
+  CategoryTitle,
+  DeleteCategory,
+} from "../../styles/Category";
+import { Divider } from "../../styles/Global";
 import {
   SidebarActive,
   SidebarStyle,
   SidebarHeader,
   SidebarNote,
   SidebarBody,
-  SidebarTitle,
   CloseSidebarBtn,
   SidebarFooterBg,
   SidebarFooter,
   OpenOptionsModalBtn,
 } from "../../styles/Sidebar";
-import { GREEN } from "../../styles/colors";
-import { closeSidebar, openModal } from "../../utils/functions";
 
-const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
+const Sidebar = ({
+  notes,
+  categories,
+  activeNote,
+  loading,
+  getActiveNote,
+  deleteCategory,
+}) => {
   const [filteredNotes, setFilteredNotes] = useState(notes);
 
   const filterNotes = (filter) => {
@@ -49,32 +61,82 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
           </CloseSidebarBtn>
         </SidebarHeader>
         <SidebarBody>
-          <SidebarTitle>All notes</SidebarTitle>
           {loading ? (
             <Loader color={GREEN}></Loader>
           ) : (
             <>
-              {filteredNotes.map((note, i) => {
-                const isActiveNote = isActive(
-                  activeNote ? activeNote : notes[0],
-                  note
-                );
+              {categories.map((cat, ci) => {
+                const category = cat.name;
+                const categoryNotes =
+                  filteredNotes &&
+                  // eslint-disable-next-line
+                  filteredNotes.map((note, i) => {
+                    if (note.category_id === cat._id) {
+                      const isActiveNote = isActive(
+                        activeNote ? activeNote : notes[0],
+                        note
+                      );
+
+                      return (
+                        <SidebarNote
+                          onClick={() => {
+                            setActiveNote(note._id);
+                            closeSidebar("sidebar");
+                          }}
+                          key={i}
+                          title={note.title}
+                          className={isActiveNote ? "active" : ""}
+                        >
+                          {note.title}
+                        </SidebarNote>
+                      );
+                    }
+                  });
+
                 return (
-                  <SidebarNote
-                    onClick={() => {
-                      setActiveNote(note._id);
-                      closeSidebar("sidebar");
-                    }}
-                    title={note.title}
-                    className={isActiveNote ? "active" : ""}
-                    key={i}
-                  >
-                    {note.title}
-                  </SidebarNote>
+                  <CategoryDiv key={ci}>
+                    <CategoryTitle>
+                      {category}
+                      <DeleteCategory onClick={() => deleteCategory(cat._id)}>
+                        <DeleteIcon></DeleteIcon>
+                      </DeleteCategory>
+                    </CategoryTitle>
+                    {categoryNotes}
+                  </CategoryDiv>
                 );
               })}
+              <CategoryDiv>
+                <CategoryTitle>No category</CategoryTitle>
+                {filteredNotes &&
+                  // eslint-disable-next-line
+                  filteredNotes.map((note, i) => {
+                    const isActiveNote = isActive(
+                      activeNote ? activeNote : notes[0],
+                      note
+                    );
+                    if (note.category_id === "no_category") {
+                      return (
+                        <SidebarNote
+                          onClick={() => {
+                            setActiveNote(note._id);
+                            closeSidebar("sidebar");
+                          }}
+                          key={i}
+                          title={note.title}
+                          className={isActiveNote ? "active" : ""}
+                        >
+                          {note.title}
+                        </SidebarNote>
+                      );
+                    }
+                  })}
+              </CategoryDiv>
+              <Divider />
               <SidebarNote onClick={() => openModal("createNoteModal")}>
-                Create new
+                Create new Note
+              </SidebarNote>
+              <SidebarNote onClick={() => openModal("createCategoryModal")}>
+                Create new Category
               </SidebarNote>
             </>
           )}
@@ -116,6 +178,24 @@ const CloseIcon = () => {
       <path
         fillRule="evenodd"
         d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
+      />
+    </svg>
+  );
+};
+
+const DeleteIcon = () => {
+  return (
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      className="bi bi-trash-fill"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"
       />
     </svg>
   );

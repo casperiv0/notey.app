@@ -8,7 +8,7 @@ const categorySchema = new Schema({
   name: {
     type: String,
     required: true,
-    max: 15,
+    max: 20,
   },
   created_at: {
     type: String,

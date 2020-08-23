@@ -87,3 +87,8 @@ export const ReportBtn = styled.a`
   text-decoration: none;
   display: block;
 `;
+
+export const Divider = styled.div`
+  padding-top: 5px;
+  border-top: 2px solid ${(props) => (props.color ? props.color : GREEN)};
+`;

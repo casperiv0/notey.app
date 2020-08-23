@@ -32,11 +32,12 @@ router.get("/:noteId", isAuth, async (req, res) => {
 });
 
 router.put("/:noteId", isAuth, async (req, res) => {
-  const { title, body } = req.body;
+  const { title, body, categoryId } = req.body;
   const { noteId } = req.params;
   const note = await Note.findById(noteId);
 
   try {
+    note.category_id = categoryId;
     note.title = title;
     note.body = body;
 
@@ -52,9 +53,9 @@ router.put("/:noteId", isAuth, async (req, res) => {
 });
 
 router.post("/", isAuth, async (req, res) => {
-  const { title, body } = req.body;
+  const { title, body, categoryId } = req.body;
 
-  if (title && body) {
+  if (title && body && categoryId) {
     if (title.length > 40) {
       return res.json({
         error: "Title has a limit of 40 characters.",
@@ -69,6 +70,7 @@ router.post("/", isAuth, async (req, res) => {
       title,
       body,
       created_at,
+      category_id: categoryId,
     });
 
     try {
