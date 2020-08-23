@@ -87,12 +87,16 @@ const App = ({
         return setAlertMsg("Note body can not be empty");
       }
 
-      updateNoteById(id, { title: noteTitle, body: noteBody });
+      updateNoteById(id, {
+        title: noteTitle,
+        body: noteBody,
+        categoryId: activeNote && activeNote.category_id,
+      });
       setNoteTitle("");
       setNoteBody("");
     }
 
-    setEditing(false);
+    setEditing(!editing);
   };
 
   const deleteNote = (id) => {
@@ -100,7 +104,8 @@ const App = ({
       setEditing(false);
     }
     deleteNoteById(id);
-    getActiveNote(notes[0]);
+
+    getActiveNote(notes[notes.length - 2]._id);
   };
 
   return (
