@@ -4,7 +4,7 @@ import { DEFAULT_MIN_WIDTH } from "./constants";
 
 export const NoteStyle = styled.div`
   height: 100%;
-  width: calc(100vw - 1px);
+  width: calc(100vw - 10px);
   grid-area: note;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {

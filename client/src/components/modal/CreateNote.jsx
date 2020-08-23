@@ -100,7 +100,7 @@ const CreateNote = ({
           <FormLabel htmlFor="body">Body</FormLabel>
           <TextArea
             maxHeight="70vh"
-            minHeight="200px"
+            minHeight="45px"
             rows="10"
             type="text"
             value={body}

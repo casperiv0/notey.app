@@ -52,13 +52,13 @@ const CreateCategory = ({ createCategory, error }) => {
           {error ? <ErrorMessage>{error}</ErrorMessage> : null}
         </FormGroup>
         <FormGroup>
-          <FormLabel htmlFor="title">Name</FormLabel>
+          <FormLabel htmlFor="name">Name</FormLabel>
           <FormInput
             autoFocus
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            id="title"
+            id="name"
             maxLength="20"
             max="20"
           />

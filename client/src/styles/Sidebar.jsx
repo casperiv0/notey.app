@@ -59,7 +59,8 @@ export const SidebarStyle = styled.div`
 
 export const SidebarHeader = styled.div`
   display: grid;
-  grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 75px) auto;
+  align-items: center;
+  grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 65px) auto;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 20px);
@@ -121,7 +122,7 @@ export const SidebarNote = styled.a`
   font-weight: 600;
   font-size: 1.2rem;
   color: ${GREEN};
-  transition: background 0.2s, color 0.1s;
+  transition: background 200ms, color 0.1s;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -154,6 +155,7 @@ export const SidebarFooter = styled.div`
   position: absolute;
   background: ${DARK_GRAY};
   left: 0;
+  bottom: 0;
   width: ${SIDEBAR_WIDTH_FULL};
 
   & a {
@@ -174,8 +176,10 @@ export const OpenOptionsModalBtn = styled.button`
   font-weight: 600;
   cursor: pointer;
 
-  &:hover {
-    background-color: ${GREEN};
-    color: ${DARK_GRAY};
+  @media (hover: hover) {
+    &:hover {
+      background-color: ${GREEN};
+      color: ${DARK_GRAY};
+    }
   }
 `;

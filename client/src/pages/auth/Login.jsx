@@ -15,7 +15,7 @@ import {
 import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";
 
-const Login = ({ login, error, location }) => {
+const Login = ({ login, error }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);

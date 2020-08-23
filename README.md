@@ -30,5 +30,6 @@ Simple notes app to keep track of important things
 
 ## What I learned
 
-- better understanding of react hooks
+- Better understanding of React functional components
+- Better understanding of react hooks
 - Authentication in react
