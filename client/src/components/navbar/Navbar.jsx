@@ -21,7 +21,7 @@ const Navbar = ({
   setNoteTitle,
   categoryId,
   setCategoryId,
-  categories
+  categories,
 }) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
@@ -37,34 +37,40 @@ const Navbar = ({
           <OpenSidebar onClick={() => openSidebar("sidebar")}>
             <MenuIcon />
           </OpenSidebar>
-          {note && note.title ? (
-            editing ? (
-              <>
-                <EditingTitleNote
-                  setNoteTitle={setNoteTitle}
-                  noteTitle={noteTitle}
-                />
-                <SelectCategory
-                  value={categoryId}
-                  onChange={(e) => setCategoryId(e.target.value)}
-                >
-                  <option value="no_category">No category</option>
-                  {categories &&
-                    categories.map((cat, i) => {
-                      return (
-                        <option key={i} value={cat._id}>
-                          {cat.name}
-                        </option>
-                      );
-                    })}
-                </SelectCategory>
-              </>
+          <>
+            <label htmlFor="activeNoteTitle" className="sr-only">
+              Title
+            </label>
+            {note && note.title ? (
+              editing ? (
+                <>
+                  <EditingTitleNote
+                    setNoteTitle={setNoteTitle}
+                    noteTitle={noteTitle}
+                  />
+                  <SelectCategory
+                    id="activeNoteTitle"
+                    value={categoryId}
+                    onChange={(e) => setCategoryId(e.target.value)}
+                  >
+                    <option value="no_category">No category</option>
+                    {categories &&
+                      categories.map((cat, i) => {
+                        return (
+                          <option key={i} value={cat._id}>
+                            {cat.name}
+                          </option>
+                        );
+                      })}
+                  </SelectCategory>
+                </>
+              ) : (
+                <NavTitleInput id="activeNoteTitle" defaultValue={noteTitle} readOnly />
+              )
             ) : (
-              <NavTitleInput defaultValue={noteTitle} readOnly />
-            )
-          ) : (
-            "No notes found"
-          )}
+              "No notes found"
+            )}
+          </>
         </NavTitle>
         <NavLinks>
           {note && note._id ? (
@@ -86,6 +92,7 @@ const Navbar = ({
 const EditingTitleNote = ({ setNoteTitle, noteTitle }) => {
   return (
     <NavTitleInput
+      id="activeNoteTitle"
       value={noteTitle}
       onChange={(e) => setNoteTitle(e.target.value)}
     />
