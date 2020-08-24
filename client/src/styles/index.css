@@ -17,6 +17,55 @@ body {
 }
 
 button:focus,
-input:focus {
+input:focus,
+select:focus,
+a:focus {
   outline: 2px dotted #4ecec4;
+}
+
+table,
+th,
+td {
+  border: 2px solid #4ecec4;
+  border-collapse: collapse;
+}
+
+img {
+  max-width: 95%;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
+a {
+  color: #4ecec4;
+  text-decoration: underline;
+}
+
+summary {
+  cursor: pointer;
+}
+
+summary:hover {
+  background-color: #72767d;
+}
+
+h1,
+h2 {
+  border-bottom: 1px solid #4ecec4;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

@@ -16,6 +16,9 @@ const Main = ({
   setNoteBody,
   setNoteTitle,
   editing,
+  categoryId,
+  setCategoryId,
+  categories
 }) => {
   return (
     <MainStyle>
@@ -27,6 +30,9 @@ const Main = ({
         setNoteTitle={setNoteTitle}
         note={activeNote ? activeNote : notes[0]}
         loading={loading}
+        categoryId={categoryId}
+        setCategoryId={setCategoryId}
+        categories={categories}
       />
       {loading ? (
         <Loader color={GREEN}></Loader>

@@ -35,7 +35,6 @@ const Register = ({ register, error }) => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
       setLoading(false);
     }
   }, [error]);

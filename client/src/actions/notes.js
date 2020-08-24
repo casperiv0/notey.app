@@ -105,7 +105,7 @@ export const updateNoteById = (id, data) => (dispatch) => {
         });
         dispatch({ type: SET_MESSAGE, message: "Successfully updated note" });
       } else {
-        console.log(res.data);
+        dispatch({ type: SET_MESSAGE, message: "An error occurred while updating the note." })
       }
     })
     .catch((e) => {

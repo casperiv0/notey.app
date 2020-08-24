@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
+import { closeModal } from "../../utils/functions";
 import {
   ModalStyle,
   ModalHeader,
@@ -7,7 +8,6 @@ import {
   CloseModal,
   ModalBg,
 } from "../../styles/Modal";
-import { closeModal } from "../../utils/functions";
 
 const Modal = ({ id, title, children }) => {
   useEffect(() => {

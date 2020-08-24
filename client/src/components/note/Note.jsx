@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import { NoteStyle, NoteTextArea } from "../../styles/Notes";
+import { NoteStyle, NotePreview, NoteTextArea } from "../../styles/Notes";
 
 const Note = ({ note, editing, noteBody, setNoteBody }) => {
-  // TODO: change to markdown area
-
   useEffect(() => {
     setNoteBody(note && note.body);
   }, [note, setNoteBody]);
@@ -14,10 +12,9 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
         editing ? (
           <EditingArea setNoteBody={setNoteBody} noteBody={noteBody} />
         ) : (
-          <NoteTextArea
-            defaultValue={note && note.body ? noteBody : ""}
-            readOnly
-          />
+          <NotePreview
+            dangerouslySetInnerHTML={{ __html: note && note.markdown }}
+          ></NotePreview>
         )
       ) : (
         ""

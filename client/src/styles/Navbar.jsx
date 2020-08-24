@@ -19,16 +19,17 @@ export const NavbarStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: ${DARK_GRAY};
-  border-left: 2px solid ${GREEN};
+  border-left: none;
   border-bottom: 2px solid ${GREEN};
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     width: calc(100% - ${SIDEBAR_WIDTH_FULL});
     left: ${SIDEBAR_WIDTH_FULL};
+    border-left: 2px solid ${GREEN}
   }
 `;
 
-export const NavTitle = styled.h1`
+export const NavTitle = styled.div`
   margin-left: 10px;
   color: ${GREEN};
   font-size: 1.2rem;
@@ -43,7 +44,7 @@ export const NavTitle = styled.h1`
 
 export const NavTitleInput = styled.input`
   padding: 10px;
-  width: 450px;
+  width: 250px;
   height: 100%;
   background: none;
   border: none;

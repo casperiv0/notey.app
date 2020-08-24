@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
+import { GREEN } from "../../styles/colors";
+import { closeSidebar, openModal } from "../../utils/functions";
+import { Divider } from "../../styles/Global";
+import { CloseIcon, DeleteIcon } from "../icons";
+import {
+  CategoryDiv,
+  CategoryTitle,
+  DeleteCategory,
+} from "../../styles/Category";
 import {
   SidebarActive,
   SidebarStyle,
   SidebarHeader,
   SidebarNote,
   SidebarBody,
-  SidebarTitle,
   CloseSidebarBtn,
   SidebarFooterBg,
   SidebarFooter,
   OpenOptionsModalBtn,
 } from "../../styles/Sidebar";
-import { GREEN } from "../../styles/colors";
-import { closeSidebar, openModal } from "../../utils/functions";
 
-const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
+const Sidebar = ({
+  notes,
+  categories,
+  activeNote,
+  loading,
+  getActiveNote,
+  deleteCategory
+}) => {
   const [filteredNotes, setFilteredNotes] = useState(notes);
 
   const filterNotes = (filter) => {
@@ -24,7 +37,8 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
     setFilteredNotes(
       notes &&
         notes.filter((note) => {
-          return note.title.includes(filter);
+          const title = note.title.toLowerCase();
+          return title.includes(filter);
         })
     );
   };
@@ -39,6 +53,31 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
     getActiveNote(id);
   };
 
+  const noCategoryNotesLength = filteredNotes.filter(
+    (note) => note.category_id === "no_category"
+  );
+  const noCategoryNotes =
+    filteredNotes &&
+    // eslint-disable-next-line
+    filteredNotes.map((note, i) => {
+      const isActiveNote = isActive(activeNote ? activeNote : notes[0], note);
+      if (note.category_id === "no_category") {
+        return (
+          <SidebarNote
+            onClick={() => {
+              setActiveNote(note._id);
+              closeSidebar("sidebar");
+            }}
+            key={i}
+            title={note.title}
+            className={isActiveNote ? "active" : ""}
+          >
+            {note.title}
+          </SidebarNote>
+        );
+      }
+    });
+
   return (
     <>
       <SidebarStyle id="sidebar">
@@ -49,32 +88,65 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
           </CloseSidebarBtn>
         </SidebarHeader>
         <SidebarBody>
-          <SidebarTitle>All notes</SidebarTitle>
           {loading ? (
             <Loader color={GREEN}></Loader>
           ) : (
             <>
-              {filteredNotes.map((note, i) => {
-                const isActiveNote = isActive(
-                  activeNote ? activeNote : notes[0],
-                  note
-                );
+              {categories.map((cat, ci) => {
+                const category = cat.name;
+                const categoryNotes =
+                  filteredNotes &&
+                  // eslint-disable-next-line
+                  filteredNotes.map((note, i) => {
+                    if (note.category_id === cat._id) {
+                      const isActiveNote = isActive(
+                        activeNote ? activeNote : notes[0],
+                        note
+                      );
+
+                      return (
+                        <SidebarNote
+                          onClick={() => {
+                            setActiveNote(note._id);
+                            closeSidebar("sidebar");
+                          }}
+                          key={i}
+                          title={note.title}
+                          className={isActiveNote ? "active" : ""}
+                        >
+                          {note.title}
+                        </SidebarNote>
+                      );
+                    }
+                  });
+
                 return (
-                  <SidebarNote
-                    onClick={() => {
-                      setActiveNote(note._id);
-                      closeSidebar("sidebar");
-                    }}
-                    title={note.title}
-                    className={isActiveNote ? "active" : ""}
-                    key={i}
-                  >
-                    {note.title}
-                  </SidebarNote>
+                  <CategoryDiv key={ci}>
+                    <CategoryTitle>
+                      {category}
+                      <div>
+                        <DeleteCategory onClick={() => deleteCategory(cat._id)}>
+                          <DeleteIcon></DeleteIcon>
+                        </DeleteCategory>
+                      </div>
+                    </CategoryTitle>
+                    {categoryNotes}
+                  </CategoryDiv>
                 );
               })}
+              {notes && !noCategoryNotesLength[0] ? null : (
+                <>
+                  <CategoryTitle>No category</CategoryTitle>
+                  {noCategoryNotes}
+                </>
+              )}
+              <CategoryDiv></CategoryDiv>
+              <Divider />
               <SidebarNote onClick={() => openModal("createNoteModal")}>
-                Create new
+                Create new Note
+              </SidebarNote>
+              <SidebarNote onClick={() => openModal("createCategoryModal")}>
+                Create new Category
               </SidebarNote>
             </>
           )}
@@ -98,27 +170,5 @@ const Sidebar = ({ notes, activeNote, loading, getActiveNote }) => {
 function isActive(activeNote, note) {
   return activeNote && activeNote._id === note._id;
 }
-
-const CloseIcon = () => {
-  return (
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      className="bi bi-x"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fillRule="evenodd"
-        d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
-      />
-      <path
-        fillRule="evenodd"
-        d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
-      />
-    </svg>
-  );
-};
 
 export default Sidebar;

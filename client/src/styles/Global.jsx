@@ -6,7 +6,7 @@ export const AppLayout = styled.div`
   width: 100%;
   height: 100vh;
   display: grid;
-  grid-template-columns: 0px auto;
+  grid-template-columns: 100%;
   grid-template-areas: "main";
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
@@ -86,4 +86,9 @@ export const ReportBtn = styled.a`
   border-radius: 0;
   text-decoration: none;
   display: block;
+`;
+
+export const Divider = styled.div`
+  padding-top: 5px;
+  border-top: 2px solid ${(props) => (props.color ? props.color : GREEN)};
 `;

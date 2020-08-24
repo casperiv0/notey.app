@@ -9,14 +9,17 @@ const SidebarSearch = ({ filterNotes }) => {
     filterNotes(query);
   };
 
+  const search = (e) => {
+    setQuery(e.target.value);
+    filterNotes(e.target.value.toLowerCase());
+  };
+
   return (
     <SearchForm onSubmit={onSubmit}>
-      <SearchInput
-        value={query}
-        id="q"
-        name="q"
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <label htmlFor="query" className="sr-only">
+        Search query
+      </label>
+      <SearchInput value={query} id="query" name="query" onChange={search} />
       <SearchBtn type="submit">Search</SearchBtn>
     </SearchForm>
   );

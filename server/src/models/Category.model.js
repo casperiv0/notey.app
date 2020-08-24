@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const moment = require("moment");
 
 const categorySchema = new Schema({
   user_id: {
@@ -8,11 +9,11 @@ const categorySchema = new Schema({
   name: {
     type: String,
     required: true,
-    max: 15,
+    max: 20,
   },
   created_at: {
     type: String,
-    required: true,
+    default: () => moment().format("MM/DD/YYYY"),
   },
 });
 
