@@ -37,7 +37,8 @@ const Sidebar = ({
     setFilteredNotes(
       notes &&
         notes.filter((note) => {
-          return note.title.includes(filter);
+          const title = note.title.toLowerCase();
+          return title.includes(filter);
         })
     );
   };
