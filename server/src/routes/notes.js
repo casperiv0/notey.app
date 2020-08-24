@@ -42,7 +42,7 @@ router.put("/:noteId", isAuth, async (req, res) => {
 
   if (markdown === "" || !markdown) {
     return res.json({
-      error: "Please do not include any malicious  code.",
+      error: "Please do not include any malicious code.",
       status: "error",
     });
   }

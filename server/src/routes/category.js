@@ -24,6 +24,13 @@ router.post("/", isAuth, async (req, res) => {
   let categories;
 
   if (name) {
+    if (name.length > 15) {
+      return res.json({
+        error: "Category name has a limit of 20 characters.",
+        status: "error",
+      });
+    }
+
     const newCategory = new Category({
       user_id: req.user.id,
       name,
