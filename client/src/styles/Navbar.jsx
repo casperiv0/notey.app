@@ -19,12 +19,13 @@ export const NavbarStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: ${DARK_GRAY};
-  border-left: 2px solid ${GREEN};
+  border-left: none;
   border-bottom: 2px solid ${GREEN};
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     width: calc(100% - ${SIDEBAR_WIDTH_FULL});
     left: ${SIDEBAR_WIDTH_FULL};
+    border-left: 2px solid ${GREEN}
   }
 `;
 
