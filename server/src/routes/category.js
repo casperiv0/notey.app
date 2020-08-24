@@ -43,6 +43,22 @@ router.post("/", isAuth, async (req, res) => {
   }
 });
 
+router.put("/:id", isAuth, async (req, res) => {
+  const { name } = req.body;
+  const { id: catId } = req.params;
+  let categories;
+
+  try {
+    await Category.findByIdAndUpdate(catId, { name });
+    categories = await Category.find({ user_id: req.user.id });
+  } catch (e) {
+    console.log(e);
+    return res.json({ error: "Something went wrong", status: "error" });
+  }
+
+  return res.json({ status: "success", categories });
+});
+
 router.delete("/:id", isAuth, async (req, res) => {
   const catId = req.params.id;
 

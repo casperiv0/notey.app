@@ -3,6 +3,7 @@ import {
   GET_CATEGORIES,
   CREATE_CATEGORY,
   CREATE_CATEGORY_ERR,
+  UPDATE_CATEGORY,
   DELETE_CATEGORY,
   SET_MESSAGE,
 } from "../utils/types";
@@ -24,6 +25,20 @@ export const createCategory = (data) => (dispatch) => {
       dispatch({
         type: SET_MESSAGE,
         message: `Successfully created category with name: ${data.name}`,
+      });
+    } else {
+      dispatch({ type: CREATE_CATEGORY_ERR, error: res.data.error });
+    }
+  });
+};
+
+export const updateCategory = (id) => (dispatch) => {
+  handleRequest(`/categories/${id}`, "PUT").then((res) => {
+    if (isSuccess(res)) {
+      dispatch({ type: UPDATE_CATEGORY, categories: res.data.categories });
+      dispatch({
+        type: SET_MESSAGE,
+        message: `Successfully updated`,
       });
     } else {
       dispatch({ type: CREATE_CATEGORY_ERR, error: res.data.error });

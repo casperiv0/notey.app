@@ -28,7 +28,7 @@ const Sidebar = ({
   activeNote,
   loading,
   getActiveNote,
-  deleteCategory,
+  deleteCategory
 }) => {
   const [filteredNotes, setFilteredNotes] = useState(notes);
 
@@ -124,9 +124,11 @@ const Sidebar = ({
                   <CategoryDiv key={ci}>
                     <CategoryTitle>
                       {category}
-                      <DeleteCategory onClick={() => deleteCategory(cat._id)}>
-                        <DeleteIcon></DeleteIcon>
-                      </DeleteCategory>
+                      <div>
+                        <DeleteCategory onClick={() => deleteCategory(cat._id)}>
+                          <DeleteIcon></DeleteIcon>
+                        </DeleteCategory>
+                      </div>
                     </CategoryTitle>
                     {categoryNotes}
                   </CategoryDiv>

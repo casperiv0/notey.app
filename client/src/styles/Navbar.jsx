@@ -44,7 +44,7 @@ export const NavTitle = styled.div`
 
 export const NavTitleInput = styled.input`
   padding: 10px;
-  width: 450px;
+  width: 250px;
   height: 100%;
   background: none;
   border: none;

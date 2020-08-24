@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { DeleteBtn, EditBtn } from "../../styles/Global";
 import { openSidebar } from "../../utils/functions";
 import { MenuIcon } from "../icons";
+import { SelectCategory } from "../../styles/Category";
 import {
   NavbarContainer,
   NavbarStyle,
@@ -18,12 +19,16 @@ const Navbar = ({
   editing,
   noteTitle,
   setNoteTitle,
+  categoryId,
+  setCategoryId,
+  categories
 }) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
 
     setNoteTitle(note && note.title);
-  }, [note, setNoteTitle]);
+    setCategoryId(note && note.category_id);
+  }, [note, setNoteTitle, setCategoryId]);
 
   return (
     <NavbarContainer>
@@ -34,10 +39,26 @@ const Navbar = ({
           </OpenSidebar>
           {note && note.title ? (
             editing ? (
-              <EditingTitleNote
-                setNoteTitle={setNoteTitle}
-                noteTitle={noteTitle}
-              />
+              <>
+                <EditingTitleNote
+                  setNoteTitle={setNoteTitle}
+                  noteTitle={noteTitle}
+                />
+                <SelectCategory
+                  value={categoryId}
+                  onChange={(e) => setCategoryId(e.target.value)}
+                >
+                  <option value="no_category">No category</option>
+                  {categories &&
+                    categories.map((cat, i) => {
+                      return (
+                        <option key={i} value={cat._id}>
+                          {cat.name}
+                        </option>
+                      );
+                    })}
+                </SelectCategory>
+              </>
             ) : (
               <NavTitleInput defaultValue={noteTitle} readOnly />
             )

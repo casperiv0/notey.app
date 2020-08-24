@@ -2,6 +2,7 @@ import {
   GET_CATEGORIES,
   CREATE_CATEGORY,
   CREATE_CATEGORY_ERR,
+  UPDATE_CATEGORY,
   DELETE_CATEGORY,
 } from "../utils/types";
 
@@ -27,6 +28,11 @@ export default function (state = initState, action) {
       return {
         ...state,
         error: action.error,
+      };
+    case UPDATE_CATEGORY:
+      return {
+        ...state,
+        categories: action.categories,
       };
     case DELETE_CATEGORY:
       return {

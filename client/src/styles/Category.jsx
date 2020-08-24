@@ -34,3 +34,15 @@ export const DeleteCategory = styled.button`
     fill: ${RED};
   }
 `;
+
+export const EditCategory = styled.button`
+  padding: 5px 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+
+  & svg {
+    fill: ${GREEN};
+  }
+`;

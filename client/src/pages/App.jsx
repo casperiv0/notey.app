@@ -37,6 +37,7 @@ const App = ({
   const [editing, setEditing] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [noteBody, setNoteBody] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
 
   useEffect(() => {
@@ -90,7 +91,7 @@ const App = ({
       updateNoteById(id, {
         title: noteTitle,
         body: noteBody,
-        categoryId: activeNote && activeNote.category_id,
+        categoryId: categoryId,
       });
       setNoteTitle("");
       setNoteBody("");
@@ -134,6 +135,9 @@ const App = ({
           noteTitle={noteTitle}
           setNoteBody={setNoteBody}
           setNoteTitle={setNoteTitle}
+          categoryId={categoryId}
+          setCategoryId={setCategoryId}
+          categories={categories}
         />
       </AppLayout>
     </>
