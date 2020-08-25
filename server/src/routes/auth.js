@@ -5,10 +5,12 @@ const User = require("../models/User.model");
 const { isAuth } = require("../utils/functions");
 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, rememberMe } = req.body;
 
   if (username && password) {
     // check if user exists
+    let expires = 3600000; // 1 hour
+
     const user = await User.findOne({ username }).catch((e) => console.log(e));
 
     if (!user) return res.json({ error: "User not found!", status: "error" });
@@ -19,6 +21,10 @@ router.post("/login", async (req, res) => {
     if (!passwordIsCorrect)
       return res.json({ error: "Incorrect password", status: "error" });
 
+    if (rememberMe) {
+      expires = 2629800000; // 1 month
+    }
+
     // generate token
     const token = jwt.sign(
       {
@@ -26,11 +32,11 @@ router.post("/login", async (req, res) => {
         username: user.username,
       },
       process.env.JWT_SECRET,
-      { expiresIn: 3600 }
+      { expiresIn: expires / 1000 }
     );
 
     res.cookie("__token", token, {
-      expires: new Date(Date.now() + 3600000),
+      expires: new Date(Date.now() + expires),
       httpOnly: true,
       sameSite: true,
     }); // expires after 1hour
