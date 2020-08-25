@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, DARK_GRAY_2, GREEN, RED, WHITE } from "./colors";
+import { DARK_GRAY, DARK_GRAY_2, GREEN, RED } from "./colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 
 export const AppLayout = styled.div`
@@ -53,6 +53,7 @@ export const DeleteBtn = styled.button`
   cursor: pointer;
   border: 1px solid ${RED};
   border-radius: 0;
+  font-weight: 600;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     padding: 7px 20px;
@@ -68,6 +69,7 @@ export const EditBtn = styled.button`
   cursor: pointer;
   border: 1px solid ${GREEN};
   border-radius: 0;
+  font-weight: 600;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     padding: 7px 20px;

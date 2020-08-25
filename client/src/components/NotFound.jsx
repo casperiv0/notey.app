@@ -4,12 +4,15 @@ import {
   NotFoundTitle,
   NotFoundBtn,
 } from "../styles/NotFound";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
     <NotFoundContainer>
       <NotFoundTitle>404</NotFoundTitle>
-      <NotFoundBtn href="/">Return home</NotFoundBtn>
+      <Link to="/">
+        <NotFoundBtn>Return home</NotFoundBtn>
+      </Link>
     </NotFoundContainer>
   );
 };

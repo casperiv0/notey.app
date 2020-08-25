@@ -15,7 +15,7 @@ export const NotFoundTitle = styled.h1`
   color: ${GREEN};
 `;
 
-export const NotFoundBtn = styled.a`
+export const NotFoundBtn = styled.p`
   color: ${DARK_GRAY};
   background-color: ${GREEN};
   padding: 10px;
