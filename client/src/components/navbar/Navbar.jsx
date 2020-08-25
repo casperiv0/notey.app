@@ -49,6 +49,7 @@ const Navbar = ({
                     noteTitle={noteTitle}
                   />
                   <SelectCategory
+                    id="activeNoteTitle"
                     categoryId={categoryId}
                     categories={categories}
                     setCategoryId={setCategoryId}

@@ -1,10 +1,10 @@
 import React from "react";
 import { SelectCategoryStyle } from "../styles/Category";
 
-function SelectCategory({ categoryId, categories, setCategoryId }) {
+function SelectCategory({ id, categoryId, categories, setCategoryId }) {
   return (
     <SelectCategoryStyle
-      id="activeNoteTitle"
+      id={id}
       value={categoryId}
       onChange={(e) => setCategoryId(e.target.value)}
     >

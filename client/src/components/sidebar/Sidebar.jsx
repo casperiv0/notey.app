@@ -126,6 +126,7 @@ const Sidebar = ({
                       {category}
                       <div>
                         <DeleteCategory onClick={() => deleteCategory(cat._id)}>
+                          <span className="sr-only">Delete</span>
                           <DeleteIcon></DeleteIcon>
                         </DeleteCategory>
                       </div>

@@ -47,7 +47,7 @@ export const TextArea = styled.textarea`
 
 export const DeleteBtn = styled.button`
   padding: 5px 10px;
-  color: ${WHITE};
+  color: black;
   background-color: ${RED};
   font-size: 1.2rem;
   cursor: pointer;

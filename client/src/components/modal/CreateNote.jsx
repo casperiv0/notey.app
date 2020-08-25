@@ -111,6 +111,7 @@ const CreateNote = ({
         <FormGroup>
           <FormLabel htmlFor="category">Category</FormLabel>
           <SelectCategory
+            id="category"
             setCategoryId={setCategoryId}
             categoryId={categoryId}
             categories={categories}
