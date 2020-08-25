@@ -88,6 +88,7 @@ export const ReportBtn = styled.a`
   border-radius: 0;
   text-decoration: none;
   display: block;
+  font-weight: 600;
 `;
 
 export const Divider = styled.div`
