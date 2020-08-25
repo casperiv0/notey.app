@@ -6,6 +6,7 @@ import {
   UPDATE_CATEGORY,
   DELETE_CATEGORY,
   SET_MESSAGE,
+  GET_NOTES,
 } from "../utils/types";
 
 export const getCategories = () => (dispatch) => {
@@ -50,6 +51,7 @@ export const deleteCategory = (id) => (dispatch) => {
   handleRequest(`/categories/${id}`, "DELETE").then((res) => {
     if (isSuccess(res)) {
       dispatch({ type: DELETE_CATEGORY, categories: res.data.categories });
+      dispatch({ type: GET_NOTES, notes: res.data.notes });
       dispatch({
         type: SET_MESSAGE,
         message: `Successfully deleted category`,

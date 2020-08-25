@@ -81,8 +81,9 @@ router.delete("/:id", isAuth, async (req, res) => {
 
     await Category.findByIdAndDelete(catId);
     const categories = await Category.find({ user_id: req.user.id });
+    const notes = await Note.find({ user_id: req.user.id });
 
-    return res.json({ status: "success", categories });
+    return res.json({ status: "success", categories, notes });
   } catch (e) {
     console.log(e);
   }

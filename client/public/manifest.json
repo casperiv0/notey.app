@@ -1,7 +1,8 @@
 {
   "short_name": "notey.app",
   "name": "Notey.app",
-  "start_url": ".",
+  "description": "Notes app to keep track of important things",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#3e475a",
   "background_color": "#3e475a"
