@@ -15,7 +15,7 @@ export const CategoryTitle = styled.h4`
   text-transform: uppercase;
 `;
 
-export const SelectCategory = styled.select`
+export const SelectCategoryStyle = styled.select`
   padding: 10px;
   border: 2px solid ${GREEN};
   background-color: ${DARK_GRAY};

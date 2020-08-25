@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
+import SelectCategory from "../SelectCategory";
 import { DeleteBtn, EditBtn } from "../../styles/Global";
 import { openSidebar } from "../../utils/functions";
 import { MenuIcon } from "../icons";
-import { SelectCategory } from "../../styles/Category";
 import {
   NavbarContainer,
   NavbarStyle,
@@ -49,23 +49,17 @@ const Navbar = ({
                     noteTitle={noteTitle}
                   />
                   <SelectCategory
-                    id="activeNoteTitle"
-                    value={categoryId}
-                    onChange={(e) => setCategoryId(e.target.value)}
-                  >
-                    <option value="no_category">No category</option>
-                    {categories &&
-                      categories.map((cat, i) => {
-                        return (
-                          <option key={i} value={cat._id}>
-                            {cat.name}
-                          </option>
-                        );
-                      })}
-                  </SelectCategory>
+                    categoryId={categoryId}
+                    categories={categories}
+                    setCategoryId={setCategoryId}
+                  />
                 </>
               ) : (
-                <NavTitleInput id="activeNoteTitle" defaultValue={noteTitle} readOnly />
+                <NavTitleInput
+                  id="activeNoteTitle"
+                  defaultValue={noteTitle}
+                  readOnly
+                />
               )
             ) : (
               "No notes found"

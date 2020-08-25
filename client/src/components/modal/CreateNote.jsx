@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
 import Modal from "../modal/Modal";
 import ErrorMessage from "../ErrorMessage";
+import SelectCategory from "../SelectCategory";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { closeSidebar, closeModal } from "../../utils/functions";
 import { createNote } from "../../actions/notes";
 import { getCategories } from "../../actions/category";
-import { SelectCategory } from "../../styles/Category";
 import { TextArea } from "../../styles/Global";
 import { FormGroup, FormLabel, FormInput, SubmitBtn } from "../../styles/Auth";
 
@@ -111,20 +111,10 @@ const CreateNote = ({
         <FormGroup>
           <FormLabel htmlFor="category">Category</FormLabel>
           <SelectCategory
-            id="category"
-            value={categoryId}
-            onChange={(e) => setCategoryId(e.target.value)}
-          >
-            <option value="no_category">No category</option>
-            {categories &&
-              categories.map((cat, i) => {
-                return (
-                  <option key={i} value={cat._id}>
-                    {cat.name}
-                  </option>
-                );
-              })}
-          </SelectCategory>
+            setCategoryId={setCategoryId}
+            categoryId={categoryId}
+            categories={categories}
+          />
         </FormGroup>
         <FormGroup>
           <SubmitBtn type="submit" disabled={loading}>
