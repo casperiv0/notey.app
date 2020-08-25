@@ -67,15 +67,14 @@ export const SidebarStyle = styled.div`
 export const SidebarHeader = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 65px) auto;
+  grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 55px) auto;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
-    grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 20px);
+    grid-template-columns: auto;
   }
 `;
 
 export const CloseSidebarBtn = styled.button`
-  padding: 0 0 0 15px;
   border: none;
   background: none;
   font-size: 2rem;
@@ -96,7 +95,7 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchInput = styled.input`
-  width: 75%;
+  width: 80%;
   padding: 5px;
   font-size: 1.2rem;
   border: 2px solid ${GREEN};

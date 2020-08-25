@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SearchForm, SearchInput, SearchBtn } from "../../styles/Sidebar";
+import { SearchIcon } from "../icons";
 
 const SidebarSearch = ({ filterNotes }) => {
   const [query, setQuery] = useState("");
@@ -20,7 +21,10 @@ const SidebarSearch = ({ filterNotes }) => {
         Search query
       </label>
       <SearchInput value={query} id="query" name="query" onChange={search} />
-      <SearchBtn type="submit">Search</SearchBtn>
+      <SearchBtn type="submit">
+        <span className="sr-only">Search</span>
+        <SearchIcon />
+      </SearchBtn>
     </SearchForm>
   );
 };
