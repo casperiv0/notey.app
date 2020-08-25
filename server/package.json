@@ -24,9 +24,7 @@
     "marked": "^1.1.1",
     "moment": "^2.27.0",
     "mongoose": "^5.9.29",
-    "morgan": "^1.10.0",
-    "passport": "^0.4.1",
-    "passport-github": "^1.1.0"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^7.6.0",
