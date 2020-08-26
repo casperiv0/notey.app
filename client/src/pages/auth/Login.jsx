@@ -11,6 +11,7 @@ import {
   FormInput,
   SubmitBtn,
   FormSmall,
+  FormCheckbox
 } from "../../styles/Auth";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";
@@ -18,6 +19,7 @@ import Loader from "../../components/Loader";
 const Login = ({ login, error }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
@@ -27,6 +29,7 @@ const Login = ({ login, error }) => {
     const data = {
       username,
       password,
+      rememberMe,
     };
     login(data);
   };
@@ -61,6 +64,15 @@ const Login = ({ login, error }) => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup inline>
+          <FormLabel htmlFor="rememberMe">Remember me?</FormLabel>
+          <FormCheckbox
+            type="checkbox"
+            id="rememberMe"
+            value={rememberMe}
+            onChange={() => setRememberMe(!rememberMe)}
           />
         </FormGroup>
         <FormGroup>

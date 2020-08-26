@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { DARK_GRAY, GREEN, LIGHT_GRAY, DARK_GRAY_2 } from "./colors";
 
 export const AuthContainer = styled.div`
@@ -21,6 +21,14 @@ export const FormGroup = styled.div`
   margin-bottom: 15px;
   display: flex;
   flex-direction: column;
+
+  ${(props) =>
+    props.inline &&
+    css`
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    `}
 `;
 
 export const FormTitle = styled.h2`
@@ -48,6 +56,12 @@ export const FormInput = styled.input`
   background-color: ${DARK_GRAY_2};
   color: ${GREEN};
   border-radius: 0;
+`;
+
+export const FormCheckbox = styled.input`
+  width: 15px;
+  height: 15px;
+  margin-left: 15px;
 `;
 
 export const SubmitBtn = styled.button`
