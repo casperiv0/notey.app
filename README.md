@@ -16,6 +16,10 @@ Simple notes app to keep track of important things
 
 ![Create note](./docs/screens/create-note.png)
 
+### Create new category
+
+![Create note](./docs/screens/create-category.png)
+
 ### Main app
 
 ![main](./docs/screens/main-app.png)
