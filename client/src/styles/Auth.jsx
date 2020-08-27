@@ -1,18 +1,18 @@
 import styled, { css } from "styled-components";
-import { DARK_GRAY, GREEN, LIGHT_GRAY, DARK_GRAY_2 } from "./colors";
+import { PRIMARY, GREEN, LIGHT_GRAY, DARK_GRAY_2 } from "./colors";
 
 export const AuthContainer = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${DARK_GRAY};
+  background-color: ${PRIMARY};
 `;
 
 export const AuthForm = styled.form`
   width: ${(props) => (props.width ? props.width : "500px")};
   max-width: 90%;
-  background-color: ${DARK_GRAY};
+  background-color: ${PRIMARY};
   padding: 10px 20px;
   box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
 `;
@@ -69,7 +69,7 @@ export const SubmitBtn = styled.button`
   font-size: 1.2rem;
   border: 1px solid ${GREEN};
   background-color: ${GREEN};
-  color: ${DARK_GRAY};
+  color: ${PRIMARY};
   cursor: pointer;
   font-weight: 700;
   text-transform: capitalize;

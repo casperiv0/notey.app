@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, GREEN } from "./colors";
+import { PRIMARY, GREEN } from "./colors";
 
 export const ModalBg = styled.div`
   z-index: 100;
@@ -24,7 +24,7 @@ export const ModalStyle = styled.div`
   top: 50%;
   transform: translate(-50%, -50%) scale(0);
   padding: 10px;
-  background-color: ${DARK_GRAY};
+  background-color: ${PRIMARY};
   width: 600px;
   max-width: 90%;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.75);

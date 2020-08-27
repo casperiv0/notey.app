@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RED, GREEN, DARK_GRAY } from "./colors";
+import { RED, GREEN, DARK_GRAY_2 } from "./colors";
 
 export const CategoryDiv = styled.div`
   color: ${GREEN};
@@ -18,7 +18,7 @@ export const CategoryTitle = styled.h4`
 export const SelectCategoryStyle = styled.select`
   padding: 10px;
   border: 2px solid ${GREEN};
-  background-color: ${DARK_GRAY};
+  background-color: ${DARK_GRAY_2};
   color: ${GREEN};
   font-size: 1.2rem;
 `;

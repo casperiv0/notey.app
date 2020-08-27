@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, GREEN } from "./colors";
+import { PRIMARY, GREEN } from "./colors";
 
 export const AlertMessageStyle = styled.div`
   position: fixed;
@@ -9,7 +9,7 @@ export const AlertMessageStyle = styled.div`
   min-width: 300px;
   max-width: 90%;
   background-color: ${GREEN};
-  color: ${DARK_GRAY};
+  color: ${PRIMARY};
   font-size: 1.2rem;
   padding: 20px;
   border-radius: 10px;

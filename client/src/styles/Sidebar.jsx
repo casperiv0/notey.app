@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, WHITE, GREEN, DARK_GRAY_2 } from "./colors";
+import { PRIMARY, WHITE, GREEN, DARK_GRAY_2 } from "./colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 
 export const SidebarContainer = styled.div`
@@ -43,7 +43,7 @@ export const SidebarStyle = styled.div`
   width: ${SIDEBAR_WIDTH_FULL};
   padding: 10px;
   position: fixed;
-  background-color: ${DARK_GRAY};
+  background-color: ${PRIMARY};
   top: 0;
   left: -${SIDEBAR_WIDTH_FULL};
   bottom: 0;
@@ -133,25 +133,25 @@ export const SidebarNote = styled.a`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${DARK_GRAY};
-  border: 1px solid ${DARK_GRAY};
+  background-color: ${PRIMARY};
+  border: 1px solid ${PRIMARY};
   border-radius: 0;
 
   @media (hover: hover) {
     &:hover {
-      color: ${DARK_GRAY};
+      color: ${PRIMARY};
       background-color: ${GREEN};
     }
   }
 
   &.active {
-    color: ${DARK_GRAY};
+    color: ${PRIMARY};
     background-color: ${GREEN};
   }
 `;
 
 export const SidebarFooterBg = styled.div`
-  background: ${DARK_GRAY};
+  background: ${PRIMARY};
   width: ${SIDEBAR_WIDTH_FULL};
   padding: 10px;
   height: 30px;
@@ -159,7 +159,7 @@ export const SidebarFooterBg = styled.div`
 
 export const SidebarFooter = styled.div`
   position: absolute;
-  background: ${DARK_GRAY};
+  background: ${PRIMARY};
   left: 0;
   bottom: 0;
   width: ${SIDEBAR_WIDTH_FULL};
@@ -174,7 +174,7 @@ export const OpenOptionsModalBtn = styled.button`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: ${DARK_GRAY};
+  background-color: ${PRIMARY};
   color: ${GREEN};
   border: solid ${GREEN};
   border-width: 2px 0px 2px 0px;
@@ -185,7 +185,7 @@ export const OpenOptionsModalBtn = styled.button`
   @media (hover: hover) {
     &:hover {
       background-color: ${GREEN};
-      color: ${DARK_GRAY};
+      color: ${PRIMARY};
     }
   }
 `;

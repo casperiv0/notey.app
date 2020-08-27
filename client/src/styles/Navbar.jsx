@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, GREEN } from "./colors";
+import { PRIMARY, GREEN } from "./colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 
 export const NavbarContainer = styled.div`
@@ -18,7 +18,7 @@ export const NavbarStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${DARK_GRAY};
+  background-color: ${PRIMARY};
   border-left: none;
   border-bottom: 2px solid ${GREEN};
 

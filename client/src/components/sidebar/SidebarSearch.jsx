@@ -20,7 +20,7 @@ const SidebarSearch = ({ filterNotes }) => {
       <label htmlFor="query" className="sr-only">
         Search query
       </label>
-      <SearchInput value={query} id="query" name="query" onChange={search} />
+      <SearchInput type="text" value={query} id="query" name="query" onChange={search} />
       <SearchBtn type="submit">
         <span className="sr-only">Search</span>
         <SearchIcon />

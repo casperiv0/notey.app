@@ -28,7 +28,7 @@ const Sidebar = ({
   activeNote,
   loading,
   getActiveNote,
-  deleteCategory
+  deleteCategory,
 }) => {
   const [filteredNotes, setFilteredNotes] = useState(notes);
 
@@ -136,12 +136,11 @@ const Sidebar = ({
                 );
               })}
               {notes && !noCategoryNotesLength[0] ? null : (
-                <>
+                <CategoryDiv>
                   <CategoryTitle>No category</CategoryTitle>
                   {noCategoryNotes}
-                </>
+                </CategoryDiv>
               )}
-              <CategoryDiv></CategoryDiv>
               <Divider />
               <SidebarNote onClick={() => openModal("createNoteModal")}>
                 Create new Note

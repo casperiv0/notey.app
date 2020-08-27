@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, GREEN } from "./colors";
+import { PRIMARY, GREEN } from "./colors";
 import { DEFAULT_MIN_WIDTH } from "./constants";
 
 export const NoteStyle = styled.div`
@@ -23,7 +23,7 @@ export const NoteTextArea = styled.textarea`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: ${DARK_GRAY};
+  background-color: ${PRIMARY};
   color: ${GREEN};
   resize: none;
   border: none;

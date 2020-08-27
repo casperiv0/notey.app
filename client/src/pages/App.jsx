@@ -106,7 +106,7 @@ const App = ({
     }
     deleteNoteById(id);
 
-    getActiveNote(notes[notes.length - 2]._id);
+    getActiveNote(notes.length < 0 ? notes[notes.length - 2]._id : notes[0]);
   };
 
   return (

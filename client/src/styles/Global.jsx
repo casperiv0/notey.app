@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { DARK_GRAY, DARK_GRAY_2, GREEN, RED } from "./colors";
+import styled, { css } from "styled-components";
+import { PRIMARY, DARK_GRAY_2, GREEN, RED } from "./colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 
 export const AppLayout = styled.div`
@@ -22,7 +22,7 @@ export const ErrorBox = styled.div`
 `;
 
 export const ErrorBody = styled.p`
-  color: ${DARK_GRAY};
+  color: ${PRIMARY};
   font-weight: 700;
   font-size: 1.2rem;
   text-align: center;
@@ -45,32 +45,31 @@ export const TextArea = styled.textarea`
   }
 `;
 
-export const DeleteBtn = styled.button`
+export const Button = styled.button`
   padding: 5px 10px;
-  color: black;
-  background-color: ${RED};
   font-size: 1.2rem;
   cursor: pointer;
-  border: 1px solid ${RED};
   border-radius: 0;
   font-weight: 600;
-
-  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
-    padding: 7px 20px;
-  }
-`;
-
-export const EditBtn = styled.button`
   margin-left: 10px;
-  padding: 5px 10px;
-  color: ${DARK_GRAY};
-  background-color: ${GREEN};
-  font-size: 1.2rem;
-  cursor: pointer;
-  border: 1px solid ${GREEN};
-  border-radius: 0;
-  font-weight: 600;
 
+  ${(props) =>
+    props.delete &&
+    css`
+      background-color: ${RED};
+      border: 1px solid ${RED};
+      color: ${PRIMARY};
+    `}
+
+  ${(props) =>
+    props.success &&
+    css`
+      color: ${PRIMARY};
+      background-color: ${GREEN};
+      border: 1px solid ${GREEN};
+    `}
+
+    
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     padding: 7px 20px;
   }
@@ -80,7 +79,7 @@ export const ReportBtn = styled.a`
   text-align: center;
   padding: 7px 20px;
   margin-bottom: 10px;
-  color: ${DARK_GRAY};
+  color: ${PRIMARY};
   background-color: ${GREEN};
   font-size: 1.2rem;
   cursor: pointer;

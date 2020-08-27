@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, GREEN } from "./colors";
+import { PRIMARY, GREEN } from "./colors";
 import { DEFAULT_MIN_WIDTH } from "./constants"
 
 export const MainStyle = styled.div`
@@ -7,7 +7,7 @@ export const MainStyle = styled.div`
   grid-area: main;
   color: white;
   position: relative;
-  background-color: ${DARK_GRAY};
+  background-color: ${PRIMARY};
   width: 100%;
   height: 100%;
   display: grid;

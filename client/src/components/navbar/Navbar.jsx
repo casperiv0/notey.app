@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import SelectCategory from "../SelectCategory";
-import { DeleteBtn, EditBtn } from "../../styles/Global";
+import { Button } from "../../styles/Global";
 import { openSidebar } from "../../utils/functions";
 import { MenuIcon } from "../icons";
 import {
@@ -70,12 +70,15 @@ const Navbar = ({
         <NavLinks>
           {note && note._id ? (
             <>
-              <DeleteBtn onClick={() => deleteNote(note._id)}>Delete</DeleteBtn>
-              <EditBtn
+              <Button delete onClick={() => deleteNote(note._id)}>
+                Delete
+              </Button>
+              <Button
+                success
                 onClick={() => editNote(editing ? "save" : null, note._id)}
               >
                 {editing ? "Save" : "Edit"}
-              </EditBtn>
+              </Button>
             </>
           ) : null}
         </NavLinks>

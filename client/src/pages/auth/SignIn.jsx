@@ -11,7 +11,7 @@ import {
   FormInput,
   SubmitBtn,
   FormSmall,
-  FormCheckbox
+  FormCheckbox,
 } from "../../styles/Auth";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";

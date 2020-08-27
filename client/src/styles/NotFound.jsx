@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARK_GRAY, GREEN } from "./colors";
+import { PRIMARY, GREEN } from "./colors";
 
 export const NotFoundContainer = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ export const NotFoundTitle = styled.h1`
 `;
 
 export const NotFoundBtn = styled.p`
-  color: ${DARK_GRAY};
+  color: ${PRIMARY};
   background-color: ${GREEN};
   padding: 10px;
   width: 200px;
