@@ -2,7 +2,14 @@
 
 Simple notes app to keep track of important things
 
-## Screenshots
+## ⚡ Features
+
+- Create unlimited notes
+- Categorize notes by a category
+- Edit notes
+- More soon
+
+## 📷 Screenshots
 
 <details>
     <summary>View screenshots</summary>
@@ -26,7 +33,7 @@ Simple notes app to keep track of important things
 
 </details>
 
-## Docs
+## 📃 Docs
 
 [View project board](https://github.com/Dev-CasperTheGhost/notey.app/projects/1)
 
