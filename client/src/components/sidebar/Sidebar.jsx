@@ -135,13 +135,19 @@ const Sidebar = ({
                   </CategoryDiv>
                 );
               })}
+
+              {/* Show all notes without no category set */}
               {notes && !noCategoryNotesLength[0] ? null : (
                 <CategoryDiv>
                   <CategoryTitle>No category</CategoryTitle>
                   {noCategoryNotes}
                 </CategoryDiv>
               )}
-              <Divider />
+
+
+              {/* don't show divider when no notes are found */}
+              {notes && !notes[0] ? null : <Divider />}
+              
               <SidebarNote onClick={() => openModal("createNoteModal")}>
                 Create new Note
               </SidebarNote>
