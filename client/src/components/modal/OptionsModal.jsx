@@ -15,14 +15,14 @@ const OptionsModal = () => {
         <OptionsModalContent>
           <OptionsModalBody>
             <ReportBtn
-              href="https://github.com/Dev-CasperTheGhost/notey.app/issues/new?assignees=Dev-CasperTheGhost&labels=bug&template=bug_report.md&title=%5BBUG%5D+"
+              href="https://github.com/notey-app/notey.app/issues/new?assignees=Dev-CasperTheGhost&labels=bug&template=bug_report.md&title=%5BBUG%5D+"
               target="_blank"
               rel="noreferrer noopener"
             >
               Report a bug
             </ReportBtn>
             <ReportBtn
-              href="https://github.com/Dev-CasperTheGhost/notey.app/issues"
+              href="https://github.com/notey-app/notey.app/issues"
               target="_blank"
               rel="noreferrer noopener"
             >
@@ -42,7 +42,7 @@ const OptionsModal = () => {
             <a
               target="_blank"
               rel="noreferrer noopener"
-              href="https://github.com/dev-caspertheghost/notey.app"
+              href="https://github.com/notey-app/notey.app"
             >
               Github
             </a>
