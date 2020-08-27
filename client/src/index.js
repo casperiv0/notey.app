@@ -7,8 +7,8 @@ import { Provider } from "react-redux";
 import store from "./utils/store";
 import * as serviceWorker from "./utils/serviceWorker";
 
-const Login = lazy(() => import("./pages/auth/Login"));
-const Register = lazy(() => import("./pages/auth/Register"));
+const SignIn = lazy(() => import("./pages/auth/SignIn"));
+const SignUp = lazy(() => import("./pages/auth/Signup"));
 const App = lazy(() => import("./pages/App"));
 const NotFound = lazy(() => import("./components/NotFound"));
 const renderLoader = () => <p></p>;
@@ -19,8 +19,8 @@ ReactDOM.render(
       <Router>
         <Suspense fallback={renderLoader()}>
           <Switch>
-            <Route path="/login" exact component={Login} />
-            <Route path="/register" exact component={Register} />
+            <Route path="/signin" exact component={SignIn} />
+            <Route path="/signup" exact component={SignUp} />
             <AuthRoute path="/" exact component={App} />
             <Route component={NotFound} />
           </Switch>

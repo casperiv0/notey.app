@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { register } from "../../actions/auth";
+import { signUp } from "../../actions/auth";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -15,7 +15,7 @@ import {
 import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";
 
-const Register = ({ register, error }) => {
+const SignUp = ({ signUp, error }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -30,7 +30,7 @@ const Register = ({ register, error }) => {
       password,
       password2,
     };
-    register(data);
+    signUp(data);
   };
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Register = ({ register, error }) => {
     <AuthContainer>
       <AuthForm onSubmit={onSubmit}>
         <FormGroup>
-          <FormTitle>Register</FormTitle>
+          <FormTitle>Sign Up</FormTitle>
         </FormGroup>
         {error ? <ErrorMessage>{error}</ErrorMessage> : null}
         <FormGroup>
@@ -76,12 +76,12 @@ const Register = ({ register, error }) => {
         </FormGroup>
         <FormGroup>
           <SubmitBtn disabled={loading}>
-            {loading ? <Loader /> : "Register"}
+            {loading ? <Loader /> : "Sign Up"}
           </SubmitBtn>
         </FormGroup>
         <FormGroup>
           <FormSmall>
-            Have an account? <Link to="/login">Sign in</Link>
+            Have an account? <Link to="/signin">Sign in</Link>
           </FormSmall>
         </FormGroup>
       </AuthForm>
@@ -93,4 +93,4 @@ const mapStateToProps = (state) => ({
   error: state.auth.error,
 });
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { signUp })(SignUp);

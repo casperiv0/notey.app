@@ -51,7 +51,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const { username, password, password2 } = req.body;
 
   if (username && password && password2) {

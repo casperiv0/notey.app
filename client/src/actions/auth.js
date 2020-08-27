@@ -4,7 +4,7 @@ import { handleRequest, isSuccess } from "../utils/functions";
 const noError =
   "Something went wrong making the request, please try again later";
 
-export const login = (data) => (dispatch) => {
+export const signIn = (data) => (dispatch) => {
   handleRequest("/auth/login", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
@@ -20,8 +20,8 @@ export const login = (data) => (dispatch) => {
     });
 };
 
-export const register = (data) => (dispatch) => {
-  handleRequest("/auth/register", "POST", data)
+export const signUp = (data) => (dispatch) => {
+  handleRequest("/auth/signup", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { login } from "../../actions/auth";
+import { signIn } from "../../actions/auth";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -16,7 +16,7 @@ import {
 import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";
 
-const Login = ({ login, error }) => {
+const SignIn = ({ signIn, error }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -31,7 +31,7 @@ const Login = ({ login, error }) => {
       password,
       rememberMe,
     };
-    login(data);
+    signIn(data);
   };
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const Login = ({ login, error }) => {
         </FormGroup>
         <FormGroup>
           <FormSmall>
-            Need an account? <Link to="/register">Register</Link>
+            Need an account? <Link to="/signup">Sign Up</Link>
           </FormSmall>
         </FormGroup>
       </AuthForm>
@@ -94,4 +94,4 @@ const mapStateToProps = (state) => ({
   error: state.auth.error,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { signIn })(SignIn);
