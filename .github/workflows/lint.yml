@@ -7,6 +7,8 @@ on:
     - 'server/**'
   pull_request:
     branches: [ master ]
+    paths:
+    - 'server/**'
 
 
 jobs:
