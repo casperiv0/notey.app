@@ -3,9 +3,8 @@ import { PRIMARY, WHITE, GREEN, DARK_GRAY_2 } from "../../styles/colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const SidebarContainer = styled.div`
-  position: relative;
   grid-area: aside;
-  width: 100%;
+  width: ${SIDEBAR_WIDTH_FULL};
   height: 100%;
   display: none;
 
@@ -40,9 +39,9 @@ export const SidebarActive = styled.div`
 
 export const SidebarStyle = styled.div`
   z-index: 25;
+  position: fixed;
   width: ${SIDEBAR_WIDTH_FULL};
   padding: 10px;
-  position: fixed;
   background-color: ${PRIMARY};
   top: 0;
   left: -${SIDEBAR_WIDTH_FULL};
@@ -147,26 +146,6 @@ export const SidebarNote = styled.a`
   &.active {
     color: ${PRIMARY};
     background-color: ${GREEN};
-  }
-`;
-
-export const SidebarFooterBg = styled.div`
-  background: ${PRIMARY};
-  width: ${SIDEBAR_WIDTH_FULL};
-  padding: 10px;
-  height: 30px;
-`;
-
-export const SidebarFooter = styled.div`
-  position: absolute;
-  background: ${PRIMARY};
-  left: 0;
-  bottom: 0;
-  width: ${SIDEBAR_WIDTH_FULL};
-
-  & a {
-    color: ${GREEN};
-    text-decoration: underline;
   }
 `;
 

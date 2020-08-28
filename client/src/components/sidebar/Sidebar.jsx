@@ -17,9 +17,6 @@ import {
   SidebarNote,
   SidebarBody,
   CloseSidebarBtn,
-  SidebarFooterBg,
-  SidebarFooter,
-  OpenOptionsModalBtn,
 } from "./sidebar.style";
 
 const Sidebar = ({
@@ -144,26 +141,21 @@ const Sidebar = ({
                 </CategoryDiv>
               )}
 
-
               {/* don't show divider when no notes are found */}
               {notes && !notes[0] ? null : <Divider />}
-              
+
               <SidebarNote onClick={() => openModal("createNoteModal")}>
                 Create new Note
               </SidebarNote>
               <SidebarNote onClick={() => openModal("createCategoryModal")}>
                 Create new Category
               </SidebarNote>
+              <SidebarNote onClick={() => openModal("optionsModal")}>
+                Options
+              </SidebarNote>
             </>
           )}
         </SidebarBody>
-        <SidebarFooterBg>
-          <SidebarFooter>
-            <OpenOptionsModalBtn onClick={() => openModal("optionsModal")}>
-              Options
-            </OpenOptionsModalBtn>
-          </SidebarFooter>
-        </SidebarFooterBg>
       </SidebarStyle>
       <SidebarActive
         onClick={() => closeSidebar("sidebar")}
