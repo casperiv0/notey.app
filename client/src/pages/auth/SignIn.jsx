@@ -13,7 +13,7 @@ import {
   FormSmall,
   FormCheckbox,
 } from "../../styles/Auth";
-import ErrorMessage from "../../components/ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage/";
 import Loader from "../../components/Loader";
 
 const SignIn = ({ signIn, error }) => {

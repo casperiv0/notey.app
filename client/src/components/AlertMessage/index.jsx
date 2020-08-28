@@ -1,5 +1,5 @@
 import React from "react";
-import { AlertMessageStyle } from "../styles/AlertMessage";
+import { AlertMessageStyle } from "./alert-message.style";
 
 const AlertMessage = ({ active, message }) => {
   const closeAlert = () => {

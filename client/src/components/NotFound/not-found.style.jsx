@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "./colors";
+import { PRIMARY, GREEN } from "../../styles/colors";
 
 export const NotFoundContainer = styled.div`
   display: flex;
@@ -20,7 +20,6 @@ export const NotFoundBtn = styled.p`
   background-color: ${GREEN};
   padding: 10px;
   width: 200px;
-  max-width: 90%;
   text-align: center;
   text-decoration: none;
   font-size: 1.5rem;

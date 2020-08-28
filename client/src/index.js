@@ -10,7 +10,7 @@ import * as serviceWorker from "./utils/serviceWorker";
 const SignIn = lazy(() => import("./pages/auth/SignIn"));
 const SignUp = lazy(() => import("./pages/auth/Signup"));
 const App = lazy(() => import("./pages/App"));
-const NotFound = lazy(() => import("./components/NotFound"));
+const NotFound = lazy(() => import("./components/NotFound/"));
 const renderLoader = () => <p></p>;
 
 ReactDOM.render(

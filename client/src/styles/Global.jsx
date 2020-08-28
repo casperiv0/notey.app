@@ -15,19 +15,6 @@ export const AppLayout = styled.div`
   }
 `;
 
-export const ErrorBox = styled.div`
-  background-color: ${GREEN};
-  padding: 5px;
-  margin-bottom: 15px;
-`;
-
-export const ErrorBody = styled.p`
-  color: ${PRIMARY};
-  font-weight: 700;
-  font-size: 1.2rem;
-  text-align: center;
-`;
-
 export const TextArea = styled.textarea`
   position: relative;
   padding: 7px;

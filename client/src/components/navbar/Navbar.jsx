@@ -10,7 +10,7 @@ import {
   NavLinks,
   OpenSidebar,
   NavTitleInput,
-} from "../../styles/Navbar";
+} from "./navbar.style";
 
 const Navbar = ({
   note,

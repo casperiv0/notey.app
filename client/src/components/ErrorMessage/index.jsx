@@ -1,5 +1,5 @@
 import React from "react";
-import { ErrorBox, ErrorBody } from "../styles/Global";
+import { ErrorBox, ErrorBody } from "./error-message.style";
 
 const ErrorMessage = ({ children }) => {
   return (

@@ -7,7 +7,7 @@ import {
   ModalBody,
   CloseModal,
   ModalBg,
-} from "../../styles/Modal";
+} from "./modal.style";
 
 const Modal = ({ id, title, children }) => {
   useEffect(() => {

@@ -3,7 +3,7 @@ import qs from "qs";
 import CreateNote from "../components/modal/CreateNote";
 import Sidebar from "../components/sidebar/Sidebar";
 import Main from "../components/main/Main";
-import AlertMessage from "../components/AlertMessage";
+import AlertMessage from "../components/AlertMessage/";
 import OptionsModal from "../components/modal/OptionsModal";
 import CreateCategory from "../components/modal/CreateCategory";
 import { AppLayout } from "../styles/Global";

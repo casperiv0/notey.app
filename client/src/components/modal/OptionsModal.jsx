@@ -8,7 +8,7 @@ import {
   OptionsModalContent,
   OptionsModalBody,
   OptionsModalFooter,
-} from "../../styles/Modal";
+} from "./modal.style";
 
 const OptionsModal = ({ logout }) => {
   return (

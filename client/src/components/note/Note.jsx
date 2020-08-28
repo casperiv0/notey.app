@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NoteStyle, NotePreview, NoteTextArea } from "../../styles/Notes";
+import { NoteStyle, NotePreview, NoteTextArea } from "./notes.style";
 
 const Note = ({ note, editing, noteBody, setNoteBody }) => {
   useEffect(() => {

@@ -3,7 +3,7 @@ import {
   NotFoundContainer,
   NotFoundTitle,
   NotFoundBtn,
-} from "../styles/NotFound";
+} from "./not-found.style";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {
