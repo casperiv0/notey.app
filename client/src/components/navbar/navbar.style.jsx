@@ -39,6 +39,10 @@ export const NavTitle = styled.div`
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     font-size: 1.5rem;
+
+    & h4 {
+      font-size: 1.5rem;
+    }
   }
 `;
 

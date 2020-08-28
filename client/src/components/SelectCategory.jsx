@@ -1,10 +1,11 @@
 import React from "react";
 import { SelectCategoryStyle } from "../styles/Category";
 
-function SelectCategory({ id, categoryId, categories, setCategoryId }) {
+function SelectCategory({ className, id, categoryId, categories, setCategoryId }) {
   return (
     <SelectCategoryStyle
       id={id}
+      className={className}
       value={categoryId}
       onChange={(e) => setCategoryId(e.target.value)}
     >

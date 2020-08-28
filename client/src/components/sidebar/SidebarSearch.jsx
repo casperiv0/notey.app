@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SearchForm, SearchInput, SearchBtn } from "./sidebar.style";
 import { SearchIcon } from "../icons";
+import { SrOnly } from "../../styles/Global";
 
 const SidebarSearch = ({ filterNotes }) => {
   const [query, setQuery] = useState("");
@@ -17,12 +18,18 @@ const SidebarSearch = ({ filterNotes }) => {
 
   return (
     <SearchForm onSubmit={onSubmit}>
-      <label htmlFor="query" className="sr-only">
+      <SrOnly htmlFor="query">
         Search query
-      </label>
-      <SearchInput type="text" value={query} id="query" name="query" onChange={search} />
+      </SrOnly>
+      <SearchInput
+        type="text"
+        value={query}
+        id="query"
+        name="query"
+        onChange={search}
+      />
       <SearchBtn type="submit">
-        <span className="sr-only">Search</span>
+        <SrOnly>Search</SrOnly>
         <SearchIcon />
       </SearchBtn>
     </SearchForm>

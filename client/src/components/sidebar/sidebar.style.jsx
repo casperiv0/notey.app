@@ -41,6 +41,7 @@ export const SidebarStyle = styled.div`
   z-index: 25;
   position: fixed;
   width: ${SIDEBAR_WIDTH_FULL};
+  max-width: 95%;
   padding: 10px;
   background-color: ${PRIMARY};
   top: 0;

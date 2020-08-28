@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
 import { GREEN } from "../../styles/colors";
-import { closeSidebar, openModal } from "../../utils/functions";
+import { SrOnly } from "../../styles/Global";
 import { Divider } from "../../styles/Global";
+import { closeSidebar, openModal } from "../../utils/functions";
 import { CloseIcon, DeleteIcon } from "../icons";
 import {
   CategoryDiv,
@@ -123,7 +124,7 @@ const Sidebar = ({
                       {category}
                       <div>
                         <DeleteCategory onClick={() => deleteCategory(cat._id)}>
-                          <span className="sr-only">Delete</span>
+                          <SrOnly>Delete</SrOnly>
                           <DeleteIcon></DeleteIcon>
                         </DeleteCategory>
                       </div>

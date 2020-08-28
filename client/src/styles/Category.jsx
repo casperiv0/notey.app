@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { RED, GREEN, DARK_GRAY_2 } from "./colors";
+import { DEFAULT_MIN_WIDTH } from "./constants"
 
 export const CategoryDiv = styled.div`
   color: ${GREEN};
@@ -21,6 +22,18 @@ export const SelectCategoryStyle = styled.select`
   background-color: ${DARK_GRAY_2};
   color: ${GREEN};
   font-size: 1.2rem;
+
+  &.is-in-nav {
+    margin-right: 10px;
+    padding: 0;
+    display: none;
+  }
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    &.is-in-nav {
+      display: block;
+    }
+  }
 `;
 
 export const DeleteCategory = styled.button`

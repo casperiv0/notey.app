@@ -17,6 +17,7 @@ import {
   deleteNoteById,
   updateNoteById,
 } from "../actions/notes";
+import { closeSidebar } from "../utils/functions";
 
 const App = ({
   getNotes,
@@ -95,6 +96,7 @@ const App = ({
       });
       setNoteTitle("");
       setNoteBody("");
+      closeSidebar("right-sidebar")
     }
 
     setEditing(!editing);

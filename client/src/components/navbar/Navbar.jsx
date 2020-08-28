@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import SelectCategory from "../SelectCategory";
-import { MenuIcon, CloseIcon } from "../icons";
-import { Column, Row, Button } from "../../styles/Global";
+import { MenuIcon, CloseIcon, OptionsIcon } from "../icons";
+import { SrOnly, Column, Row, Button } from "../../styles/Global";
 import { openSidebar, closeSidebar } from "../../utils/functions";
 import {
   NavbarContainer,
@@ -45,9 +45,9 @@ const Navbar = ({
             <MenuIcon />
           </OpenSidebar>
           <>
-            <label htmlFor="activeNoteTitle" className="sr-only">
+            <SrOnly htmlFor="activeNoteTitle">
               Title
-            </label>
+            </SrOnly>
             {note && note.title ? (
               editing ? (
                 <>
@@ -57,11 +57,7 @@ const Navbar = ({
                   />
                 </>
               ) : (
-                <NavTitleInput
-                  id="activeNoteTitle"
-                  defaultValue={noteTitle}
-                  readOnly
-                />
+                <h4 readOnly>{noteTitle}</h4>
               )
             ) : (
               "No notes found"
@@ -71,18 +67,19 @@ const Navbar = ({
         <NavLinks>
           {note && note._id ? (
             <Row>
-              {editing ? (
-                <SelectCategory
-                  id="activeNoteTitle"
-                  categoryId={categoryId}
-                  categories={categories}
-                  setCategoryId={setCategoryId}
-                />
-              ) : null}
               <OpenRightSidebar onClick={() => openSidebar("right-sidebar")}>
-                <MenuIcon></MenuIcon>
+                <OptionsIcon></OptionsIcon>
               </OpenRightSidebar>
               <Row>
+                {editing ? (
+                  <SelectCategory
+                    className="is-in-nav"
+                    id="activeNoteTitle"
+                    categoryId={categoryId}
+                    categories={categories}
+                    setCategoryId={setCategoryId}
+                  />
+                ) : null}
                 <Button navBtn danger onClick={() => deleteNote(note._id)}>
                   Delete
                 </Button>
@@ -104,6 +101,9 @@ const Navbar = ({
         deleteNote={deleteNote}
         editing={editing}
         editNote={editNote}
+        categories={categories}
+        setCategoryId={setCategoryId}
+        categoryId={categoryId}
       />
     </NavbarContainer>
   );
@@ -120,14 +120,21 @@ const EditingTitleNote = ({ setNoteTitle, noteTitle }) => {
 };
 
 // For smaller screen
-const RightSidebar = ({ note, deleteNote, editing, editNote }) => {
+const RightSidebar = ({
+  note,
+  deleteNote,
+  editing,
+  editNote,
+  categories,
+  categoryId,
+  setCategoryId,
+}) => {
   const deleteNote_ = () => {
     closeSidebar("right-sidebar");
     deleteNote(note && note._id);
   };
 
   const editNote_ = () => {
-    closeSidebar("right-sidebar");
     editNote(editing ? "save" : null, note._id);
   };
 
@@ -140,7 +147,11 @@ const RightSidebar = ({ note, deleteNote, editing, editNote }) => {
       <RightSidebarStyle id="right-sidebar">
         <RightSidebarContent>
           <Column>
-            <CloseRightSidebar onClick={() => closeSidebar("right-sidebar")}>
+            <CloseRightSidebar
+              onClick={() => closeSidebar("right-sidebar")}
+              title="Options"
+            >
+              <SrOnly>Options</SrOnly>
               <CloseIcon />
             </CloseRightSidebar>
             <Button
@@ -150,6 +161,15 @@ const RightSidebar = ({ note, deleteNote, editing, editNote }) => {
             >
               {editing ? "Save" : "Edit"}
             </Button>
+            {editing ? (
+              <div style={{ marginBottom: "10px" }}>
+                <SelectCategory
+                  categoryId={categoryId}
+                  categories={categories}
+                  setCategoryId={setCategoryId}
+                />
+              </div>
+            ) : null}
             <Button danger onClick={deleteNote_}>
               Delete
             </Button>

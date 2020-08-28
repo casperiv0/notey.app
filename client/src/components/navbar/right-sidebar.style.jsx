@@ -30,6 +30,7 @@ export const RightSidebarStyle = styled.div`
   position: fixed;
   z-index: 24;
   width: ${SIDEBAR_WIDTH_FULL};
+  max-width: 95%;
   height: 100vh;
   right: -${SIDEBAR_WIDTH_FULL};
   top: 0;
@@ -55,7 +56,6 @@ export const RightSidebarContent = styled.div`
 export const CloseRightSidebar = styled.button`
   background: none;
   border: none;
-  padding: 10px;
   cursor: pointer;
   font-size: 2rem;
   text-align: left;

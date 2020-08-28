@@ -3,3 +3,4 @@ export { default as DeleteIcon } from "./DeleteIcon";
 export { default as MenuIcon } from "./MenuIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as SearchIcon } from "./SearchIcon";
+export { default as OptionsIcon } from "./OptionsIcon";
