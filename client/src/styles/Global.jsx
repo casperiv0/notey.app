@@ -51,10 +51,13 @@ export const Button = styled.button`
   cursor: pointer;
   border-radius: 0;
   font-weight: 600;
-  margin-left: 10px;
+
+  &.ml {
+    margin-left: 10px;
+  }
 
   ${(props) =>
-    props.delete &&
+    props.danger &&
     css`
       background-color: ${RED};
       border: 1px solid ${RED};
@@ -73,6 +76,15 @@ export const Button = styled.button`
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     padding: 7px 20px;
   }
+`;
+
+export const Row = styled.div`
+  display: flex;
+`;
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ReportBtn = styled.a`

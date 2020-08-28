@@ -89,7 +89,6 @@ router.post("/signup", async (req, res) => {
     res.cookie("__token", token, {
       expires: new Date(Date.now() + 3600000),
       httpOnly: true,
-      sameSite: true,
     }); // expires after 1hour
 
     return res.json({
@@ -106,6 +105,12 @@ router.post("/user", isAuth, async (req, res) => {
   const user = await User.findById(req.user.id).select({ password: 0 });
 
   return res.json({ user, status: "success" });
+});
+
+router.get("/logout", isAuth, async (req, res) => {
+  res.clearCookie("__token", { httpOnly: true });
+
+  return res.json({ status: "success" });
 });
 
 module.exports = router;

@@ -47,3 +47,13 @@ export const checkAuth = () => (dispatch) => {
     })
     .catch((e) => console.log(e));
 };
+
+export const logout = () => (dispatch) => {
+  handleRequest("/auth/logout", "GET")
+    .then((res) => {
+      if (isSuccess(res)) {
+        dispatch({ type: AUTHENTICATE, user: {}, isAuth: false });
+      }
+    })
+    .catch((e) => console.log(e));
+};

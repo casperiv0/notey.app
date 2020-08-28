@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import SelectCategory from "../SelectCategory";
-import { Button } from "../../styles/Global";
+import { Row, Button } from "../../styles/Global";
 import { openSidebar } from "../../utils/functions";
 import { MenuIcon } from "../icons";
 import {
@@ -69,17 +69,18 @@ const Navbar = ({
         </NavTitle>
         <NavLinks>
           {note && note._id ? (
-            <>
-              <Button delete onClick={() => deleteNote(note._id)}>
+            <Row>
+              <Button danger onClick={() => deleteNote(note._id)}>
                 Delete
               </Button>
               <Button
+                className="ml"
                 success
                 onClick={() => editNote(editing ? "save" : null, note._id)}
               >
                 {editing ? "Save" : "Edit"}
               </Button>
-            </>
+            </Row>
           ) : null}
         </NavLinks>
       </NavbarStyle>
