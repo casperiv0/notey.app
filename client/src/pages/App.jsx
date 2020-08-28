@@ -94,8 +94,6 @@ const App = ({
         body: noteBody,
         categoryId: categoryId,
       });
-      setNoteTitle("");
-      setNoteBody("");
       closeSidebar("right-sidebar")
     }
 

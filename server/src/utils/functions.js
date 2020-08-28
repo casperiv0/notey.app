@@ -3,8 +3,12 @@ const Note = require("../models/Note.model");
 
 function isAuth(req, res, next) {
   const token = req.cookies.__token;
-  if (!token)
-    return res.json({ server_error: "invalid token", status: "error" });
+
+  if (!token) {
+    return res
+      .json({ server_error: "invalid token", status: "error", code: 401 })
+      .status(401);
+  }
 
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET);
@@ -13,7 +17,9 @@ function isAuth(req, res, next) {
 
     next();
   } catch {
-    return res.json({ server_error: "invalid token", status: "error" });
+    return res
+      .json({ server_error: "invalid token", status: "error", code: 401 })
+      .status(401);
   }
 }
 
@@ -21,6 +27,10 @@ function notFound(req, res) {
   res.send({ server_error: "Not found", status: "error" }).status(400);
 }
 
+/**
+ *
+ * @param {String} userId The Id of user
+ */
 function getUserNotes(userId) {
   return Note.find({ user_id: userId });
 }

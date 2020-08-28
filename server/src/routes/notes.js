@@ -7,12 +7,20 @@ const { JSDOM } = require("jsdom");
 const dompurify = createDomPurify(new JSDOM().window);
 const { isAuth, getUserNotes } = require("../utils/functions");
 
+/**
+ * @Route GET /
+ * @Desc Returns all the notes for the authenticated user
+ */
 router.get("/", isAuth, async (req, res) => {
   const notes = await getUserNotes(req.user.id).catch((e) => console.log(e));
 
   return res.json({ notes, status: "success" });
 });
 
+/**
+ * @Route GET /:noteId
+ * @Desc Returns the requested note
+ */
 router.get("/:noteId", isAuth, async (req, res) => {
   const noteId = req.params.noteId;
   let note;
@@ -32,6 +40,10 @@ router.get("/:noteId", isAuth, async (req, res) => {
   return res.json({ note, status: "success" });
 });
 
+/**
+ * @Route PUT /:noteId
+ * @Desc Updates the requested note by Id
+ */
 router.put("/:noteId", isAuth, async (req, res) => {
   const { title, body, categoryId } = req.body;
   const { noteId } = req.params;
@@ -61,6 +73,10 @@ router.put("/:noteId", isAuth, async (req, res) => {
   }
 });
 
+/**
+ * @Route POST /
+ * @Desc Creates a note
+ */
 router.post("/", isAuth, async (req, res) => {
   const { title, body, categoryId } = req.body;
 
@@ -103,6 +119,10 @@ router.post("/", isAuth, async (req, res) => {
   }
 });
 
+/**
+ * @Route DELETE /:noteId
+ * @Desc Deletes a note by the requested Id
+ */
 router.delete("/:noteId", isAuth, async (req, res) => {
   try {
     await Note.findByIdAndDelete(req.params.noteId);
