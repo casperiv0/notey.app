@@ -59,6 +59,15 @@ export const Button = styled.button`
       border: 1px solid ${GREEN};
     `}
 
+    ${(props) =>
+    props.navBtn &&
+    css`
+      display: none;
+
+      @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+        display: block;
+      }
+    `}
     
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     padding: 7px 20px;

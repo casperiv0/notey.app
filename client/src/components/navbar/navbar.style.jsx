@@ -25,7 +25,7 @@ export const NavbarStyle = styled.div`
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     width: calc(100% - ${SIDEBAR_WIDTH_FULL});
     left: ${SIDEBAR_WIDTH_FULL};
-    border-left: 2px solid ${GREEN}
+    border-left: 2px solid ${GREEN};
   }
 `;
 
@@ -59,10 +59,39 @@ export const NavTitleInput = styled.input`
 
 export const NavLinks = styled.div`
   margin-right: 10px;
+
+  &.navbar-buttons {
+    & button {
+      display: none;
+    }
+  }
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    &.navbar-buttons {
+      display: block;
+    }
+  }
 `;
 
 export const OpenSidebar = styled.button`
   padding: 7px 10px 0 0;
+  border: none;
+  background: none;
+  font-size: 2rem;
+  cursor: pointer;
+  display: flex;
+
+  & svg {
+    fill: ${GREEN};
+  }
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    display: none;
+  }
+`;
+
+export const OpenRightSidebar = styled.button`
+  padding: 7px 10px;
   border: none;
   background: none;
   font-size: 2rem;
