@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../navbar/Navbar";
 import Loader from "../Loader";
 import Note from "../note/Note";
-import { MainStyle } from "../../styles/Main";
+import { MainStyle } from "./main.style";
 import { GREEN } from "../../styles/colors";
 
 const Main = ({

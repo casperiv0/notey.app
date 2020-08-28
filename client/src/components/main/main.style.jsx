@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "./colors";
-import { DEFAULT_MIN_WIDTH } from "./constants"
+import { PRIMARY, GREEN } from "../../styles/colors";
+import { DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const MainStyle = styled.div`
   border-left: none;

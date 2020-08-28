@@ -12,7 +12,7 @@ import {
   SubmitBtn,
   FormSmall,
 } from "../../styles/Auth";
-import ErrorMessage from "../../components/ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage/";
 import Loader from "../../components/Loader";
 
 const SignUp = ({ signUp, error }) => {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { PRIMARY, WHITE, GREEN, DARK_GRAY_2 } from "./colors";
-import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
+import { PRIMARY, WHITE, GREEN, DARK_GRAY_2 } from "../../styles/colors";
+import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const SidebarContainer = styled.div`
   position: relative;

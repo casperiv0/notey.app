@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "./colors";
+import { PRIMARY, GREEN } from "../../styles/colors";
 
 export const AlertMessageStyle = styled.div`
   position: fixed;

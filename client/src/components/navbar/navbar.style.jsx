@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "./colors";
-import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
+import { PRIMARY, GREEN } from "../../styles/colors";
+import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const NavbarContainer = styled.div`
   grid-area: nav;

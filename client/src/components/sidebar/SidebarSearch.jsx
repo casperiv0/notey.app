@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SearchForm, SearchInput, SearchBtn } from "../../styles/Sidebar";
+import { SearchForm, SearchInput, SearchBtn } from "./sidebar.style";
 import { SearchIcon } from "../icons";
 
 const SidebarSearch = ({ filterNotes }) => {

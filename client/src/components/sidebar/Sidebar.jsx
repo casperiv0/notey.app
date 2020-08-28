@@ -20,7 +20,7 @@ import {
   SidebarFooterBg,
   SidebarFooter,
   OpenOptionsModalBtn,
-} from "../../styles/Sidebar";
+} from "./sidebar.style";
 
 const Sidebar = ({
   notes,
