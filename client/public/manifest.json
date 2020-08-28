@@ -17,15 +17,55 @@
       "sizes": "144x144",
       "src": "/icons/notey-app-144.svg"
     },
-    { 
+    {
+      "type": "image/svg",
+      "sizes": "512x512",
+      "src": "/icons/notey-app-512.svg"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "128x128",
+      "src": "/icons/notey-app-128-maskable.svg"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "144x144",
+      "src": "/icons/notey-app-144-maskable.svg"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "512x512",
+      "src": "/icons/notey-app-512-maskable.svg"
+    },
+    {
+      "type": "image/png",
+      "sizes": "128x128",
+      "src": "/icons/notey-app-128.png"
+    },
+    {
       "type": "image/png",
       "sizes": "144x144",
       "src": "/icons/notey-app-144.png"
     },
-    { 
+    {
+      "type": "image/png",
+      "sizes": "512x512",
+      "src": "/icons/notey-app-512.png"
+    },
+    {
       "type": "image/png",
       "sizes": "128x128",
-      "src": "/icons/notey-app-128.png"
+      "src": "/icons/notey-app-128-maskable.png"
+    },
+    {
+      "type": "image/png",
+      "sizes": "144x144",
+      "src": "/icons/notey-app-144-maskable.png"
+    },
+    {
+      "type": "image/png",
+      "sizes": "512x512",
+      "src": "/icons/notey-app-512-maskable.png"
     }
   ]
 }
