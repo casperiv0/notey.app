@@ -6,6 +6,12 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
     setNoteBody(note && note.body);
   }, [note, setNoteBody]);
 
+  useEffect(() => {
+    document
+      .querySelectorAll("#noteArea a")
+      .forEach((link) => (link.target = "_blank"));
+  });
+
   return (
     <NoteStyle>
       {note && note.body ? (
@@ -13,6 +19,7 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
           <EditingArea setNoteBody={setNoteBody} noteBody={noteBody} />
         ) : (
           <NotePreview
+            id="noteArea"
             dangerouslySetInnerHTML={{ __html: note && note.markdown }}
           ></NotePreview>
         )
