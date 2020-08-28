@@ -9,6 +9,10 @@ Simple notes app to keep track of important things
 - Edit notes
 - More soon
 
+## Performance and pwa
+
+![PWA](./docs/screens/notey-app-pwa.png)
+
 ## 📷 Screenshots
 
 <details>
