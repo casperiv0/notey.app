@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "../modal/Modal";
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
-import { Column, ReportBtn, Button } from "../../styles/Global";
+import { Divider, Column, ReportBtn, Button } from "../../styles/Global";
 import {
   OptionsModalStyle,
   OptionsModalContent,
@@ -31,9 +31,24 @@ const OptionsModal = ({ logout }) => {
               >
                 Request a feature
               </ReportBtn>
+              <ReportBtn
+                href="https://github.com/notey-app/notey.app/LICENSE.md"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                License
+              </ReportBtn>
               <Button danger onClick={logout}>
                 Logout
               </Button>
+              <Divider
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              ></Divider>
+
+              <h3 style={{ textAlign: "center", paddingBottom: "10px" }}>
+                Icons are from{" "}
+                <a href="https://icons.getbootstrap.com/">Bootstrap</a>
+              </h3>
             </Column>
           </OptionsModalBody>
           <OptionsModalFooter>

@@ -66,7 +66,7 @@ export const SidebarStyle = styled.div`
 export const SidebarHeader = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 55px) auto;
+  grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 40px) auto;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     grid-template-columns: auto;
@@ -94,7 +94,7 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchInput = styled.input`
-  width: 80%;
+  width: 90%;
   padding: 5px;
   font-size: 1.2rem;
   border: 2px solid ${GREEN};
