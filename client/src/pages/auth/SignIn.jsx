@@ -86,7 +86,7 @@ const SignIn = ({ signIn, error }) => {
         </FormGroup>
         <FormGroup>
           <FormSmall>
-            Need an account? <Link to="/signup">Sign Up</Link>
+            <p>Need an account?</p> <Link to="/signup">Sign Up</Link>
           </FormSmall>
         </FormGroup>
       </AuthForm>

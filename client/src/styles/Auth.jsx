@@ -84,8 +84,10 @@ export const FormSmall = styled.small`
   color: ${LIGHT_GRAY};
   font-size: 1rem;
   font-weight: 600;
+  display: flex;
 
   & a {
+    margin-left: 5px;
     color: ${GREEN};
   }
 `;
