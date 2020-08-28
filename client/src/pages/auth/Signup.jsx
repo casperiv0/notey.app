@@ -39,6 +39,10 @@ const SignUp = ({ signUp, error }) => {
     }
   }, [error]);
 
+  useEffect(() => {
+    document.title = "Sign Up - Notey.app";
+  });
+
   return (
     <AuthContainer>
       <AuthForm onSubmit={onSubmit}>
