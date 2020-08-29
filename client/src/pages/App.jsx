@@ -62,7 +62,7 @@ const App = ({
         setAlertMsg("");
       }, 4000);
     }
-  }, [message, clearMessage, alertMsg]);
+  }, [message, clearMessage]);
 
   const getActiveNoteFunc = (id) => {
     if (editing) {
