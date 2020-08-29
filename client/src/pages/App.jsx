@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import qs from "qs";
-import CreateNote from "../components/modal/CreateNote";
 import Sidebar from "../components/sidebar/Sidebar";
 import Main from "../components/main/Main";
-import AlertMessage from "../components/AlertMessage/";
-import OptionsModal from "../components/modal/OptionsModal";
-import CreateCategory from "../components/modal/CreateCategory";
 import { AppLayout } from "../styles/Global";
 import { connect } from "react-redux";
 import { checkAuth } from "../actions/auth";
@@ -18,6 +14,11 @@ import {
   updateNoteById,
 } from "../actions/notes";
 import { closeSidebar } from "../utils/functions";
+
+const AlertMessage = lazy(() => import("../components/AlertMessage/"));
+const OptionsModal = lazy(() => import("../components/modal/OptionsModal"))
+const CreateNote = lazy(() => import("../components/modal/CreateNote"))
+const CreateCategory = lazy(() => import("../components/modal/CreateCategory"))
 
 const App = ({
   getNotes,
@@ -94,7 +95,7 @@ const App = ({
         body: noteBody,
         categoryId: categoryId,
       });
-      closeSidebar("right-sidebar")
+      closeSidebar("right-sidebar");
     }
 
     setEditing(!editing);
@@ -110,7 +111,7 @@ const App = ({
   };
 
   return (
-    <>
+    <Suspense fallback={<p></p>}>
       <CreateNote />
       <OptionsModal />
       <CreateCategory />
@@ -140,7 +141,7 @@ const App = ({
           categories={categories}
         />
       </AppLayout>
-    </>
+    </Suspense>
   );
 };
 

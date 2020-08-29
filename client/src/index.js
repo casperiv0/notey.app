@@ -15,18 +15,18 @@ const renderLoader = () => <p></p>;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <Suspense fallback={renderLoader()}>
+    <Suspense fallback={renderLoader()}>
+      <Provider store={store}>
+        <Router>
           <Switch>
             <Route path="/signin" exact component={SignIn} />
             <Route path="/signup" exact component={SignUp} />
             <AuthRoute path="/" exact component={App} />
             <Route component={NotFound} />
           </Switch>
-        </Suspense>
-      </Router>
-    </Provider>
+        </Router>
+      </Provider>
+    </Suspense>
   </React.StrictMode>,
   document.getElementById("app-mount")
 );
