@@ -43,13 +43,13 @@ const CreateNote = ({
   }, [getCategories]);
 
   useEffect(() => {
-    if (error !== null) {
+    if (error !== "" || error !== null) {
       setCanClose(false);
       setLoading(false);
     }
 
     if (
-      (error === null) &&
+      (error === "" || error === null) &&
       hasSubmitted &&
       title !== "" &&
       body !== ""
@@ -59,6 +59,7 @@ const CreateNote = ({
       setTimeout(() => {
         setTitle("");
         setBody("");
+        setCategoryId("no_category")
         setHasSubmitted(false);
         setLoading(false);
       }, 200);

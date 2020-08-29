@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
 const { isAuth } = require("../utils/functions");
+const Note = require("../models/Note.model");
+const Category = require("../models/Category.model");
 
 router.post("/login", async (req, res) => {
   const { username, password, rememberMe } = req.body;
@@ -111,6 +113,36 @@ router.get("/logout", isAuth, async (req, res) => {
   res.clearCookie("__token", { httpOnly: true });
 
   return res.json({ status: "success" });
+});
+
+router.delete("/delete-account", isAuth, async (req, res) => {
+  const user = await User.findById(req.user.id);
+  const notes = await Note.find({ user_id: user._id }).catch((e) =>
+    console.log(e)
+  );
+  const categories = await Category.find({ user_id: user._id }).catch((e) =>
+    console.log(e)
+  );
+
+  try {
+    // delete all notes
+    notes.forEach(async (note) => {
+      await Note.findByIdAndDelete(note._id).catch((e) => console.log(e));
+    });
+
+    // Delete all categories
+    categories.forEach(async (cat) => {
+      await Category.findByIdAndDelete(cat._id).catch((e) => console.log(e));
+    });
+
+    // delete user
+    await User.findByIdAndDelete(user._id);
+    res.clearCookie("__token", { httpOnly: true });
+  } catch (e) {
+    console.log(e);
+  }
+
+  res.json({ status: "success", msg: "account was deleted" });
 });
 
 module.exports = router;

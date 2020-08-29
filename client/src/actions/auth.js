@@ -57,3 +57,13 @@ export const logout = () => (dispatch) => {
     })
     .catch((e) => console.log(e));
 };
+
+export const deleteAccount = () => (dispatch) => {
+  handleRequest("/auth/delete-account", "DELETE")
+    .then((res) => {
+      if (isSuccess(res)) {
+        dispatch({ type: AUTHENTICATE, user: {}, isAuth: false });
+      }
+    })
+    .catch((e) => console.log(e));
+};

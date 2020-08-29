@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../modal/Modal";
 import { connect } from "react-redux";
-import { logout } from "../../actions/auth";
+import { logout, deleteAccount } from "../../actions/auth";
 import { Divider, Column, ReportBtn, Button } from "../../styles/Global";
 import {
   OptionsModalStyle,
@@ -10,7 +10,17 @@ import {
   OptionsModalFooter,
 } from "./modal.style";
 
-const OptionsModal = ({ logout }) => {
+const OptionsModal = ({ logout, deleteAccount }) => {
+  const confirmDeleteAccount = () => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete your account? This will delete all your notes and categories as well and cannot be undone."
+      )
+    ) {
+      deleteAccount();
+    }
+  };
+
   return (
     <Modal title="Options" id="optionsModal">
       <OptionsModalStyle>
@@ -38,8 +48,11 @@ const OptionsModal = ({ logout }) => {
               >
                 License
               </ReportBtn>
-              <Button danger onClick={logout}>
+              <Button style={{ marginBottom: "10px" }} danger onClick={logout}>
                 Logout
+              </Button>
+              <Button danger onClick={confirmDeleteAccount}>
+                Delete account?
               </Button>
               <Divider
                 style={{ marginTop: "10px", marginBottom: "10px" }}
@@ -75,4 +88,4 @@ const OptionsModal = ({ logout }) => {
   );
 };
 
-export default connect(null, { logout })(OptionsModal);
+export default connect(null, { logout, deleteAccount })(OptionsModal);

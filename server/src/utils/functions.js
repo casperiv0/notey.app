@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/User.model");
 const Note = require("../models/Note.model");
 const createDomPurify = require("dompurify");
 const marked = require("marked");
 const { JSDOM } = require("jsdom");
 const dompurify = createDomPurify(new JSDOM().window);
 
-function isAuth(req, res, next) {
+async function isAuth(req, res, next) {
   const token = req.cookies.__token;
 
   if (!token) {
@@ -16,6 +17,13 @@ function isAuth(req, res, next) {
 
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET);
+    const existing = await User.findById(user.id).catch((e) => console.log(e));
+
+    if (!existing) {
+      return res
+        .json({ server_error: "user not found", status: "error", code: 401 })
+        .status(401);
+    }
 
     req.user = user;
 
