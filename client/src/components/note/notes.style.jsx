@@ -75,6 +75,23 @@ export const NotePreview = styled.div`
     background: ${DARK_GRAY_2};
     font-family: Consolas, "Courier New", monospace !important;
   }
+
+  & ul {
+    margin-top: 10px;
+  }
+
+  & ol {
+    margin-top: 10px;
+  }
+
+  & li {
+    margin-left: 20px;
+
+    &::marker {
+      color: ${GREEN};
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 export const NoteTextArea = styled.textarea`
