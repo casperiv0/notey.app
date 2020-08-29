@@ -13,7 +13,7 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
   });
 
   return (
-    <NoteStyle>
+    <NoteStyle editing={editing}>
       {note && note.body ? (
         editing ? (
           <EditingArea setNoteBody={setNoteBody} noteBody={noteBody} />

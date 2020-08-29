@@ -1,15 +1,21 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { PRIMARY, GREEN, DARK_GRAY_2 } from "../../styles/colors";
 import { DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const NoteStyle = styled.div`
   height: 100%;
-  width: calc(100vw - 20px);
+  width: 100%;
   grid-area: note;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     width: 100%;
   }
+
+  ${(props) =>
+    props.editing &&
+    css`
+      width: calc(100vw - 20px);
+    `}
 `;
 
 export const NotePreview = styled.div`

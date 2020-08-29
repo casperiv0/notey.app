@@ -32,7 +32,7 @@ export const NavbarStyle = styled.div`
 export const NavTitle = styled.div`
   margin-left: 10px;
   color: ${GREEN};
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
