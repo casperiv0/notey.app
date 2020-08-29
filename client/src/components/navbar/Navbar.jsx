@@ -41,7 +41,8 @@ const Navbar = ({
     <NavbarContainer>
       <NavbarStyle>
         <NavTitle>
-          <OpenSidebar onClick={() => openSidebar("sidebar")}>
+          <OpenSidebar title="Open sidebar" onClick={() => openSidebar("sidebar")}>
+            <SrOnly>Menu</SrOnly>
             <MenuIcon />
           </OpenSidebar>
           <>
@@ -67,7 +68,8 @@ const Navbar = ({
         <NavLinks>
           {note && note._id ? (
             <Row>
-              <OpenRightSidebar onClick={() => openSidebar("right-sidebar")}>
+              <OpenRightSidebar title="Open Options" onClick={() => openSidebar("right-sidebar")}>
+                <SrOnly>Options</SrOnly>
                 <OptionsIcon></OptionsIcon>
               </OpenRightSidebar>
               <Row>
@@ -149,9 +151,9 @@ const RightSidebar = ({
           <Column>
             <CloseRightSidebar
               onClick={() => closeSidebar("right-sidebar")}
-              title="Options"
+              title="Close Options"
             >
-              <SrOnly>Options</SrOnly>
+              <SrOnly>Close Options</SrOnly>
               <CloseIcon />
             </CloseRightSidebar>
             <Button

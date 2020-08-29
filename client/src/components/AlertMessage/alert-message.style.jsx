@@ -6,18 +6,18 @@ export const AlertMessageStyle = styled.div`
   z-index: 26;
   left: 50%;
   bottom: -100%;
-  min-width: 300px;
+  width: 350px;
   max-width: 90%;
   background-color: ${GREEN};
   color: ${PRIMARY};
   font-size: 1.2rem;
-  padding: 20px;
+  padding: 15px 20px;
   border-radius: 10px;
   transform: translateX(-50%);
-  text-transform: capitalize;
   font-weight: 600;
   text-align: center;
   transition: bottom 0.2s;
+  cursor: pointer;
 
   &.active {
     bottom: 10px;

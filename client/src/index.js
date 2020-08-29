@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from "react";
+import { Provider } from "react-redux";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import ReactDOM from "react-dom";
 import "./styles/index.css";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import AuthRoute from "./components/AuthRoute";
-import { Provider } from "react-redux";
 import store from "./utils/store";
 import * as serviceWorker from "./utils/serviceWorker";
 

@@ -32,7 +32,7 @@ const OptionsModal = ({ logout }) => {
                 Request a feature
               </ReportBtn>
               <ReportBtn
-                href="https://github.com/notey-app/notey.app/LICENSE.md"
+                href="https://github.com/notey-app/notey.app/blob/master/LICENSE"
                 target="_blank"
                 rel="noreferrer noopener"
               >

@@ -48,7 +48,7 @@ export const Button = styled.button`
     css`
       background-color: ${RED};
       border: 1px solid ${RED};
-      color: ${PRIMARY};
+      color: black;
     `}
 
   ${(props) =>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { PRIMARY, GREEN } from "../../styles/colors";
 
 export const ModalBg = styled.div`
-  z-index: 100;
+  z-index: 30;
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +18,7 @@ export const ModalBg = styled.div`
 `;
 
 export const ModalStyle = styled.div`
-  z-index: 110;
+  z-index: 35;
   position: fixed;
   left: 50%;
   top: 50%;

@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { useEffect } from "react";
 import { closeModal } from "../../utils/functions";
 import {
@@ -18,7 +19,7 @@ const Modal = ({ id, title, children }) => {
     });
   });
 
-  return (
+  return createPortal(
     <>
       <ModalBg id="modalActive"></ModalBg>
       <ModalStyle id={id}>
@@ -28,7 +29,8 @@ const Modal = ({ id, title, children }) => {
         </ModalHeader>
         <ModalBody>{children}</ModalBody>
       </ModalStyle>
-    </>
+    </>,
+    document.getElementById("modal-portal")
   );
 };
 export default Modal;
