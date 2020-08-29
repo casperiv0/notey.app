@@ -25,7 +25,7 @@ const noteSchema = new Schema({
   },
   created_at: {
     type: String,
-    default: () => moment().format("MM/DD/YYYY")
+    default: () => moment().format("MM/DD/YYYY"),
   },
 });
 

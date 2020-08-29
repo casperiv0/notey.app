@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const Note = require("../models/Note.model");
 const User = require("../models/User.model");
-const createDomPurify = require("dompurify");
-const marked = require("marked");
-const { JSDOM } = require("jsdom");
-const dompurify = createDomPurify(new JSDOM().window);
-const { isAuth, getUserNotes } = require("../utils/functions");
+const {
+  isAuth,
+  getUserNotes,
+  convertToMarkdown,
+} = require("../utils/functions");
 
 /**
  * @Route GET /
@@ -48,7 +48,7 @@ router.put("/:noteId", isAuth, async (req, res) => {
   const { title, body, categoryId } = req.body;
   const { noteId } = req.params;
   const note = await Note.findById(noteId);
-  const markdown = dompurify.sanitize(marked(body));
+  const markdown = convertToMarkdown(body);
 
   if (markdown === "" || !markdown) {
     return res.json({
@@ -88,7 +88,7 @@ router.post("/", isAuth, async (req, res) => {
       });
     }
 
-    const markdown = dompurify.sanitize(marked(body));
+    const markdown = convertToMarkdown(body);
 
     if (markdown === "" || !markdown) {
       return res.json({

@@ -11,14 +11,14 @@
 
 ## Colors
 
-| name | HEX color |
-|:------|:----------|
-| Primary |  #1D1E2C |
-| Green | #4ecec4 |
-| Red | #d9534f |
-| Light | #f2f2f2 |
-| Light Gray | #9fa1a5 |
-| Dark Gray | #232436 |  
+| name       | HEX color |
+| :--------- | :-------- |
+| Primary    | #1D1E2C   |
+| Green      | #4ecec4   |
+| Red        | #d9534f   |
+| Light      | #f2f2f2   |
+| Light Gray | #9fa1a5   |
+| Dark Gray  | #232436   |
 
 ##
 

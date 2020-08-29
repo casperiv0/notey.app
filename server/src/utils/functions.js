@@ -1,5 +1,9 @@
 const jwt = require("jsonwebtoken");
 const Note = require("../models/Note.model");
+const createDomPurify = require("dompurify");
+const marked = require("marked");
+const { JSDOM } = require("jsdom");
+const dompurify = createDomPurify(new JSDOM().window);
 
 function isAuth(req, res, next) {
   const token = req.cookies.__token;
@@ -35,8 +39,17 @@ function getUserNotes(userId) {
   return Note.find({ user_id: userId });
 }
 
+/**
+ * @param {String} body The body that will be converted to markdown
+ * @returns {String} Created markdown
+ */
+function convertToMarkdown(body) {
+  return dompurify.sanitize(marked(body));
+}
+
 module.exports = {
   isAuth,
   notFound,
   getUserNotes,
+  convertToMarkdown,
 };

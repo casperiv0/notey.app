@@ -66,6 +66,7 @@ export const NotePreview = styled.div`
   }
 
   & code {
+    background: ${DARK_GRAY_2};
     font-family: Consolas, "Courier New", monospace !important;
   }
 `;
