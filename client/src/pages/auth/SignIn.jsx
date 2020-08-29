@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { signIn } from "../../actions/auth";
-import { connect } from "react-redux";
+import ErrorMessage from "../../components/ErrorMessage/";
+import Loader from "../../components/Loader";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { signIn, checkAuth } from "../../actions/auth";
 import {
   AuthContainer,
   AuthForm,
@@ -13,10 +16,8 @@ import {
   FormSmall,
   FormCheckbox,
 } from "../../styles/Auth";
-import ErrorMessage from "../../components/ErrorMessage/";
-import Loader from "../../components/Loader";
 
-const SignIn = ({ signIn, error }) => {
+const SignIn = ({ signIn, error, isAuth, checkAuth }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -41,8 +42,16 @@ const SignIn = ({ signIn, error }) => {
   }, [error]);
 
   useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  useEffect(() => {
     document.title = "Sign in - Notey.app";
   });
+
+  if (isAuth) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <AuthContainer>
@@ -71,7 +80,13 @@ const SignIn = ({ signIn, error }) => {
           />
         </FormGroup>
         <FormGroup inline>
-          <FormLabel htmlFor="rememberMe">Remember me?</FormLabel>
+          <FormLabel
+            className="more-info"
+            aria-label="Remembers your login for 1 month."
+            htmlFor="rememberMe"
+          >
+            Remember me?
+          </FormLabel>
           <FormCheckbox
             type="checkbox"
             id="rememberMe"
@@ -96,6 +111,7 @@ const SignIn = ({ signIn, error }) => {
 
 const mapStateToProps = (state) => ({
   error: state.auth.error,
+  isAuth: state.auth.isAuth,
 });
 
-export default connect(mapStateToProps, { signIn })(SignIn);
+export default connect(mapStateToProps, { signIn, checkAuth })(SignIn);

@@ -43,13 +43,13 @@ const CreateNote = ({
   }, [getCategories]);
 
   useEffect(() => {
-    if (error !== "" || error !== null) {
+    if (error !== null) {
       setCanClose(false);
       setLoading(false);
     }
 
     if (
-      (error === null || error === "") &&
+      (error === null) &&
       hasSubmitted &&
       title !== "" &&
       body !== ""

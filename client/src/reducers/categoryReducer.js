@@ -8,7 +8,7 @@ import {
 
 const initState = {
   categories: [],
-  error: "",
+  error: null,
 };
 
 export default function (state = initState, action) {
@@ -22,7 +22,7 @@ export default function (state = initState, action) {
       return {
         ...state,
         categories: action.categories,
-        error: "",
+        error: null,
       };
     case CREATE_CATEGORY_ERR:
       return {

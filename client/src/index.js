@@ -9,6 +9,7 @@ import * as serviceWorker from "./utils/serviceWorker";
 
 const SignIn = lazy(() => import("./pages/auth/SignIn"));
 const SignUp = lazy(() => import("./pages/auth/Signup"));
+const Logout = lazy(() => import("./pages/auth/Logout"));
 const App = lazy(() => import("./pages/App"));
 const NotFound = lazy(() => import("./components/NotFound/"));
 const renderLoader = () => <p></p>;
@@ -21,6 +22,7 @@ ReactDOM.render(
           <Switch>
             <Route path="/signin" exact component={SignIn} />
             <Route path="/signup" exact component={SignUp} />
+            <Route path="/logout" exact component={Logout} />
             <AuthRoute path="/" exact component={App} />
             <Route component={NotFound} />
           </Switch>

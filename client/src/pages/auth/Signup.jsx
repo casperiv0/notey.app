@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { signUp } from "../../actions/auth";
+import { signUp, checkAuth } from "../../actions/auth";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {
   AuthContainer,
   AuthForm,
@@ -15,7 +15,7 @@ import {
 import ErrorMessage from "../../components/ErrorMessage/";
 import Loader from "../../components/Loader";
 
-const SignUp = ({ signUp, error }) => {
+const SignUp = ({ signUp, error, isAuth, checkAuth }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -34,6 +34,10 @@ const SignUp = ({ signUp, error }) => {
   };
 
   useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  useEffect(() => {
     if (error) {
       setLoading(false);
     }
@@ -42,6 +46,10 @@ const SignUp = ({ signUp, error }) => {
   useEffect(() => {
     document.title = "Sign Up - Notey.app";
   });
+
+  if (isAuth) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <AuthContainer>
@@ -95,6 +103,7 @@ const SignUp = ({ signUp, error }) => {
 
 const mapStateToProps = (state) => ({
   error: state.auth.error,
+  isAuth: state.auth.isAuth,
 });
 
-export default connect(mapStateToProps, { signUp })(SignUp);
+export default connect(mapStateToProps, { signUp, checkAuth })(SignUp);

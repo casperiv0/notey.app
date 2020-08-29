@@ -13,6 +13,7 @@ export default function (state = initState, action) {
         ...state,
         user: action.user,
         isAuth: action.isAuth,
+        error: null,
       };
     case AUTH_ERR:
       return {

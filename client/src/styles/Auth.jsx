@@ -42,11 +42,34 @@ export const FormTitle = styled.h2`
 `;
 
 export const FormLabel = styled.label`
+  position: relative;
   margin-bottom: 5px;
   color: ${GREEN};
   text-transform: uppercase;
   font-size: 1rem;
   font-weight: 700;
+
+  &.more-info::before {
+    content: attr(aria-label);
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 1.2rem;
+    color: ${GREEN};
+    width: 350px;
+    padding: 10px;
+    background-color: ${DARK_GRAY_2};
+    border-radius: 5px;
+    pointer-events: none;
+    text-transform: lowercase;
+    font-weight: 400;
+  }
+
+  &.more-info:hover::before {
+    display: block;
+  }
 `;
 
 export const FormInput = styled.input`

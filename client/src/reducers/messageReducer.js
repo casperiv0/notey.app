@@ -1,7 +1,7 @@
 import { SET_MESSAGE, CLEAR_MESSAGE } from "../utils/types";
 
 const initState = {
-  content: "",
+  content: null,
 };
 
 export default function (state = initState, action) {
@@ -13,9 +13,9 @@ export default function (state = initState, action) {
       };
     case CLEAR_MESSAGE:
       return {
-          ...state,
-          content: "",
-      }
+        ...state,
+        content: null,
+      };
     default:
       return {
         ...state,

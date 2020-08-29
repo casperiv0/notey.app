@@ -2,9 +2,10 @@ import React, { useEffect, useState, lazy, Suspense } from "react";
 import qs from "qs";
 import Sidebar from "../components/sidebar/Sidebar";
 import Main from "../components/main/Main";
-import { AppLayout } from "../styles/Global";
 import { connect } from "react-redux";
+import { AppLayout } from "../styles/Global";
 import { checkAuth } from "../actions/auth";
+import { closeSidebar } from "../utils/functions";
 import { clearMessage } from "../actions/message";
 import { getCategories, deleteCategory } from "../actions/category";
 import {
@@ -13,12 +14,11 @@ import {
   deleteNoteById,
   updateNoteById,
 } from "../actions/notes";
-import { closeSidebar } from "../utils/functions";
 
 const AlertMessage = lazy(() => import("../components/AlertMessage/"));
-const OptionsModal = lazy(() => import("../components/modal/OptionsModal"))
-const CreateNote = lazy(() => import("../components/modal/CreateNote"))
-const CreateCategory = lazy(() => import("../components/modal/CreateCategory"))
+const OptionsModal = lazy(() => import("../components/modal/OptionsModal"));
+const CreateNote = lazy(() => import("../components/modal/CreateNote"));
+const CreateCategory = lazy(() => import("../components/modal/CreateCategory"));
 
 const App = ({
   getNotes,
@@ -54,7 +54,7 @@ const App = ({
 
   // Clear alert message
   useEffect(() => {
-    if (message !== "") {
+    if (message !== null) {
       setAlertMsg(message);
 
       setTimeout(() => {
@@ -71,6 +71,7 @@ const App = ({
       );
 
       return setTimeout(() => {
+        clearMessage();
         setAlertMsg("");
       }, 4000);
     }

@@ -63,6 +63,7 @@ const Sidebar = ({
         return (
           <SidebarNote
             onClick={() => {
+              if (isActiveNote) return;
               setActiveNote(note._id);
               closeSidebar("sidebar");
             }}
@@ -105,6 +106,7 @@ const Sidebar = ({
                       return (
                         <SidebarNote
                           onClick={() => {
+                            if (isActiveNote) return;
                             setActiveNote(note._id);
                             closeSidebar("sidebar");
                           }}

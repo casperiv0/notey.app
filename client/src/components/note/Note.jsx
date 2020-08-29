@@ -7,9 +7,10 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
   }, [note, setNoteBody]);
 
   useEffect(() => {
-    document
-      .querySelectorAll("#noteArea a")
-      .forEach((link) => (link.target = "_blank"));
+    document.querySelectorAll("#noteArea a").forEach((link) => {
+      link.target = "_blank";
+      link.rel = "noreferrer noopener";
+    });
   });
 
   return (
@@ -19,7 +20,7 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
           <EditingArea setNoteBody={setNoteBody} noteBody={noteBody} />
         ) : (
           <NotePreview
-            id="noteArea"
+            id="note-preview-area"
             dangerouslySetInnerHTML={{ __html: note && note.markdown }}
           ></NotePreview>
         )
@@ -36,7 +37,7 @@ const EditingArea = ({ setNoteBody, noteBody }) => {
       spellCheck={false}
       onChange={(e) => setNoteBody(e.target.value)}
       value={noteBody ? noteBody : ""}
-      id="note-text-area"
+      id="edit-note-text-area"
     ></NoteTextArea>
   );
 };
