@@ -7,15 +7,13 @@ import { connect } from "react-redux";
 import { createCategory } from "../../actions/category";
 import { closeSidebar, closeModal } from "../../utils/functions";
 
-const CreateCategory = ({ createCategory, error }) => {
+const CreateCategory = ({ createCategory, error, loading }) => {
   const [name, setName] = useState("");
   const [canClose, setCanClose] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const data = {
       name,
@@ -27,7 +25,6 @@ const CreateCategory = ({ createCategory, error }) => {
   useEffect(() => {
     if (error !== null) {
       setCanClose(false);
-      setLoading(false);
     }
 
     if ((error === null || error === "") && hasSubmitted && name !== "") {
@@ -36,7 +33,6 @@ const CreateCategory = ({ createCategory, error }) => {
       setTimeout(() => {
         setName("");
         setHasSubmitted(false);
-        setLoading(false);
       }, 200);
     }
 
@@ -75,6 +71,7 @@ const CreateCategory = ({ createCategory, error }) => {
 
 const mapStateToProps = (state) => ({
   error: state.categories.error,
+  loading: state.categories.loading,
 });
 
 export default connect(mapStateToProps, { createCategory })(CreateCategory);

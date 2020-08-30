@@ -7,6 +7,7 @@ import {
   DELETE_CATEGORY,
   SET_MESSAGE,
   GET_NOTES,
+  SET_LOADING,
 } from "../utils/types";
 
 export const getCategories = () => (dispatch) => {
@@ -20,14 +21,22 @@ export const getCategories = () => (dispatch) => {
 };
 
 export const createCategory = (data) => (dispatch) => {
+  dispatch({ type: SET_LOADING, loading: true });
   handleRequest("/categories", "POST", data).then((res) => {
     if (isSuccess(res)) {
+      // return all categories
       dispatch({ type: CREATE_CATEGORY, categories: res.data.categories });
+
+      // set success message
       dispatch({
         type: SET_MESSAGE,
         message: `Successfully created category with name: ${data.name}`,
       });
+
+      // disable loading
+      dispatch({ type: SET_LOADING, loading: false });
     } else {
+      dispatch({ type: SET_LOADING, loading: false });
       dispatch({ type: CREATE_CATEGORY_ERR, error: res.data.error });
     }
   });

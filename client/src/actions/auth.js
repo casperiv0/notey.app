@@ -1,16 +1,18 @@
-import { AUTHENTICATE, AUTH_ERR } from "../utils/types";
+import { AUTHENTICATE, AUTH_ERR, SET_LOADING } from "../utils/types";
 import { handleRequest, isSuccess } from "../utils/functions";
 
 const noError =
   "Something went wrong making the request, please try again later";
 
 export const signIn = (data) => (dispatch) => {
+  dispatch({ type: SET_LOADING, loading: true });
   handleRequest("/auth/login", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
         window.location = "/";
       } else {
+        dispatch({ type: SET_LOADING, loading: false });
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
     })
@@ -21,12 +23,15 @@ export const signIn = (data) => (dispatch) => {
 };
 
 export const signUp = (data) => (dispatch) => {
+  dispatch({ type: SET_LOADING, loading: true });
+
   handleRequest("/auth/signup", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
         window.location = "/";
       } else {
+        dispatch({ type: SET_LOADING, loading: false });
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
     })

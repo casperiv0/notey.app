@@ -17,17 +17,16 @@ const CreateNote = ({
   createdNote,
   categories,
   getCategories,
+  loading,
 }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [categoryId, setCategoryId] = useState("no_category");
   const [canClose, setCanClose] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const data = {
       title,
@@ -45,7 +44,6 @@ const CreateNote = ({
   useEffect(() => {
     if (error !== "" || error !== null) {
       setCanClose(false);
-      setLoading(false);
     }
 
     if (
@@ -59,9 +57,8 @@ const CreateNote = ({
       setTimeout(() => {
         setTitle("");
         setBody("");
-        setCategoryId("no_category")
+        setCategoryId("no_category");
         setHasSubmitted(false);
-        setLoading(false);
       }, 200);
     }
 
@@ -134,6 +131,7 @@ const mapStateToProps = (state) => ({
   error: state.note.error,
   createdNote: state.note.createdNote,
   categories: state.categories.categories,
+  loading: state.note.loading,
 });
 
 export default connect(mapStateToProps, { createNote, getCategories })(

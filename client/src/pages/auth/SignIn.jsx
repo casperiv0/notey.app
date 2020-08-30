@@ -17,15 +17,13 @@ import {
   FormCheckbox,
 } from "../../styles/Auth";
 
-const SignIn = ({ signIn, error, isAuth, checkAuth }) => {
+const SignIn = ({ signIn, error, isAuth, checkAuth, loading }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const data = {
       username,
@@ -34,12 +32,6 @@ const SignIn = ({ signIn, error, isAuth, checkAuth }) => {
     };
     signIn(data);
   };
-
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
 
   useEffect(() => {
     checkAuth();
@@ -114,6 +106,7 @@ const SignIn = ({ signIn, error, isAuth, checkAuth }) => {
 const mapStateToProps = (state) => ({
   error: state.auth.error,
   isAuth: state.auth.isAuth,
+  loading: state.auth.loading,
 });
 
 export default connect(mapStateToProps, { signIn, checkAuth })(SignIn);

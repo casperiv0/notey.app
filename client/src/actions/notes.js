@@ -7,6 +7,7 @@ import {
   DELETE_NOTE,
   UPDATE_NOTE,
   SET_MESSAGE,
+  SET_LOADING,
 } from "../utils/types";
 
 const noError =
@@ -45,19 +46,28 @@ export const getActiveNote = (id) => (dispatch) => {
 };
 
 export const createNote = (data) => (dispatch) => {
+  dispatch({ type: SET_LOADING, loading: true });
   handleRequest("/notes", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
+        // return created note
         dispatch({
           type: CREATE_NOTE,
           createdNote: res.data.note,
           notes: res.data.notes,
         });
+
+        // Set success message
         dispatch({
           type: SET_MESSAGE,
           message: `Successfully created note with title: ${res.data.note.title}`,
         });
+        dispatch({ type: SET_LOADING, loading: false });
       } else {
+        // disable loading
+        dispatch({ type: SET_LOADING, loading: false });
+
+        // return error
         dispatch({
           type: CREATE_NOTE_ERR,
           error: res.data.error ? res.data.error : noError,
@@ -105,7 +115,10 @@ export const updateNoteById = (id, data) => (dispatch) => {
         });
         dispatch({ type: SET_MESSAGE, message: "Successfully updated note" });
       } else {
-        dispatch({ type: SET_MESSAGE, message: "An error occurred while updating the note." })
+        dispatch({
+          type: SET_MESSAGE,
+          message: "An error occurred while updating the note.",
+        });
       }
     })
     .catch((e) => {

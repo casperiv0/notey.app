@@ -5,6 +5,7 @@ import {
   CREATE_NOTE_ERR,
   DELETE_NOTE,
   UPDATE_NOTE,
+  SET_LOADING
 } from "../utils/types";
 
 const initState = {
@@ -12,6 +13,7 @@ const initState = {
   note: {},
   createdNote: {},
   error: null,
+  loading: false,
 };
 
 export default function (state = initState, action) {
@@ -49,6 +51,11 @@ export default function (state = initState, action) {
         ...state,
         notes: action.notes,
         note: action.note,
+      };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: action.loading,
       };
     default:
       return {

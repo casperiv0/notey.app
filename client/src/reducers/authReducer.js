@@ -1,9 +1,10 @@
-import { AUTHENTICATE, AUTH_ERR } from "../utils/types";
+import { AUTHENTICATE, AUTH_ERR, SET_LOADING } from "../utils/types";
 
 const initState = {
   user: {},
   error: null,
   isAuth: false,
+  loading: false
 };
 
 export default function (state = initState, action) {
@@ -20,6 +21,11 @@ export default function (state = initState, action) {
         ...state,
         error: action.error,
         isAuth: false,
+      };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: action.loading,
       };
     default:
       return {

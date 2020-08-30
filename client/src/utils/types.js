@@ -13,6 +13,7 @@ export const DELETE_CATEGORY = "DELETE_CATEGORY";
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const AUTH_ERR = "AUTH_ERR";
+export const SET_LOADING = "SET_LOADING";
 
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";

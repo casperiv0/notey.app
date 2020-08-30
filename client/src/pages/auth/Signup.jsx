@@ -15,15 +15,13 @@ import {
 import ErrorMessage from "../../components/ErrorMessage/";
 import Loader from "../../components/Loader";
 
-const SignUp = ({ signUp, error, isAuth, checkAuth }) => {
+const SignUp = ({ signUp, error, isAuth, checkAuth, loading }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const data = {
       username,
@@ -36,12 +34,6 @@ const SignUp = ({ signUp, error, isAuth, checkAuth }) => {
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-
-  useEffect(() => {
-    if (error) {
-      setLoading(false);
-    }
-  }, [error]);
 
   useEffect(() => {
     document.title = "Sign Up - Notey.app";
@@ -107,6 +99,7 @@ const SignUp = ({ signUp, error, isAuth, checkAuth }) => {
 const mapStateToProps = (state) => ({
   error: state.auth.error,
   isAuth: state.auth.isAuth,
+  loading: state.auth.loading,
 });
 
 export default connect(mapStateToProps, { signUp, checkAuth })(SignUp);
