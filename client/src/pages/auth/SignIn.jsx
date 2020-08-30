@@ -68,6 +68,7 @@ const SignIn = ({ signIn, error, isAuth, checkAuth }) => {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
         </FormGroup>
         <FormGroup>
@@ -77,6 +78,7 @@ const SignIn = ({ signIn, error, isAuth, checkAuth }) => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </FormGroup>
         <FormGroup inline>

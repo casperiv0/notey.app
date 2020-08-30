@@ -66,6 +66,7 @@ const SignUp = ({ signUp, error, isAuth, checkAuth }) => {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
         </FormGroup>
         <FormGroup>
@@ -75,6 +76,7 @@ const SignUp = ({ signUp, error, isAuth, checkAuth }) => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </FormGroup>
         <FormGroup>
@@ -84,6 +86,7 @@ const SignUp = ({ signUp, error, isAuth, checkAuth }) => {
             id="password2"
             value={password2}
             onChange={(e) => setPassword2(e.target.value)}
+            required
           />
         </FormGroup>
         <FormGroup>
