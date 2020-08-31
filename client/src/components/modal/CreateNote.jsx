@@ -122,7 +122,7 @@ const CreateNote = ({
         </FormGroup>
       </form>
 
-      {canClose ? <Redirect to={`/?noteId=${createdNote._id}`} /> : null}
+      {canClose ? <Redirect to={`/app?noteId=${createdNote._id}`} /> : null}
     </Modal>
   );
 };
