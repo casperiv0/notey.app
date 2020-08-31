@@ -40,7 +40,7 @@ const SignUp = ({ signUp, error, isAuth, checkAuth, loading }) => {
   });
 
   if (isAuth) {
-    return <Redirect to="/" />;
+    return <Redirect to="/app" />;
   }
 
   return (

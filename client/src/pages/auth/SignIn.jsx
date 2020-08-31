@@ -42,7 +42,7 @@ const SignIn = ({ signIn, error, isAuth, checkAuth, loading }) => {
   });
 
   if (isAuth) {
-    return <Redirect to="/" />;
+    return <Redirect to="/app" />;
   }
 
   return (

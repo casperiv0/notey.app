@@ -10,11 +10,11 @@ export const signIn = (data) => (dispatch) => {
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
-        window.location = "/";
+        window.location = "/#/app";
       } else {
-        dispatch({ type: SET_LOADING, loading: false });
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
+      dispatch({ type: SET_LOADING, loading: false });
     })
     .catch((e) => {
       console.log(e);
@@ -29,11 +29,11 @@ export const signUp = (data) => (dispatch) => {
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
-        window.location = "/";
+        window.location = "/#/app";
       } else {
-        dispatch({ type: SET_LOADING, loading: false });
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
+      dispatch({ type: SET_LOADING, loading: false });
     })
     .catch((e) => {
       console.log(e);

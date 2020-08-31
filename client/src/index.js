@@ -7,6 +7,7 @@ import AuthRoute from "./components/AuthRoute";
 import store from "./utils/store";
 import * as serviceWorker from "./utils/serviceWorker";
 
+const Landing = lazy(() => import("./pages/Landing"));
 const SignIn = lazy(() => import("./pages/auth/SignIn"));
 const SignUp = lazy(() => import("./pages/auth/Signup"));
 const Logout = lazy(() => import("./pages/auth/Logout"));
@@ -20,10 +21,11 @@ ReactDOM.render(
       <Provider store={store}>
         <Router>
           <Switch>
+            <Route path="/" exact component={Landing} />
             <Route path="/signin" exact component={SignIn} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/logout" exact component={Logout} />
-            <AuthRoute path="/" exact component={App} />
+            <AuthRoute path="/app" exact component={App} />
             <Route component={NotFound} />
           </Switch>
         </Router>
