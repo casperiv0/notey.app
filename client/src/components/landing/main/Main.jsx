@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { checkAuth } from "../../../actions/auth";
+import React from "react";
 import { RowCenter } from "../../../styles/Global";
 import {
   MainContainer,
@@ -13,11 +11,7 @@ import {
   ShowCaseInfo,
 } from "./main.style";
 
-const Main = ({ isAuth, checkAuth }) => {
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
+const Main = ({ isAuth }) => {
   return (
     <MainContainer>
       <MainStyle>
@@ -44,8 +38,4 @@ const Main = ({ isAuth, checkAuth }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuth: state.auth.isAuth,
-});
-
-export default connect(mapStateToProps, { checkAuth })(Main);
+export default Main;
