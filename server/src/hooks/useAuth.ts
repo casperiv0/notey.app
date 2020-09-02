@@ -19,8 +19,6 @@ export default async function (
 
   try {
     const vToken: any = jwt.verify(token, secret);
-    console.log(vToken);
-
     const user = await User.findById(vToken._id);
 
     if (!user) {

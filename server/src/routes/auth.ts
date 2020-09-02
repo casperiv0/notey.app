@@ -2,10 +2,14 @@ import { Router, Response } from "express";
 import { IRequest } from "../types";
 import User, { IUser } from "../models/User.model";
 import { compareSync, hashSync } from "bcrypt";
-import { useToken } from "../hooks";
+import { useToken, useAuth } from "../hooks";
 import { AuthUser } from "../interfaces";
 const router: Router = Router();
 
+/**
+ @Route POST /signin
+ @Desc Sign in
+*/
 router.post("/signin", async (req: IRequest, res: Response) => {
   const { username, password, rememberMe } = req.body;
   let expires = 3600000; /** 1 hour */
@@ -57,6 +61,10 @@ router.post("/signin", async (req: IRequest, res: Response) => {
   }
 });
 
+/**
+ @Route POST /signup
+ @Desc Create an account
+*/
 router.post("/signup", async (req: IRequest, res: Response) => {
   const { username, password, password2 } = req.body;
 
@@ -107,6 +115,37 @@ router.post("/signup", async (req: IRequest, res: Response) => {
   } else {
     return res.json({ error: "Please fill in all fields", status: "error" });
   }
+});
+
+/**
+ @Route GET /user
+ @Desc Get information about the authenticated user
+*/
+router.post("/user", useAuth, async (req: IRequest, res: Response) => {
+  const userId = req.user._id;
+  let user;
+
+  try {
+    user = await User.findById(userId).select({ password: 0 });
+
+    if (!user) {
+      return res.json({
+        server_error: "user not found",
+        status: "error",
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    return res.json({
+      server_error: "something went wrong",
+      status: "error",
+    });
+  }
+
+  return res.json({
+    user,
+    status: "success",
+  });
 });
 
 export default router;
