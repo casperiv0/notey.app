@@ -40,6 +40,44 @@ router.get("/:noteId", useAuth, async (req: IRequest, res: Response) => {
 });
 
 /**
+ * @Route PUT /:noteId
+ * @Desc Updates a note by the requested id
+ */
+router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
+  const { noteId } = req.params;
+  const { categoryId, title, body } = req.body;
+  const markdown = useMarkdown(body);
+  let notes;
+  let note;
+
+  if (markdown === "" || !markdown) {
+    return res.json({
+      error: "Please do not include any malicious code.",
+      status: "error",
+    });
+  }
+
+  try {
+    note = await Note.findByIdAndUpdate(noteId, {
+      title,
+      category_id: categoryId,
+      body,
+      markdown,
+    });
+
+    notes = await Note.find({ user_id: req.user._id });
+  } catch (e) {
+    console.log(e);
+    return res.json({
+      error: "Something went wrong updating the note",
+      status: "error",
+    });
+  }
+
+  return res.json({ notes, note, status: "success" });
+});
+
+/**
  * @Route POST /
  * @Desc Creates a new note
  */

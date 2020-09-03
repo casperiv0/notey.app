@@ -90,9 +90,9 @@ router.delete("/:id", useAuth, async (req: IRequest, res: Response) => {
       });
 
       await Category.findByIdAndDelete(req.params.id);
-      notes = await Note.find({ user_id: req.user._id });
     }
 
+    notes = await Note.find({ user_id: req.user._id });
     categories = await Category.find({ user_id: req.user._id });
   } catch (e) {
     console.log(e);
@@ -101,6 +101,7 @@ router.delete("/:id", useAuth, async (req: IRequest, res: Response) => {
   return res.json({
     status: "success",
     categories,
+    notes,
   });
 });
 

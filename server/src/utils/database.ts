@@ -7,7 +7,7 @@ import { logger } from "./Logger";
   try {
     connect(uri, {
       useCreateIndex: true,
-      useFindAndModify: true,
+      useFindAndModify: false,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
