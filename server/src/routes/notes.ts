@@ -46,7 +46,7 @@ router.get("/:noteId", useAuth, async (req: IRequest, res: Response) => {
 router.post("/", useAuth, async (req: IRequest, res: Response) => {
   const { categoryId, title, body } = req.body;
 
-  if (title && body) {
+  if (categoryId && title && body) {
     if (title.length > 40) {
       return res.json({
         error: "Title has a limit of 40 characters.",
