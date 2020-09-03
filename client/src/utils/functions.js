@@ -8,7 +8,7 @@ const SERVER_URL = "http://localhost:3030";
  */
 export const handleRequest = (path, method, data) => {
   return axios({
-    url: `${SERVER_URL}/api/v1${path}`,
+    url: `${SERVER_URL}/api/v2${path}`,
     method,
     data: data ? data : null,
     withCredentials: true,

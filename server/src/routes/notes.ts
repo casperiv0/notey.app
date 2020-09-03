@@ -13,7 +13,7 @@ const router: Router = Router();
 router.get("/", useAuth, async (req: IRequest, res: Response) => {
   const notes = await Note.find({ user_id: req.user._id });
 
-  return res.json({ notes });
+  return res.json({ notes, status: "success" });
 });
 
 /**
@@ -29,7 +29,7 @@ router.get("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     note = await Note.findById(noteId);
     user = await User.findById(req.user._id);
   } catch (e) {
-    console.log(e);
+    note = undefined;
   }
 
   if (note?.user_id.toString() !== user?._id.toString()) {
@@ -93,7 +93,7 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     note = await Note.findById(noteId);
     notes = await Note.find({ user_id: req.user._id });
 
-    if (note?.user_id !== req.user._id) {
+    if (note?.user_id.toString() !== req.user._id.toString()) {
       return res
         .json({
           error: "Permission denied.",
@@ -102,7 +102,8 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
         .status(401);
     }
 
-    Note.findByIdAndDelete(noteId);
+    await Note.findByIdAndDelete(noteId);
+    notes = await Note.find({ user_id: req.user._id });
 
     return res.json({
       notes,

@@ -34,8 +34,8 @@ const noteSchema = new Schema({
     required: true,
   },
   created_at: {
-    type: String,
-    default: () => Date.now,
+    type: Date,
+    default: () => Date.now(),
   },
 });
 

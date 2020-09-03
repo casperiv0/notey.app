@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, Document } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 import { IUser } from "./User.model";
 
 export interface ICategory extends Document {
@@ -9,7 +9,7 @@ export interface ICategory extends Document {
 
 const categorySchema = new Schema({
   user_id: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true,
   },
   name: {
@@ -18,8 +18,8 @@ const categorySchema = new Schema({
     max: 20,
   },
   created_at: {
-    type: String,
-    default: () => Date.now,
+    type: Date,
+    default: () => Date.now(),
   },
 });
 
