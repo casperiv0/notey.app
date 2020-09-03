@@ -4,7 +4,7 @@ import authRouter from "./auth";
 
 const api: Router = Router();
 
-api.use("/notes", notesRouter);
 api.use("/auth", authRouter);
+api.use("/notes", notesRouter);
 
 export default api;
