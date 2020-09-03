@@ -4,6 +4,7 @@ import Note, { INote } from "../models/Note.model";
 import useAuth from "../hooks/useAuth";
 import useMarkdown from "../hooks/useMarkdown";
 import User from "../models/User.model";
+import { logger } from "../utils/Logger";
 const router: Router = Router();
 
 /**
@@ -67,7 +68,7 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
 
     notes = await Note.find({ user_id: req.user._id });
   } catch (e) {
-    console.log(e);
+    logger.error(e, "db_error");
     return res.json({
       error: "Something went wrong updating the note",
       status: "error",
@@ -148,7 +149,7 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
       status: "success",
     });
   } catch (e) {
-    console.log(e);
+    logger.error(e, "db_error");
     return res.json({ error: "Something went wrong!", status: "error" });
   }
 });

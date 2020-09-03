@@ -4,6 +4,9 @@ import User, { IUser } from "../models/User.model";
 import { compareSync, hashSync } from "bcrypt";
 import { useToken, useAuth } from "../hooks";
 import { AuthUser } from "../interfaces";
+import { logger } from "../utils/Logger";
+import Note from "../models/Note.model";
+import Category from "../models/Category.model";
 const router: Router = Router();
 
 /**
@@ -89,7 +92,7 @@ router.post("/signup", async (req: IRequest, res: Response) => {
     try {
       await newUser.save();
     } catch (e) {
-      console.log(e);
+      logger.error(e, "db_error");
       return res.json({
         error: "Something went wrong signin up",
         status: "error",
@@ -135,7 +138,7 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
       });
     }
   } catch (e) {
-    console.log(e);
+    logger.error(e, "db_error");
     return res.json({
       server_error: "something went wrong",
       status: "error",
@@ -147,5 +150,41 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
     status: "success",
   });
 });
+
+router.get("/logout", useAuth, (req: IRequest, res: Response) => {
+  res.clearCookie("__token", { httpOnly: true });
+
+  return res.json({ status: "success" });
+});
+
+router.delete(
+  "/delete-account",
+  useAuth,
+  async (req: IRequest, res: Response) => {
+    const user = await User.findById(req.user.id);
+    const notes = await Note.find({ user_id: user?._id });
+    const categories = await Category.find({ user_id: user?._id });
+
+    try {
+      // delete all notes
+      notes.forEach(async (note) => {
+        await Note.findByIdAndDelete(note._id).catch((e) => console.log(e));
+      });
+
+      // Delete all categories
+      categories.forEach(async (cat) => {
+        await Category.findByIdAndDelete(cat._id).catch((e) => console.log(e));
+      });
+
+      // delete user
+      await User.findByIdAndDelete(user?._id);
+      res.clearCookie("__token", { httpOnly: true });
+    } catch (e) {
+      console.log(e);
+    }
+
+    res.json({ status: "success", msg: "account was deleted" });
+  }
+);
 
 export default router;

@@ -12,6 +12,10 @@ class Logger {
   mongo(): void {
     console.log(`[${this.getTime}][MONGODB]: Connected to mongodb`);
   }
+
+  error(error: string, type: string) {
+    console.error(`[ERROR][${type.toUpperCase()}]: ${error}`);
+  }
 }
 
 export const logger = new Logger();
