@@ -6,7 +6,7 @@ const noError =
 
 export const signIn = (data) => (dispatch) => {
   dispatch({ type: SET_LOADING, loading: true });
-  handleRequest("/auth/login", "POST", data)
+  handleRequest("/auth/signin", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });

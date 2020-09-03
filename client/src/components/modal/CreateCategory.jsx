@@ -23,7 +23,7 @@ const CreateCategory = ({ createCategory, error, loading }) => {
   };
 
   useEffect(() => {
-    if (error !== null) {
+    if (error !== "" || error !== null) {
       setCanClose(false);
     }
 
