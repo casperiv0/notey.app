@@ -59,13 +59,14 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
   }
 
   try {
-    note = await Note.findByIdAndUpdate(noteId, {
+    await Note.findByIdAndUpdate(noteId, {
       title,
       category_id: categoryId,
       body,
       markdown,
     });
 
+    note = await Note.findById(noteId);
     notes = await Note.find({ user_id: req.user._id });
   } catch (e) {
     logger.error(e, "db_error");
