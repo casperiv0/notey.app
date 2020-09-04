@@ -27,12 +27,17 @@ export const ModalStyle = styled.div`
   background-color: ${PRIMARY};
   width: 600px;
   max-width: 90%;
+  max-height: 90%;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.75);
   transition: transform 200ms;
 
   &.active {
     transition: transform 0.3s;
     transform: translate(-50%, -50%) scale(1);
+  }
+
+  @media (max-height: 750px) {
+    overflow-y: scroll;
   }
 `;
 
@@ -58,7 +63,9 @@ export const CloseModal = styled.button`
   cursor: pointer;
 `;
 
-export const ModalBody = styled.div``;
+export const ModalBody = styled.div`
+  max-height: 90%;
+`;
 
 // OptionsModal
 export const OptionsModalStyle = styled.div`
