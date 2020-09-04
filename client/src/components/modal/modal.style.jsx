@@ -27,7 +27,7 @@ export const ModalStyle = styled.div`
   background-color: ${PRIMARY};
   width: 600px;
   max-width: 90%;
-  max-height: 90%;
+  max-height: 95%;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.75);
   transition: transform 200ms;
 

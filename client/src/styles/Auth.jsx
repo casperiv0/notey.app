@@ -12,9 +12,14 @@ export const AuthContainer = styled.div`
 export const AuthForm = styled.form`
   width: ${(props) => (props.width ? props.width : "500px")};
   max-width: 90%;
+  max-height: 95%;
   background-color: ${PRIMARY};
   padding: 10px 20px;
   box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+
+  @media (max-height: 750px) {
+    overflow-y: scroll;
+  }
 `;
 
 export const FormGroup = styled.div`
