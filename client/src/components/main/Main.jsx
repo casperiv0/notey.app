@@ -35,7 +35,7 @@ const Main = ({
         categories={categories}
       />
       {loading ? (
-        <Loader color={GREEN}></Loader>
+        <Loader fullSize={true} color={GREEN}></Loader>
       ) : (
         <Note
           noteBody={noteBody}

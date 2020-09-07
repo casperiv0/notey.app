@@ -13,11 +13,24 @@ const Center = styled.div`
       width: 100%;
       height: 100vh;
     `}
+
+  ${(props) => props.fullSize && css`
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${PRIMARY};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `}
 `;
 
-export default function Loader({ center, color }) {
+export default function Loader({ fullSize, center, color }) {
   return (
-    <Center isCenter={center}>
+    <Center fullSize={fullSize} isCenter={center}>
       <PulseLoader size={10} color={color ? color : PRIMARY}></PulseLoader>
     </Center>
   );
