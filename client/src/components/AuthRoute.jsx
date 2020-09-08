@@ -24,7 +24,12 @@ const AuthRouteHandler = ({ component, auth, checkAuth, ...rest }) => {
           <Component {...props} />
         ) : (
           <Redirect
-            to={{ pathname: "/signin", state: { from: props.location } }}
+            to={{
+              pathname: "/signin",
+              state: {
+                from: `${props.location.pathname}${props.location.search}`,
+              },
+            }}
           />
         )
       }

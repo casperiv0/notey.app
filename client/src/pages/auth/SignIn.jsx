@@ -17,10 +17,11 @@ import {
   FormCheckbox,
 } from "../../styles/Auth";
 
-const SignIn = ({ signIn, error, isAuth, checkAuth, loading }) => {
+const SignIn = ({ signIn, error, isAuth, checkAuth, loading, location }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const from = location && location.state && location.state.from;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const SignIn = ({ signIn, error, isAuth, checkAuth, loading }) => {
       password,
       rememberMe,
     };
-    signIn(data);
+    signIn(data, from);
   };
 
   useEffect(() => {

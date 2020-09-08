@@ -4,13 +4,13 @@ import { handleRequest, isSuccess } from "../utils/functions";
 const noError =
   "Something went wrong making the request, please try again later";
 
-export const signIn = (data) => (dispatch) => {
+export const signIn = (data, location) => (dispatch) => {
   dispatch({ type: SET_LOADING, loading: true });
   handleRequest("/auth/signin", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
-        window.location = "/#/app";
+        window.location = location ? `/#${location}` : "/#/app";
       } else {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
