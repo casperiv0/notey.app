@@ -22,7 +22,7 @@ const Modal = ({ id, title, children }) => {
   return createPortal(
     <>
       <ModalBg id="modalActive"></ModalBg>
-      <ModalStyle id={id}>
+      <ModalStyle className="modal" id={id}>
         <ModalHeader>
           {title}
           <CloseModal onClick={() => closeModal(id)}>&times;</CloseModal>

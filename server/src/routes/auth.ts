@@ -2,7 +2,7 @@ import { Router, Response } from "express";
 import { IRequest } from "../types";
 import User, { IUser } from "../models/User.model";
 import { compareSync, hashSync } from "bcrypt";
-import { useToken, useAuth } from "../hooks";
+import { useToken, useAuth, useMarkdown } from "../hooks";
 import { AuthUser } from "../interfaces";
 import { logger } from "../utils/Logger";
 import Note from "../models/Note.model";
@@ -88,9 +88,20 @@ router.post("/signup", async (req: IRequest, res: Response) => {
     const hash = hashSync(password, 15);
 
     const newUser: IUser = new User({ username, password: hash });
+    const welcomeBody =
+      "# Welcome to notey.app!\n You can add `?create=note` or `?create=category` to simply create a note or category using the URL\n## Support\nYou can find notey.app on [GitHub](https://github.com/notey-app/notey.app)\n\n _feel free to delete this note and get started._";
+
+    const firstNote = new Note({
+      user_id: newUser._id,
+      category_id: "no_category",
+      title: "Note #1",
+      body: welcomeBody,
+      markdown: useMarkdown(welcomeBody),
+    });
 
     try {
       await newUser.save();
+      await firstNote.save();
     } catch (e) {
       logger.error(e, "db_error");
       return res.json({

@@ -35,6 +35,7 @@ const App = ({
   deleteCategory,
 }) => {
   const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
+  const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true }).create;
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
@@ -113,7 +114,7 @@ const App = ({
 
   return (
     <Suspense fallback={<p></p>}>
-      <CreateNote />
+      <CreateNote openSetModal={openSetModal} />
       <OptionsModal />
       <CreateCategory />
       <AppLayout>

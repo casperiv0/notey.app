@@ -5,7 +5,7 @@ import ErrorMessage from "../ErrorMessage";
 import SelectCategory from "../SelectCategory";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { closeSidebar, closeModal } from "../../utils/functions";
+import { closeSidebar, closeModal, openModal, closeAllModals } from "../../utils/functions";
 import { createNote } from "../../actions/notes";
 import { getCategories } from "../../actions/category";
 import { TextArea } from "../../styles/Global";
@@ -18,12 +18,25 @@ const CreateNote = ({
   categories,
   getCategories,
   loading,
+  openSetModal,
 }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [categoryId, setCategoryId] = useState("no_category");
   const [canClose, setCanClose] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (openSetModal === "note") {
+      closeAllModals();
+      return openModal("createNoteModal");
+    }
+
+    if (openSetModal === "category") {
+      closeAllModals();
+      return openModal("createCategoryModal");
+    }
+  }, [openSetModal]);
 
   const onSubmit = (e) => {
     e.preventDefault();

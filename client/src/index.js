@@ -1,6 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { Provider } from "react-redux";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import ReactDOM from "react-dom";
 import "./styles/index.css";
 import AuthRoute from "./components/AuthRoute";

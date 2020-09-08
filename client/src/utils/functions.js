@@ -41,3 +41,11 @@ export const closeModal = (id) => {
   document.querySelector(`#modalActive`).classList.remove("active");
   document.querySelector(`#${id}`).classList.remove("active");
 };
+
+export const closeAllModals = () => {
+  const modals = document.querySelectorAll(".modal");
+
+  modals.forEach((modal) => {
+    modal.classList.remove("active");
+  });
+};
