@@ -1,7 +1,7 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
 import qs from "qs";
-import Sidebar from "../components/sidebar/Sidebar";
-import Main from "../components/main/Main";
+import Sidebar from "../components/sidebar";
+import Main from "../components/main";
 import { connect } from "react-redux";
 import { AppLayout } from "../styles/Global";
 import { checkAuth } from "../actions/auth";
