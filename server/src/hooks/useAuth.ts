@@ -7,14 +7,13 @@ export default async function (
   req: IRequest,
   res: Response,
   next: NextFunction
-): Promise<unknown> {
+): Promise<void> {
   const token: string = req.cookies.__token;
   const secret = String(process.env.JWT_SECRET);
 
   if (!token) {
-    return res
-      .json({ server_error: "invalid token", status: "error" })
-      .status(401);
+    res.json({ server_error: "invalid token", status: "error" }).status(401);
+    return;
   }
 
   try {
@@ -22,20 +21,20 @@ export default async function (
     const user = await User.findById(vToken._id);
 
     if (!user) {
-      return res
+      res
         .json({
           server_error: "user not found",
           status: "error",
         })
         .status(401);
+      return;
     }
 
     req.user = user;
 
     next();
   } catch {
-    return res
-      .json({ server_error: "invalid token", status: "error" })
-      .status(401);
+    res.json({ server_error: "invalid token", status: "error" }).status(401);
+    return;
   }
 }

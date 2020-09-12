@@ -7,7 +7,7 @@ import {
   ModalHeader,
   ModalBody,
   CloseModal,
-  ModalBg,
+  ModalContainer,
 } from "./modal.style";
 
 const Modal = ({ id, title, children }) => {
@@ -20,16 +20,15 @@ const Modal = ({ id, title, children }) => {
   });
 
   return createPortal(
-    <>
-      <ModalBg id="modalActive"></ModalBg>
-      <ModalStyle className="modal" id={id}>
+    <ModalContainer className="modal" id={id}>
+      <ModalStyle className={id}>
         <ModalHeader>
           {title}
           <CloseModal onClick={() => closeModal(id)}>&times;</CloseModal>
         </ModalHeader>
         <ModalBody>{children}</ModalBody>
       </ModalStyle>
-    </>,
+    </ModalContainer>,
     document.getElementById("modal-portal")
   );
 };

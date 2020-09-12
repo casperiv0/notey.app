@@ -1,20 +1,28 @@
-import { SET_MESSAGE, CLEAR_MESSAGE } from "../utils/types";
+import {
+  ADD_MESSAGE,
+  GET_MESSAGES,
+  REMOVE_MESSAGE,
+} from "../utils/types";
 
 const initState = {
-  content: null,
+  messages: [],
 };
 
 export default function (state = initState, action) {
   switch (action.type) {
-    case SET_MESSAGE:
+    case ADD_MESSAGE:
       return {
         ...state,
-        content: action.message,
+        messages: [...state.messages, action.message],
       };
-    case CLEAR_MESSAGE:
+    case GET_MESSAGES:
       return {
         ...state,
-        content: null,
+      };
+    case REMOVE_MESSAGE:
+      return {
+        ...state,
+        messages: state.messages.filter((_msg, i) => i !== action.idx),
       };
     default:
       return {

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PRIMARY, GREEN } from "../../styles/colors";
 
-export const ModalBg = styled.div`
+export const ModalContainer = styled.div`
   z-index: 30;
   position: fixed;
   top: 0;
@@ -9,20 +9,18 @@ export const ModalBg = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  pointer-events: all;
+
   display: none;
+  align-items: center;
+  justify-content: center;
 
   &.active {
-    display: block;
+    display: flex;
   }
 `;
 
 export const ModalStyle = styled.div`
   z-index: 35;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0);
   padding: 10px;
   background-color: ${PRIMARY};
   width: 600px;
@@ -30,11 +28,6 @@ export const ModalStyle = styled.div`
   max-height: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transition: transform 200ms;
-
-  &.active {
-    transition: transform 0.3s;
-    transform: translate(-50%, -50%) scale(1);
-  }
 
   @media (max-height: 680px) {
     overflow-y: scroll;

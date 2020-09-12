@@ -15,5 +15,6 @@ export const AUTHENTICATE = "AUTHENTICATE";
 export const AUTH_ERR = "AUTH_ERR";
 export const SET_LOADING = "SET_LOADING";
 
-export const SET_MESSAGE = "SET_MESSAGE";
-export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+export const ADD_MESSAGE = "SET_MESSAGE";
+export const GET_MESSAGES = "GET_MESSAGES";
+export const REMOVE_MESSAGE = "REMOVE_MESSAGE";

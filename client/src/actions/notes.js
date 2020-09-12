@@ -6,7 +6,7 @@ import {
   CREATE_NOTE_ERR,
   DELETE_NOTE,
   UPDATE_NOTE,
-  SET_MESSAGE,
+  ADD_MESSAGE,
   SET_LOADING,
 } from "../utils/types";
 
@@ -22,7 +22,7 @@ export const getNotes = () => (dispatch) => {
     })
     .catch((e) => {
       dispatch({
-        type: SET_MESSAGE,
+        type: ADD_MESSAGE,
         message: "An error occurred while getting the notes",
       });
       console.log(e);
@@ -38,7 +38,7 @@ export const getActiveNote = (id) => (dispatch) => {
     })
     .catch((e) => {
       dispatch({
-        type: SET_MESSAGE,
+        type: ADD_MESSAGE,
         message: "An error occurred while getting the note",
       });
       console.log(e);
@@ -59,7 +59,7 @@ export const createNote = (data) => (dispatch) => {
 
         // Set success message
         dispatch({
-          type: SET_MESSAGE,
+          type: ADD_MESSAGE,
           message: `Successfully created note with title: ${res.data.note.title}`,
         });
         dispatch({ type: SET_LOADING, loading: false });
@@ -81,7 +81,7 @@ export const createNote = (data) => (dispatch) => {
         error: noError,
       });
       dispatch({
-        type: SET_MESSAGE,
+        type: ADD_MESSAGE,
         message: `An error occurred while creating the note`,
       });
     });
@@ -92,13 +92,13 @@ export const deleteNoteById = (id) => (dispatch) => {
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: DELETE_NOTE, notes: res.data.notes });
-        dispatch({ type: SET_MESSAGE, message: "Successfully deleted note" });
+        dispatch({ type: ADD_MESSAGE, message: "Successfully deleted note" });
       }
     })
     .catch((e) => {
       console.log(e);
       dispatch({
-        type: SET_MESSAGE,
+        type: ADD_MESSAGE,
         message: "An error occurred while deleting the note",
       });
     });
@@ -113,10 +113,10 @@ export const updateNoteById = (id, data) => (dispatch) => {
           note: res.data.note,
           notes: res.data.notes,
         });
-        dispatch({ type: SET_MESSAGE, message: "Successfully updated note" });
+        dispatch({ type: ADD_MESSAGE, message: "Successfully updated note" });
       } else {
         dispatch({
-          type: SET_MESSAGE,
+          type: ADD_MESSAGE,
           message: "An error occurred while updating the note.",
         });
       }
@@ -124,7 +124,7 @@ export const updateNoteById = (id, data) => (dispatch) => {
     .catch((e) => {
       console.log(e);
       dispatch({
-        type: SET_MESSAGE,
+        type: ADD_MESSAGE,
         message: "An error occurred while updating the note",
       });
     });

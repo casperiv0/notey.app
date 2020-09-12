@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { AppLayout } from "../styles/Global";
 import { checkAuth } from "../actions/auth";
 import { closeSidebar } from "../utils/functions";
-import { clearMessage } from "../actions/message";
+import { addMessage } from "../actions/message";
 import { getCategories, deleteCategory } from "../actions/category";
 import {
   getActiveNote,
@@ -15,7 +15,7 @@ import {
   updateNoteById,
 } from "../actions/notes";
 
-const AlertMessage = lazy(() => import("../components/AlertMessage/"));
+const AlertMessages = lazy(() => import("../components/AlertMessages/"));
 const OptionsModal = lazy(() => import("../components/modal/OptionsModal"));
 const CreateNote = lazy(() => import("../components/modal/CreateNote"));
 const CreateCategory = lazy(() => import("../components/modal/CreateCategory"));
@@ -28,11 +28,10 @@ const App = ({
   location,
   deleteNoteById,
   updateNoteById,
-  message,
-  clearMessage,
   getCategories,
   categories,
   deleteCategory,
+  addMessage,
 }) => {
   const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
   const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true }).create;
@@ -41,7 +40,6 @@ const App = ({
   const [noteTitle, setNoteTitle] = useState("");
   const [noteBody, setNoteBody] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [alertMsg, setAlertMsg] = useState("");
 
   useEffect(() => {
     getNotes();
@@ -53,28 +51,11 @@ const App = ({
     }, 300);
   }, [getNotes, getCategories, getActiveNote, noteId, setLoading]);
 
-  // Clear alert message
-  useEffect(() => {
-    if (message !== null) {
-      setAlertMsg(message);
-
-      setTimeout(() => {
-        clearMessage();
-        setAlertMsg("");
-      }, 4000);
-    }
-  }, [message, clearMessage]);
-
   const getActiveNoteFunc = (id) => {
     if (editing) {
-      setAlertMsg(
+      return addMessage(
         "Please save your current progress or reload to cancel changes"
       );
-
-      return setTimeout(() => {
-        clearMessage();
-        setAlertMsg("");
-      }, 4000);
     }
 
     getActiveNote(id);
@@ -83,13 +64,13 @@ const App = ({
   const editNote = (saving, id) => {
     if (editing && saving === "save") {
       if (noteTitle.length > 40) {
-        return setAlertMsg("Note title has a limit of 40 characters.");
+        return addMessage("Note title has a limit of 40 characters.");
       }
       if (noteTitle === "") {
-        return setAlertMsg("Note title can not be empty");
+        return addMessage("Note title can not be empty");
       }
       if (noteBody === "") {
-        return setAlertMsg("Note body can not be empty");
+        return addMessage("Note body can not be empty");
       }
 
       updateNoteById(id, {
@@ -118,7 +99,7 @@ const App = ({
       <OptionsModal />
       <CreateCategory />
       <AppLayout>
-        <AlertMessage active={alertMsg !== ""} message={alertMsg} />
+        <AlertMessages />
         <Sidebar
           categories={categories}
           loading={loading}
@@ -160,7 +141,7 @@ export default connect(mapStateToProps, {
   getActiveNote,
   deleteNoteById,
   updateNoteById,
-  clearMessage,
   getCategories,
   deleteCategory,
+  addMessage,
 })(App);

@@ -5,7 +5,7 @@ import {
   CREATE_CATEGORY_ERR,
   UPDATE_CATEGORY,
   DELETE_CATEGORY,
-  SET_MESSAGE,
+  ADD_MESSAGE,
   GET_NOTES,
   SET_LOADING,
 } from "../utils/types";
@@ -29,7 +29,7 @@ export const createCategory = (data) => (dispatch) => {
 
       // set success message
       dispatch({
-        type: SET_MESSAGE,
+        type: ADD_MESSAGE,
         message: `Successfully created category with name: ${data.name}`,
       });
 
@@ -47,7 +47,7 @@ export const updateCategory = (id) => (dispatch) => {
     if (isSuccess(res)) {
       dispatch({ type: UPDATE_CATEGORY, categories: res.data.categories });
       dispatch({
-        type: SET_MESSAGE,
+        type: ADD_MESSAGE,
         message: `Successfully updated`,
       });
     } else {
@@ -62,7 +62,7 @@ export const deleteCategory = (id) => (dispatch) => {
       dispatch({ type: DELETE_CATEGORY, categories: res.data.categories });
       dispatch({ type: GET_NOTES, notes: res.data.notes });
       dispatch({
-        type: SET_MESSAGE,
+        type: ADD_MESSAGE,
         message: `Successfully deleted category`,
       });
     }
