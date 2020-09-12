@@ -4,7 +4,7 @@ import Note from "../models/Note.model";
 import { useAuth } from "../hooks";
 import User from "../models/User.model";
 import Category, { ICategory } from "../models/Category.model";
-import { logger } from "../utils/Logger";
+import Logger from "../utils/Logger";
 const router: Router = Router();
 
 /**
@@ -17,7 +17,7 @@ router.get("/", useAuth, async (req: IRequest, res: Response) => {
   try {
     categories = await Category.find({ user_id: req.user._id });
   } catch (e) {
-    logger.error(e, "db_error");
+    Logger.error(e, "db_error");
     return res.json({
       error: "Something went wrong getting the categories",
       status: "error",
@@ -52,7 +52,7 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
       await newCategory.save();
       categories = await Category.find({ user_id: req.user._id });
     } catch (e) {
-        logger.error(e, "db_error");
+      Logger.error(e, "db_error");
       return res.json({ error: "Something went wrong creating a category" });
     }
 
@@ -96,7 +96,7 @@ router.delete("/:id", useAuth, async (req: IRequest, res: Response) => {
     notes = await Note.find({ user_id: req.user._id });
     categories = await Category.find({ user_id: req.user._id });
   } catch (e) {
-    logger.error(e, "db_error");
+    Logger.error(e, "db_error");
   }
 
   return res.json({

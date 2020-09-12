@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { NextFunction, Response } from "express";
 import { IRequest } from "../types";
 import User from "../models/User.model";
+import { AuthUser } from "../interfaces";
 
 export default async function (
   req: IRequest,
@@ -17,7 +18,7 @@ export default async function (
   }
 
   try {
-    const vToken: any = jwt.verify(token, secret);
+    const vToken = jwt.verify(token, secret) as AuthUser;
     const user = await User.findById(vToken._id);
 
     if (!user) {

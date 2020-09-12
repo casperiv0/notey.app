@@ -4,7 +4,7 @@ import User, { IUser } from "../models/User.model";
 import { compareSync, hashSync } from "bcrypt";
 import { useToken, useAuth, useMarkdown } from "../hooks";
 import { AuthUser } from "../interfaces";
-import { logger } from "../utils/Logger";
+import Logger from "../utils/Logger";
 import Note from "../models/Note.model";
 import Category from "../models/Category.model";
 const router: Router = Router();
@@ -79,7 +79,7 @@ router.post("/signup", async (req: IRequest, res: Response) => {
       });
     }
 
-    const user: any = await User.findOne({ username: username });
+    const user = await User.findOne({ username: username });
 
     if (user) {
       return res.json({ error: "username is already in use", status: "error" });
@@ -103,7 +103,7 @@ router.post("/signup", async (req: IRequest, res: Response) => {
       await newUser.save();
       await firstNote.save();
     } catch (e) {
-      logger.error(e, "db_error");
+      Logger.error(e, "db_error");
       return res.json({
         error: "Something went wrong signin up",
         status: "error",
@@ -149,7 +149,7 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
       });
     }
   } catch (e) {
-    logger.error(e, "db_error");
+    Logger.error(e, "db_error");
     return res.json({
       server_error: "something went wrong",
       status: "error",
