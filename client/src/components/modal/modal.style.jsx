@@ -8,7 +8,7 @@ export const ModalBg = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   pointer-events: all;
   display: none;
 
@@ -28,7 +28,7 @@ export const ModalStyle = styled.div`
   width: 600px;
   max-width: 90%;
   max-height: 95%;
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transition: transform 200ms;
 
   &.active {

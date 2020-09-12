@@ -48,6 +48,7 @@ Simple notes app to keep track of important things
 - Better understanding of React functional components
 - Better understanding of react hooks
 - Authentication in react
+- React portals
 - convert text to markdown using [marked](https://www.npmjs.com/package/marked)
 
 ## Supporting notey.app
@@ -56,6 +57,6 @@ Simple notes app to keep track of important things
 
 Feel free to open a pull request with a new feature.
 
+##
 
-## 
 Made with ❤️ and JavaScript!
