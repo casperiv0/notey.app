@@ -60,3 +60,7 @@ Feel free to open a pull request with a new feature.
 ##
 
 Made with ❤️ and JavaScript!
+
+## License 
+
+[MIT](./LICENSE)
