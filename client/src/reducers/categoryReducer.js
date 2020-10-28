@@ -13,7 +13,7 @@ const initState = {
   loading: false,
 };
 
-export default function (state = initState, action) {
+export default function categoryReducer(state = initState, action) {
   switch (action.type) {
     case GET_CATEGORIES:
       return {

@@ -1,14 +1,10 @@
-import {
-  ADD_MESSAGE,
-  GET_MESSAGES,
-  REMOVE_MESSAGE,
-} from "../utils/types";
+import { ADD_MESSAGE, GET_MESSAGES, REMOVE_MESSAGE } from "../utils/types";
 
 const initState = {
   messages: [],
 };
 
-export default function (state = initState, action) {
+export default function messageReducer(state = initState, action) {
   switch (action.type) {
     case ADD_MESSAGE:
       return {

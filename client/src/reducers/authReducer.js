@@ -4,10 +4,10 @@ const initState = {
   user: {},
   error: null,
   isAuth: false,
-  loading: false
+  loading: false,
 };
 
-export default function (state = initState, action) {
+export default function authReducer(state = initState, action) {
   switch (action.type) {
     case AUTHENTICATE:
       return {

@@ -82,7 +82,7 @@ export const createNote = (data) => (dispatch) => {
       });
       dispatch({
         type: ADD_MESSAGE,
-        message: `An error occurred while creating the note`,
+        message: "An error occurred while creating the note",
       });
     });
 };

@@ -48,7 +48,7 @@ export const updateCategory = (id) => (dispatch) => {
       dispatch({ type: UPDATE_CATEGORY, categories: res.data.categories });
       dispatch({
         type: ADD_MESSAGE,
-        message: `Successfully updated`,
+        message: "Successfully updated",
       });
     } else {
       dispatch({ type: CREATE_CATEGORY_ERR, error: res.data.error });
@@ -63,7 +63,7 @@ export const deleteCategory = (id) => (dispatch) => {
       dispatch({ type: GET_NOTES, notes: res.data.notes });
       dispatch({
         type: ADD_MESSAGE,
-        message: `Successfully deleted category`,
+        message: "Successfully deleted category",
       });
     }
   });

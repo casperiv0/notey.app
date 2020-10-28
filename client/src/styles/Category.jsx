@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { RED, GREEN, DARK_GRAY_2 } from "./colors";
-import { DEFAULT_MIN_WIDTH } from "./constants"
+import { DEFAULT_MIN_WIDTH } from "./constants";
 
 export const CategoryDiv = styled.div`
   color: ${GREEN};

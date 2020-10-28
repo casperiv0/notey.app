@@ -5,7 +5,7 @@ import {
   CREATE_NOTE_ERR,
   DELETE_NOTE,
   UPDATE_NOTE,
-  SET_LOADING
+  SET_LOADING,
 } from "../utils/types";
 
 const initState = {
@@ -16,7 +16,7 @@ const initState = {
   loading: false,
 };
 
-export default function (state = initState, action) {
+export default function noteReducer(state = initState, action) {
   switch (action.type) {
     case GET_NOTES:
       return {
