@@ -15,7 +15,7 @@ router.get("/", useAuth, async (req: IRequest, res: Response) => {
   let categories;
 
   try {
-    categories = await Category.find({ user_id: req.user._id });
+    categories = await Category.find({ user_id: req.user?._id });
   } catch (e) {
     Logger.error(e, "db_error");
     return res.json({
@@ -44,13 +44,13 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
     }
 
     const newCategory: ICategory = new Category({
-      user_id: req.user._id,
+      user_id: req.user?._id,
       name,
     });
 
     try {
       await newCategory.save();
-      categories = await Category.find({ user_id: req.user._id });
+      categories = await Category.find({ user_id: req.user?._id });
     } catch (e) {
       Logger.error(e, "db_error");
       return res.json({ error: "Something went wrong creating a category" });
@@ -73,7 +73,7 @@ router.delete("/:id", useAuth, async (req: IRequest, res: Response) => {
   let categories;
 
   try {
-    user = await User.findById(req.user._id);
+    user = await User.findById(req.user?._id);
     category = await Category.findById(req.params.id);
 
     if (user?._id.toString() !== category?.user_id.toString()) {
@@ -93,8 +93,8 @@ router.delete("/:id", useAuth, async (req: IRequest, res: Response) => {
       await Category.findByIdAndDelete(req.params.id);
     }
 
-    notes = await Note.find({ user_id: req.user._id });
-    categories = await Category.find({ user_id: req.user._id });
+    notes = await Note.find({ user_id: req.user?._id });
+    categories = await Category.find({ user_id: req.user?._id });
   } catch (e) {
     Logger.error(e, "db_error");
   }

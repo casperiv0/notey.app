@@ -4,6 +4,8 @@ export const CREATE_NOTE = "CREATE_NOTE";
 export const CREATE_NOTE_ERR = "CREATE_NOTE_ERR";
 export const DELETE_NOTE = "DELETE_NOTE";
 export const UPDATE_NOTE = "UPDATE_NOTE";
+export const SHARE_NOTE = "SHARE_NOTE";
+export const GET_SHARE_BY_ID = "GET_SHARE_BY_ID";
 
 export const GET_CATEGORIES = "GET_CATEGORIES";
 export const CREATE_CATEGORY = "CREATE_CATEGORY";

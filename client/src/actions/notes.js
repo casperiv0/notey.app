@@ -3,11 +3,13 @@ import {
   GET_NOTES,
   GET_ACTIVE_NOTE,
   CREATE_NOTE,
+  SHARE_NOTE,
   CREATE_NOTE_ERR,
   DELETE_NOTE,
   UPDATE_NOTE,
   ADD_MESSAGE,
   SET_LOADING,
+  GET_SHARE_BY_ID,
 } from "../utils/types";
 
 const noError =
@@ -118,6 +120,55 @@ export const updateNoteById = (id, data) => (dispatch) => {
         dispatch({
           type: ADD_MESSAGE,
           message: "An error occurred while updating the note.",
+        });
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+      dispatch({
+        type: ADD_MESSAGE,
+        message: "An error occurred while updating the note",
+      });
+    });
+};
+
+export const shareNote = (id) => (dispatch) => {
+  handleRequest(`/notes/share/${id}`, "POST")
+    .then((res) => {
+      if (isSuccess(res)) {
+        dispatch({
+          type: SHARE_NOTE,
+          notes: res.data.notes,
+        });
+        window.location.href = `/#/share/${id}`;
+      } else {
+        dispatch({
+          type: ADD_MESSAGE,
+          message: res.data.message,
+        });
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+      dispatch({
+        type: ADD_MESSAGE,
+        message: "An error occurred while updating the note",
+      });
+    });
+};
+
+export const getShareById = (id) => (dispatch) => {
+  handleRequest(`/notes/share/${id}`, "GET")
+    .then((res) => {
+      if (isSuccess(res)) {
+        dispatch({
+          type: GET_SHARE_BY_ID,
+          share: res.data.note,
+        });
+      } else {
+        dispatch({
+          type: ADD_MESSAGE,
+          message: res.data.message,
         });
       }
     })

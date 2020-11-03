@@ -14,6 +14,7 @@ const SignIn = lazy(() => import("./pages/auth/SignIn"));
 const SignUp = lazy(() => import("./pages/auth/Signup"));
 const Logout = lazy(() => import("./pages/auth/Logout"));
 const App = lazy(() => import("./pages/App"));
+const SharePage = lazy(() => import("./pages/SharePage"));
 const NotFound = lazy(() => import("./components/NotFound/"));
 const renderLoader = () => <Loader center={true} color={GREEN} />;
 
@@ -28,6 +29,7 @@ ReactDOM.render(
             <Route path="/signup" exact component={SignUp} />
             <Route path="/logout" exact component={Logout} />
             <AuthRoute path="/app" exact component={App} />
+            <Route path="/share/:noteId" exact component={SharePage} />
             <Route component={NotFound} />
           </Switch>
         </Router>

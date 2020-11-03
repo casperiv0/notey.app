@@ -136,7 +136,7 @@ router.post("/signup", async (req: IRequest, res: Response) => {
  @Desc Get information about the authenticated user
 */
 router.post("/user", useAuth, async (req: IRequest, res: Response) => {
-  const userId = req.user._id;
+  const userId = req.user?._id;
   let user;
 
   try {
@@ -162,7 +162,7 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
   });
 });
 
-router.get("/logout", useAuth, (req: IRequest, res: Response) => {
+router.get("/logout", useAuth, (_req: IRequest, res: Response) => {
   res.clearCookie("__token", { httpOnly: true });
 
   return res.json({ status: "success" });
@@ -172,7 +172,7 @@ router.delete(
   "/delete-account",
   useAuth,
   async (req: IRequest, res: Response) => {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user?._id);
     const notes = await Note.find({ user_id: user?._id });
     const categories = await Category.find({ user_id: user?._id });
 

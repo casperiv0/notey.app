@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import SelectCategory from "../SelectCategory";
+import { shareNote } from "../../actions/notes";
 import { MenuIcon, CloseIcon, OptionsIcon } from "../icons";
 import { SrOnly, Column, Row, Button } from "../../styles/Global";
 import { openSidebar, closeSidebar } from "../../utils/functions";
@@ -29,6 +31,7 @@ const Navbar = ({
   categoryId,
   setCategoryId,
   categories,
+  shareNote,
 }) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
@@ -41,14 +44,15 @@ const Navbar = ({
     <NavbarContainer>
       <NavbarStyle>
         <NavTitle>
-          <OpenSidebar title="Open sidebar" onClick={() => openSidebar("sidebar")}>
+          <OpenSidebar
+            title="Open sidebar"
+            onClick={() => openSidebar("sidebar")}
+          >
             <SrOnly>Menu</SrOnly>
             <MenuIcon />
           </OpenSidebar>
           <>
-            <SrOnly htmlFor="activeNoteTitle">
-              Title
-            </SrOnly>
+            <SrOnly htmlFor="activeNoteTitle">Title</SrOnly>
             {note && note.title ? (
               editing ? (
                 <>
@@ -68,7 +72,10 @@ const Navbar = ({
         <NavLinks>
           {note && note._id ? (
             <Row>
-              <OpenRightSidebar title="Open Options" onClick={() => openSidebar("right-sidebar")}>
+              <OpenRightSidebar
+                title="Open Options"
+                onClick={() => openSidebar("right-sidebar")}
+              >
                 <SrOnly>Options</SrOnly>
                 <OptionsIcon></OptionsIcon>
               </OpenRightSidebar>
@@ -92,6 +99,14 @@ const Navbar = ({
                   onClick={() => editNote(editing ? "save" : null, note._id)}
                 >
                   {editing ? "Save" : "Edit"}
+                </Button>
+                <Button
+                  navBtn
+                  className="ml"
+                  success
+                  onClick={() => shareNote(note._id)}
+                >
+                  Open link
                 </Button>
               </Row>
             </Row>
@@ -182,4 +197,4 @@ const RightSidebar = ({
   );
 };
 
-export default Navbar;
+export default connect(null, { shareNote })(Navbar);

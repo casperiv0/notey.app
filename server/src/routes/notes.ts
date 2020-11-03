@@ -12,7 +12,7 @@ const router: Router = Router();
  * @Desc Returns all notes by the authenticated user
  */
 router.get("/", useAuth, async (req: IRequest, res: Response) => {
-  const notes = await Note.find({ user_id: req.user._id });
+  const notes = await Note.find({ user_id: req.user?._id });
 
   return res.json({ notes, status: "success" });
 });
@@ -28,7 +28,7 @@ router.get("/:noteId", useAuth, async (req: IRequest, res: Response) => {
 
   try {
     note = await Note.findById(noteId);
-    user = await User.findById(req.user._id);
+    user = await User.findById(req.user?._id);
   } catch (e) {
     note = undefined;
   }
@@ -67,7 +67,7 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     });
 
     note = await Note.findById(noteId);
-    notes = await Note.find({ user_id: req.user._id });
+    notes = await Note.find({ user_id: req.user?._id });
   } catch (e) {
     Logger.error(e, "db_error");
     return res.json({
@@ -104,13 +104,13 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
     }
 
     const newNote: INote = new Note({
-      user_id: req.user._id,
+      user_id: req.user?._id,
       category_id: categoryId,
       title,
       body,
       markdown: markdown,
     });
-    const notes = await Note.find({ user_id: req.user.id });
+    const notes = await Note.find({ user_id: req.user?.id });
 
     newNote.save();
 
@@ -131,9 +131,9 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
 
   try {
     note = await Note.findById(noteId);
-    notes = await Note.find({ user_id: req.user._id });
+    notes = await Note.find({ user_id: req.user?._id });
 
-    if (note?.user_id.toString() !== req.user._id.toString()) {
+    if (note?.user_id.toString() !== req.user?._id.toString()) {
       return res
         .json({
           error: "Permission denied.",
@@ -143,7 +143,7 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     }
 
     await Note.findByIdAndDelete(noteId);
-    notes = await Note.find({ user_id: req.user._id });
+    notes = await Note.find({ user_id: req.user?._id });
 
     return res.json({
       notes,
@@ -152,6 +152,71 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
   } catch (e) {
     Logger.error(e, "db_error");
     return res.json({ error: "Something went wrong!", status: "error" });
+  }
+});
+
+/**
+ * @Route POST /share/:noteId
+ * @Desc Sets the note open to the public
+ */
+router.post("/share/:noteId", useAuth, async (req: IRequest, res: Response) => {
+  const noteId = req.params.noteId;
+
+  try {
+    const note = await Note.findById(noteId);
+
+    if (note?.user_id.toString() !== req.user?._id.toString()) {
+      return res
+        .json({
+          error: "Permission denied.",
+          status: "error",
+        })
+        .status(401);
+    }
+
+    await Note.findByIdAndUpdate(noteId, { shared: true });
+    const notes = await Note.find({ user_id: req.user?._id });
+
+    return res.json({
+      status: "success",
+      notes,
+    });
+  } catch (e) {
+    Logger.error(e, "db_error");
+    return res.json({ error: "Something went wrong!", status: "error" });
+  }
+});
+
+router.get("/share/:noteId", async (req: IRequest, res: Response) => {
+  const noteId = req.params.noteId;
+
+  try {
+    const note = await Note.findById(noteId);
+
+    if (!note?.id) {
+      return res.json({
+        error: "Share not found",
+        status: "error",
+      });
+    }
+
+    if (!note?.shared) {
+      return res.json({
+        error: "Share was not found",
+        status: "error",
+      });
+    }
+
+    return res.json({
+      status: "success",
+      note,
+    });
+  } catch (e) {
+    Logger.error(e, "db_error");
+    return res.json({
+      error: "Share not found",
+      status: "error",
+    });
   }
 });
 

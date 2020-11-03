@@ -9,6 +9,7 @@ export interface INote extends Document {
   body: string;
   markdown: string;
   created_at: Date;
+  shared: boolean;
 }
 
 const noteSchema = new Schema({
@@ -36,6 +37,10 @@ const noteSchema = new Schema({
   created_at: {
     type: Date,
     default: () => Date.now(),
+  },
+  shared: {
+    type: Boolean,
+    default: false,
   },
 });
 
