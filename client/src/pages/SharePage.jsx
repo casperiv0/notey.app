@@ -4,6 +4,7 @@ import { getShareById } from "../actions/notes";
 import AlertMessages from "../components/AlertMessages";
 import { GREEN, PRIMARY } from "../styles/colors";
 import { NotePreview } from "../components/note/notes.style";
+import { checkAuth } from "../actions/auth";
 
 const loginStyles = {
   padding: "0.5rem 1rem",
@@ -16,8 +17,12 @@ const loginStyles = {
   marginRight: "1rem",
 };
 
-const SharePage = ({ share, getShareById, match, isAuth }) => {
+const SharePage = ({ share, getShareById, match, isAuth, checkAuth}) => {
   const noteId = match.params.noteId;
+
+  useEffect(() => {
+    checkAuth();
+  });
 
   useEffect(() => {
     getShareById(noteId);
@@ -26,7 +31,7 @@ const SharePage = ({ share, getShareById, match, isAuth }) => {
   return (
     <div style={{ padding: "1rem", color: GREEN }}>
       {isAuth ? (
-        <a style={loginStyles} href="/#/app">
+        <a style={loginStyles} href={`/#/app?noteId=${noteId}`}>
           Open app
         </a>
       ) : (
@@ -56,4 +61,4 @@ const mapToProps = (state) => ({
   isAuth: state.auth.isAuth,
 });
 
-export default connect(mapToProps, { getShareById })(SharePage);
+export default connect(mapToProps, { getShareById, checkAuth })(SharePage);

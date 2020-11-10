@@ -34,7 +34,8 @@ const App = ({
   addMessage,
 }) => {
   const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
-  const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true }).create;
+  const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true })
+    .create;
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
@@ -58,6 +59,8 @@ const App = ({
       );
     }
 
+    const search = qs.stringify({ noteId: id }, { addQueryPrefix: true });
+    window.location = `#app${search}`;
     getActiveNote(id);
   };
 

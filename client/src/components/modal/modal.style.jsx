@@ -35,25 +35,37 @@ export const ModalStyle = styled.div`
 `;
 
 export const ModalHeader = styled.div`
-  height: 40px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: ${GREEN};
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   border-bottom: 2px solid ${GREEN};
   margin-bottom: 15px;
+  padding-bottom: 5px;
 `;
 
 export const CloseModal = styled.button`
-  padding: 10px;
   color: ${GREEN};
   font-weight: 600;
   background: none;
   border: none;
   font-size: 2.5rem;
   cursor: pointer;
+  width: 50px;
+  height: 50px;
+  transition: background 200ms;
+  border-radius: 50%;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const ModalBody = styled.div`
