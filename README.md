@@ -7,6 +7,7 @@ Simple notes app to keep track of important things
 - Create unlimited notes
 - Categorize notes by a category
 - Edit notes
+- Share notes
 - More soon
 
 ## Performance and pwa
