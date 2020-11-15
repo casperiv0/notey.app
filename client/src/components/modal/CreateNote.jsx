@@ -5,7 +5,12 @@ import ErrorMessage from "../ErrorMessage";
 import SelectCategory from "../SelectCategory";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { closeSidebar, closeModal, openModal, closeAllModals } from "../../utils/functions";
+import {
+  closeSidebar,
+  closeModal,
+  openModal,
+  closeAllModals,
+} from "../../utils/functions";
 import { createNote } from "../../actions/notes";
 import { getCategories } from "../../actions/category";
 import { TextArea } from "../../styles/Global";
@@ -105,6 +110,8 @@ const CreateNote = ({
             id="title"
             maxLength="40"
             max="40"
+            autoCorrect="false"
+            autoComplete="false"
           />
         </FormGroup>
         <FormGroup>
@@ -116,6 +123,8 @@ const CreateNote = ({
             type="text"
             value={body}
             onChange={(e) => setBody(e.target.value)}
+            autoCorrect="false"
+            autoComplete="false"
             id="body"
           ></TextArea>
         </FormGroup>

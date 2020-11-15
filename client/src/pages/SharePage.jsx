@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getShareById } from "../actions/notes";
 import AlertMessages from "../components/AlertMessages";
-import { GREEN, PRIMARY } from "../styles/colors";
 import { NotePreview } from "../components/note/notes.style";
 import { checkAuth } from "../actions/auth";
 
 const loginStyles = {
   padding: "0.5rem 1rem",
-  background: GREEN,
-  color: PRIMARY,
+  background: "#555",
+  color: "#f2f2f2",
   display: "inline-block",
   fontSize: "1.2rem",
   textAlign: "center",
@@ -29,7 +28,7 @@ const SharePage = ({ share, getShareById, match, isAuth, checkAuth}) => {
   }, [getShareById, noteId]);
 
   return (
-    <div style={{ padding: "1rem", color: GREEN }}>
+    <div style={{ padding: "1rem", color: "#f2f2f2" }}>
       {isAuth ? (
         <a style={loginStyles} href={`/#/app?noteId=${noteId}`}>
           Open app
@@ -44,7 +43,7 @@ const SharePage = ({ share, getShareById, match, isAuth, checkAuth}) => {
           </a>
         </>
       )}
-      <h1 style={{ borderBottom: `2px solid ${GREEN}`, margin: "1rem 0" }}>
+      <h1 style={{ borderBottom: "2px solid #f2f2f2", margin: "1rem 0" }}>
         {share?.title}
       </h1>
 

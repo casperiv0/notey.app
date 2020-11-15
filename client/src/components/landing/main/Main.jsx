@@ -31,7 +31,7 @@ const Main = ({ isAuth }) => {
               <ShowCaseInfo>Available in all latest browsers</ShowCaseInfo>
             </RowCenter>
           </div>
-          <ShowCaseImg src="/showcase.svg" alt="Showcase" />
+          <ShowCaseImg width="100%" height="100%" src="/showcase.svg" alt="Showcase" />
         </ShowCase>
       </MainStyle>
     </MainContainer>

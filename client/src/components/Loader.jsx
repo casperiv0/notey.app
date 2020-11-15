@@ -1,6 +1,5 @@
 import React from "react";
 import { PulseLoader } from "react-spinners";
-import { PRIMARY } from "../styles/colors";
 import styled, { css } from "styled-components";
 
 const Center = styled.div`
@@ -23,7 +22,7 @@ const Center = styled.div`
       left: 0;
       right: 0;
       bottom: 0;
-      background: ${PRIMARY};
+      background: #2f2f2f;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -33,7 +32,7 @@ const Center = styled.div`
 export default function Loader({ fullSize, center, color }) {
   return (
     <Center fullSize={fullSize} isCenter={center}>
-      <PulseLoader size={10} color={color ? color : PRIMARY}></PulseLoader>
+      <PulseLoader size={10} color={color ? color : "#f2f2f2"}></PulseLoader>
     </Center>
   );
 }

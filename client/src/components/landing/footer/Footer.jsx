@@ -12,11 +12,16 @@ const Footer = () => {
   return (
     <FooterStyle>
       <FooterContent>
-        <FooterIcon src="/icons/notey-app-128.svg" alt="footer-icon" />
+        <FooterIcon
+          width="75px"
+          height="75px"
+          src="/icons/notey-app-128.svg"
+          alt="footer-icon"
+        />
         <FooterTitle>
           Created with ❤ by
-          <a href="https://caspertheghost.me"> CasperTheGhost </a> with JavaScript
-          ⚡
+          <a href="https://caspertheghost.me"> CasperTheGhost </a> with
+          JavaScript ⚡
         </FooterTitle>
         <FooterLinks>
           <FooterLink href="/#/signup">Sign up</FooterLink>

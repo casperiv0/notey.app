@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "../../styles/colors";
 
 export const ModalContainer = styled.div`
   z-index: 30;
@@ -22,12 +21,13 @@ export const ModalContainer = styled.div`
 export const ModalStyle = styled.div`
   z-index: 35;
   padding: 10px;
-  background-color: ${PRIMARY};
+  background-color: #2f2f2f;
   width: 600px;
   max-width: 90%;
   max-height: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transition: transform 200ms;
+  border-radius: 0.7rem;
 
   @media (max-height: 680px) {
     overflow-y: scroll;
@@ -39,16 +39,16 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${GREEN};
+  color: #f2f2f2;
   font-size: 1.5rem;
   font-weight: 600;
-  border-bottom: 2px solid ${GREEN};
+  border-bottom: 2px solid #5c5c5c;
   margin-bottom: 15px;
   padding-bottom: 5px;
 `;
 
 export const CloseModal = styled.button`
-  color: ${GREEN};
+  color: #f2f2f2;
   font-weight: 600;
   background: none;
   border: none;
@@ -58,9 +58,12 @@ export const CloseModal = styled.button`
   height: 50px;
   transition: background 200ms;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(85, 85, 85, 0.8);
   }
 
   &:focus {
@@ -74,7 +77,7 @@ export const ModalBody = styled.div`
 
 // OptionsModal
 export const OptionsModalStyle = styled.div`
-  color: ${GREEN};
+  color: #f2f2f2;
 `;
 
 export const OptionsModalContent = styled.div`
@@ -87,14 +90,14 @@ export const OptionsModalBody = styled.div`
 `;
 
 export const OptionsModalFooter = styled.div`
-  border-top: 2px solid ${GREEN};
+  border-top: 2px solid #5c5c5c;
   padding: 10px 0;
-  color: ${GREEN};
+  color: #f2f2f2;
   font-size: 1.2rem;
   text-align: center;
 
   & a {
-    color: ${GREEN};
+    color: #f5f5f5;
     text-decoration: underline;
   }
 `;

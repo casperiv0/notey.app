@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { PRIMARY, WHITE, GREEN, DARK_GRAY_2 } from "../../styles/colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const SidebarContainer = styled.div`
@@ -43,7 +42,7 @@ export const SidebarStyle = styled.div`
   width: ${SIDEBAR_WIDTH_FULL};
   max-width: 95%;
   padding: 10px;
-  background-color: ${PRIMARY};
+  background-color: #252525;
   top: 0;
   left: -${SIDEBAR_WIDTH_FULL};
   bottom: 0;
@@ -51,7 +50,7 @@ export const SidebarStyle = styled.div`
   transition: left 200ms;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 30px auto 50px;
+  grid-template-rows: 40px auto 50px;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     left: 0;
@@ -86,38 +85,50 @@ export const CloseSidebarBtn = styled.button`
   }
 
   & svg {
-    fill: ${GREEN};
+    fill: #f2f2f2;
   }
 `;
 
 export const SearchForm = styled.form`
-  display: flex;
+  position: relative;
 `;
 
-export const SearchInput = styled.input`
-  width: 80%;
-  padding: 5px;
-  font-size: 1.2rem;
-  border: 2px solid ${GREEN};
-  border-right: none;
-  background-color: ${DARK_GRAY_2};
-  color: ${GREEN};
-  border-radius: 0;
+export const SearchContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 2px;
+  background-color: #2f2f2f;
+  border: 2px solid #555;
+  transition: border 200ms;
 
-  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
-    width: 90%;
+  @media (hover: hover) {
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
   }
 `;
 
-export const SearchBtn = styled.button`
-  padding: 5px 10px;
-  border: 1px solid ${GREEN};
-  background-color: ${GREEN};
-  color: ${WHITE};
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 0;
+export const SearchInput = styled.input`
+  padding: 5px;
+  font-size: 1.2rem;
+  border: none;
+  border-right: none;
+  background-color: #2f2f2f;
+  color: #f2f2f2;
+  width: 100%;
+`;
+
+export const SearchIconContainer = styled.span`
+  padding: 5px;
+  display: flex;
+  align-items: center;
+
+  & svg {
+    font-size: 1.2rem;
+    fill: #848484;
+  }
 `;
 
 export const SidebarBody = styled.div`
@@ -128,29 +139,28 @@ export const SidebarBody = styled.div`
 export const SidebarNote = styled.a`
   cursor: pointer;
   margin-bottom: 5px;
-  padding: 5px 10px;
+  padding: 7px 10px;
   font-weight: 600;
   font-size: 1.2rem;
-  color: ${GREEN};
+  color: #e0e0e0;
   transition: background 200ms, color 0.1s;
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${PRIMARY};
-  border: 1px solid ${PRIMARY};
+  background-color: none;
   border-radius: 0;
+  border-radius: 5px;
 
   @media (hover: hover) {
     &:hover {
-      color: ${PRIMARY};
-      background-color: ${GREEN};
+      background-color: #555;
     }
   }
 
   &.active {
-    color: ${PRIMARY};
-    background-color: ${GREEN};
+    color: #fff;
+    background-color: #555;
   }
 `;
 
@@ -158,9 +168,9 @@ export const OpenOptionsModalBtn = styled.button`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: ${PRIMARY};
-  color: ${GREEN};
-  border: solid ${GREEN};
+  background-color: #2f2f2f;
+  color: #f2f2f2;
+  border: solid #2f2f2f;
   border-width: 2px 0px 2px 0px;
   font-size: 1.2rem;
   font-weight: 600;
@@ -168,8 +178,8 @@ export const OpenOptionsModalBtn = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: ${GREEN};
-      color: ${PRIMARY};
+      background-color: #2f2f2f;
+      color: #f2f2f2;
     }
   }
 `;
