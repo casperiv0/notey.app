@@ -86,7 +86,7 @@ export const CloseSidebarBtn = styled.button`
   }
 
   & svg {
-    fill: ${GREEN};
+    fill: #f2f2f2;
   }
 `;
 

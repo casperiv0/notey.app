@@ -7,8 +7,22 @@ export const CategoryDiv = styled.div`
   margin: 10px 0 20px 0;
 `;
 
-export const SelectContainer = styled.div`
-  position: relative;
+export const CategoryTitle = styled.h4`
+  color: #f2f2f2;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+`;
+
+export const SelectCategoryStyle = styled.select`
+  padding: 10px;
+  border: 2px solid #5c5c5c;
+  background-color: #2f2f2f;
+  color: #f2f2f2;
+  font-size: 1.2rem;
+  border-radius: 5px;
 
   &.is-in-nav {
     margin-right: 10px;
@@ -22,26 +36,6 @@ export const SelectContainer = styled.div`
     }
   }
 `;
-
-export const CategoryTitle = styled.h4`
-  color: #f2f2f2;
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-transform: uppercase;
-`;
-
-export const SelectCategoryStyle = styled.select`
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #5c5c5c;
-  background-color: #2f2f2f;
-  color: #f2f2f2;
-  font-size: 1.2rem;
-  border-radius: 5px;
-`;
-
 
 export const DeleteCategory = styled.button`
   padding: 5px 10px;

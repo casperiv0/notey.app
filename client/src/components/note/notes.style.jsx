@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { PRIMARY, GREEN, DARK_GRAY_2 } from "../../styles/colors";
+import { GREEN } from "../../styles/colors";
 import { DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const NoteStyle = styled.div`
@@ -20,13 +20,13 @@ export const NoteStyle = styled.div`
 
 export const NotePreview = styled.div`
   padding: 10px;
-  color: ${GREEN};
+  color: #f2f2f2;
   font-size: 1.2rem;
 
   & table,
   & th,
   & td {
-    border: 2px solid #4ecec4;
+    border: 2px solid #555;
     border-collapse: collapse;
   }
 
@@ -40,7 +40,7 @@ export const NotePreview = styled.div`
   }
 
   & a {
-    color: #4ecec4;
+    color: #fff;
     text-decoration: underline;
   }
 
@@ -55,7 +55,7 @@ export const NotePreview = styled.div`
 
   & h1,
   & h2 {
-    border-bottom: 2px solid #4ecec4;
+    border-bottom: 2px solid #555;
     padding-bottom: 3px;
     margin-bottom: 10px;
     margin-top: 20px;
@@ -68,11 +68,11 @@ export const NotePreview = styled.div`
   & pre {
     padding: 10px;
     width: 100%;
-    background: ${DARK_GRAY_2};
+    background: #3f3f3f;
   }
 
   & code {
-    background: ${DARK_GRAY_2};
+    background: #3f3f3f;
     font-family: Consolas, "Courier New", monospace !important;
   }
 
@@ -99,8 +99,8 @@ export const NoteTextArea = styled.textarea`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: ${PRIMARY};
-  color: ${GREEN};
+  background-color: #2f2f2f;
+  color: #fff;
   resize: none;
   border: none;
   font-size: 1.2rem;

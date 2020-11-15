@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "../../styles/colors";
 
 export const MessagesContainer = styled.div`
   position: fixed;
@@ -13,8 +12,8 @@ export const MessagesContainer = styled.div`
 export const AlertMessageStyle = styled.div`
   margin: 5px 0;
   width: 100%;
-  background-color: ${GREEN};
-  color: ${PRIMARY};
+  background-color: #555;
+  color: #f2f2f2;
   font-size: 1.2rem;
   padding: 15px 20px;
   border-radius: 10px;
@@ -22,6 +21,7 @@ export const AlertMessageStyle = styled.div`
   text-align: center;
   cursor: pointer;
   transition: all 200ms;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
   &.active {
     animation: slideIn 500ms forwards;

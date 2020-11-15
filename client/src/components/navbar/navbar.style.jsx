@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "../../styles/colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const NavbarContainer = styled.div`
@@ -18,20 +17,20 @@ export const NavbarStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${PRIMARY};
+  background-color: #2f2f2f;
   border-left: none;
-  border-bottom: 2px solid ${GREEN};
+  border-bottom: 2px solid #666;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     width: calc(100% - ${SIDEBAR_WIDTH_FULL});
     left: ${SIDEBAR_WIDTH_FULL};
-    border-left: 2px solid ${GREEN};
+    border-left: 2px solid #666;
   }
 `;
 
 export const NavTitle = styled.div`
   margin-left: 10px;
-  color: ${GREEN};
+  color: #f2f2f2;
   font-size: 1.3rem;
   display: flex;
   align-items: center;
@@ -54,7 +53,7 @@ export const NavTitleInput = styled.input`
   border: none;
   font-size: 1.2rem;
   font-weight: 600;
-  color: ${GREEN};
+  color: #f2f2f2;
 
   &:focus {
     outline: none;
@@ -86,7 +85,7 @@ export const OpenSidebar = styled.button`
   display: flex;
 
   & svg {
-    fill: ${GREEN};
+    fill: #f2f2f2;
   }
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
@@ -103,7 +102,7 @@ export const OpenRightSidebar = styled.button`
   display: flex;
 
   & svg {
-    fill: ${GREEN};
+    fill: #f2f2f2;
   }
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
