@@ -28,6 +28,7 @@ export const ModalStyle = styled.div`
   max-height: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transition: transform 200ms;
+  border-radius: 0.7rem;
 
   @media (max-height: 680px) {
     overflow-y: scroll;
@@ -39,16 +40,16 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${GREEN};
+  color: #f2f2f2;
   font-size: 1.5rem;
   font-weight: 600;
-  border-bottom: 2px solid ${GREEN};
+  border-bottom: 2px solid #5c5c5c;
   margin-bottom: 15px;
   padding-bottom: 5px;
 `;
 
 export const CloseModal = styled.button`
-  color: ${GREEN};
+  color: #f2f2f2;
   font-weight: 600;
   background: none;
   border: none;
@@ -87,14 +88,14 @@ export const OptionsModalBody = styled.div`
 `;
 
 export const OptionsModalFooter = styled.div`
-  border-top: 2px solid ${GREEN};
+  border-top: 2px solid #5c5c5c;
   padding: 10px 0;
-  color: ${GREEN};
+  color: #f2f2f2;
   font-size: 1.2rem;
   text-align: center;
 
   & a {
-    color: ${GREEN};
+    color: #f5f5f5;
     text-decoration: underline;
   }
 `;

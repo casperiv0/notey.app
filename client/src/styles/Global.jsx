@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { PRIMARY, DARK_GRAY_2, GREEN, RED } from "./colors";
+import { PRIMARY, GREEN, RED } from "./colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 
 export const AppLayout = styled.div`
@@ -19,16 +19,17 @@ export const TextArea = styled.textarea`
   position: relative;
   padding: 7px;
   font-size: 1.2rem;
-  border: 2px solid ${GREEN};
-  background-color: ${DARK_GRAY_2};
-  color: ${GREEN};
+  border: 2px solid #5c5c5c;
+  background-color: #2f2f2f;
+  color: #f2f2f2;
   resize: vertical;
   max-height: ${(props) => (props.maxHeight ? props.maxHeight : "")};
   min-height: ${(props) => (props.minHeight ? props.minHeight : "")};
-  border-radius: 0;
+  border-radius: 5px;
+  transition: border 200ms;
 
   &:focus {
-    outline: 2px dotted ${GREEN};
+    border-color: #fff;
   }
 `;
 
@@ -38,9 +39,10 @@ export const Button = styled.button`
   cursor: pointer;
   border-radius: 0;
   font-weight: 600;
+  border-radius: 0.5rem;
 
   &.ml {
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   ${(props) =>
@@ -105,7 +107,7 @@ export const ReportBtn = styled.a`
 
 export const Divider = styled.div`
   padding-top: 5px;
-  border-top: 2px solid ${(props) => (props.color ? props.color : GREEN)};
+  border-top: 2px solid ${(props) => (props.color ? props.color : "#555")};
 `;
 
 export const SrOnly = styled.label`

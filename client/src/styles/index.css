@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  background-color: #1d1e2c;
+  background-color: #2f2f2f;
   color: #232436;
   min-height: 100vh;
 }
@@ -21,7 +21,7 @@ button:focus,
 input:focus,
 select:focus,
 a:focus {
-  outline: 2px dotted #4ecec4;
+  outline: none;
 }
 
 a {
