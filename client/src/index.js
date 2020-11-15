@@ -7,7 +7,6 @@ import AuthRoute from "./components/AuthRoute";
 import store from "./utils/store";
 import * as serviceWorker from "./utils/serviceWorker";
 import Loader from "./components/Loader";
-import { GREEN } from "./styles/colors";
 
 const Landing = lazy(() => import("./pages/Landing"));
 const SignIn = lazy(() => import("./pages/auth/SignIn"));
@@ -16,7 +15,7 @@ const Logout = lazy(() => import("./pages/auth/Logout"));
 const App = lazy(() => import("./pages/App"));
 const SharePage = lazy(() => import("./pages/SharePage"));
 const NotFound = lazy(() => import("./components/NotFound/"));
-const renderLoader = () => <Loader center={true} color={GREEN} />;
+const renderLoader = () => <Loader center={true} color="#f2f2f2" />;
 
 ReactDOM.render(
   <React.StrictMode>

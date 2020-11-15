@@ -1,19 +1,18 @@
 import styled, { css } from "styled-components";
-import { PRIMARY, GREEN, LIGHT_GRAY } from "./colors";
 
 export const AuthContainer = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${PRIMARY};
+  background-color: #2f2f2f;
 `;
 
 export const AuthForm = styled.form`
   width: ${(props) => (props.width ? props.width : "500px")};
   max-width: 90%;
   max-height: 95%;
-  background-color: ${PRIMARY};
+  background-color: #2f2f2f;
   padding: 10px 20px;
   box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
 
@@ -39,7 +38,7 @@ export const FormGroup = styled.div`
 export const FormTitle = styled.h2`
   text-align: center;
   font-size: 2rem;
-  color: ${GREEN};
+  color: #f2f2f2;
   border-bottom: 2px solid #5c5c5c;
   padding-bottom: 7px;
   margin-bottom: 5px;
@@ -58,17 +57,19 @@ export const FormLabel = styled.label`
     content: attr(aria-label);
     display: none;
     position: absolute;
-    top: 30px;
+    top: -50px;
     left: 50%;
     transform: translate(-50%);
     font-size: 1.2rem;
-    color: ${GREEN};
+    color: #f2f2f2;
     width: 350px;
     padding: 10px;
     border-radius: 5px;
     pointer-events: none;
     text-transform: lowercase;
     font-weight: 400;
+    background: #555;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
 
   &.more-info:hover::before {
@@ -84,6 +85,10 @@ export const FormInput = styled.input`
   border-radius: 5px;
   color: #f2f2f2;
   transition: border 200ms;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
 
   &:focus {
     border-color: #fff;
@@ -118,13 +123,13 @@ export const SubmitBtn = styled.button`
 `;
 
 export const FormSmall = styled.small`
-  color: ${LIGHT_GRAY};
+  color: #bbb;
   font-size: 1rem;
   font-weight: 600;
   display: flex;
 
   & a {
     margin-left: 5px;
-    color: ${GREEN};
+    color: #f2f2f2;
   }
 `;

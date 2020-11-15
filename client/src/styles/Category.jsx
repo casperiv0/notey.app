@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { GREEN } from "./colors";
 import { DEFAULT_MIN_WIDTH } from "./constants";
 
 export const CategoryDiv = styled.div`
-  color: ${GREEN};
   margin: 10px 0 20px 0;
 `;
 
@@ -30,6 +28,14 @@ export const SelectCategoryStyle = styled.select`
     display: none;
   }
 
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:focus {
+    border-color: #fff;
+  }
+
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     &.is-in-nav {
       display: block;
@@ -44,7 +50,14 @@ export const DeleteCategory = styled.button`
   font-size: 1.2rem;
   cursor: pointer;
 
+  &:hover {
+    & svg {
+      fill: #d9534f;
+    }
+  }
+
   & svg {
-    fill: #eaeaea;
+    transition: fill 200ms;
+    fill: #aaa;
   }
 `;

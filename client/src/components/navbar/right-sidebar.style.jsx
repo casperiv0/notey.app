@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "../../styles/colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const RightSidebarActive = styled.div`
@@ -34,8 +33,8 @@ export const RightSidebarStyle = styled.div`
   height: 100vh;
   right: -${SIDEBAR_WIDTH_FULL};
   top: 0;
-  background: ${PRIMARY};
-  color: ${GREEN};
+  background: #252525;
+  color: #f2f2f2;
   transition: right 200ms;
 
   &.active {
@@ -63,6 +62,6 @@ export const CloseRightSidebar = styled.button`
   height: 50px;
 
   & svg {
-    fill: ${GREEN};
+    fill: #f2f2f2;
   }
 `;

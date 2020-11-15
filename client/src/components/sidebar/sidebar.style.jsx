@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { PRIMARY, WHITE, GREEN } from "../../styles/colors";
 import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const SidebarContainer = styled.div`
@@ -101,8 +100,15 @@ export const SearchContainer = styled.div`
   border-radius: 5px;
   padding: 2px;
   background-color: #2f2f2f;
-  border: 2px solid #555
-  `;
+  border: 2px solid #555;
+  transition: border 200ms;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+`;
 
 export const SearchInput = styled.input`
   padding: 5px;
@@ -123,17 +129,6 @@ export const SearchIconContainer = styled.span`
     font-size: 1.2rem;
     fill: #848484;
   }
-`;
-
-export const SearchBtn = styled.button`
-  padding: 5px 10px;
-  border: 1px solid ${GREEN};
-  background-color: ${GREEN};
-  color: ${WHITE};
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 0 5px 5px 0;
 `;
 
 export const SidebarBody = styled.div`
@@ -173,9 +168,9 @@ export const OpenOptionsModalBtn = styled.button`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: ${PRIMARY};
-  color: ${GREEN};
-  border: solid ${GREEN};
+  background-color: #2f2f2f;
+  color: #f2f2f2;
+  border: solid #2f2f2f;
   border-width: 2px 0px 2px 0px;
   font-size: 1.2rem;
   font-weight: 600;
@@ -183,8 +178,8 @@ export const OpenOptionsModalBtn = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: ${GREEN};
-      color: ${PRIMARY};
+      background-color: #2f2f2f;
+      color: #f2f2f2;
     }
   }
 `;

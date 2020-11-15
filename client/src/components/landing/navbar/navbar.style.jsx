@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { GREEN, PRIMARY } from "../../../styles/colors";
 import { DEFAULT_MIN_WIDTH } from "../../../styles/constants";
 
 export const NavbarStyle = styled.nav`
@@ -7,7 +6,7 @@ export const NavbarStyle = styled.nav`
   justify-content: center;
   width: 100%;
   height: 80px;
-  background: ${PRIMARY};
+  background: #2f2f2f;
 `;
 
 export const NavbarContent = styled.div`
@@ -23,7 +22,6 @@ export const NavbarContent = styled.div`
 `;
 
 export const NavIcon = styled.a`
-  color: ${GREEN};
   font-size: 1.7rem;
   font-weight: 700;
   text-decoration: none;
@@ -32,7 +30,7 @@ export const NavIcon = styled.a`
 export const NavLinks = styled.div``;
 
 export const NavLink = styled.a`
-  color: ${GREEN};
+  color: #f2f2f2;
   font-size: 1.2rem;
   padding: 10px 20px;
   text-decoration: none;
@@ -41,7 +39,7 @@ export const NavLink = styled.a`
   ${(props) =>
     props.large &&
     css`
-      color: ${PRIMARY};
-      background: ${GREEN};
+      background: #555;
+      color: #f2f2f2;
     `}
 `;

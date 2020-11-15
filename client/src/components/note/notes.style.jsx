@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { GREEN } from "../../styles/colors";
 import { DEFAULT_MIN_WIDTH } from "../../styles/constants";
 
 export const NoteStyle = styled.div`
@@ -88,7 +87,7 @@ export const NotePreview = styled.div`
     margin-left: 20px;
 
     &::marker {
-      color: ${GREEN};
+      color: #f2f2f2;
       font-size: 1.2rem;
     }
   }

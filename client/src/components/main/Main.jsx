@@ -3,7 +3,6 @@ import Navbar from "../navbar/Navbar";
 import Loader from "../Loader";
 import Note from "../note/Note";
 import { MainStyle } from "./main.style";
-import { GREEN } from "../../styles/colors";
 
 const Main = ({
   notes,
@@ -18,7 +17,7 @@ const Main = ({
   editing,
   categoryId,
   setCategoryId,
-  categories
+  categories,
 }) => {
   return (
     <MainStyle>
@@ -35,7 +34,7 @@ const Main = ({
         categories={categories}
       />
       {loading ? (
-        <Loader fullSize={true} color={GREEN}></Loader>
+        <Loader fullSize={true} color="#f2f2f2"></Loader>
       ) : (
         <Note
           noteBody={noteBody}

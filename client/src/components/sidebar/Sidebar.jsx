@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
-import { GREEN } from "../../styles/colors";
 import { SrOnly } from "../../styles/Global";
 import { Divider } from "../../styles/Global";
 import { closeSidebar, openModal } from "../../utils/functions";
@@ -88,7 +87,7 @@ const Sidebar = ({
         </SidebarHeader>
         <SidebarBody>
           {loading ? (
-            <Loader color={GREEN}></Loader>
+            <Loader></Loader>
           ) : (
             <>
               {categories.map((cat, ci) => {

@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { GREEN, PRIMARY } from "../../../styles/colors";
 import { DEFAULT_MIN_WIDTH } from "../../../styles/constants";
 
-export const MainContainer = styled.div`
+export const MainContainer = styled.main`
   display: flex;
   justify-content: center;
 `;
@@ -47,13 +46,13 @@ export const ShowCaseTitle = styled.h1`
 
 export const ShowCaseParaph = styled.p`
   margin-bottom: 20px;
-  color: #bbb;
+  color: #f9f9f9;
   font-size: 1.5rem;
 `;
 
 export const ShowCaseLink = styled.a`
-  color: ${PRIMARY};
-  background: ${GREEN};
+  color: #f2f2f2;
+  background: #555;
   font-size: 1.2rem;
   padding: 10px 40px;
   text-decoration: none;
@@ -61,7 +60,7 @@ export const ShowCaseLink = styled.a`
 `;
 
 export const ShowCaseInfo = styled.p`
-  color: #bbb;
+  color: #f2f2f2;
   font-size: 1.2rem;
   margin-left: 20px;
   display: none;

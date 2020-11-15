@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { PRIMARY, GREEN } from "../../styles/colors";
 
 export const ModalContainer = styled.div`
   z-index: 30;
@@ -22,7 +21,7 @@ export const ModalContainer = styled.div`
 export const ModalStyle = styled.div`
   z-index: 35;
   padding: 10px;
-  background-color: ${PRIMARY};
+  background-color: #2f2f2f;
   width: 600px;
   max-width: 90%;
   max-height: 95%;
@@ -59,9 +58,12 @@ export const CloseModal = styled.button`
   height: 50px;
   transition: background 200ms;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(85, 85, 85, 0.8);
   }
 
   &:focus {
@@ -75,7 +77,7 @@ export const ModalBody = styled.div`
 
 // OptionsModal
 export const OptionsModalStyle = styled.div`
-  color: ${GREEN};
+  color: #f2f2f2;
 `;
 
 export const OptionsModalContent = styled.div`

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { DARK_GRAY_2, PRIMARY } from "../../../styles/colors";
 import { DEFAULT_MIN_WIDTH } from "../../../styles/constants";
 
 export const FooterStyle = styled.footer`
@@ -38,14 +37,14 @@ export const FooterIcon = styled.img`
 `;
 
 export const FooterTitle = styled.h1`
-  color: ${PRIMARY};
+  color: #2f2f2f;
   font-size: 1.2rem;
   font-weight: normal;
   text-align: center;
 
   & a {
     margin-right: 0;
-    color: ${DARK_GRAY_2};
+    color: #555;
   }
 `;
 
@@ -56,7 +55,7 @@ export const FooterLinks = styled.div`
 
 export const FooterLink = styled.a`
   font-size: 1.2rem;
-  color: ${DARK_GRAY_2};
+  color: #555;
   font-weight: 600;
   margin-top: 10px;
 `;
