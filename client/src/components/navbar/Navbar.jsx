@@ -93,14 +93,15 @@ const Navbar = ({
                   Delete
                 </Button>
                 <Button
+                  bgColor="#2f2f2f"
                   navBtn
                   className="ml"
-                  success
                   onClick={() => editNote(editing ? "save" : null, note._id)}
                 >
                   {editing ? "Save" : "Edit"}
                 </Button>
                 <Button
+                  bgColor="#2f2f2f"
                   navBtn
                   className="ml"
                   success

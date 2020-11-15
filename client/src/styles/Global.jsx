@@ -43,7 +43,7 @@ export const Button = styled.button`
   border-radius: 0;
   font-weight: 600;
   border-radius: 0.5rem;
-  background: #555;
+  background: ${(props) => (props.bgColor ? props.bgColor : "#555")};
   color: #f2f2f2;
   border: none;
   transition: filter 200ms;

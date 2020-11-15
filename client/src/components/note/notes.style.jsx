@@ -98,7 +98,7 @@ export const NoteTextArea = styled.textarea`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: #2f2f2f;
+  background-color: #1c1c1c;
   color: #fff;
   resize: none;
   border: none;

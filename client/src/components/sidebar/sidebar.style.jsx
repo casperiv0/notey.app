@@ -44,7 +44,7 @@ export const SidebarStyle = styled.div`
   padding: 10px;
   background-color: #252525;
   top: 0;
-  left: -${SIDEBAR_WIDTH_FULL};
+  left: calc(-${SIDEBAR_WIDTH_FULL} - 50px);
   bottom: 0;
   overflow-x: hidden;
   transition: left 200ms;
@@ -58,6 +58,7 @@ export const SidebarStyle = styled.div`
   }
 
   &.active {
+    width: calc(${SIDEBAR_WIDTH_FULL} + 50px);
     left: 0;
     transition: left 0.3s;
   }
@@ -66,7 +67,7 @@ export const SidebarStyle = styled.div`
 export const SidebarHeader = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: calc(${SIDEBAR_WIDTH_FULL} - 55px) auto;
+  grid-template-columns: 85% auto;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     grid-template-columns: auto;
@@ -79,6 +80,7 @@ export const CloseSidebarBtn = styled.button`
   font-size: 2rem;
   cursor: pointer;
   display: flex;
+  margin-left: 10px;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     display: none;
@@ -133,7 +135,7 @@ export const SearchIconContainer = styled.span`
 
 export const SidebarBody = styled.div`
   margin-top: 10px;
-  width: calc(${SIDEBAR_WIDTH_FULL} - 20px);
+  width: 98%;
 `;
 
 export const SidebarNote = styled.a`

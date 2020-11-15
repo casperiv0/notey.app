@@ -12,7 +12,7 @@ export const MessagesContainer = styled.div`
 export const AlertMessageStyle = styled.div`
   margin: 5px 0;
   width: 100%;
-  background-color: #555;
+  background-color: #2f2f2f;
   color: #f2f2f2;
   font-size: 1.2rem;
   padding: 15px 20px;

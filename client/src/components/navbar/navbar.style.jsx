@@ -17,7 +17,7 @@ export const NavbarStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #2f2f2f;
+  background-color: #1c1c1c;
   border-left: none;
   border-bottom: 2px solid #666;
 
