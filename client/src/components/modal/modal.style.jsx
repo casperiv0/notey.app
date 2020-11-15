@@ -29,8 +29,8 @@ export const ModalStyle = styled.div`
   transition: transform 200ms;
   border-radius: 0.7rem;
 
-  @media (max-height: 680px) {
-    overflow-y: scroll;
+  @media (max-height: 750px) {
+    overflow-y: auto;
   }
 `;
 

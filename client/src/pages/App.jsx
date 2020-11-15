@@ -19,6 +19,9 @@ const AlertMessages = lazy(() => import("../components/AlertMessages/"));
 const OptionsModal = lazy(() => import("../components/modal/OptionsModal"));
 const CreateNote = lazy(() => import("../components/modal/CreateNote"));
 const CreateCategory = lazy(() => import("../components/modal/CreateCategory"));
+const ManageNoteModal = lazy(() =>
+  import("../components/modal/ManageNoteModal")
+);
 
 const App = ({
   getNotes,
@@ -99,6 +102,7 @@ const App = ({
   return (
     <Suspense fallback={<p></p>}>
       <CreateNote openSetModal={openSetModal} />
+      <ManageNoteModal />
       <OptionsModal />
       <CreateCategory />
       <AppLayout>

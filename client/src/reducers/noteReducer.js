@@ -7,11 +7,12 @@ import {
   UPDATE_NOTE,
   SET_LOADING,
   GET_SHARE_BY_ID,
+  SHARE_NOTE,
 } from "../utils/types";
 
 const initState = {
   notes: [],
-  note: {},
+  note: null,
   share: null,
   createdNote: {},
   error: null,
@@ -59,10 +60,11 @@ export default function noteReducer(state = initState, action) {
         ...state,
         loading: action.loading,
       };
-    case "SHARE_NOTE":
+    case SHARE_NOTE:
       return {
         ...state,
         notes: action.notes,
+        note: action.note,
       };
     case GET_SHARE_BY_ID:
       return {

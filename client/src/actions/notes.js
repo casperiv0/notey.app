@@ -1,4 +1,4 @@
-import { handleRequest, isSuccess } from "../utils/functions";
+import { closeModal, handleRequest, isSuccess } from "../utils/functions";
 import {
   GET_NOTES,
   GET_ACTIVE_NOTE,
@@ -65,6 +65,7 @@ export const createNote = (data) => (dispatch) => {
           message: `Successfully created note with title: ${res.data.note.title}`,
         });
         dispatch({ type: SET_LOADING, loading: false });
+        return (window.location.href = `/#/app?noteId=${res.data.note._id}`);
       } else {
         // disable loading
         dispatch({ type: SET_LOADING, loading: false });
@@ -132,15 +133,24 @@ export const updateNoteById = (id, data) => (dispatch) => {
     });
 };
 
-export const shareNote = (id) => (dispatch) => {
-  handleRequest(`/notes/share/${id}`, "POST")
+export const shareNote = (id, data) => (dispatch) => {
+  handleRequest(`/notes/share/${id}`, "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({
           type: SHARE_NOTE,
           notes: res.data.notes,
+          note: res.data.note,
         });
-        window.location.href = `/#/share/${id}`;
+        if (data.shareable === "true") {
+          return (window.location.href = `/#/share/${id}`);
+        } else {
+          closeModal("manageNoteModal");
+          dispatch({
+            type: ADD_MESSAGE,
+            message: "Successfully remove share from note",
+          });
+        }
       } else {
         dispatch({
           type: ADD_MESSAGE,

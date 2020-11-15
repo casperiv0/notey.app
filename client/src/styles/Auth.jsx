@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { DEFAULT_INPUT_STYLES } from "./Global";
 
 export const AuthContainer = styled.div`
   height: 100vh;
@@ -78,21 +79,7 @@ export const FormLabel = styled.label`
 `;
 
 export const FormInput = styled.input`
-  padding: 7px;
-  font-size: 1.2rem;
-  border: 2px solid #5c5c5c;
-  background-color: #2f2f2f;
-  border-radius: 5px;
-  color: #f2f2f2;
-  transition: border 200ms;
-
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.5);
-  }
-
-  &:focus {
-    border-color: #fff;
-  }
+  ${DEFAULT_INPUT_STYLES}
 `;
 
 export const FormCheckbox = styled.input`
@@ -123,7 +110,7 @@ export const SubmitBtn = styled.button`
 `;
 
 export const FormSmall = styled.small`
-  color: #bbb;
+  color: #f2f2f2;
   font-size: 1rem;
   font-weight: 600;
   display: flex;

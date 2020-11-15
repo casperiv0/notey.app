@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import useMarkdown from "../hooks/useMarkdown";
 import User from "../models/User.model";
 import Logger from "../utils/Logger";
+import { isTrue } from "../utils/utils";
 const router: Router = Router();
 
 /**
@@ -30,11 +31,11 @@ router.get("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     note = await Note.findById(noteId);
     user = await User.findById(req.user?._id);
   } catch (e) {
-    note = undefined;
+    note = (await Note.find({ user_id: req.user?._id }))[0];
   }
 
   if (note?.user_id.toString() !== user?._id.toString()) {
-    note = undefined;
+    note = (await Note.find({ user_id: req.user?._id }))[0];
   }
 
   return res.json({ note, status: "success" });
@@ -84,7 +85,7 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
  * @Desc Creates a new note
  */
 router.post("/", useAuth, async (req: IRequest, res: Response) => {
-  const { categoryId, title, body } = req.body;
+  const { categoryId, title, body, shareable } = req.body;
 
   if (categoryId && title && body) {
     if (title.length > 40) {
@@ -109,6 +110,7 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
       title,
       body,
       markdown: markdown,
+      shared: isTrue(shareable),
     });
     const notes = await Note.find({ user_id: req.user?.id });
 
@@ -161,6 +163,7 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
  */
 router.post("/share/:noteId", useAuth, async (req: IRequest, res: Response) => {
   const noteId = req.params.noteId;
+  const { shareable } = req.body;
 
   try {
     const note = await Note.findById(noteId);
@@ -174,12 +177,14 @@ router.post("/share/:noteId", useAuth, async (req: IRequest, res: Response) => {
         .status(401);
     }
 
-    await Note.findByIdAndUpdate(noteId, { shared: true });
+    await Note.findByIdAndUpdate(noteId, { shared: isTrue(shareable) });
     const notes = await Note.find({ user_id: req.user?._id });
+    const updated = await Note.findById(note?._id);
 
     return res.json({
       status: "success",
       notes,
+      note: updated,
     });
   } catch (e) {
     Logger.error(e, "db_error");

@@ -15,6 +15,7 @@ import { createNote } from "../../actions/notes";
 import { getCategories } from "../../actions/category";
 import { TextArea } from "../../styles/Global";
 import { FormGroup, FormLabel, FormInput, SubmitBtn } from "../../styles/Auth";
+import { Select } from "../../styles/Global";
 
 const CreateNote = ({
   createNote,
@@ -30,6 +31,7 @@ const CreateNote = ({
   const [categoryId, setCategoryId] = useState("no_category");
   const [canClose, setCanClose] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [shareable, setShareable] = useState(false);
 
   useEffect(() => {
     if (openSetModal === "note") {
@@ -50,6 +52,7 @@ const CreateNote = ({
       title,
       body,
       categoryId,
+      shareable,
     };
     createNote(data);
     setHasSubmitted(true);
@@ -77,6 +80,7 @@ const CreateNote = ({
         setBody("");
         setCategoryId("no_category");
         setHasSubmitted(false);
+        setShareable(false);
       }, 200);
     }
 
@@ -136,6 +140,18 @@ const CreateNote = ({
             categoryId={categoryId}
             categories={categories}
           />
+        </FormGroup>
+        <FormGroup>
+          <FormLabel>
+            Shareable (People are able to view this with a link)
+          </FormLabel>
+          <Select
+            value={shareable}
+            onChange={(e) => setShareable(e.target.value)}
+          >
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
+          </Select>
         </FormGroup>
         <FormGroup>
           <SubmitBtn type="submit" disabled={loading}>

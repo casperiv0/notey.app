@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import SelectCategory from "../SelectCategory";
-import { shareNote } from "../../actions/notes";
 import { MenuIcon, CloseIcon, OptionsIcon } from "../icons";
 import { SrOnly, Column, Row, Button } from "../../styles/Global";
-import { openSidebar, closeSidebar } from "../../utils/functions";
+import { openSidebar, closeSidebar, openModal } from "../../utils/functions";
 import {
   NavbarContainer,
   NavbarStyle,
@@ -31,7 +29,6 @@ const Navbar = ({
   categoryId,
   setCategoryId,
   categories,
-  shareNote,
 }) => {
   useEffect(() => {
     document.title = note ? `Notey.app - ${note.title}` : "Notey.app";
@@ -39,6 +36,10 @@ const Navbar = ({
     setNoteTitle(note && note.title);
     setCategoryId(note && note.category_id);
   }, [note, setNoteTitle, setCategoryId]);
+
+  function shareNote(id) {
+    openModal("manageNoteModal");
+  }
 
   return (
     <NavbarContainer>
@@ -107,7 +108,7 @@ const Navbar = ({
                   success
                   onClick={() => shareNote(note._id)}
                 >
-                  Open link
+                  Manage
                 </Button>
               </Row>
             </Row>
@@ -198,4 +199,4 @@ const RightSidebar = ({
   );
 };
 
-export default connect(null, { shareNote })(Navbar);
+export default Navbar;
