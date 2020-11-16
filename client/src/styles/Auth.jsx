@@ -6,7 +6,7 @@ export const AuthContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #2f2f2f;
+  background-color: #1c1c1c;
 `;
 
 export const AuthForm = styled.form`
@@ -15,7 +15,6 @@ export const AuthForm = styled.form`
   max-height: 95%;
   background-color: #2f2f2f;
   padding: 10px 20px;
-  box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
 
   @media (max-height: 450px) {
     overflow-y: scroll;

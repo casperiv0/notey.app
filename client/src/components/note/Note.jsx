@@ -7,7 +7,7 @@ const Note = ({ note, editing, noteBody, setNoteBody }) => {
   }, [note, setNoteBody]);
 
   useEffect(() => {
-    document.querySelectorAll("#noteArea a").forEach((link) => {
+    document.querySelectorAll("#note-preview-area a").forEach((link) => {
       link.target = "_blank";
       link.rel = "noreferrer noopener";
     });

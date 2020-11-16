@@ -6,7 +6,7 @@ export const NavbarStyle = styled.nav`
   justify-content: center;
   width: 100%;
   height: 80px;
-  background: #2f2f2f;
+  background: #1c1c1c;
 `;
 
 export const NavbarContent = styled.div`
