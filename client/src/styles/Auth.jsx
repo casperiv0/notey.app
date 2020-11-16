@@ -14,7 +14,9 @@ export const AuthForm = styled.form`
   max-width: 90%;
   max-height: 95%;
   background-color: #2f2f2f;
-  padding: 10px 20px;
+  padding: 15px 20px;
+  border-radius: 0.7rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 
   @media (max-height: 450px) {
     overflow-y: scroll;
