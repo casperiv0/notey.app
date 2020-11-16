@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const NotFoundContainer = styled.div`
   display: flex;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const ErrorBox = styled.div`
   background-color: #5c5c5c;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { DEFAULT_MIN_WIDTH } from "../../../styles/constants";
 
 export const FooterStyle = styled.footer`

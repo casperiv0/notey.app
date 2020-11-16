@@ -120,7 +120,7 @@ const Sidebar = ({
                   });
 
                 return (
-                  <CategoryDiv key={ci}>
+                  <CategoryDiv id={`category-${ci}`} key={ci}>
                     <CategoryTitle>
                       {category}
                       <div>
@@ -137,14 +137,17 @@ const Sidebar = ({
 
               {/* Show all notes without no category set */}
               {notes && !noCategoryNotesLength[0] ? null : (
-                <CategoryDiv>
+                <CategoryDiv
+                  id={`category-${categories.length}`}
+                  key={categories.length}
+                >
                   <CategoryTitle>No category</CategoryTitle>
                   {noCategoryNotes}
                 </CategoryDiv>
               )}
 
               {/* don't show divider when no notes are found */}
-              {notes && !notes[0] ? null : <Divider />}
+              {notes && !notes[0] ? null : <Divider id="divider" />}
 
               <SidebarNote onClick={() => openModal("createNoteModal")}>
                 Create new Note
