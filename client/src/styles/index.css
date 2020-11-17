@@ -16,13 +16,6 @@ body {
   min-height: 100vh;
 }
 
-button:focus,
-input:focus,
-select:focus,
-a:focus {
-  outline: none;
-}
-
 a {
   color: #f2f2f2;
 }

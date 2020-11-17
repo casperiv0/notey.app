@@ -48,6 +48,7 @@ export default function noteReducer(state = initState, action) {
       return {
         ...state,
         notes: action.notes,
+        note: null,
       };
     case UPDATE_NOTE:
       return {

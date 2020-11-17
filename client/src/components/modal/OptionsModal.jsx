@@ -65,7 +65,7 @@ const OptionsModal = ({ logout, deleteAccount }) => {
             </Column>
           </OptionsModalBody>
           <OptionsModalFooter>
-            Made with ❤ by{" "}
+            Made with ❤️ by{" "}
             <a
               target="_blank"
               rel="noreferrer noopener"

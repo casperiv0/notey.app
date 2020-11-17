@@ -40,6 +40,14 @@ export const DEFAULT_BTN_STYLES = css`
   &:hover {
     filter: brightness(120%);
   }
+
+  &:focus {
+    filter: brightness(120%);
+  }
+
+  &:active {
+    filter: brightness(120%);
+  }
 `;
 
 export const AppLayout = styled.div`

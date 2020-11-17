@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components/macro";
 
-const fadeAne = keyframes`
+const openAni = keyframes`
   from {
     opacity: 0;
     transform: scale(0.8);
@@ -18,7 +18,7 @@ const closeAni = keyframes`
   }
   to {
     opacity: 0;
-    transform: scale(0);
+    transform: scale(0.8);
   }
 `;
 
@@ -42,7 +42,7 @@ export const ModalContainer = styled.div`
 
 export const ModalStyle = styled.div`
   z-index: 35;
-  padding: 10px;
+  padding: 10px 15px;
   background-color: #2f2f2f;
   width: 600px;
   max-width: 90%;
@@ -55,7 +55,7 @@ export const ModalStyle = styled.div`
   }
 
   &.active {
-    animation: ${fadeAne} 200ms linear;
+    animation: ${openAni} 200ms linear;
   }
 
   &.closed {

@@ -5,7 +5,6 @@ import ReactDOM from "react-dom";
 import "./styles/index.css";
 import AuthRoute from "./components/AuthRoute";
 import store from "./utils/store";
-import * as serviceWorker from "./utils/serviceWorker";
 import Loader from "./components/Loader";
 
 const Landing = lazy(() => import("./pages/Landing"));
@@ -37,5 +36,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("app-mount")
 );
-
-serviceWorker.register();
