@@ -19,6 +19,7 @@ export const signIn = (data, location) => (dispatch) => {
     .catch((e) => {
       console.log(e);
       dispatch({ type: AUTH_ERR, error: noError });
+      dispatch({ type: SET_LOADING, loading: false });
     });
 };
 
@@ -38,6 +39,7 @@ export const signUp = (data) => (dispatch) => {
     .catch((e) => {
       console.log(e);
       dispatch({ type: AUTH_ERR, error: noError });
+      dispatch({ type: SET_LOADING, loading: false });
     });
 };
 

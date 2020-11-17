@@ -1,4 +1,26 @@
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
+
+const fadeAne = keyframes`
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+const closeAni = keyframes`
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+`;
 
 export const ModalContainer = styled.div`
   z-index: 30;
@@ -26,11 +48,18 @@ export const ModalStyle = styled.div`
   max-width: 90%;
   max-height: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 200ms;
   border-radius: 0.7rem;
 
   @media (max-height: 750px) {
     overflow-y: auto;
+  }
+
+  &.active {
+    animation: ${fadeAne} 200ms linear;
+  }
+
+  &.closed {
+    animation: ${closeAni} 150ms linear;
   }
 `;
 

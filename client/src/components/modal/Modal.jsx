@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useEffect } from "react";
 import { closeModal } from "../../utils/functions";
 import {
   ModalStyle,
@@ -21,7 +20,7 @@ const Modal = ({ id, title, children }) => {
 
   return createPortal(
     <ModalContainer className="modal" id={id}>
-      <ModalStyle className={id}>
+      <ModalStyle id={`style-${id}`} className={id}>
         <ModalHeader>
           {title}
           <CloseModal onClick={() => closeModal(id)}>&times;</CloseModal>
