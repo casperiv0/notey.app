@@ -67,12 +67,13 @@ export const NotePreview = styled.div`
   & pre {
     padding: 10px;
     width: 100%;
-    background: #3f3f3f;
+    background: #2c2c2c;
   }
 
   & code {
-    background: #3f3f3f;
+    background: #2c2c2c;
     font-family: Consolas, "Courier New", monospace !important;
+    padding: 2px;
   }
 
   & ul {
@@ -81,6 +82,13 @@ export const NotePreview = styled.div`
 
   & ol {
     margin-top: 10px;
+  }
+
+  & blockquote {
+    padding: 7px;
+    margin: 5px 0;
+    background: #3f3f3f;
+    border-left: 5px solid #5f5f5f;
   }
 
   & li {

@@ -52,15 +52,19 @@ export const SidebarStyle = styled.div`
   grid-template-columns: auto;
   grid-template-rows: 40px auto 50px;
 
-  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
-    left: 0;
-    width: ${SIDEBAR_WIDTH_FULL};
-  }
-
   &.active {
     width: calc(${SIDEBAR_WIDTH_FULL} + 50px);
     left: 0;
     transition: left 0.3s;
+  }
+
+  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+    left: 0;
+    width: ${SIDEBAR_WIDTH_FULL};
+
+    &.active {
+      width: ${SIDEBAR_WIDTH_FULL};
+    }
   }
 `;
 
@@ -104,6 +108,7 @@ export const SearchContainer = styled.div`
   background-color: #2f2f2f;
   border: 2px solid #555;
   transition: border 200ms;
+  width: 100%;
 
   @media (hover: hover) {
     &:hover {
@@ -138,7 +143,7 @@ export const SidebarBody = styled.div`
   width: 98%;
 `;
 
-export const SidebarNote = styled.a`
+export const SidebarNote = styled.button`
   cursor: pointer;
   margin-bottom: 5px;
   padding: 7px 10px;
@@ -153,11 +158,18 @@ export const SidebarNote = styled.a`
   background-color: none;
   border-radius: 0;
   border-radius: 5px;
+  width: 100%;
+  background: transparent;
+  border: none;
 
   @media (hover: hover) {
     &:hover {
       background-color: #555;
     }
+  }
+
+  &:focus {
+    background-color: #555;
   }
 
   &.active {

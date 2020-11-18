@@ -111,7 +111,6 @@ export const OptionsModalStyle = styled.div`
 
 export const OptionsModalContent = styled.div`
   display: grid;
-  grid-template-rows: auto 50px;
 `;
 
 export const OptionsModalBody = styled.div`

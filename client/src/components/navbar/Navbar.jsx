@@ -37,7 +37,7 @@ const Navbar = ({
     setCategoryId(note && note.category_id);
   }, [note, setNoteTitle, setCategoryId]);
 
-  function shareNote(id) {
+  function shareNote() {
     openModal("manageNoteModal");
   }
 
@@ -123,6 +123,7 @@ const Navbar = ({
         categories={categories}
         setCategoryId={setCategoryId}
         categoryId={categoryId}
+        shareNote={shareNote}
       />
     </NavbarContainer>
   );
@@ -147,6 +148,7 @@ const RightSidebar = ({
   categories,
   categoryId,
   setCategoryId,
+  shareNote
 }) => {
   const deleteNote_ = () => {
     closeSidebar("right-sidebar");
@@ -180,6 +182,9 @@ const RightSidebar = ({
             >
               {editing ? "Save" : "Edit"}
             </Button>
+            <Button style={{ marginBottom: "10px" }} onClick={shareNote}>
+              Manage
+            </Button>
             {editing ? (
               <div style={{ marginBottom: "10px" }}>
                 <SelectCategory
@@ -189,7 +194,11 @@ const RightSidebar = ({
                 />
               </div>
             ) : null}
-            <Button danger onClick={deleteNote_}>
+            <Button
+              style={{ marginBottom: "10px" }}
+              danger
+              onClick={deleteNote_}
+            >
               Delete
             </Button>
           </Column>

@@ -1,4 +1,15 @@
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
+
+export const slideIn = keyframes`
+  0% {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
 export const MessagesContainer = styled.div`
   position: fixed;
@@ -24,15 +35,6 @@ export const AlertMessageStyle = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
   &.active {
-    animation: slideIn 500ms forwards;
-  }
-
-  @keyframes slideIn {
-    0% {
-      transform: translateX(110%);
-    }
-    100% {
-      transform: translateX(0);
-    }
+    animation: ${slideIn} 500ms forwards;
   }
 `;
