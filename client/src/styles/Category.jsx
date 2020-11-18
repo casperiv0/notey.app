@@ -4,9 +4,24 @@ import { DEFAULT_INPUT_STYLES } from "./Global";
 
 export const CategoryDiv = styled.div`
   margin: 10px 0 20px 0;
+
+  &.folded {
+    .items {
+      button {
+        display: none;
+      }
+    }
+
+    margin: 5px 0;
+  }
 `;
 
-export const CategoryTitle = styled.h4`
+export const CategoryTitle = styled.button`
+  background: none;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
   color: #f2f2f2;
   font-size: 1.2rem;
   display: flex;

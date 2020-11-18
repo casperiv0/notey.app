@@ -3,7 +3,11 @@ import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
 import { SrOnly } from "../../styles/Global";
 import { Divider } from "../../styles/Global";
-import { closeSidebar, openModal } from "../../utils/functions";
+import {
+  closeSidebar,
+  openModal,
+  changeFoldedState,
+} from "../../utils/functions";
 import { CloseIcon, DeleteIcon } from "../icons";
 import {
   CategoryDiv,
@@ -46,9 +50,13 @@ const Sidebar = ({
     }
   }, [notes, setFilteredNotes]);
 
-  const setActiveNote = (id) => {
+  function setActiveNote(id) {
     getActiveNote(id);
-  };
+  }
+
+  function setFoldState(id) {
+    changeFoldedState(id);
+  }
 
   const noCategoryNotesLength = filteredNotes.filter(
     (note) => note.category_id === "no_category"
@@ -120,8 +128,11 @@ const Sidebar = ({
                   });
 
                 return (
-                  <CategoryDiv id={`category-${ci}`} key={ci}>
-                    <CategoryTitle>
+                  <CategoryDiv id={`category-${cat._id}`} key={ci}>
+                    <CategoryTitle
+                      title="Click to fold"
+                      onClick={() => setFoldState(cat._id)}
+                    >
                       {category}
                       <div>
                         <DeleteCategory onClick={() => deleteCategory(cat._id)}>
@@ -130,7 +141,7 @@ const Sidebar = ({
                         </DeleteCategory>
                       </div>
                     </CategoryTitle>
-                    {categoryNotes}
+                    <div className="items">{categoryNotes}</div>
                   </CategoryDiv>
                 );
               })}
@@ -138,11 +149,16 @@ const Sidebar = ({
               {/* Show all notes without no category set */}
               {notes && !noCategoryNotesLength[0] ? null : (
                 <CategoryDiv
-                  id={`category-${categories.length}`}
+                  id={"category-no-category"}
                   key={categories.length}
                 >
-                  <CategoryTitle>No category</CategoryTitle>
-                  {noCategoryNotes}
+                  <CategoryTitle
+                    title="Click to fold"
+                    onClick={() => setFoldState("no-category")}
+                  >
+                    No category
+                  </CategoryTitle>
+                  <div className="items">{noCategoryNotes}</div>
                 </CategoryDiv>
               )}
 
