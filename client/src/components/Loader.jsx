@@ -22,7 +22,7 @@ const Center = styled.div`
       left: 0;
       right: 0;
       bottom: 0;
-      background: #2f2f2f;
+      background: #18191a;
       display: flex;
       align-items: center;
       justify-content: center;

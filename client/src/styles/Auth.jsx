@@ -1,19 +1,19 @@
 import styled, { css } from "styled-components";
-import { DEFAULT_INPUT_STYLES } from "./Global";
+import { DEFAULT_BTN_STYLES, DEFAULT_INPUT_STYLES } from "./Global";
 
 export const AuthContainer = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1c1c1c;
+  background-color: #18191a;
 `;
 
 export const AuthForm = styled.form`
   width: ${(props) => (props.width ? props.width : "500px")};
   max-width: 90%;
   max-height: 95%;
-  background-color: #2f2f2f;
+  background-color: #242526;
   padding: 15px 20px;
   border-radius: 0.7rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -90,23 +90,10 @@ export const FormCheckbox = styled.input`
 `;
 
 export const SubmitBtn = styled.button`
-  padding: 7px;
-  font-size: 1.2rem;
-  border: 1px solid #5c5c5c;
-  background-color: #5c5c5c;
-  border-radius: 5px;
-  color: #f2f2f2;
-  cursor: pointer;
-  font-weight: 700;
-  text-transform: capitalize;
-  transition: filter 200ms;
+  ${DEFAULT_BTN_STYLES}
 
   &:disabled {
     cursor: not-allowed;
-  }
-
-  &:hover {
-    filter: brightness(120%);
   }
 `;
 

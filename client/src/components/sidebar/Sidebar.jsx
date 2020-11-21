@@ -129,18 +129,20 @@ const Sidebar = ({
 
                 return (
                   <CategoryDiv id={`category-${cat._id}`} key={ci}>
-                    <CategoryTitle
-                      title="Click to fold"
-                      onClick={() => setFoldState(cat._id)}
-                    >
-                      {category}
+                    <div style={{ display: "flex" }}>
+                      <CategoryTitle
+                        title="Click to fold"
+                        onClick={() => setFoldState(cat._id)}
+                      >
+                        {category}
+                      </CategoryTitle>
                       <div>
                         <DeleteCategory onClick={() => deleteCategory(cat._id)}>
                           <SrOnly>Delete</SrOnly>
                           <DeleteIcon></DeleteIcon>
                         </DeleteCategory>
                       </div>
-                    </CategoryTitle>
+                    </div>
                     <div className="items">{categoryNotes}</div>
                   </CategoryDiv>
                 );

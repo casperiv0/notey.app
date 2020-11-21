@@ -1,7 +1,7 @@
 import styled from "styled-components/macro";
 
 export const ErrorBox = styled.div`
-  background-color: #5c5c5c;
+  background-color: #3A3B3C;
   padding: 7px;
   border-radius: 5px;
   margin-bottom: 15px;

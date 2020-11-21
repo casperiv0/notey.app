@@ -49,7 +49,7 @@ export const NotePreview = styled.div`
   }
 
   & summary:hover {
-    background-color: #72767d;
+    background-color: #3A3B3C;
   }
 
   & h1,
@@ -67,11 +67,11 @@ export const NotePreview = styled.div`
   & pre {
     padding: 10px;
     width: 100%;
-    background: #2c2c2c;
+    background: #3A3B3C;
   }
 
   & code {
-    background: #2c2c2c;
+    background: #3A3B3C;
     font-family: Consolas, "Courier New", monospace !important;
     padding: 2px;
   }
@@ -106,7 +106,7 @@ export const NoteTextArea = styled.textarea`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: #1c1c1c;
+  background-color: #18191A;
   color: #fff;
   resize: none;
   border: none;

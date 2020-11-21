@@ -1,5 +1,6 @@
 import styled from "styled-components/macro";
 import { DEFAULT_MIN_WIDTH } from "../../../styles/constants";
+import { DEFAULT_BTN_STYLES } from "../../../styles/Global";
 
 export const MainContainer = styled.main`
   display: flex;
@@ -51,10 +52,8 @@ export const ShowCaseParaph = styled.p`
 `;
 
 export const ShowCaseLink = styled.a`
-  color: #f2f2f2;
-  background: #555;
-  font-size: 1.2rem;
-  padding: 10px 40px;
+  ${DEFAULT_BTN_STYLES}
+  padding: 10px 40px !important;
   text-decoration: none;
   font-weight: 600;
 `;

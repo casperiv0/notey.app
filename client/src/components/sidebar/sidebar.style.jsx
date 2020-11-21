@@ -42,7 +42,7 @@ export const SidebarStyle = styled.div`
   width: ${SIDEBAR_WIDTH_FULL};
   max-width: 95%;
   padding: 10px;
-  background-color: #252525;
+  background-color: #242526;
   top: 0;
   left: calc(-${SIDEBAR_WIDTH_FULL} - 50px);
   bottom: 0;
@@ -145,7 +145,7 @@ export const SidebarBody = styled.div`
 
 export const SidebarNote = styled.button`
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   padding: 7px 10px;
   font-weight: 600;
   font-size: 1.2rem;
@@ -164,17 +164,17 @@ export const SidebarNote = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: #555;
+      background-color: #3A3B3C;
     }
   }
 
   &:focus {
-    background-color: #555;
+    background-color: #3A3B3C;
   }
 
   &.active {
     color: #fff;
-    background-color: #555;
+    background-color: #3A3B3C;
   }
 `;
 

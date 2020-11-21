@@ -43,7 +43,7 @@ export const ModalContainer = styled.div`
 export const ModalStyle = styled.div`
   z-index: 35;
   padding: 10px 15px;
-  background-color: #2f2f2f;
+  background-color: #242526;
   width: 600px;
   max-width: 90%;
   max-height: 95%;
@@ -71,7 +71,7 @@ export const ModalHeader = styled.div`
   color: #f2f2f2;
   font-size: 1.5rem;
   font-weight: 600;
-  border-bottom: 2px solid #5c5c5c;
+  border-bottom: 2px solid #3A3B3C;
   margin-bottom: 15px;
   padding-bottom: 5px;
 `;

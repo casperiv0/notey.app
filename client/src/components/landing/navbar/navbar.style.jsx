@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 import { DEFAULT_MIN_WIDTH } from "../../../styles/constants";
+import { DEFAULT_BTN_STYLES } from "../../../styles/Global";
 
 export const NavbarStyle = styled.nav`
   display: flex;
   justify-content: center;
   width: 100%;
   height: 80px;
-  background: #1c1c1c;
+  background: #18191a;
 `;
 
 export const NavbarContent = styled.div`
@@ -39,7 +40,6 @@ export const NavLink = styled.a`
   ${(props) =>
     props.large &&
     css`
-      background: #555;
-      color: #f2f2f2;
+      ${DEFAULT_BTN_STYLES}
     `}
 `;

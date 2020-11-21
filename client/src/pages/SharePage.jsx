@@ -7,13 +7,14 @@ import { checkAuth } from "../actions/auth";
 
 const loginStyles = {
   padding: "0.5rem 1rem",
-  background: "#555",
+  background: "#3A3B3C",
   color: "#f2f2f2",
   display: "inline-block",
   fontSize: "1.2rem",
   textAlign: "center",
   textDecoration: "none",
   marginRight: "1rem",
+  borderRadius: "0.5rem"
 };
 
 const SharePage = ({ share, getShareById, match, isAuth, checkAuth}) => {

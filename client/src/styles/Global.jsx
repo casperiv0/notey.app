@@ -4,7 +4,7 @@ import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 export const DEFAULT_INPUT_STYLES = css`
   padding: 7px;
   font-size: 1.2rem;
-  border: 2px solid #5c5c5c;
+  border: 2px solid #3A3B3C;
   background: #2f2f2f;
   border-radius: 5px;
   color: #f2f2f2;
@@ -28,7 +28,7 @@ export const DEFAULT_BTN_STYLES = css`
   border-radius: 0;
   font-weight: 600;
   border-radius: 0.5rem;
-  background: ${(props) => (props.bgColor ? props.bgColor : "#555")};
+  background: ${(props) => (props.bgColor ? props.bgColor : "#3A3B3C")};
   color: #f2f2f2;
   border: none;
   transition: filter 200ms;

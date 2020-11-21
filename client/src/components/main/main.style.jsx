@@ -6,7 +6,7 @@ export const MainStyle = styled.div`
   grid-area: main;
   color: white;
   position: relative;
-  background-color: #1c1c1c;
+  background-color: #18191A;
   width: 100%;
   height: 100%;
   display: grid;
