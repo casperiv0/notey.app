@@ -7,7 +7,9 @@ import {
   UPDATE_NOTE,
   SET_LOADING,
   GET_SHARE_BY_ID,
-  SHARE_NOTE,
+  UPDATE_NOTE_OPTIONS,
+  GET_ACTIVE_NOTE_LOCKED,
+  GET_ACTIVE_NOTE_ERROR,
 } from "../utils/types";
 
 const initState = {
@@ -17,6 +19,8 @@ const initState = {
   createdNote: {},
   error: null,
   loading: false,
+  tempNoteId: null,
+  closeAble: false,
 };
 
 export default function noteReducer(state = initState, action) {
@@ -38,6 +42,8 @@ export default function noteReducer(state = initState, action) {
       return {
         ...state,
         note: action.note,
+        error: null,
+        closeAble: true,
       };
     case CREATE_NOTE_ERR:
       return {
@@ -61,7 +67,7 @@ export default function noteReducer(state = initState, action) {
         ...state,
         loading: action.loading,
       };
-    case SHARE_NOTE:
+    case UPDATE_NOTE_OPTIONS:
       return {
         ...state,
         notes: action.notes,
@@ -72,9 +78,22 @@ export default function noteReducer(state = initState, action) {
         ...state,
         share: action.share,
       };
+    case GET_ACTIVE_NOTE_LOCKED:
+      return {
+        ...state,
+        tempNoteId: action.id,
+        error: null,
+        closeAble: action.closeAble,
+      };
+    case GET_ACTIVE_NOTE_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };
     default:
       return {
         ...state,
+        closeAble: false,
       };
   }
 }

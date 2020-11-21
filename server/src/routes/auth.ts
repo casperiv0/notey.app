@@ -131,6 +131,21 @@ router.post("/signup", async (req: IRequest, res: Response) => {
   }
 });
 
+router.post("/pin", useAuth, async (req: IRequest, res: Response) => {
+  const { pin } = req.body;
+
+  if (pin) {
+    await User.findByIdAndUpdate(req.user?._id, {
+      pin_code: hashSync(pin, 10),
+    });
+  } else {
+    return res.json({
+      error: "PIN code is required",
+      status: "error",
+    });
+  }
+});
+
 /**
  @Route GET /user
  @Desc Get information about the authenticated user
@@ -156,8 +171,10 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const doc: any = (user as any)._doc;
   return res.json({
-    user,
+    user: { ...doc, pin_code: user?.pin_code ? true : false },
     status: "success",
   });
 });

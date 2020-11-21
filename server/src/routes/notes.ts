@@ -6,6 +6,7 @@ import useMarkdown from "../hooks/useMarkdown";
 import User from "../models/User.model";
 import Logger from "../utils/Logger";
 import { isTrue } from "../utils/utils";
+import { compareSync } from "bcrypt";
 const router: Router = Router();
 
 /**
@@ -15,15 +16,26 @@ const router: Router = Router();
 router.get("/", useAuth, async (req: IRequest, res: Response) => {
   const notes = await Note.find({ user_id: req.user?._id });
 
-  return res.json({ notes, status: "success" });
+  const parsedNotes = notes.map((note) => {
+    if (note.locked) {
+      const msg =
+        "Note is locked with a PIN code. Please enter your pincode in the popup";
+      note.body = msg;
+      note.markdown = msg;
+    }
+    return note;
+  });
+
+  return res.json({ notes: parsedNotes, status: "success" });
 });
 
 /**
  * @Route GET /:noteId
  * @Desc Returns the requested note
  */
-router.get("/:noteId", useAuth, async (req: IRequest, res: Response) => {
+router.post("/:noteId", useAuth, async (req: IRequest, res: Response) => {
   const { noteId } = req.params;
+  const { pin } = req.body;
   let note;
   let user;
 
@@ -32,6 +44,25 @@ router.get("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     user = await User.findById(req.user?._id);
   } catch (e) {
     note = (await Note.find({ user_id: req.user?._id }))[0];
+  }
+
+  if (note?.locked === true && !pin) {
+    return res.json({
+      error: "pin_required",
+      status: "error",
+      _id: note._id,
+    });
+  }
+
+  if (note?.locked && pin) {
+    const isCorrect = compareSync(pin, String(user?.pin_code));
+
+    if (!isCorrect) {
+      return res.json({
+        error: "PIN was incorrect",
+        status: "error",
+      });
+    }
   }
 
   if (note?.user_id.toString() !== user?._id.toString()) {
@@ -85,7 +116,7 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
  * @Desc Creates a new note
  */
 router.post("/", useAuth, async (req: IRequest, res: Response) => {
-  const { categoryId, title, body, shareable } = req.body;
+  const { categoryId, title, body, shareable, locked } = req.body;
 
   if (categoryId && title && body) {
     if (title.length > 40) {
@@ -111,6 +142,7 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
       body,
       markdown: markdown,
       shared: isTrue(shareable),
+      locked: isTrue(locked),
     });
     const notes = await Note.find({ user_id: req.user?.id });
 
@@ -158,39 +190,46 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
 });
 
 /**
- * @Route POST /share/:noteId
- * @Desc Sets the note open to the public
+ * @Route POST /options/:noteId
+ * @Desc updates misc settings for note
  */
-router.post("/share/:noteId", useAuth, async (req: IRequest, res: Response) => {
-  const noteId = req.params.noteId;
-  const { shareable } = req.body;
+router.post(
+  "/options/:noteId",
+  useAuth,
+  async (req: IRequest, res: Response) => {
+    const noteId = req.params.noteId;
+    const { shareable, locked } = req.body;
 
-  try {
-    const note = await Note.findById(noteId);
+    try {
+      const note = await Note.findById(noteId);
 
-    if (note?.user_id.toString() !== req.user?._id.toString()) {
-      return res
-        .json({
-          error: "Permission denied.",
-          status: "error",
-        })
-        .status(401);
+      if (note?.user_id.toString() !== req.user?._id.toString()) {
+        return res
+          .json({
+            error: "Permission denied.",
+            status: "error",
+          })
+          .status(401);
+      }
+
+      await Note.findByIdAndUpdate(noteId, {
+        shared: isTrue(shareable),
+        locked: isTrue(locked),
+      });
+      const notes = await Note.find({ user_id: req.user?._id });
+      const updated = await Note.findById(note?._id);
+
+      return res.json({
+        status: "success",
+        notes,
+        note: updated,
+      });
+    } catch (e) {
+      Logger.error(e, "db_error");
+      return res.json({ error: "Something went wrong!", status: "error" });
     }
-
-    await Note.findByIdAndUpdate(noteId, { shared: isTrue(shareable) });
-    const notes = await Note.find({ user_id: req.user?._id });
-    const updated = await Note.findById(note?._id);
-
-    return res.json({
-      status: "success",
-      notes,
-      note: updated,
-    });
-  } catch (e) {
-    Logger.error(e, "db_error");
-    return res.json({ error: "Something went wrong!", status: "error" });
   }
-});
+);
 
 router.get("/share/:noteId", async (req: IRequest, res: Response) => {
   const noteId = req.params.noteId;

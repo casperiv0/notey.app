@@ -74,3 +74,5 @@ export const deleteAccount = () => (dispatch) => {
     })
     .catch((e) => console.log(e));
 };
+
+export const setPinCode = () => (dispatch) => {};

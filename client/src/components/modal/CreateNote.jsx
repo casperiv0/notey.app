@@ -25,6 +25,7 @@ const CreateNote = ({
   getCategories,
   loading,
   openSetModal,
+  pinCode,
 }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -32,6 +33,7 @@ const CreateNote = ({
   const [canClose, setCanClose] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [shareable, setShareable] = useState(false);
+  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
     if (openSetModal === "note") {
@@ -53,6 +55,7 @@ const CreateNote = ({
       body,
       categoryId,
       shareable,
+      locked,
     };
     createNote(data);
     setHasSubmitted(true);
@@ -73,6 +76,10 @@ const CreateNote = ({
       title !== "" &&
       body !== ""
     ) {
+      if (locked && !pinCode) {
+        return openModal("setPinModal");
+      }
+
       setCanClose(true);
       closeSidebar("sidebar");
       setTimeout(() => {
@@ -81,6 +88,7 @@ const CreateNote = ({
         setCategoryId("no_category");
         setHasSubmitted(false);
         setShareable(false);
+        setLocked(false);
       }, 200);
     }
 
@@ -96,6 +104,8 @@ const CreateNote = ({
     title,
     hasSubmitted,
     error,
+    locked,
+    pinCode,
   ]);
 
   return (
@@ -154,6 +164,13 @@ const CreateNote = ({
           </Select>
         </FormGroup>
         <FormGroup>
+          <FormLabel>Locked</FormLabel>
+          <Select value={locked} onChange={(e) => setLocked(e.target.value)}>
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
+          </Select>
+        </FormGroup>
+        <FormGroup>
           <SubmitBtn type="submit" disabled={loading}>
             {loading ? <Loader /> : "Create"}
           </SubmitBtn>
@@ -170,6 +187,7 @@ const mapStateToProps = (state) => ({
   createdNote: state.note.createdNote,
   categories: state.categories.categories,
   loading: state.note.loading,
+  pinCode: state.auth.user.pin_code,
 });
 
 export default connect(mapStateToProps, { createNote, getCategories })(

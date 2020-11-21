@@ -1,15 +1,22 @@
-import { closeModal, handleRequest, isSuccess } from "../utils/functions";
+import {
+  closeModal,
+  handleRequest,
+  isSuccess,
+  openModal,
+} from "../utils/functions";
 import {
   GET_NOTES,
   GET_ACTIVE_NOTE,
   CREATE_NOTE,
-  SHARE_NOTE,
+  UPDATE_NOTE_OPTIONS,
   CREATE_NOTE_ERR,
   DELETE_NOTE,
   UPDATE_NOTE,
   ADD_MESSAGE,
   SET_LOADING,
   GET_SHARE_BY_ID,
+  GET_ACTIVE_NOTE_LOCKED,
+  GET_ACTIVE_NOTE_ERROR
 } from "../utils/types";
 
 const noError =
@@ -31,11 +38,26 @@ export const getNotes = () => (dispatch) => {
     });
 };
 
-export const getActiveNote = (id) => (dispatch) => {
-  handleRequest(`/notes/${id}`, "GET")
+export const getActiveNote = (id, pin) => (dispatch) => {
+  handleRequest(`/notes/${id}`, "POST", { pin: pin })
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: GET_ACTIVE_NOTE, note: res.data.note });
+        dispatch({ type: "default", closeAble: true });
+      } else {
+        if (res.data.error === "pin_required") {
+          dispatch({
+            type: GET_ACTIVE_NOTE_LOCKED,
+            closeAble: false,
+            id: res.data._id,
+          });
+          openModal("enterPinModal");
+        } else {
+          dispatch({
+            type: GET_ACTIVE_NOTE_ERROR,
+            error: res.data.error,
+          });
+        }
       }
     })
     .catch((e) => {
@@ -133,22 +155,25 @@ export const updateNoteById = (id, data) => (dispatch) => {
     });
 };
 
-export const shareNote = (id, data) => (dispatch) => {
-  handleRequest(`/notes/share/${id}`, "POST", data)
+export const updateNoteOptions = (id, data) => (dispatch) => {
+  handleRequest(`/notes/options/${id}`, "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({
-          type: SHARE_NOTE,
+          type: UPDATE_NOTE_OPTIONS,
           notes: res.data.notes,
           note: res.data.note,
         });
-        if (data.shareable === "true") {
+        if (
+          data.shareable === "true" &&
+          data.shareable !== String(res.data.note.shareable)
+        ) {
           return (window.location.href = `/#/share/${id}`);
         } else {
           closeModal("manageNoteModal");
           dispatch({
             type: ADD_MESSAGE,
-            message: "Successfully remove share from note",
+            message: "Successfully updated options",
           });
         }
       } else {
