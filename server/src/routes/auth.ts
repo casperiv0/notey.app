@@ -1,7 +1,7 @@
 import { Router, Response } from "express";
 import { IRequest } from "../types";
 import User, { IUser } from "../models/User.model";
-import { compareSync, hashSync } from "bcrypt";
+import { compareSync, hashSync } from "bcryptjs";
 import { useToken, useAuth, useMarkdown } from "../hooks";
 import { AuthUser } from "../interfaces";
 import Logger from "../utils/Logger";
