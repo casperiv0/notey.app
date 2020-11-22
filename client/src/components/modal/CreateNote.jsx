@@ -14,7 +14,7 @@ import {
 import { createNote } from "../../actions/notes";
 import { getCategories } from "../../actions/category";
 import { TextArea } from "../../styles/Global";
-import { FormGroup, FormLabel, FormInput, SubmitBtn } from "../../styles/Auth";
+import { FormGroup, FormLabel, FormInput, SubmitBtn, FormSmall } from "../../styles/Auth";
 import { Select } from "../../styles/Global";
 
 const CreateNote = ({
@@ -25,6 +25,7 @@ const CreateNote = ({
   getCategories,
   loading,
   openSetModal,
+  pinCode,
 }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -32,6 +33,7 @@ const CreateNote = ({
   const [canClose, setCanClose] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [shareable, setShareable] = useState(false);
+  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
     if (openSetModal === "note") {
@@ -53,6 +55,7 @@ const CreateNote = ({
       body,
       categoryId,
       shareable,
+      locked,
     };
     createNote(data);
     setHasSubmitted(true);
@@ -81,25 +84,21 @@ const CreateNote = ({
         setCategoryId("no_category");
         setHasSubmitted(false);
         setShareable(false);
+        setLocked(false);
       }, 200);
     }
 
     if (canClose) {
       closeModal("createNoteModal");
     }
-  }, [
-    setTitle,
-    setBody,
-    setCanClose,
-    canClose,
-    body,
-    title,
-    hasSubmitted,
-    error,
-  ]);
+  }, [canClose, body, title, hasSubmitted, error, locked, pinCode]);
 
   return (
-    <Modal title="Create new note" id="createNoteModal">
+    <Modal
+      style={{ zIndex: "29" }}
+      title="Create new note"
+      id="createNoteModal"
+    >
       <form onSubmit={onSubmit}>
         <FormGroup>
           {error ? <ErrorMessage>{error}</ErrorMessage> : null}
@@ -154,6 +153,17 @@ const CreateNote = ({
           </Select>
         </FormGroup>
         <FormGroup>
+          <FormLabel>Locked</FormLabel>
+          <Select value={locked} onChange={(e) => setLocked(e.target.value)}>
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
+          </Select>
+          <FormSmall>
+            You can set a PIN code by clicking "options" in the sidebar then
+            pressing "change/set PIN Code"
+          </FormSmall>
+        </FormGroup>
+        <FormGroup>
           <SubmitBtn type="submit" disabled={loading}>
             {loading ? <Loader /> : "Create"}
           </SubmitBtn>
@@ -170,6 +180,7 @@ const mapStateToProps = (state) => ({
   createdNote: state.note.createdNote,
   categories: state.categories.categories,
   loading: state.note.loading,
+  pinCode: state.auth.user.pin_code,
 });
 
 export default connect(mapStateToProps, { createNote, getCategories })(

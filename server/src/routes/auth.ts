@@ -131,6 +131,21 @@ router.post("/signup", async (req: IRequest, res: Response) => {
   }
 });
 
+router.post("/pin", useAuth, async (req: IRequest, res: Response) => {
+  const { pin } = req.body;
+
+  if (pin) {
+    await User.findByIdAndUpdate(req.user?._id, {
+      pin_code: hashSync(pin, 10),
+    });
+  } else {
+    return res.json({
+      error: "PIN code is required",
+      status: "error",
+    });
+  }
+});
+
 /**
  @Route GET /user
  @Desc Get information about the authenticated user
@@ -156,8 +171,10 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const doc: any = (user as any)._doc;
   return res.json({
-    user,
+    user: { ...doc, pin_code: user?.pin_code ? true : false },
     status: "success",
   });
 });
@@ -179,23 +196,40 @@ router.delete(
     try {
       // delete all notes
       notes.forEach(async (note) => {
-        await Note.findByIdAndDelete(note._id).catch((e) => console.log(e));
+        await Note.findByIdAndDelete(note._id).catch((e) => console.error(e));
       });
 
       // Delete all categories
       categories.forEach(async (cat) => {
-        await Category.findByIdAndDelete(cat._id).catch((e) => console.log(e));
+        await Category.findByIdAndDelete(cat._id).catch((e) => console.error(e));
       });
 
       // delete user
       await User.findByIdAndDelete(user?._id);
       res.clearCookie("__token", { httpOnly: true });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
 
     res.json({ status: "success", msg: "account was deleted" });
   }
 );
+
+router.post("/set-pin", useAuth, async (req: IRequest, res: Response) => {
+  const { pin } = req.body;
+
+  if (!pin) {
+    return res.json({
+      error: "PIN is required",
+      status: "error",
+    });
+  }
+
+  await User.findByIdAndUpdate(req.user?.id, { pin_code: hashSync(pin, 10) });
+
+  res.json({
+    status: "success",
+  });
+});
 
 export default router;

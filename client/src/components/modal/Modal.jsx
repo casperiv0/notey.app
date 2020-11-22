@@ -9,7 +9,7 @@ import {
   ModalContainer,
 } from "./modal.style";
 
-const Modal = ({ id, title, children }) => {
+const Modal = ({ id, title, children, ...rest }) => {
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
@@ -19,7 +19,7 @@ const Modal = ({ id, title, children }) => {
   });
 
   return createPortal(
-    <ModalContainer className="modal" id={id}>
+    <ModalContainer {...rest} className="modal" id={id}>
       <ModalStyle id={`style-${id}`} className={id}>
         <ModalHeader>
           {title}

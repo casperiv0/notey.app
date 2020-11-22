@@ -14,6 +14,8 @@ import {
   deleteNoteById,
   updateNoteById,
 } from "../actions/notes";
+import EnterPinModal from "../components/modal/EnterPinModal";
+import SetPinModal from "../components/modal/SetPinModal";
 
 const AlertMessages = lazy(() => import("../components/AlertMessages/"));
 const OptionsModal = lazy(() => import("../components/modal/OptionsModal"));
@@ -101,10 +103,12 @@ const App = ({
 
   return (
     <Suspense fallback={<p></p>}>
-      <CreateNote openSetModal={openSetModal} />
+      <SetPinModal />
+      <EnterPinModal />
       <ManageNoteModal />
       <OptionsModal />
       <CreateCategory />
+      <CreateNote openSetModal={openSetModal} />
       <AppLayout>
         <AlertMessages />
         <Sidebar

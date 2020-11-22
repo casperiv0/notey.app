@@ -1,4 +1,10 @@
-import { AUTHENTICATE, AUTH_ERR, SET_LOADING } from "../utils/types";
+import {
+  ADD_MESSAGE,
+  AUTHENTICATE,
+  AUTH_ERR,
+  SET_LOADING,
+  SET_PIN_CODE,
+} from "../utils/types";
 import { handleRequest, isSuccess } from "../utils/functions";
 
 const noError =
@@ -17,7 +23,7 @@ export const signIn = (data, location) => (dispatch) => {
       dispatch({ type: SET_LOADING, loading: false });
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
       dispatch({ type: AUTH_ERR, error: noError });
       dispatch({ type: SET_LOADING, loading: false });
     });
@@ -37,7 +43,7 @@ export const signUp = (data) => (dispatch) => {
       dispatch({ type: SET_LOADING, loading: false });
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
       dispatch({ type: AUTH_ERR, error: noError });
       dispatch({ type: SET_LOADING, loading: false });
     });
@@ -52,7 +58,7 @@ export const checkAuth = () => (dispatch) => {
         dispatch({ type: AUTH_ERR, error: res.data.error });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => console.error(e));
 };
 
 export const logout = () => (dispatch) => {
@@ -62,7 +68,7 @@ export const logout = () => (dispatch) => {
         dispatch({ type: AUTHENTICATE, user: {}, isAuth: false });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => console.error(e));
 };
 
 export const deleteAccount = () => (dispatch) => {
@@ -72,5 +78,31 @@ export const deleteAccount = () => (dispatch) => {
         dispatch({ type: AUTHENTICATE, user: {}, isAuth: false });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => console.error(e));
+};
+
+export const setPinCode = (pin) => (dispatch) => {
+  handleRequest("/auth/set-pin", "POST", { pin })
+    .then((res) => {
+      if (isSuccess(res)) {
+        dispatch({
+          type: SET_PIN_CODE,
+          closeAble: true,
+        });
+        dispatch({
+          type: "default",
+        });
+        dispatch({
+          type: ADD_MESSAGE,
+          message: "Successfully updated PIN Code",
+        });
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+      dispatch({
+        type: ADD_MESSAGE,
+        message: noError,
+      });
+    });
 };

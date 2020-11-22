@@ -2,15 +2,17 @@ import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { FormGroup, FormLabel, FormSmall } from "../../styles/Auth";
-import { Select, Button, ReportBtn } from "../../styles/Global";
-import { shareNote } from "../../actions/notes";
+import { Select, Button } from "../../styles/Global";
+import { updateNoteOptions } from "../../actions/notes";
 
-const ManageNoteModal = ({ note, shareNote }) => {
+const ManageNoteModal = ({ note, updateNoteOptions }) => {
   const [shareable, setShareable] = useState(note?.shared);
+  const [locked, setLocked] = useState(note?.locked);
 
   useEffect(() => {
     if (note?._id) {
       setShareable(note?.shared);
+      setLocked(note?.locked);
     }
   }, [note]);
 
@@ -21,7 +23,10 @@ const ManageNoteModal = ({ note, shareNote }) => {
   function onSubmit(e) {
     e.preventDefault();
 
-    shareNote(note._id, { shareable: shareable });
+    updateNoteOptions(note._id, {
+      shareable: String(shareable),
+      locked: String(locked),
+    });
   }
 
   return (
@@ -47,11 +52,22 @@ const ManageNoteModal = ({ note, shareNote }) => {
           </FormSmall>
         </FormGroup>
         <FormGroup>
-          {note?.shared ? (
-            <ReportBtn target="_blank" href={`/#/share/${note?._id}`}>
-              Open Share
-            </ReportBtn>
-          ) : null}
+          <FormLabel>Locked</FormLabel>
+          <Select value={locked} onChange={(e) => setLocked(e.target.value)}>
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
+          </Select>
+          <FormSmall style={{ marginTop: "0.5rem" }}>
+            {note?.locked ? (
+              <h3>This note is locked</h3>
+            ) : (
+              <h3>
+                This note is <strong>not</strong> locked
+              </h3>
+            )}
+          </FormSmall>
+        </FormGroup>
+        <FormGroup>
           <Button type="submit">Update note</Button>
         </FormGroup>
       </form>
@@ -63,4 +79,4 @@ const mapToProps = (state) => ({
   note: state.note.note,
 });
 
-export default connect(mapToProps, { shareNote })(ManageNoteModal);
+export default connect(mapToProps, { updateNoteOptions })(ManageNoteModal);
