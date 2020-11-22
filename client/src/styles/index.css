@@ -12,8 +12,21 @@ html {
 }
 
 body {
-  background-color: #18191A;
+  background-color: #18191a;
   min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #18191a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3b3c;
+  border-radius: 0.5rem;
 }
 
 a {

@@ -50,8 +50,9 @@ export const ModalStyle = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   border-radius: 0.7rem;
 
-  @media (max-height: 750px) {
+  @media (max-height: 1000px) {
     overflow-y: auto;
+    scrollbar-width: thin;
   }
 
   &.active {
