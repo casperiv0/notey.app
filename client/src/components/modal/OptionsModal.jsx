@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "../modal/Modal";
 import { connect } from "react-redux";
+import { openModal } from "../../utils/functions";
 import { logout, deleteAccount } from "../../actions/auth";
 import { Divider, Column, ReportBtn, Button } from "../../styles/Global";
 import {
@@ -11,7 +12,7 @@ import {
 } from "./modal.style";
 
 const OptionsModal = ({ logout, deleteAccount }) => {
-  const confirmDeleteAccount = () => {
+  function confirmDeleteAccount() {
     if (
       window.confirm(
         "Are you sure you want to delete your account? This will delete all your notes and categories as well and cannot be undone."
@@ -19,10 +20,14 @@ const OptionsModal = ({ logout, deleteAccount }) => {
     ) {
       deleteAccount();
     }
-  };
+  }
+
+  function openSetPin() {
+    openModal("setPinModal");
+  }
 
   return (
-    <Modal title="Options" id="optionsModal">
+    <Modal style={{ zIndex: "29" }} title="Options" id="optionsModal">
       <OptionsModalStyle>
         <OptionsModalContent>
           <OptionsModalBody>
@@ -48,6 +53,13 @@ const OptionsModal = ({ logout, deleteAccount }) => {
               >
                 License
               </ReportBtn>
+              <Button
+                style={{ marginBottom: "10px" }}
+                danger
+                onClick={openSetPin}
+              >
+                Change/set PIN code
+              </Button>
               <Button style={{ marginBottom: "10px" }} danger onClick={logout}>
                 Logout
               </Button>

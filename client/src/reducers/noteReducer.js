@@ -10,6 +10,7 @@ import {
   UPDATE_NOTE_OPTIONS,
   GET_ACTIVE_NOTE_LOCKED,
   GET_ACTIVE_NOTE_ERROR,
+  GET_SHARE_ERROR,
 } from "../utils/types";
 
 const initState = {
@@ -86,6 +87,11 @@ export default function noteReducer(state = initState, action) {
         closeAble: action.closeAble,
       };
     case GET_ACTIVE_NOTE_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };
+    case GET_SHARE_ERROR:
       return {
         ...state,
         error: action.error,

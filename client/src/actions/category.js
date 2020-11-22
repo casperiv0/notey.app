@@ -17,7 +17,7 @@ export const getCategories = () => (dispatch) => {
         dispatch({ type: GET_CATEGORIES, categories: res.data.categories });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => console.error(e));
 };
 
 export const createCategory = (data) => (dispatch) => {

@@ -14,7 +14,7 @@ import {
 import { createNote } from "../../actions/notes";
 import { getCategories } from "../../actions/category";
 import { TextArea } from "../../styles/Global";
-import { FormGroup, FormLabel, FormInput, SubmitBtn } from "../../styles/Auth";
+import { FormGroup, FormLabel, FormInput, SubmitBtn, FormSmall } from "../../styles/Auth";
 import { Select } from "../../styles/Global";
 
 const CreateNote = ({
@@ -76,10 +76,6 @@ const CreateNote = ({
       title !== "" &&
       body !== ""
     ) {
-      if (locked && !pinCode) {
-        return openModal("setPinModal");
-      }
-
       setCanClose(true);
       closeSidebar("sidebar");
       setTimeout(() => {
@@ -95,21 +91,14 @@ const CreateNote = ({
     if (canClose) {
       closeModal("createNoteModal");
     }
-  }, [
-    setTitle,
-    setBody,
-    setCanClose,
-    canClose,
-    body,
-    title,
-    hasSubmitted,
-    error,
-    locked,
-    pinCode,
-  ]);
+  }, [canClose, body, title, hasSubmitted, error, locked, pinCode]);
 
   return (
-    <Modal title="Create new note" id="createNoteModal">
+    <Modal
+      style={{ zIndex: "29" }}
+      title="Create new note"
+      id="createNoteModal"
+    >
       <form onSubmit={onSubmit}>
         <FormGroup>
           {error ? <ErrorMessage>{error}</ErrorMessage> : null}
@@ -169,6 +158,10 @@ const CreateNote = ({
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </Select>
+          <FormSmall>
+            You can set a PIN code by clicking "options" in the sidebar then
+            pressing "change/set PIN Code"
+          </FormSmall>
         </FormGroup>
         <FormGroup>
           <SubmitBtn type="submit" disabled={loading}>

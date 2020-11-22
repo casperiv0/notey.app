@@ -7,6 +7,7 @@ import {
   FormLabel,
   FormInput,
   SubmitBtn,
+  FormSmall,
 } from "../../styles/Auth";
 import { connect } from "react-redux";
 import { setPinCode } from "../../actions/auth";
@@ -14,7 +15,6 @@ import { closeModal } from "../../utils/functions";
 
 const SetPinModal = ({ setPinCode, error, loading, closeAble }) => {
   const [pin, setPin] = useState("");
-  const [canClose, setCanClose] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = (e) => {
@@ -26,19 +26,11 @@ const SetPinModal = ({ setPinCode, error, loading, closeAble }) => {
 
   useEffect(() => {
     if (submitted && pin !== "" && closeAble) {
-      setCanClose(true);
-      closeModal("enterPinModal");
+      closeModal("setPinModal");
+      setPin("");
+      setSubmitted(true);
     }
-
-    if (canClose) {
-      closeModal("enterPinModal");
-      setTimeout(() => {
-        setPin("");
-        setSubmitted(true);
-        setCanClose(false);
-      }, 200);
-    }
-  }, [canClose, error, pin, submitted, closeAble]);
+  }, [pin, submitted, closeAble]);
 
   return (
     <Modal title="Enter a PIN code" id="setPinModal">
@@ -58,6 +50,10 @@ const SetPinModal = ({ setPinCode, error, loading, closeAble }) => {
             max="8"
             required
           />
+          <FormSmall>
+            This code is max 8 characters long and
+            <strong>&nbsp;will&nbsp;</strong> be encrypted
+          </FormSmall>
         </FormGroup>
         <FormGroup>
           <SubmitBtn type="submit" disabled={loading}>
@@ -70,8 +66,8 @@ const SetPinModal = ({ setPinCode, error, loading, closeAble }) => {
 };
 
 const mapStateToProps = (state) => ({
-  error: state.note.error,
-  closeAble: state.note.closeAble,
+  error: state.auth.error,
+  closeAble: state.auth.closeAble,
 });
 
 export default connect(mapStateToProps, { setPinCode })(SetPinModal);

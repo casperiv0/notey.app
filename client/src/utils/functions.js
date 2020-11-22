@@ -1,7 +1,6 @@
 import axios from "axios";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-console.log(SERVER_URL);
 /**
  * @param {string} path the path for the request
  * @param {string} method The method

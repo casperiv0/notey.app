@@ -16,7 +16,8 @@ import {
   SET_LOADING,
   GET_SHARE_BY_ID,
   GET_ACTIVE_NOTE_LOCKED,
-  GET_ACTIVE_NOTE_ERROR
+  GET_ACTIVE_NOTE_ERROR,
+  GET_SHARE_ERROR,
 } from "../utils/types";
 
 const noError =
@@ -34,7 +35,7 @@ export const getNotes = () => (dispatch) => {
         type: ADD_MESSAGE,
         message: "An error occurred while getting the notes",
       });
-      console.log(e);
+      console.error(e);
     });
 };
 
@@ -65,7 +66,7 @@ export const getActiveNote = (id, pin) => (dispatch) => {
         type: ADD_MESSAGE,
         message: "An error occurred while getting the note",
       });
-      console.log(e);
+      console.error(e);
     });
 };
 
@@ -100,7 +101,7 @@ export const createNote = (data) => (dispatch) => {
       }
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
       dispatch({
         type: CREATE_NOTE_ERR,
         error: noError,
@@ -121,7 +122,7 @@ export const deleteNoteById = (id) => (dispatch) => {
       }
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
       dispatch({
         type: ADD_MESSAGE,
         message: "An error occurred while deleting the note",
@@ -147,7 +148,7 @@ export const updateNoteById = (id, data) => (dispatch) => {
       }
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
       dispatch({
         type: ADD_MESSAGE,
         message: "An error occurred while updating the note",
@@ -184,7 +185,7 @@ export const updateNoteOptions = (id, data) => (dispatch) => {
       }
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
       dispatch({
         type: ADD_MESSAGE,
         message: "An error occurred while updating the note",
@@ -202,15 +203,15 @@ export const getShareById = (id) => (dispatch) => {
         });
       } else {
         dispatch({
-          type: ADD_MESSAGE,
-          message: res.data.message,
+          type: GET_SHARE_ERROR,
+          error: res.data.error,
         });
       }
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
       dispatch({
-        type: ADD_MESSAGE,
+        type: GET_SHARE_ERROR,
         message: "An error occurred while updating the note",
       });
     });

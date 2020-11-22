@@ -23,7 +23,10 @@ const ManageNoteModal = ({ note, updateNoteOptions }) => {
   function onSubmit(e) {
     e.preventDefault();
 
-    updateNoteOptions(note._id, { shareable: shareable, locked: locked });
+    updateNoteOptions(note._id, {
+      shareable: String(shareable),
+      locked: String(locked),
+    });
   }
 
   return (

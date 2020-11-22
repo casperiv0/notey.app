@@ -1,10 +1,16 @@
-import { AUTHENTICATE, AUTH_ERR, SET_LOADING } from "../utils/types";
+import {
+  AUTHENTICATE,
+  AUTH_ERR,
+  SET_LOADING,
+  SET_PIN_CODE,
+} from "../utils/types";
 
 const initState = {
   user: {},
   error: null,
   isAuth: false,
   loading: false,
+  closeAble: false,
 };
 
 export default function authReducer(state = initState, action) {
@@ -27,9 +33,15 @@ export default function authReducer(state = initState, action) {
         ...state,
         loading: action.loading,
       };
+    case SET_PIN_CODE:
+      return {
+        ...state,
+        closeAble: action.closeAble,
+      };
     default:
       return {
         ...state,
+        closeAble: false,
       };
   }
 }

@@ -9,6 +9,19 @@ import { isTrue } from "../utils/utils";
 import { compareSync } from "bcrypt";
 const router: Router = Router();
 
+const lockedMsg =
+  "Note is locked with a PIN code. Please enter your pincode in the popup";
+
+function parseLockedNotes(notes: INote[]) {
+  return notes.map((note: INote) => {
+    if (note.locked === true) {
+      note.body = lockedMsg;
+      note.markdown = lockedMsg;
+    }
+    return note;
+  });
+}
+
 /**
  * @Route GET /
  * @Desc Returns all notes by the authenticated user
@@ -16,17 +29,7 @@ const router: Router = Router();
 router.get("/", useAuth, async (req: IRequest, res: Response) => {
   const notes = await Note.find({ user_id: req.user?._id });
 
-  const parsedNotes = notes.map((note) => {
-    if (note.locked) {
-      const msg =
-        "Note is locked with a PIN code. Please enter your pincode in the popup";
-      note.body = msg;
-      note.markdown = msg;
-    }
-    return note;
-  });
-
-  return res.json({ notes: parsedNotes, status: "success" });
+  return res.json({ notes: parseLockedNotes(notes), status: "success" });
 });
 
 /**
@@ -148,7 +151,17 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
 
     newNote.save();
 
-    return res.json({ note: newNote, notes, status: "success" });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const doc = (newNote as any)._doc;
+    return res.json({
+      note: {
+        ...doc,
+        markdown: lockedMsg,
+        body: lockedMsg,
+      },
+      notes: parseLockedNotes(notes),
+      status: "success",
+    });
   } else {
     return res.json({ error: "Please fill in all fields", status: "error" });
   }
@@ -180,7 +193,7 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     notes = await Note.find({ user_id: req.user?._id });
 
     return res.json({
-      notes,
+      notes: parseLockedNotes(notes),
       status: "success",
     });
   } catch (e) {
@@ -221,7 +234,7 @@ router.post(
 
       return res.json({
         status: "success",
-        notes,
+        notes: parseLockedNotes(notes),
         note: updated,
       });
     } catch (e) {
@@ -240,6 +253,13 @@ router.get("/share/:noteId", async (req: IRequest, res: Response) => {
     if (!note?.id) {
       return res.json({
         error: "Share not found",
+        status: "error",
+      });
+    }
+
+    if (note.locked === true) {
+      return res.json({
+        error: "Share is locked, therefore you cannot view it",
         status: "error",
       });
     }
