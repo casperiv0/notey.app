@@ -6,7 +6,7 @@ import useMarkdown from "../hooks/useMarkdown";
 import User from "../models/User.model";
 import Logger from "../utils/Logger";
 import { isTrue } from "../utils/utils";
-import { compareSync } from "bcrypt";
+import { compareSync } from "bcryptjs";
 const router: Router = Router();
 
 const lockedMsg =
@@ -111,7 +111,11 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     });
   }
 
-  return res.json({ notes, note, status: "success" });
+  return res.json({
+    notes: parseLockedNotes(notes),
+    note: note,
+    status: "success",
+  });
 });
 
 /**
