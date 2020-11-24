@@ -4,10 +4,12 @@ import Modal from "./Modal";
 import { FormGroup, FormLabel, FormSmall } from "../../styles/Auth";
 import { Select, Button } from "../../styles/Global";
 import { updateNoteOptions } from "../../actions/notes";
+import { useHistory } from "react-router-dom";
 
 const ManageNoteModal = ({ note, updateNoteOptions }) => {
   const [shareable, setShareable] = useState(note?.shared);
   const [locked, setLocked] = useState(note?.locked);
+  const history = useHistory();
 
   useEffect(() => {
     if (note?._id) {
@@ -27,6 +29,10 @@ const ManageNoteModal = ({ note, updateNoteOptions }) => {
       shareable: String(shareable),
       locked: String(locked),
     });
+  }
+
+  function openShare() {
+    history.push(`share/${note._id}`);
   }
 
   return (
@@ -68,6 +74,15 @@ const ManageNoteModal = ({ note, updateNoteOptions }) => {
           </FormSmall>
         </FormGroup>
         <FormGroup>
+          {note.shared ? (
+            <Button
+              onClick={openShare}
+              style={{ marginBottom: "10px" }}
+              type="button"
+            >
+              Open Share
+            </Button>
+          ) : null}
           <Button type="submit">Update note</Button>
         </FormGroup>
       </form>

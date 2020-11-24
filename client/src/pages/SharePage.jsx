@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getShareById } from "../actions/notes";
 import { NotePreview } from "../components/note/notes.style";
 import { checkAuth } from "../actions/auth";
+import Loader from "../components/Loader";
 
 const loginStyles = {
   padding: "0.5rem 1rem",
@@ -23,6 +24,7 @@ const SharePage = ({
   isAuth,
   checkAuth,
   error,
+  loading,
 }) => {
   const noteId = match.params.noteId;
 
@@ -34,11 +36,15 @@ const SharePage = ({
     getShareById(noteId);
   }, [getShareById, noteId]);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div style={{ padding: "1rem", color: "#f2f2f2" }}>
       {isAuth ? (
         <a style={loginStyles} href={`/#/app?noteId=${noteId}`}>
-          Open app
+          Return to app
         </a>
       ) : (
         <>
@@ -63,6 +69,10 @@ const SharePage = ({
           ></NotePreview>
         </>
       )}
+
+      <footer style={{ marginTop: "20px", fontStyle: "italic" }}>
+        Created by <a href="https://caspertheghost.me">CasperTheGhost</a>
+      </footer>
     </div>
   );
 };
@@ -71,6 +81,7 @@ const mapToProps = (state) => ({
   share: state.note.share,
   error: state.note.error,
   isAuth: state.auth.isAuth,
+  loading: state.auth.loading,
 });
 
 export default connect(mapToProps, { getShareById, checkAuth })(SharePage);
