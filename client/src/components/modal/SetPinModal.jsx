@@ -45,7 +45,7 @@ const SetPinModal = ({ setPinCode, error, loading, closeAble }) => {
             type="text"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
-            id="pin"
+            id="new_pin"
             maxLength="8"
             max="8"
             required

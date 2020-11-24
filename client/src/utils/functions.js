@@ -33,16 +33,16 @@ export const closeSidebar = (id) => {
 };
 
 export const openModal = (id) => {
-  document.querySelector(`#${id}`).classList.add("active");
-  document.querySelector(`#style-${id}`).classList.remove("closed");
-  document.querySelector(`#style-${id}`).classList.add("active");
+  document.querySelector(`#${id}`)?.classList.add("active");
+  document.querySelector(`#style-${id}`)?.classList.remove("closed");
+  document.querySelector(`#style-${id}`)?.classList.add("active");
 };
 
 export const closeModal = (id) => {
-  document.querySelector(`#style-${id}`).classList.replace("active", "closed");
+  document.querySelector(`#style-${id}`)?.classList.replace("active", "closed");
 
   setTimeout(() => {
-    document.querySelector(`#${id}`).classList.remove("active");
+    document.querySelector(`#${id}`)?.classList.remove("active");
   }, 155);
 };
 

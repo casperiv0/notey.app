@@ -90,6 +90,7 @@ const Sidebar = ({
         <SidebarHeader>
           <SidebarSearch filterNotes={filterNotes} />
           <CloseSidebarBtn onClick={() => closeSidebar("sidebar")}>
+            <SrOnly>Close Menu</SrOnly>
             <CloseIcon />
           </CloseSidebarBtn>
         </SidebarHeader>
