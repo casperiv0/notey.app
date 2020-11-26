@@ -92,14 +92,21 @@ const App = ({
     setEditing(!editing);
   };
 
-  const deleteNote = (id) => {
+  function deleteNote(id) {
+    // eslint-disable-next-line no-restricted-globals
+    const conf = confirm(
+      "Are you sure you want to deleted this note? This cannot be undone!"
+    );
+
+    if (conf === false) return;
+
     if (editing) {
       setEditing(false);
     }
     deleteNoteById(id);
 
     getActiveNote(notes.length < 0 ? notes[notes.length - 2]._id : notes[0]);
-  };
+  }
 
   return (
     <Suspense fallback={<p></p>}>
