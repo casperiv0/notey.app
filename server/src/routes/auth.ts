@@ -7,6 +7,7 @@ import { AuthUser } from "../interfaces";
 import Logger from "../utils/Logger";
 import Note from "../models/Note.model";
 import Category from "../models/Category.model";
+import { errorObj } from "../utils/utils";
 const router: Router = Router();
 
 /**
@@ -21,47 +22,38 @@ router.post("/signin", async (req: IRequest, res: Response) => {
     expires = 2629800000; /** 30 days */
   }
 
-  if (username && password) {
-    const user = await User.findOne({ username });
-
-    if (!user) {
-      return res.json({
-        error: "user was not found",
-        status: "error",
-      });
-    }
-
-    const isPwCorrect = compareSync(password, user.password);
-
-    if (!isPwCorrect) {
-      return res.json({
-        error: "password is incorrect",
-        status: "error",
-      });
-    }
-
-    const data: AuthUser = {
-      _id: user._id,
-      username: user.username,
-    };
-
-    const token = useToken(data, expires / 1000);
-
-    res.cookie("__token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + expires),
-    });
-
-    return res.json({
-      user: data,
-      status: "success",
-    });
-  } else {
-    return res.json({
-      error: "Please fill in all fields",
-      status: "error",
-    });
+  if (!username || !password) {
+    return res.json(errorObj("Please fill in all fields")).status(400);
   }
+
+  const user = await User.findOne({ username });
+
+  if (!user) {
+    return res.json(errorObj("User was not found"));
+  }
+
+  const isPwCorrect = compareSync(password, user.password);
+
+  if (!isPwCorrect) {
+    return res.json(errorObj("Password is incorrect"));
+  }
+
+  const data: AuthUser = {
+    _id: user._id,
+    username: user.username,
+  };
+
+  const token = useToken(data, expires / 1000);
+
+  res.cookie("__token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + expires),
+  });
+
+  return res.json({
+    user: data,
+    status: "success",
+  });
 });
 
 /**
@@ -71,79 +63,70 @@ router.post("/signin", async (req: IRequest, res: Response) => {
 router.post("/signup", async (req: IRequest, res: Response) => {
   const { username, password, password2 } = req.body;
 
-  if (username && password && password2) {
-    if (password !== password2) {
-      return res.json({
-        error: "passwords do not match",
-        status: "error",
-      });
-    }
-
-    const user = await User.findOne({ username: username });
-
-    if (user) {
-      return res.json({ error: "username is already in use", status: "error" });
-    }
-
-    const hash = hashSync(password, 15);
-
-    const newUser: IUser = new User({ username, password: hash });
-    const welcomeBody =
-      "# Welcome to notey.app!\n You can add `?create=note` or `?create=category` to simply create a note or category using the URL\n## Support\nYou can find notey.app on [GitHub](https://github.com/notey-app/notey.app)\n\n _feel free to delete this note and get started._";
-
-    const firstNote = new Note({
-      user_id: newUser._id,
-      category_id: "no_category",
-      title: "Note #1",
-      body: welcomeBody,
-      markdown: useMarkdown(welcomeBody),
-    });
-
-    try {
-      await newUser.save();
-      await firstNote.save();
-    } catch (e) {
-      Logger.error(e, "db_error");
-      return res.json({
-        error: "Something went wrong signin up",
-        status: "error",
-      });
-    }
-
-    const data: AuthUser = {
-      _id: newUser._id,
-      username: newUser.username,
-    };
-
-    const token = useToken(data, 3600000);
-
-    res.cookie("__token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + 3600000),
-    });
-
-    return res.json({
-      user: data,
-      status: "success",
-    });
-  } else {
-    return res.json({ error: "Please fill in all fields", status: "error" });
+  if (!username || !password || !password2) {
+    return res.json(errorObj("Please fill in all fields")).status(400);
   }
+
+  if (password !== password2) {
+    return res.json(errorObj("Passwords do not match"));
+  }
+
+  const user = await User.findOne({ username: username });
+
+  if (user) {
+    return res.json(errorObj("Username is already in use"));
+  }
+
+  const hash = hashSync(password, 15);
+
+  const newUser: IUser = new User({ username, password: hash });
+  const welcomeBody =
+    "# Welcome to notey.app!\n You can add `?create=note` or `?create=category` to simply create a note or category using the URL\n## Support\nYou can find notey.app on [GitHub](https://github.com/notey-app/notey.app)\n\n _feel free to delete this note and get started._";
+
+  const firstNote = new Note({
+    user_id: newUser._id,
+    category_id: "no_category",
+    title: "Note #1",
+    body: welcomeBody,
+    markdown: useMarkdown(welcomeBody),
+  });
+
+  try {
+    await newUser.save();
+    await firstNote.save();
+  } catch (e) {
+    Logger.error("db_error", e);
+    return res.json(errorObj("Something went wrong signing up")).status(500);
+  }
+
+  const data: AuthUser = {
+    _id: newUser._id,
+    username: newUser.username,
+  };
+
+  const token = useToken(data, 3600000);
+
+  res.cookie("__token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + 3600000),
+  });
+
+  return res.json({
+    user: data,
+    status: "success",
+  });
 });
 
 router.post("/pin", useAuth, async (req: IRequest, res: Response) => {
   const { pin } = req.body;
 
-  if (pin) {
-    await User.findByIdAndUpdate(req.user?._id, {
-      pin_code: hashSync(pin, 10),
-    });
-  } else {
-    return res.json({
-      error: "PIN code is required",
-      status: "error",
-    });
+  if (!pin) {
+    return res.json(errorObj("PIN code is required"));
   }
+
+  await User.findByIdAndUpdate(req.user?._id, {
+    pin_code: hashSync(pin, 10),
+  });
 });
 
 /**
@@ -158,17 +141,11 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
     user = await User.findById(userId).select({ password: 0 });
 
     if (!user) {
-      return res.json({
-        server_error: "user not found",
-        status: "error",
-      });
+      return res.json(errorObj("user was not found"));
     }
   } catch (e) {
-    Logger.error(e, "db_error");
-    return res.json({
-      server_error: "something went wrong",
-      status: "error",
-    });
+    Logger.error("db_error", e);
+    return res.json(errorObj("Something went wrong")).status(500);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -201,14 +178,16 @@ router.delete(
 
       // Delete all categories
       categories.forEach(async (cat) => {
-        await Category.findByIdAndDelete(cat._id).catch((e) => console.error(e));
+        await Category.findByIdAndDelete(cat._id).catch((e) =>
+          console.error(e)
+        );
       });
 
       // delete user
       await User.findByIdAndDelete(user?._id);
       res.clearCookie("__token", { httpOnly: true });
     } catch (e) {
-      console.error(e);
+      Logger.error("DELETE_ACCOUNT", e);
     }
 
     res.json({ status: "success", msg: "account was deleted" });
@@ -219,10 +198,7 @@ router.post("/set-pin", useAuth, async (req: IRequest, res: Response) => {
   const { pin } = req.body;
 
   if (!pin) {
-    return res.json({
-      error: "PIN is required",
-      status: "error",
-    });
+    return res.json(errorObj("PIN code is required"));
   }
 
   await User.findByIdAndUpdate(req.user?.id, { pin_code: hashSync(pin, 10) });

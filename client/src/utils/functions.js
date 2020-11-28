@@ -12,6 +12,9 @@ export const handleRequest = (path, method, data) => {
     method,
     data: data ? data : null,
     withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 };
 

@@ -1,8 +1,6 @@
-/* eslint-disable semi */
-/*
-  Interface for an authenticated user
-*/
-export default interface AuthUser {
+interface AuthUser {
   _id: string;
   username: string;
 }
+
+export default AuthUser;

@@ -5,7 +5,7 @@ import useAuth from "../hooks/useAuth";
 import useMarkdown from "../hooks/useMarkdown";
 import User from "../models/User.model";
 import Logger from "../utils/Logger";
-import { isTrue } from "../utils/utils";
+import { errorObj, isTrue } from "../utils/utils";
 import { compareSync } from "bcryptjs";
 const router: Router = Router();
 
@@ -50,21 +50,14 @@ router.post("/:noteId", useAuth, async (req: IRequest, res: Response) => {
   }
 
   if (note?.locked === true && !pin) {
-    return res.json({
-      error: "pin_required",
-      status: "error",
-      _id: note._id,
-    });
+    return res.json({ ...errorObj("pin_required"), _id: note._id });
   }
 
   if (note?.locked && pin) {
     const isCorrect = compareSync(pin, String(user?.pin_code));
 
     if (!isCorrect) {
-      return res.json({
-        error: "PIN was incorrect",
-        status: "error",
-      });
+      return res.json(errorObj("PIN was incorrect")).status(400);
     }
   }
 
@@ -82,15 +75,19 @@ router.post("/:noteId", useAuth, async (req: IRequest, res: Response) => {
 router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
   const { noteId } = req.params;
   const { categoryId, title, body } = req.body;
+
+  if (!categoryId || !title || !body) {
+    return res.json(errorObj("Please fill in all fields")).status(400);
+  }
+
   const markdown = useMarkdown(body);
   let notes;
   let note;
 
   if (markdown === "" || !markdown) {
-    return res.json({
-      error: "Please do not include any malicious code.",
-      status: "error",
-    });
+    return res
+      .json(errorObj("Please do not include any malicious code."))
+      .status(400);
   }
 
   try {
@@ -104,11 +101,8 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
     note = await Note.findById(noteId);
     notes = await Note.find({ user_id: req.user?._id });
   } catch (e) {
-    Logger.error(e, "db_error");
-    return res.json({
-      error: "Something went wrong updating the note",
-      status: "error",
-    });
+    Logger.error("db_error", e);
+    return res.json(errorObj("Something went wrong updating the note"));
   }
 
   return res.json({
@@ -125,21 +119,23 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
 router.post("/", useAuth, async (req: IRequest, res: Response) => {
   const { categoryId, title, body, shareable, locked } = req.body;
 
-  if (categoryId && title && body) {
-    if (title.length > 40) {
-      return res.json({
-        error: "Title has a limit of 40 characters.",
-        status: "error",
-      });
-    }
+  if (!categoryId || !title || !body) {
+    return res.json(errorObj("Please fill in all fields")).status(400);
+  }
 
+  if (title.length > 40) {
+    return res
+      .json(errorObj("Title has a limit of 40 characters."))
+      .status(400);
+  }
+
+  try {
     const markdown = useMarkdown(body);
 
     if (markdown === "" || !markdown) {
-      return res.json({
-        error: "Please do not include any malicious  code.",
-        status: "error",
-      });
+      return res
+        .json(errorObj("Please do not include any malicious code."))
+        .status(400);
     }
 
     const newNote: INote = new Note({
@@ -166,8 +162,8 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
       notes: parseLockedNotes(notes),
       status: "success",
     });
-  } else {
-    return res.json({ error: "Please fill in all fields", status: "error" });
+  } catch (e) {
+    Logger.error("CREATE_NOTE", e);
   }
 });
 
@@ -201,8 +197,8 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
       status: "success",
     });
   } catch (e) {
-    Logger.error(e, "db_error");
-    return res.json({ error: "Something went wrong!", status: "error" });
+    Logger.error("db_error", e);
+    return res.json(errorObj("Something went wrong")).status(500);
   }
 });
 
@@ -221,12 +217,7 @@ router.post(
       const note = await Note.findById(noteId);
 
       if (note?.user_id.toString() !== req.user?._id.toString()) {
-        return res
-          .json({
-            error: "Permission denied.",
-            status: "error",
-          })
-          .status(401);
+        return res.json(errorObj("Permissions Denied")).status(401);
       }
 
       await Note.findByIdAndUpdate(noteId, {
@@ -242,8 +233,8 @@ router.post(
         note: updated,
       });
     } catch (e) {
-      Logger.error(e, "db_error");
-      return res.json({ error: "Something went wrong!", status: "error" });
+      Logger.error("db_error", e);
+      return res.json(errorObj("Something went wrong")).status(400);
     }
   }
 );
@@ -255,24 +246,17 @@ router.get("/share/:noteId", async (req: IRequest, res: Response) => {
     const note = await Note.findById(noteId);
 
     if (!note?.id) {
-      return res.json({
-        error: "Share not found",
-        status: "error",
-      });
+      return res.json(errorObj("Share was not found")).status(404);
     }
 
     if (note.locked === true) {
-      return res.json({
-        error: "Share is locked, therefore you cannot view it",
-        status: "error",
-      });
+      return res.json(
+        errorObj("Share is locked, therefore you cannot view it")
+      );
     }
 
     if (!note?.shared) {
-      return res.json({
-        error: "Share was not found",
-        status: "error",
-      });
+      return res.json(errorObj("Share was not found")).status(404);
     }
 
     return res.json({
@@ -280,11 +264,8 @@ router.get("/share/:noteId", async (req: IRequest, res: Response) => {
       note,
     });
   } catch (e) {
-    Logger.error(e, "db_error");
-    return res.json({
-      error: "Share not found",
-      status: "error",
-    });
+    Logger.error("db_error", e);
+    return res.json(errorObj("Share was not found")).status(404);
   }
 });
 

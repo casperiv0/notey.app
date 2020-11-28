@@ -14,6 +14,6 @@ import Logger from "./Logger";
 
     Logger.mongo();
   } catch (e) {
-    Logger.error(e, "db_error");
+    Logger.error("db_error", e);
   }
 })();

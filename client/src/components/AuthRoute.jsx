@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { checkAuth } from "../actions/auth";
+import Loader from "./Loader";
 
 const AuthRouteHandler = ({ component, auth, checkAuth, ...rest }) => {
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,9 @@ const AuthRouteHandler = ({ component, auth, checkAuth, ...rest }) => {
     }, 500);
   }, [checkAuth]);
 
-  if (loading) return null;
+  if (loading) {
+    return <Loader fullSize />;
+  }
 
   return (
     <Route

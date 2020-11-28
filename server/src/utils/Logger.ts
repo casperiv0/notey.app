@@ -6,15 +6,17 @@ class Logger {
   }
 
   listening(port: number): void {
-    console.log(`[${this.getTime}][APP]: Started on port: ${port}`);
+    console.log(
+      `[${this.getTime}][APP]: Server running on http://localhost:${port}/`
+    );
   }
 
   mongo(): void {
     console.log(`[${this.getTime}][MONGODB]: Connected to mongodb`);
   }
 
-  error(error: string, type: string) {
-    console.error(`[ERROR][${type.toUpperCase()}]: ${error}`);
+  error(type: string, error: { stack: string }) {
+    console.error(`[ERROR][${type.toUpperCase()}]: ${error.stack}`);
   }
 }
 
