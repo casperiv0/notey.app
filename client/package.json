@@ -46,6 +46,6 @@
   "devDependencies": {
     "@babel/preset-react": "^7.12.7",
     "babel-eslint": "^10.1.0",
-    "babel-plugin-styled-components": "^1.11.1"
+    "babel-plugin-styled-components": "^1.12.0"
   }
 }
