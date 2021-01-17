@@ -51,7 +51,7 @@ const EnterPinModal = ({
           <FormLabel htmlFor="pin">Pin Code</FormLabel>
           <FormInput
             autoFocus
-            type="text"
+            type="password"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
             id="enter_pin"

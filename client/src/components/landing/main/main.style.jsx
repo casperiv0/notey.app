@@ -12,12 +12,18 @@ export const MainStyle = styled.div`
   min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
+  margin-top: 50px;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     width: 85%;
     height: calc(100vh - 80px);
+    margin-top: 15%;
+  }
+
+  @media (min-width: 1200px) {
+    margin-top: 250px;
   }
 `;
 
@@ -32,17 +38,17 @@ export const ShowCase = styled.div`
 `;
 
 export const ShowCaseTitle = styled.h1`
-  font-size: 3rem;
+  font-size: clamp(3rem, 5vw, 4.5rem);
   color: white;
   margin-bottom: 10px;
 
-  @media (min-width: ${DEFAULT_MIN_WIDTH}) {
-    font-size: 4.5rem;
-  }
+  // @media (min-width: ${DEFAULT_MIN_WIDTH}) {
+  //   font-size: 4.5rem;
+  // }
 
-  @media (max-width: 360px) {
-    font-size: 2rem;
-  }
+  // @media (max-width: 360px) {
+  //   font-size: 2rem;
+  // }
 `;
 
 export const ShowCaseParaph = styled.p`

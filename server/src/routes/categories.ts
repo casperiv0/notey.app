@@ -1,6 +1,6 @@
 import { Router, Response } from "express";
 import { IRequest } from "../types";
-import Note from "../models/Note.model";
+import Note, { INote } from "../models/Note.model";
 import { useAuth } from "../hooks";
 import User from "../models/User.model";
 import Category, { ICategory } from "../models/Category.model";
@@ -77,7 +77,7 @@ router.delete("/:id", useAuth, async (req: IRequest, res: Response) => {
 
     notes = await Note.find({ category_id: req.params.id });
 
-    notes.forEach(async (note) => {
+    notes.forEach(async (note: INote) => {
       await Note.findByIdAndUpdate(note._id, { category_id: "no_category" });
     });
 

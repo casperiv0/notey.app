@@ -5,8 +5,8 @@ import { compareSync, hashSync } from "bcryptjs";
 import { useToken, useAuth, useMarkdown } from "../hooks";
 import { AuthUser } from "../interfaces";
 import Logger from "../utils/Logger";
-import Note from "../models/Note.model";
-import Category from "../models/Category.model";
+import Note, { INote } from "../models/Note.model";
+import Category, { ICategory } from "../models/Category.model";
 import { errorObj } from "../utils/utils";
 const router: Router = Router();
 
@@ -162,37 +162,31 @@ router.get("/logout", useAuth, (_req: IRequest, res: Response) => {
   return res.json({ status: "success" });
 });
 
-router.delete(
-  "/delete-account",
-  useAuth,
-  async (req: IRequest, res: Response) => {
-    const user = await User.findById(req.user?._id);
-    const notes = await Note.find({ user_id: user?._id });
-    const categories = await Category.find({ user_id: user?._id });
+router.delete("/delete-account", useAuth, async (req: IRequest, res: Response) => {
+  const user = await User.findById(req.user?._id);
+  const notes = await Note.find({ user_id: user?._id });
+  const categories = await Category.find({ user_id: user?._id });
 
-    try {
-      // delete all notes
-      notes.forEach(async (note) => {
-        await Note.findByIdAndDelete(note._id).catch((e) => console.error(e));
-      });
+  try {
+    // delete all notes
+    notes.forEach(async (note: INote) => {
+      await Note.findByIdAndDelete(note._id).catch((e: Error) => console.error(e));
+    });
 
-      // Delete all categories
-      categories.forEach(async (cat) => {
-        await Category.findByIdAndDelete(cat._id).catch((e) =>
-          console.error(e)
-        );
-      });
+    // Delete all categories
+    categories.forEach(async (cat: ICategory) => {
+      await Category.findByIdAndDelete(cat._id).catch((e: Error) => console.error(e));
+    });
 
-      // delete user
-      await User.findByIdAndDelete(user?._id);
-      res.clearCookie("__token", { httpOnly: true });
-    } catch (e) {
-      Logger.error("DELETE_ACCOUNT", e);
-    }
-
-    res.json({ status: "success", msg: "account was deleted" });
+    // delete user
+    await User.findByIdAndDelete(user?._id);
+    res.clearCookie("__token", { httpOnly: true });
+  } catch (e) {
+    Logger.error("DELETE_ACCOUNT", e);
   }
-);
+
+  res.json({ status: "success", msg: "account was deleted" });
+});
 
 router.post("/set-pin", useAuth, async (req: IRequest, res: Response) => {
   const { pin } = req.body;
