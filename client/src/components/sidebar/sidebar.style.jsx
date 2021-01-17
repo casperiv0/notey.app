@@ -115,6 +115,10 @@ export const SearchContainer = styled.div`
       border-color: rgba(255, 255, 255, 0.5);
     }
   }
+
+  &:focus-within {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -125,6 +129,10 @@ export const SearchInput = styled.input`
   background-color: #2f2f2f;
   color: #f2f2f2;
   width: 100%;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const SearchIconContainer = styled.span`
@@ -164,17 +172,17 @@ export const SidebarNote = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: #3A3B3C;
+      background-color: #3a3b3c;
     }
   }
 
   &:focus {
-    background-color: #3A3B3C;
+    background-color: #3a3b3c;
   }
 
   &.active {
     color: #fff;
-    background-color: #3A3B3C;
+    background-color: #3a3b3c;
   }
 `;
 

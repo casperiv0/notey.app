@@ -41,14 +41,6 @@ export const ShowCaseTitle = styled.h1`
   font-size: clamp(3rem, 5vw, 4.5rem);
   color: white;
   margin-bottom: 10px;
-
-  // @media (min-width: ${DEFAULT_MIN_WIDTH}) {
-  //   font-size: 4.5rem;
-  // }
-
-  // @media (max-width: 360px) {
-  //   font-size: 2rem;
-  // }
 `;
 
 export const ShowCaseParaph = styled.p`

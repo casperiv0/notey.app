@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import {
-  SearchForm,
-  SearchInput,
-  SearchIconContainer,
-  SearchContainer,
-} from "./sidebar.style";
+import React, { useRef, useState } from "react";
+import { SearchForm, SearchInput, SearchIconContainer, SearchContainer } from "./sidebar.style";
 import { SearchIcon } from "../icons";
 import { SrOnly } from "../../styles/Global";
 
 const SidebarSearch = ({ filterNotes }) => {
+  const ref = useRef();
   const [query, setQuery] = useState("");
   const onSubmit = (e) => {
     e.preventDefault();
@@ -25,10 +21,11 @@ const SidebarSearch = ({ filterNotes }) => {
     <SearchForm onSubmit={onSubmit}>
       <SearchContainer>
         <SrOnly htmlFor="query">Search query</SrOnly>
-        <SearchIconContainer>
+        <SearchIconContainer onClick={() => ref.current?.focus()}>
           <SearchIcon />
         </SearchIconContainer>
         <SearchInput
+          ref={ref}
           type="text"
           value={query}
           id="query"
