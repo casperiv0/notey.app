@@ -8,22 +8,18 @@ export const MainContainer = styled.main`
 `;
 
 export const MainStyle = styled.div`
+  --height: 150px;
   width: 90%;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - var(--height));
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 75px;
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     width: 85%;
-    height: calc(100vh - 80px);
-    margin-top: 15%;
-  }
-
-  @media (min-width: 1200px) {
-    margin-top: 250px;
+    height: calc(100vh - var(--height));
   }
 `;
 
