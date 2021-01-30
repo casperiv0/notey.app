@@ -1,29 +1,21 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
 import qs from "qs";
+import { ToastContainer, toast } from "react-toastify";
 import Sidebar from "../components/sidebar";
 import Main from "../components/main";
 import { connect } from "react-redux";
 import { AppLayout } from "../styles/Global";
 import { checkAuth } from "../actions/auth";
 import { closeSidebar } from "../utils/functions";
-import { addMessage } from "../actions/message";
 import { getCategories, deleteCategory } from "../actions/category";
-import {
-  getActiveNote,
-  getNotes,
-  deleteNoteById,
-  updateNoteById,
-} from "../actions/notes";
+import { getActiveNote, getNotes, deleteNoteById, updateNoteById } from "../actions/notes";
 import EnterPinModal from "../components/modal/EnterPinModal";
 import SetPinModal from "../components/modal/SetPinModal";
 
-const AlertMessages = lazy(() => import("../components/AlertMessages/"));
 const OptionsModal = lazy(() => import("../components/modal/OptionsModal"));
 const CreateNote = lazy(() => import("../components/modal/CreateNote"));
 const CreateCategory = lazy(() => import("../components/modal/CreateCategory"));
-const ManageNoteModal = lazy(() =>
-  import("../components/modal/ManageNoteModal")
-);
+const ManageNoteModal = lazy(() => import("../components/modal/ManageNoteModal"));
 
 const App = ({
   getNotes,
@@ -36,11 +28,9 @@ const App = ({
   getCategories,
   categories,
   deleteCategory,
-  addMessage,
 }) => {
   const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
-  const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true })
-    .create;
+  const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true }).create;
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
@@ -59,9 +49,7 @@ const App = ({
 
   const getActiveNoteFunc = (id) => {
     if (editing) {
-      return addMessage(
-        "Please save your current progress or reload to cancel changes"
-      );
+      return toast.info("Please save your current progress or reload the page to cancel changes");
     }
 
     const search = qs.stringify({ noteId: id }, { addQueryPrefix: true });
@@ -72,13 +60,13 @@ const App = ({
   const editNote = (saving, id) => {
     if (editing && saving === "save") {
       if (noteTitle.length > 40) {
-        return addMessage("Note title has a limit of 40 characters.");
+        return toast.error("Note title has a limit of 40 characters");
       }
       if (noteTitle === "") {
-        return addMessage("Note title can not be empty");
+        return toast.error("Note title cannot be empty");
       }
       if (noteBody === "") {
-        return addMessage("Note body can not be empty");
+        return toast.error("Note body cannot be empty");
       }
 
       updateNoteById(id, {
@@ -94,9 +82,7 @@ const App = ({
 
   function deleteNote(id) {
     // eslint-disable-next-line no-restricted-globals
-    const conf = confirm(
-      "Are you sure you want to deleted this note? This cannot be undone!"
-    );
+    const conf = confirm("Are you sure you want to deleted this note? This cannot be undone!");
 
     if (conf === false) return;
 
@@ -110,6 +96,7 @@ const App = ({
 
   return (
     <Suspense fallback={<p></p>}>
+      <ToastContainer position="bottom-right" />
       <SetPinModal />
       <EnterPinModal />
       <ManageNoteModal />
@@ -117,7 +104,6 @@ const App = ({
       <CreateCategory />
       <CreateNote openSetModal={openSetModal} />
       <AppLayout>
-        <AlertMessages />
         <Sidebar
           categories={categories}
           loading={loading}
@@ -150,7 +136,6 @@ const mapStateToProps = (state) => ({
   notes: state.note.notes,
   categories: state.categories.categories,
   note: state.note.note,
-  message: state.message.content,
 });
 
 export default connect(mapStateToProps, {
@@ -161,5 +146,4 @@ export default connect(mapStateToProps, {
   updateNoteById,
   getCategories,
   deleteCategory,
-  addMessage,
 })(App);

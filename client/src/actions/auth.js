@@ -1,14 +1,8 @@
-import {
-  ADD_MESSAGE,
-  AUTHENTICATE,
-  AUTH_ERR,
-  SET_LOADING,
-  SET_PIN_CODE,
-} from "../utils/types";
+import { AUTHENTICATE, AUTH_ERR, SET_LOADING, SET_PIN_CODE } from "../utils/types";
 import { handleRequest, isSuccess } from "../utils/functions";
+import { toast } from "react-toastify";
 
-const noError =
-  "Something went wrong making the request, please try again later";
+const noError = "An unexpected error occurred, please try again later";
 
 export const signIn = (data, location) => (dispatch) => {
   dispatch({ type: SET_LOADING, loading: true });
@@ -92,17 +86,12 @@ export const setPinCode = (pin) => (dispatch) => {
         dispatch({
           type: "default",
         });
-        dispatch({
-          type: ADD_MESSAGE,
-          message: "Successfully updated PIN Code",
-        });
+
+        toast.success("Successfully updated PIN code");
       }
     })
     .catch((e) => {
       console.error(e);
-      dispatch({
-        type: ADD_MESSAGE,
-        message: noError,
-      });
+      toast.error(noError);
     });
 };

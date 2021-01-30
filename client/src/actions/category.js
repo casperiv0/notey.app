@@ -2,13 +2,11 @@ import { handleRequest, isSuccess } from "../utils/functions";
 import {
   GET_CATEGORIES,
   CREATE_CATEGORY,
-  CREATE_CATEGORY_ERR,
-  UPDATE_CATEGORY,
   DELETE_CATEGORY,
-  ADD_MESSAGE,
   GET_NOTES,
   SET_LOADING,
 } from "../utils/types";
+import { toast } from "react-toastify";
 
 export const getCategories = () => (dispatch) => {
   handleRequest("/categories", "GET")
@@ -20,38 +18,25 @@ export const getCategories = () => (dispatch) => {
     .catch((e) => console.error(e));
 };
 
-export const createCategory = (data) => (dispatch) => {
+export const createCategory = (data) => async (dispatch) => {
   dispatch({ type: SET_LOADING, loading: true });
-  handleRequest("/categories", "POST", data).then((res) => {
+
+  return handleRequest("/categories", "POST", data).then((res) => {
     if (isSuccess(res)) {
       // return all categories
       dispatch({ type: CREATE_CATEGORY, categories: res.data.categories });
 
       // set success message
-      dispatch({
-        type: ADD_MESSAGE,
-        message: `Successfully created category with name: ${data.name}`,
-      });
+      toast.success(`Successfully created category with name: ${data.name}`);
 
       // disable loading
       dispatch({ type: SET_LOADING, loading: false });
+
+      return true;
     } else {
       dispatch({ type: SET_LOADING, loading: false });
-      dispatch({ type: CREATE_CATEGORY_ERR, error: res.data.error });
-    }
-  });
-};
-
-export const updateCategory = (id) => (dispatch) => {
-  handleRequest(`/categories/${id}`, "PUT").then((res) => {
-    if (isSuccess(res)) {
-      dispatch({ type: UPDATE_CATEGORY, categories: res.data.categories });
-      dispatch({
-        type: ADD_MESSAGE,
-        message: "Successfully updated",
-      });
-    } else {
-      dispatch({ type: CREATE_CATEGORY_ERR, error: res.data.error });
+      toast.error(res.data.error);
+      return false;
     }
   });
 };
@@ -61,10 +46,8 @@ export const deleteCategory = (id) => (dispatch) => {
     if (isSuccess(res)) {
       dispatch({ type: DELETE_CATEGORY, categories: res.data.categories });
       dispatch({ type: GET_NOTES, notes: res.data.notes });
-      dispatch({
-        type: ADD_MESSAGE,
-        message: "Successfully deleted category",
-      });
+
+      toast.success("Successfully deleted category");
     }
   });
 };

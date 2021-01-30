@@ -1,27 +1,18 @@
-import {
-  closeModal,
-  handleRequest,
-  isSuccess,
-  openModal,
-} from "../utils/functions";
+import { closeModal, handleRequest, isSuccess, openModal } from "../utils/functions";
 import {
   GET_NOTES,
   GET_ACTIVE_NOTE,
   CREATE_NOTE,
   UPDATE_NOTE_OPTIONS,
-  CREATE_NOTE_ERR,
   DELETE_NOTE,
   UPDATE_NOTE,
-  ADD_MESSAGE,
   SET_LOADING,
   GET_SHARE_BY_ID,
   GET_ACTIVE_NOTE_LOCKED,
-  GET_ACTIVE_NOTE_ERROR,
-  GET_SHARE_ERROR,
 } from "../utils/types";
+import { toast } from "react-toastify";
 
-const noError =
-  "Something went wrong making the request, please try again later";
+const noError = "An unexpected error occurred, please try again later";
 
 export const getNotes = () => (dispatch) => {
   handleRequest("/notes", "GET")
@@ -31,10 +22,7 @@ export const getNotes = () => (dispatch) => {
       }
     })
     .catch((e) => {
-      dispatch({
-        type: ADD_MESSAGE,
-        message: "An error occurred while getting the notes",
-      });
+      toast.error(noError);
       console.error(e);
     });
 };
@@ -54,25 +42,20 @@ export const getActiveNote = (id, pin) => (dispatch) => {
           });
           openModal("enterPinModal");
         } else {
-          dispatch({
-            type: GET_ACTIVE_NOTE_ERROR,
-            error: res.data.error,
-          });
+          toast.error(res.data.error);
         }
       }
     })
     .catch((e) => {
-      dispatch({
-        type: ADD_MESSAGE,
-        message: "An error occurred while getting the note",
-      });
+      toast.error(noError);
       console.error(e);
     });
 };
 
-export const createNote = (data) => (dispatch) => {
+export const createNote = (data) => async (dispatch) => {
   dispatch({ type: SET_LOADING, loading: true });
-  handleRequest("/notes", "POST", data)
+
+  return handleRequest("/notes", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         // return created note
@@ -83,33 +66,23 @@ export const createNote = (data) => (dispatch) => {
         });
 
         // Set success message
-        dispatch({
-          type: ADD_MESSAGE,
-          message: `Successfully created note with title: ${res.data.note.title}`,
-        });
+        toast.success(`Successfully created note with title: ${res.data.note.title}`);
         dispatch({ type: SET_LOADING, loading: false });
-        return (window.location.href = `/#/app?noteId=${res.data.note._id}`);
+        window.location.href = `/#/app?noteId=${res.data.note._id}`;
+        return true;
       } else {
         // disable loading
         dispatch({ type: SET_LOADING, loading: false });
 
         // return error
-        dispatch({
-          type: CREATE_NOTE_ERR,
-          error: res.data.error ? res.data.error : noError,
-        });
+        toast.error(res.data.error || noError);
+        return false;
       }
     })
     .catch((e) => {
       console.error(e);
-      dispatch({
-        type: CREATE_NOTE_ERR,
-        error: noError,
-      });
-      dispatch({
-        type: ADD_MESSAGE,
-        message: "An error occurred while creating the note",
-      });
+      toast.error(noError);
+      return false;
     });
 };
 
@@ -118,15 +91,12 @@ export const deleteNoteById = (id) => (dispatch) => {
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: DELETE_NOTE, notes: res.data.notes });
-        dispatch({ type: ADD_MESSAGE, message: "Successfully deleted note" });
+        toast.success("Successfully deleted note");
       }
     })
     .catch((e) => {
       console.error(e);
-      dispatch({
-        type: ADD_MESSAGE,
-        message: "An error occurred while deleting the note",
-      });
+      toast.error(noError);
     });
 };
 
@@ -139,20 +109,14 @@ export const updateNoteById = (id, data) => (dispatch) => {
           note: res.data.note,
           notes: res.data.notes,
         });
-        dispatch({ type: ADD_MESSAGE, message: "Successfully updated note" });
+        toast.success("Successfully updated note");
       } else {
-        dispatch({
-          type: ADD_MESSAGE,
-          message: "An error occurred while updating the note.",
-        });
+        toast.error(noError);
       }
     })
     .catch((e) => {
       console.error(e);
-      dispatch({
-        type: ADD_MESSAGE,
-        message: "An error occurred while updating the note",
-      });
+      toast.error(noError);
     });
 };
 
@@ -165,31 +129,19 @@ export const updateNoteOptions = (id, data) => (dispatch) => {
           notes: res.data.notes,
           note: res.data.note,
         });
-        if (
-          data.shareable === "true" &&
-          data.shareable !== String(res.data.note.shareable)
-        ) {
+        if (data.shareable === "true" && data.shareable !== String(res.data.note.shareable)) {
           return (window.location.href = `/#/share/${id}`);
         } else {
           closeModal("manageNoteModal");
-          dispatch({
-            type: ADD_MESSAGE,
-            message: "Successfully updated options",
-          });
+          toast.success("Successfully updated options");
         }
       } else {
-        dispatch({
-          type: ADD_MESSAGE,
-          message: res.data.message,
-        });
+        toast.error(res.data.message);
       }
     })
     .catch((e) => {
       console.error(e);
-      dispatch({
-        type: ADD_MESSAGE,
-        message: "An error occurred while updating the note",
-      });
+      toast.error(noError);
     });
 };
 
@@ -202,17 +154,11 @@ export const getShareById = (id) => (dispatch) => {
           share: res.data.note,
         });
       } else {
-        dispatch({
-          type: GET_SHARE_ERROR,
-          error: res.data.error,
-        });
+        toast.error(res.data.error);
       }
     })
     .catch((e) => {
       console.error(e);
-      dispatch({
-        type: GET_SHARE_ERROR,
-        message: "An error occurred while updating the note",
-      });
+      toast.error(noError);
     });
 };

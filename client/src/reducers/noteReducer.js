@@ -2,15 +2,12 @@ import {
   CREATE_NOTE,
   GET_NOTES,
   GET_ACTIVE_NOTE,
-  CREATE_NOTE_ERR,
   DELETE_NOTE,
   UPDATE_NOTE,
   SET_LOADING,
   GET_SHARE_BY_ID,
   UPDATE_NOTE_OPTIONS,
   GET_ACTIVE_NOTE_LOCKED,
-  GET_ACTIVE_NOTE_ERROR,
-  GET_SHARE_ERROR,
 } from "../utils/types";
 
 const initState = {
@@ -46,11 +43,6 @@ export default function noteReducer(state = initState, action) {
         error: null,
         closeAble: true,
       };
-    case CREATE_NOTE_ERR:
-      return {
-        ...state,
-        error: action.error,
-      };
     case DELETE_NOTE:
       return {
         ...state,
@@ -85,16 +77,6 @@ export default function noteReducer(state = initState, action) {
         tempNoteId: action.id,
         error: null,
         closeAble: action.closeAble,
-      };
-    case GET_ACTIVE_NOTE_ERROR:
-      return {
-        ...state,
-        error: action.error,
-      };
-    case GET_SHARE_ERROR:
-      return {
-        ...state,
-        error: action.error,
       };
     default:
       return {

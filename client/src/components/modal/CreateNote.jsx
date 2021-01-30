@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
 import Modal from "../modal/Modal";
-import ErrorMessage from "../ErrorMessage";
 import SelectCategory from "../SelectCategory";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  closeSidebar,
-  closeModal,
-  openModal,
-  closeAllModals,
-} from "../../utils/functions";
+import { closeSidebar, closeModal, openModal, closeAllModals } from "../../utils/functions";
 import { createNote } from "../../actions/notes";
 import { getCategories } from "../../actions/category";
 import { TextArea } from "../../styles/Global";
@@ -19,19 +13,16 @@ import { Select } from "../../styles/Global";
 
 const CreateNote = ({
   createNote,
-  error,
   createdNote,
   categories,
   getCategories,
   loading,
   openSetModal,
-  pinCode,
 }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [categoryId, setCategoryId] = useState("no_category");
   const [canClose, setCanClose] = useState(false);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [shareable, setShareable] = useState(false);
   const [locked, setLocked] = useState(false);
 
@@ -47,7 +38,7 @@ const CreateNote = ({
     }
   }, [openSetModal]);
 
-  const onSubmit = (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
 
     const data = {
@@ -57,52 +48,32 @@ const CreateNote = ({
       shareable,
       locked,
     };
-    createNote(data);
-    setHasSubmitted(true);
-  };
+    const created = await createNote(data);
+
+    setCanClose(created);
+  }
 
   useEffect(() => {
     getCategories();
   }, [getCategories]);
 
   useEffect(() => {
-    if (error !== "" || error !== null) {
+    if (canClose) {
+      closeSidebar("sidebar");
+      setTitle("");
+      setBody("");
+      setCategoryId("no_category");
+      setShareable(false);
+      setLocked(false);
+      closeModal("createNoteModal");
       setCanClose(false);
     }
-
-    if (
-      (error === "" || error === null) &&
-      hasSubmitted &&
-      title !== "" &&
-      body !== ""
-    ) {
-      setCanClose(true);
-      closeSidebar("sidebar");
-      setTimeout(() => {
-        setTitle("");
-        setBody("");
-        setCategoryId("no_category");
-        setHasSubmitted(false);
-        setShareable(false);
-        setLocked(false);
-      }, 200);
-    }
-
-    if (canClose) {
-      closeModal("createNoteModal");
-    }
-  }, [canClose, body, title, hasSubmitted, error, locked, pinCode]);
+  }, [canClose]);
 
   return (
-    <Modal
-      style={{ zIndex: "29" }}
-      title="Create new note"
-      id="createNoteModal"
-    >
+    <Modal style={{ zIndex: "29" }} title="Create new note" id="createNoteModal">
       <form onSubmit={onSubmit}>
-        <FormGroup>
-          {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-        </FormGroup>
+        <FormGroup></FormGroup>
         <FormGroup>
           <FormLabel htmlFor="title">Title</FormLabel>
           <FormInput
@@ -141,13 +112,8 @@ const CreateNote = ({
           />
         </FormGroup>
         <FormGroup>
-          <FormLabel>
-            Shareable (People are able to view this with a link)
-          </FormLabel>
-          <Select
-            value={shareable}
-            onChange={(e) => setShareable(e.target.value)}
-          >
+          <FormLabel>Shareable (People are able to view this with a link)</FormLabel>
+          <Select value={shareable} onChange={(e) => setShareable(e.target.value)}>
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </Select>
@@ -159,8 +125,8 @@ const CreateNote = ({
             <option value={false}>No</option>
           </Select>
           <FormSmall>
-            You can set a PIN code by clicking "options" in the sidebar then
-            pressing "change/set PIN Code"
+            You can set a PIN code by clicking "options" in the sidebar then pressing "change/set
+            PIN Code"
           </FormSmall>
         </FormGroup>
         <FormGroup>
@@ -176,13 +142,9 @@ const CreateNote = ({
 };
 
 const mapStateToProps = (state) => ({
-  error: state.note.error,
   createdNote: state.note.createdNote,
   categories: state.categories.categories,
   loading: state.note.loading,
-  pinCode: state.auth.user.pin_code,
 });
 
-export default connect(mapStateToProps, { createNote, getCategories })(
-  CreateNote
-);
+export default connect(mapStateToProps, { createNote, getCategories })(CreateNote);
