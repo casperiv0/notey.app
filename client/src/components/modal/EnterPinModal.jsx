@@ -1,52 +1,34 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
 import Modal from "../modal/Modal";
-import ErrorMessage from "../ErrorMessage";
 import { FormGroup, FormLabel, FormInput, SubmitBtn } from "../../styles/Auth";
 import { connect } from "react-redux";
 import { getActiveNote } from "../../actions/notes";
 import { closeModal } from "../../utils/functions";
 
-const EnterPinModal = ({
-  getActiveNote,
-  error,
-  loading,
-  tempId,
-  closeAble,
-}) => {
+const EnterPinModal = ({ getActiveNote, loading, tempId }) => {
   const [pin, setPin] = useState("");
   const [canClose, setCanClose] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
-  const onSubmit = (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
 
-    getActiveNote(tempId, pin);
-    setSubmitted(true);
-  };
+    const created = await getActiveNote(tempId, pin);
+
+    setCanClose(created);
+  }
 
   useEffect(() => {
-    if (submitted && pin !== "" && closeAble) {
-      setCanClose(true);
-      closeModal("enterPinModal");
-    }
-
     if (canClose) {
       closeModal("enterPinModal");
-      setTimeout(() => {
-        setPin("");
-        setSubmitted(true);
-        setCanClose(false);
-      }, 200);
+      setPin("");
+      setCanClose(false);
     }
-  }, [canClose, error, pin, submitted, closeAble]);
+  }, [canClose]);
 
   return (
     <Modal title="Enter your pin code" id="enterPinModal">
       <form onSubmit={onSubmit}>
-        <FormGroup>
-          {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-        </FormGroup>
         <FormGroup>
           <FormLabel htmlFor="pin">Pin Code</FormLabel>
           <FormInput
@@ -71,9 +53,7 @@ const EnterPinModal = ({
 };
 
 const mapStateToProps = (state) => ({
-  error: state.note.error,
   tempId: state.note.tempNoteId,
-  closeAble: state.note.closeAble,
 });
 
 export default connect(mapStateToProps, { getActiveNote })(EnterPinModal);

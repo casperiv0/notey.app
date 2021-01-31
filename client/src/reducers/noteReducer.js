@@ -15,10 +15,8 @@ const initState = {
   note: null,
   share: null,
   createdNote: {},
-  error: null,
   loading: false,
   tempNoteId: null,
-  closeAble: false,
 };
 
 export default function noteReducer(state = initState, action) {

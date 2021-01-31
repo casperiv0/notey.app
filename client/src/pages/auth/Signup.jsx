@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { signUp, checkAuth } from "../../actions/auth";
 import { connect } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import { Link, Redirect } from "react-router-dom";
+import { signUp, checkAuth } from "../../actions/auth";
 import {
   AuthContainer,
   AuthForm,
@@ -12,10 +13,9 @@ import {
   SubmitBtn,
   FormSmall,
 } from "../../styles/Auth";
-import ErrorMessage from "../../components/ErrorMessage/";
 import Loader from "../../components/Loader";
 
-const SignUp = ({ signUp, error, isAuth, checkAuth, loading }) => {
+const SignUp = ({ signUp, isAuth, checkAuth, loading }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -45,11 +45,11 @@ const SignUp = ({ signUp, error, isAuth, checkAuth, loading }) => {
 
   return (
     <AuthContainer>
+      <ToastContainer />
       <AuthForm onSubmit={onSubmit}>
         <FormGroup>
           <FormTitle>Sign Up</FormTitle>
         </FormGroup>
-        {error ? <ErrorMessage>{error}</ErrorMessage> : null}
         <FormGroup>
           <FormLabel htmlFor="username">Username</FormLabel>
           <FormInput
@@ -82,9 +82,7 @@ const SignUp = ({ signUp, error, isAuth, checkAuth, loading }) => {
           />
         </FormGroup>
         <FormGroup>
-          <SubmitBtn disabled={loading}>
-            {loading ? <Loader /> : "Sign Up"}
-          </SubmitBtn>
+          <SubmitBtn disabled={loading}>{loading ? <Loader /> : "Sign Up"}</SubmitBtn>
         </FormGroup>
         <FormGroup>
           <FormSmall>
@@ -97,7 +95,6 @@ const SignUp = ({ signUp, error, isAuth, checkAuth, loading }) => {
 };
 
 const mapStateToProps = (state) => ({
-  error: state.auth.error,
   isAuth: state.auth.isAuth,
   loading: state.auth.loading,
 });

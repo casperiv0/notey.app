@@ -27,28 +27,29 @@ export const getNotes = () => (dispatch) => {
     });
 };
 
-export const getActiveNote = (id, pin) => (dispatch) => {
-  handleRequest(`/notes/${id}`, "POST", { pin: pin })
+export const getActiveNote = (id, pin) => async (dispatch) => {
+  return handleRequest(`/notes/${id}`, "POST", { pin: pin })
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: GET_ACTIVE_NOTE, note: res.data.note });
-        dispatch({ type: "default", closeAble: true });
+        return true;
       } else {
         if (res.data.error === "pin_required") {
           dispatch({
             type: GET_ACTIVE_NOTE_LOCKED,
-            closeAble: false,
             id: res.data._id,
           });
           openModal("enterPinModal");
         } else {
           toast.error(res.data.error);
+          return false;
         }
       }
     })
     .catch((e) => {
       toast.error(noError);
       console.error(e);
+      return false;
     });
 };
 

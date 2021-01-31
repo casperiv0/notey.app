@@ -12,6 +12,5 @@ export const CREATE_CATEGORY = "CREATE_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
 
 export const AUTHENTICATE = "AUTHENTICATE";
-export const AUTH_ERR = "AUTH_ERR";
 export const SET_PIN_CODE = "SET_PIN_CODE";
 export const SET_LOADING = "SET_LOADING";

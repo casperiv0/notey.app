@@ -1,43 +1,32 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
 import Modal from "../modal/Modal";
-import ErrorMessage from "../ErrorMessage";
-import {
-  FormGroup,
-  FormLabel,
-  FormInput,
-  SubmitBtn,
-  FormSmall,
-} from "../../styles/Auth";
+import { FormGroup, FormLabel, FormInput, SubmitBtn, FormSmall } from "../../styles/Auth";
 import { connect } from "react-redux";
 import { setPinCode } from "../../actions/auth";
 import { closeModal } from "../../utils/functions";
 
-const SetPinModal = ({ setPinCode, error, loading, closeAble }) => {
+const SetPinModal = ({ setPinCode, loading }) => {
   const [pin, setPin] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [canClose, setCanClose] = useState(false);
 
-  const onSubmit = (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
 
-    setPinCode(pin);
-    setSubmitted(true);
-  };
+    const created = await setPinCode(pin);
+    setCanClose(created);
+  }
 
   useEffect(() => {
-    if (submitted && pin !== "" && closeAble) {
+    if (canClose) {
       closeModal("setPinModal");
       setPin("");
-      setSubmitted(true);
     }
-  }, [pin, submitted, closeAble]);
+  }, [canClose]);
 
   return (
     <Modal title="Enter a PIN code" id="setPinModal">
       <form onSubmit={onSubmit}>
-        <FormGroup>
-          {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-        </FormGroup>
         <FormGroup>
           <FormLabel htmlFor="pin">Pin Code</FormLabel>
           <FormInput
@@ -65,9 +54,4 @@ const SetPinModal = ({ setPinCode, error, loading, closeAble }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  error: state.auth.error,
-  closeAble: state.auth.closeAble,
-});
-
-export default connect(mapStateToProps, { setPinCode })(SetPinModal);
+export default connect(null, { setPinCode })(SetPinModal);

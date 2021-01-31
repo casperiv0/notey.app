@@ -29,13 +29,13 @@ router.post("/signin", async (req: IRequest, res: Response) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    return res.json(errorObj("User was not found"));
+    return res.json(errorObj("User was not found")).status(400);
   }
 
   const isPwCorrect = compareSync(password, user.password);
 
   if (!isPwCorrect) {
-    return res.json(errorObj("Password is incorrect"));
+    return res.json(errorObj("Password is incorrect")).status(401);
   }
 
   const data: AuthUser = {
@@ -68,13 +68,13 @@ router.post("/signup", async (req: IRequest, res: Response) => {
   }
 
   if (password !== password2) {
-    return res.json(errorObj("Passwords do not match"));
+    return res.json(errorObj("Passwords do not match")).status(400);
   }
 
   const user = await User.findOne({ username: username });
 
   if (user) {
-    return res.json(errorObj("Username is already in use"));
+    return res.json(errorObj("Username is already in use")).status(400);
   }
 
   const hash = hashSync(password, 15);
@@ -141,7 +141,7 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
     user = await User.findById(userId).select({ password: 0 });
 
     if (!user) {
-      return res.json(errorObj("user was not found"));
+      return res.json(errorObj("user was not found")).status(400);
     }
   } catch (e) {
     Logger.error("db_error", e);

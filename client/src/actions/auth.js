@@ -1,4 +1,4 @@
-import { AUTHENTICATE, AUTH_ERR, SET_LOADING, SET_PIN_CODE } from "../utils/types";
+import { AUTHENTICATE, SET_LOADING, SET_PIN_CODE } from "../utils/types";
 import { handleRequest, isSuccess } from "../utils/functions";
 import { toast } from "react-toastify";
 
@@ -12,13 +12,13 @@ export const signIn = (data, location) => (dispatch) => {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
         window.location = location ? `/#${location}` : "/#/app";
       } else {
-        dispatch({ type: AUTH_ERR, error: res.data.error });
+        toast.error(res.data.error);
       }
       dispatch({ type: SET_LOADING, loading: false });
     })
     .catch((e) => {
       console.error(e);
-      dispatch({ type: AUTH_ERR, error: noError });
+      toast.error(noError);
       dispatch({ type: SET_LOADING, loading: false });
     });
 };
@@ -32,13 +32,13 @@ export const signUp = (data) => (dispatch) => {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
         window.location = "/#/app";
       } else {
-        dispatch({ type: AUTH_ERR, error: res.data.error });
+        toast.error(res.data.error);
       }
       dispatch({ type: SET_LOADING, loading: false });
     })
     .catch((e) => {
       console.error(e);
-      dispatch({ type: AUTH_ERR, error: noError });
+      toast.error(noError);
       dispatch({ type: SET_LOADING, loading: false });
     });
 };
@@ -49,7 +49,7 @@ export const checkAuth = () => (dispatch) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
       } else {
-        dispatch({ type: AUTH_ERR, error: res.data.error });
+        toast.error(res.data.error);
       }
     })
     .catch((e) => console.error(e));
@@ -75,23 +75,21 @@ export const deleteAccount = () => (dispatch) => {
     .catch((e) => console.error(e));
 };
 
-export const setPinCode = (pin) => (dispatch) => {
-  handleRequest("/auth/set-pin", "POST", { pin })
+export const setPinCode = (pin) => async (dispatch) => {
+  return handleRequest("/auth/set-pin", "POST", { pin })
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({
           type: SET_PIN_CODE,
-          closeAble: true,
-        });
-        dispatch({
-          type: "default",
         });
 
         toast.success("Successfully updated PIN code");
+        return true;
       }
     })
     .catch((e) => {
       console.error(e);
       toast.error(noError);
+      return false;
     });
 };
