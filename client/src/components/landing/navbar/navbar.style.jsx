@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 import { DEFAULT_MIN_WIDTH } from "../../../styles/constants";
 import { DEFAULT_BTN_STYLES } from "../../../styles/Global";
 
@@ -30,7 +31,7 @@ export const NavIcon = styled.a`
 
 export const NavLinks = styled.div``;
 
-export const NavLink = styled.a`
+export const NavLink = styled(Link)`
   color: #f2f2f2;
   font-size: 1.2rem;
   padding: 10px 20px;
