@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
 import Modal from "../modal/Modal";
 import SelectCategory from "../SelectCategory";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { closeSidebar, closeModal, openModal, closeAllModals } from "../../utils/functions";
 import { createNote } from "../../actions/notes";
@@ -19,6 +19,7 @@ const CreateNote = ({
   loading,
   openSetModal,
 }) => {
+  const history = useHistory();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [categoryId, setCategoryId] = useState("no_category");
@@ -50,7 +51,12 @@ const CreateNote = ({
     };
     const created = await createNote(data);
 
-    setCanClose(created);
+    if (created === false) {
+      setCanClose(false);
+    } else {
+      setCanClose(true);
+      history.push(created);
+    }
   }
 
   useEffect(() => {

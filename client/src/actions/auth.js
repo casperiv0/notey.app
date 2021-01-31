@@ -4,42 +4,48 @@ import { toast } from "react-toastify";
 
 const noError = "An unexpected error occurred, please try again later";
 
-export const signIn = (data, location) => (dispatch) => {
+export const signIn = (data) => async (dispatch) => {
   dispatch({ type: SET_LOADING, loading: true });
-  handleRequest("/auth/signin", "POST", data)
+
+  return handleRequest("/auth/signin", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
-        window.location = location ? `/#${location}` : "/#/app";
+        dispatch({ type: SET_LOADING, loading: false });
+        return true;
       } else {
         toast.error(res.data.error);
       }
       dispatch({ type: SET_LOADING, loading: false });
+      return false;
     })
     .catch((e) => {
       console.error(e);
       toast.error(noError);
       dispatch({ type: SET_LOADING, loading: false });
+      return false;
     });
 };
 
-export const signUp = (data) => (dispatch) => {
+export const signUp = (data) => async (dispatch) => {
   dispatch({ type: SET_LOADING, loading: true });
 
-  handleRequest("/auth/signup", "POST", data)
+  return handleRequest("/auth/signup", "POST", data)
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: AUTHENTICATE, user: res.data.user, isAuth: true });
-        window.location = "/#/app";
+        return true;
       } else {
         toast.error(res.data.error);
+        dispatch({ type: SET_LOADING, loading: false });
+        return false;
       }
-      dispatch({ type: SET_LOADING, loading: false });
     })
     .catch((e) => {
       console.error(e);
       toast.error(noError);
       dispatch({ type: SET_LOADING, loading: false });
+      return false;
     });
 };
 

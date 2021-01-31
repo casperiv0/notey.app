@@ -11,14 +11,14 @@ const Navbar = ({ isAuth }) => {
   return (
     <NavbarStyle>
       <NavbarContent>
-        <NavIcon href="/#/">Notey.app</NavIcon>
+        <NavIcon href="/">Notey.app</NavIcon>
         <NavLinks>
           {isAuth ? (
-            <NavLink href="/#/app">Open App</NavLink>
+            <NavLink href="/app">Open App</NavLink>
           ) : (
-            <NavLink href="/#/signin">Sign In</NavLink>
+            <NavLink href="/signin">Sign In</NavLink>
           )}
-          <NavLink href="/#/signup" large>
+          <NavLink href="/signup" large>
             Sign Up
           </NavLink>
         </NavLinks>

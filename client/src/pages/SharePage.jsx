@@ -37,15 +37,15 @@ const SharePage = ({ share, getShareById, match, isAuth, checkAuth, loading }) =
     <div style={{ padding: "1rem", color: "#f2f2f2" }}>
       <ToastContainer />
       {isAuth ? (
-        <a style={loginStyles} href={`/#/app?noteId=${noteId}`}>
+        <a style={loginStyles} href={`/app?noteId=${noteId}`}>
           Return to app
         </a>
       ) : (
         <>
-          <a style={loginStyles} href="/#/signin">
+          <a style={loginStyles} href="/signin">
             Sign In
           </a>
-          <a style={loginStyles} href="/#/signup">
+          <a style={loginStyles} href="/signup">
             Create an Account
           </a>
         </>

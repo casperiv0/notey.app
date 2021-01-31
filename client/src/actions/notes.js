@@ -69,8 +69,7 @@ export const createNote = (data) => async (dispatch) => {
         // Set success message
         toast.success(`Successfully created note with title: ${res.data.note.title}`);
         dispatch({ type: SET_LOADING, loading: false });
-        window.location.href = `/#/app?noteId=${res.data.note._id}`;
-        return true;
+        return `app?noteId=${res.data.note._id}`;
       } else {
         // disable loading
         dispatch({ type: SET_LOADING, loading: false });
@@ -131,7 +130,7 @@ export const updateNoteOptions = (id, data) => (dispatch) => {
           note: res.data.note,
         });
         if (data.shareable === "true" && data.shareable !== String(res.data.note.shareable)) {
-          return (window.location.href = `/#/share/${id}`);
+          return (window.location.href = `share/${id}`);
         } else {
           closeModal("manageNoteModal");
           toast.success("Successfully updated options");

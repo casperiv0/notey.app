@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { AppLayout } from "../styles/Global";
 import { checkAuth } from "../actions/auth";
 import { closeSidebar } from "../utils/functions";
-import { getCategories, deleteCategory } from "../actions/category";
+import { getCategories } from "../actions/category";
 import { getActiveNote, getNotes, deleteNoteById, updateNoteById } from "../actions/notes";
 import EnterPinModal from "../components/modal/EnterPinModal";
 import SetPinModal from "../components/modal/SetPinModal";
@@ -27,7 +27,6 @@ const App = ({
   updateNoteById,
   getCategories,
   categories,
-  deleteCategory,
 }) => {
   const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
   const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true }).create;
@@ -110,7 +109,6 @@ const App = ({
           notes={notes}
           activeNote={activeNote}
           getActiveNote={getActiveNoteFunc}
-          deleteCategory={deleteCategory}
         />
         <Main
           editNote={editNote}
@@ -145,5 +143,4 @@ export default connect(mapStateToProps, {
   deleteNoteById,
   updateNoteById,
   getCategories,
-  deleteCategory,
 })(App);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Loader from "../../components/Loader";
 import { signIn, checkAuth } from "../../actions/auth";
@@ -18,12 +18,13 @@ import {
 } from "../../styles/Auth";
 
 const SignIn = ({ signIn, isAuth, checkAuth, loading, location }) => {
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const from = location && location.state && location.state.from;
 
-  const onSubmit = (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
 
     const data = {
@@ -31,8 +32,12 @@ const SignIn = ({ signIn, isAuth, checkAuth, loading, location }) => {
       password,
       rememberMe,
     };
-    signIn(data, from);
-  };
+    const success = await signIn(data, from);
+
+    if (success) {
+      history.push(from || "app");
+    }
+  }
 
   useEffect(() => {
     checkAuth();

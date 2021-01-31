@@ -24,7 +24,7 @@ const Footer = () => {
           JavaScript ⚡
         </FooterTitle>
         <FooterLinks>
-          <FooterLink href="/#/signup">Sign up</FooterLink>
+          <FooterLink href="/signup">Sign up</FooterLink>
           <FooterLink href="https://github.com/notey-app">GitHub</FooterLink>
         </FooterLinks>
       </FooterContent>

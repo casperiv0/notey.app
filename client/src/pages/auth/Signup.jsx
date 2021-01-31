@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { signUp, checkAuth } from "../../actions/auth";
 import {
   AuthContainer,
@@ -16,11 +16,12 @@ import {
 import Loader from "../../components/Loader";
 
 const SignUp = ({ signUp, isAuth, checkAuth, loading }) => {
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
 
-  const onSubmit = (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
 
     const data = {
@@ -28,8 +29,12 @@ const SignUp = ({ signUp, isAuth, checkAuth, loading }) => {
       password,
       password2,
     };
-    signUp(data);
-  };
+    const success = await signUp(data);
+
+    if (success) {
+      return history.push("app");
+    }
+  }
 
   useEffect(() => {
     checkAuth();

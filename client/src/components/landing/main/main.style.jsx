@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { DEFAULT_MIN_WIDTH } from "../../../styles/constants";
 import { DEFAULT_BTN_STYLES } from "../../../styles/Global";
@@ -45,7 +46,7 @@ export const ShowCaseParaph = styled.p`
   font-size: 1.5rem;
 `;
 
-export const ShowCaseLink = styled.a`
+export const ShowCaseLink = styled(Link)`
   ${DEFAULT_BTN_STYLES}
   padding: 10px 40px !important;
   text-decoration: none;

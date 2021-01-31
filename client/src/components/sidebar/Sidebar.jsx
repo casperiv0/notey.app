@@ -3,17 +3,10 @@ import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
 import { SrOnly } from "../../styles/Global";
 import { Divider } from "../../styles/Global";
-import {
-  closeSidebar,
-  openModal,
-  changeFoldedState,
-} from "../../utils/functions";
+import { closeSidebar, openModal, changeFoldedState } from "../../utils/functions";
 import { CloseIcon, DeleteIcon } from "../icons";
-import {
-  CategoryDiv,
-  CategoryTitle,
-  DeleteCategory,
-} from "../../styles/Category";
+import { CategoryDiv, CategoryTitle, DeleteCategory } from "../../styles/Category";
+import { deleteCategory } from "../../actions/category";
 import {
   SidebarActive,
   SidebarStyle,
@@ -22,15 +15,9 @@ import {
   SidebarBody,
   CloseSidebarBtn,
 } from "./sidebar.style";
+import { connect } from "react-redux";
 
-const Sidebar = ({
-  notes,
-  categories,
-  activeNote,
-  loading,
-  getActiveNote,
-  deleteCategory,
-}) => {
+const Sidebar = ({ notes, categories, activeNote, loading, getActiveNote, deleteCategory }) => {
   const [filteredNotes, setFilteredNotes] = useState(notes);
 
   const filterNotes = (filter) => {
@@ -58,9 +45,7 @@ const Sidebar = ({
     changeFoldedState(id);
   }
 
-  const noCategoryNotesLength = filteredNotes.filter(
-    (note) => note.category_id === "no_category"
-  );
+  const noCategoryNotesLength = filteredNotes.filter((note) => note.category_id === "no_category");
   const noCategoryNotes =
     filteredNotes &&
     // eslint-disable-next-line
@@ -106,10 +91,7 @@ const Sidebar = ({
                   // eslint-disable-next-line
                   filteredNotes.map((note, i) => {
                     if (note.category_id === cat._id) {
-                      const isActiveNote = isActive(
-                        activeNote ? activeNote : notes[0],
-                        note
-                      );
+                      const isActiveNote = isActive(activeNote ? activeNote : notes[0], note);
 
                       return (
                         <SidebarNote
@@ -131,10 +113,7 @@ const Sidebar = ({
                 return (
                   <CategoryDiv id={`category-${cat._id}`} key={ci}>
                     <div style={{ display: "flex" }}>
-                      <CategoryTitle
-                        title="Click to fold"
-                        onClick={() => setFoldState(cat._id)}
-                      >
+                      <CategoryTitle title="Click to fold" onClick={() => setFoldState(cat._id)}>
                         {category}
                       </CategoryTitle>
                       <div>
@@ -151,14 +130,8 @@ const Sidebar = ({
 
               {/* Show all notes without no category set */}
               {notes && !noCategoryNotesLength[0] ? null : (
-                <CategoryDiv
-                  id={"category-no-category"}
-                  key={categories.length}
-                >
-                  <CategoryTitle
-                    title="Click to fold"
-                    onClick={() => setFoldState("no-category")}
-                  >
+                <CategoryDiv id={"category-no-category"} key={categories.length}>
+                  <CategoryTitle title="Click to fold" onClick={() => setFoldState("no-category")}>
                     No category
                   </CategoryTitle>
                   <div className="items">{noCategoryNotes}</div>
@@ -174,17 +147,12 @@ const Sidebar = ({
               <SidebarNote onClick={() => openModal("createCategoryModal")}>
                 Create new Category
               </SidebarNote>
-              <SidebarNote onClick={() => openModal("optionsModal")}>
-                Options
-              </SidebarNote>
+              <SidebarNote onClick={() => openModal("optionsModal")}>Options</SidebarNote>
             </>
           )}
         </SidebarBody>
       </SidebarStyle>
-      <SidebarActive
-        onClick={() => closeSidebar("sidebar")}
-        id="sidebarActive"
-      ></SidebarActive>
+      <SidebarActive onClick={() => closeSidebar("sidebar")} id="sidebarActive"></SidebarActive>
     </>
   );
 };
@@ -193,4 +161,4 @@ function isActive(activeNote, note) {
   return activeNote && activeNote._id === note._id;
 }
 
-export default Sidebar;
+export default connect(null, { deleteCategory })(Sidebar);
