@@ -19,7 +19,7 @@ export const handleRequest = (path, method, data) => {
 };
 
 /**
- * @param {string} status The returned status from server
+ * @param {string} res The returned status from server
  */
 export const isSuccess = (res) => {
   return res.data.status === "success";

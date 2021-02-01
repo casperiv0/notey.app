@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
 import Modal from "../modal/Modal";
 import SelectCategory from "../SelectCategory";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { closeSidebar, closeModal, openModal, closeAllModals } from "../../utils/functions";
 import { createNote } from "../../actions/notes";
@@ -141,8 +141,6 @@ const CreateNote = ({
           </SubmitBtn>
         </FormGroup>
       </form>
-
-      {canClose ? <Redirect to={`/app?noteId=${createdNote._id}`} /> : null}
     </Modal>
   );
 };

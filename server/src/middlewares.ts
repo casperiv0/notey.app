@@ -6,17 +6,11 @@ export function notFound(_req: IRequest, res: Response): Response {
   return res.json(errorObj("path not found")).status(404);
 }
 
-export function checkHeaders(
-  req: IRequest,
-  res: Response,
-  next: NextFunction
-): Response | void {
-  const headers = req.headers;
+export function checkHeaders(req: IRequest, res: Response, next: NextFunction): Response | void {
+  const { method, headers } = req;
 
-  if (!headers["content-type"]?.includes("application/json")) {
-    return res
-      .json(errorObj("Content-Type must be application/json"))
-      .status(400);
+  if (method !== "GET" && !headers["content-type"]?.includes("application/json")) {
+    return res.json(errorObj("Content-Type must be application/json")).status(400);
   }
 
   next();

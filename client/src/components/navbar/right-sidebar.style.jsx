@@ -61,6 +61,10 @@ export const CloseRightSidebar = styled.button`
   width: 50px;
   height: 50px;
 
+  &:focus {
+    outline: none;
+  }
+
   & svg {
     fill: #f2f2f2;
   }

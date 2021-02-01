@@ -14,9 +14,7 @@ export default function authReducer(state = initState, action) {
         ...state,
         user: action.user,
         isAuth: action.isAuth,
-        error: null,
       };
-
     case SET_LOADING:
       return {
         ...state,

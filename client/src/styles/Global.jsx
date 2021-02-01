@@ -38,11 +38,12 @@ export const DEFAULT_BTN_STYLES = css`
   }
 
   &:hover {
-    filter: brightness(120%);
+    filter: brightness(140%);
   }
 
   &:focus {
-    filter: brightness(120%);
+    outline: none;
+    filter: brightness(150%);
   }
 
   &:active {

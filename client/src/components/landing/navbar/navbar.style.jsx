@@ -23,7 +23,7 @@ export const NavbarContent = styled.div`
   }
 `;
 
-export const NavIcon = styled.a`
+export const NavIcon = styled(Link)`
   font-size: 1.7rem;
   font-weight: 700;
   text-decoration: none;

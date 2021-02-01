@@ -2,7 +2,6 @@ import { GET_CATEGORIES, CREATE_CATEGORY, DELETE_CATEGORY, SET_LOADING } from ".
 
 const initState = {
   categories: [],
-  error: null,
   loading: false,
 };
 
@@ -17,7 +16,6 @@ export default function categoryReducer(state = initState, action) {
       return {
         ...state,
         categories: action.categories,
-        error: null,
       };
 
     case DELETE_CATEGORY:

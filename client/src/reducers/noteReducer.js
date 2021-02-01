@@ -32,13 +32,11 @@ export default function noteReducer(state = initState, action) {
         notes: action.notes,
         createdNote: action.createdNote,
         note: action.createdNote,
-        error: null,
       };
     case GET_ACTIVE_NOTE:
       return {
         ...state,
         note: action.note,
-        error: null,
         closeAble: true,
       };
     case DELETE_NOTE:
@@ -73,7 +71,6 @@ export default function noteReducer(state = initState, action) {
       return {
         ...state,
         tempNoteId: action.id,
-        error: null,
         closeAble: action.closeAble,
       };
     default:

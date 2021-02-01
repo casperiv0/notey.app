@@ -17,7 +17,7 @@ export const NavbarStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #18191A;
+  background-color: #18191a;
   border-left: none;
   border-bottom: 2px solid #666;
 
@@ -91,6 +91,10 @@ export const OpenSidebar = styled.button`
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {
     display: none;
   }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const OpenRightSidebar = styled.button`
@@ -103,6 +107,10 @@ export const OpenRightSidebar = styled.button`
 
   & svg {
     fill: #f2f2f2;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   @media (min-width: ${DEFAULT_MIN_WIDTH}) {

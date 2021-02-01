@@ -10,7 +10,7 @@ const NotFound = () => {
   return (
     <NotFoundContainer>
       <NotFoundTitle>404</NotFoundTitle>
-      <Link to="/">
+      <Link to="/app">
         <NotFoundBtn>Return home</NotFoundBtn>
       </Link>
     </NotFoundContainer>

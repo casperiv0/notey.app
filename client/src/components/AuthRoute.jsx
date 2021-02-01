@@ -43,8 +43,6 @@ const AuthRouteHandler = ({ component, auth, checkAuth, ...rest }) => {
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-const AuthRoute = withRouter(
-  connect(mapStateToProps, { checkAuth })(AuthRouteHandler)
-);
+const AuthRoute = withRouter(connect(mapStateToProps, { checkAuth })(AuthRouteHandler));
 
 export default AuthRoute;

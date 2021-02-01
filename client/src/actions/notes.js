@@ -86,17 +86,21 @@ export const createNote = (data) => async (dispatch) => {
     });
 };
 
-export const deleteNoteById = (id) => (dispatch) => {
-  handleRequest(`/notes/${id}`, "DELETE")
+export const deleteNoteById = (id) => async (dispatch) => {
+  return handleRequest(`/notes/${id}`, "DELETE")
     .then((res) => {
       if (isSuccess(res)) {
         dispatch({ type: DELETE_NOTE, notes: res.data.notes });
         toast.success("Successfully deleted note");
+        return true;
+      } else {
+        return false;
       }
     })
     .catch((e) => {
       console.error(e);
       toast.error(noError);
+      return false;
     });
 };
 

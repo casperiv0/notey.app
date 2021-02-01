@@ -1,35 +1,37 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
 import qs from "qs";
+import { useHistory, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Sidebar from "../components/sidebar";
 import Main from "../components/main";
-import { connect } from "react-redux";
 import { AppLayout } from "../styles/Global";
 import { checkAuth } from "../actions/auth";
 import { closeSidebar } from "../utils/functions";
 import { getCategories } from "../actions/category";
 import { getActiveNote, getNotes, deleteNoteById, updateNoteById } from "../actions/notes";
-import EnterPinModal from "../components/modal/EnterPinModal";
-import SetPinModal from "../components/modal/SetPinModal";
 
 const OptionsModal = lazy(() => import("../components/modal/OptionsModal"));
 const CreateNote = lazy(() => import("../components/modal/CreateNote"));
 const CreateCategory = lazy(() => import("../components/modal/CreateCategory"));
 const ManageNoteModal = lazy(() => import("../components/modal/ManageNoteModal"));
+const EnterPinModal = lazy(() => import("../components/modal/EnterPinModal"));
+const SetPinModal = lazy(() => import("../components/modal/SetPinModal"));
 
 const App = ({
   getNotes,
   getActiveNote,
   notes,
   note: activeNote,
-  location,
   deleteNoteById,
   updateNoteById,
   getCategories,
   categories,
 }) => {
-  const noteId = qs.parse(location.search, { ignoreQueryPrefix: true }).noteId;
-  const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true }).create;
+  const history = useHistory();
+  const location = useLocation();
+  const noteId = qs.parse(location.search, { ignoreQueryPrefix: true })?.noteId;
+  const openSetModal = qs.parse(location.search, { ignoreQueryPrefix: true })?.create;
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
@@ -51,8 +53,7 @@ const App = ({
       return toast.info("Please save your current progress or reload the page to cancel changes");
     }
 
-    const search = qs.stringify({ noteId: id }, { addQueryPrefix: true });
-    window.location = `#app${search}`;
+    history.push(`app?noteId=${id}`);
     getActiveNote(id);
   };
 
@@ -79,7 +80,7 @@ const App = ({
     setEditing(!editing);
   };
 
-  function deleteNote(id) {
+  async function deleteNote(id) {
     // eslint-disable-next-line no-restricted-globals
     const conf = confirm("Are you sure you want to deleted this note? This cannot be undone!");
 
@@ -88,9 +89,9 @@ const App = ({
     if (editing) {
       setEditing(false);
     }
-    deleteNoteById(id);
+    const deleted = await deleteNoteById(id);
 
-    getActiveNote(notes.length < 0 ? notes[notes.length - 2]._id : notes[0]);
+    deleted && getActiveNote(notes.length < 0 ? notes[notes.length - 2]._id : notes[0]);
   }
 
   return (
@@ -131,6 +132,7 @@ const App = ({
 };
 
 const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
   notes: state.note.notes,
   categories: state.categories.categories,
   note: state.note.note,

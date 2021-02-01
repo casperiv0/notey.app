@@ -28,6 +28,10 @@ export const CategoryTitle = styled.button`
   justify-content: space-between;
   align-items: center;
   text-transform: uppercase;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const SelectCategoryStyle = styled.select`

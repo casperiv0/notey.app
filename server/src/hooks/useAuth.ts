@@ -9,7 +9,7 @@ export default async function (
   res: Response,
   next: NextFunction
 ): Promise<void> {
-  const token: string = req.cookies.__token;
+  const token: string = req.cookies["notey-session"];
   const secret = String(process.env.JWT_SECRET);
 
   if (!token) {

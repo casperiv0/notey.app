@@ -45,7 +45,7 @@ router.post("/signin", async (req: IRequest, res: Response) => {
 
   const token = useToken(data, expires / 1000);
 
-  res.cookie("__token", token, {
+  res.cookie("notey-session", token, {
     httpOnly: true,
     expires: new Date(Date.now() + expires),
   });
@@ -106,7 +106,7 @@ router.post("/signup", async (req: IRequest, res: Response) => {
 
   const token = useToken(data, 3600000);
 
-  res.cookie("__token", token, {
+  res.cookie("notey-session", token, {
     httpOnly: true,
     expires: new Date(Date.now() + 3600000),
   });
@@ -157,7 +157,7 @@ router.post("/user", useAuth, async (req: IRequest, res: Response) => {
 });
 
 router.get("/logout", useAuth, (_req: IRequest, res: Response) => {
-  res.clearCookie("__token", { httpOnly: true });
+  res.clearCookie("notey-session", { httpOnly: true });
 
   return res.json({ status: "success" });
 });
@@ -180,7 +180,7 @@ router.delete("/delete-account", useAuth, async (req: IRequest, res: Response) =
 
     // delete user
     await User.findByIdAndDelete(user?._id);
-    res.clearCookie("__token", { httpOnly: true });
+    res.clearCookie("notey-session", { httpOnly: true });
   } catch (e) {
     Logger.error("DELETE_ACCOUNT", e);
   }
