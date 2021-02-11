@@ -9,8 +9,7 @@ import { errorObj, isTrue } from "../utils/utils";
 import { compareSync } from "bcryptjs";
 const router: Router = Router();
 
-const lockedMsg =
-  "Note is locked with a PIN code. Please enter your pincode in the popup";
+const lockedMsg = "Note is locked with a PIN code. Please enter your pincode in the popup";
 
 function parseLockedNotes(notes: INote[]) {
   return notes.map((note: INote) => {
@@ -84,12 +83,6 @@ router.put("/:noteId", useAuth, async (req: IRequest, res: Response) => {
   let notes;
   let note;
 
-  if (markdown === "" || !markdown) {
-    return res
-      .json(errorObj("Please do not include any malicious code."))
-      .status(400);
-  }
-
   try {
     await Note.findByIdAndUpdate(noteId, {
       title,
@@ -124,19 +117,11 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
   }
 
   if (title.length > 40) {
-    return res
-      .json(errorObj("Title has a limit of 40 characters."))
-      .status(400);
+    return res.json(errorObj("Title has a limit of 40 characters.")).status(400);
   }
 
   try {
     const markdown = useMarkdown(body);
-
-    if (markdown === "" || !markdown) {
-      return res
-        .json(errorObj("Please do not include any malicious code."))
-        .status(400);
-    }
 
     const newNote: INote = new Note({
       user_id: req.user?._id,
@@ -206,38 +191,34 @@ router.delete("/:noteId", useAuth, async (req: IRequest, res: Response) => {
  * @Route POST /options/:noteId
  * @Desc updates misc settings for note
  */
-router.post(
-  "/options/:noteId",
-  useAuth,
-  async (req: IRequest, res: Response) => {
-    const noteId = req.params.noteId;
-    const { shareable, locked } = req.body;
+router.post("/options/:noteId", useAuth, async (req: IRequest, res: Response) => {
+  const noteId = req.params.noteId;
+  const { shareable, locked } = req.body;
 
-    try {
-      const note = await Note.findById(noteId);
+  try {
+    const note = await Note.findById(noteId);
 
-      if (note?.user_id.toString() !== req.user?._id.toString()) {
-        return res.json(errorObj("Permissions Denied")).status(401);
-      }
-
-      await Note.findByIdAndUpdate(noteId, {
-        shared: isTrue(shareable),
-        locked: isTrue(locked),
-      });
-      const notes = await Note.find({ user_id: req.user?._id });
-      const updated = await Note.findById(note?._id);
-
-      return res.json({
-        status: "success",
-        notes: parseLockedNotes(notes),
-        note: updated,
-      });
-    } catch (e) {
-      Logger.error("db_error", e);
-      return res.json(errorObj("Something went wrong")).status(400);
+    if (note?.user_id.toString() !== req.user?._id.toString()) {
+      return res.json(errorObj("Permissions Denied")).status(401);
     }
+
+    await Note.findByIdAndUpdate(noteId, {
+      shared: isTrue(shareable),
+      locked: isTrue(locked),
+    });
+    const notes = await Note.find({ user_id: req.user?._id });
+    const updated = await Note.findById(note?._id);
+
+    return res.json({
+      status: "success",
+      notes: parseLockedNotes(notes),
+      note: updated,
+    });
+  } catch (e) {
+    Logger.error("db_error", e);
+    return res.json(errorObj("Something went wrong")).status(400);
   }
-);
+});
 
 router.get("/share/:noteId", async (req: IRequest, res: Response) => {
   const noteId = req.params.noteId;
@@ -250,9 +231,7 @@ router.get("/share/:noteId", async (req: IRequest, res: Response) => {
     }
 
     if (note.locked === true) {
-      return res.json(
-        errorObj("Share is locked, therefore you cannot view it")
-      );
+      return res.json(errorObj("Share is locked, therefore you cannot view it"));
     }
 
     if (!note?.shared) {
