@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import Loader from "../../components/Loader";
 import SidebarSearch from "./SidebarSearch";
 import { SrOnly } from "../../styles/Global";
@@ -15,7 +16,11 @@ import {
   SidebarBody,
   CloseSidebarBtn,
 } from "./sidebar.style";
-import { connect } from "react-redux";
+
+const noCategory = {
+  name: "No Category",
+  _id: "no_category",
+};
 
 const Sidebar = ({ notes, categories, activeNote, loading, getActiveNote, deleteCategory }) => {
   const [filteredNotes, setFilteredNotes] = useState(notes);
@@ -45,30 +50,6 @@ const Sidebar = ({ notes, categories, activeNote, loading, getActiveNote, delete
     changeFoldedState(id);
   }
 
-  const noCategoryNotesLength = filteredNotes.filter((note) => note.category_id === "no_category");
-  const noCategoryNotes =
-    filteredNotes &&
-    // eslint-disable-next-line
-    filteredNotes.map((note, i) => {
-      const isActiveNote = isActive(activeNote ? activeNote : notes[0], note);
-      if (note.category_id === "no_category") {
-        return (
-          <SidebarNote
-            onClick={() => {
-              if (isActiveNote) return;
-              setActiveNote(note._id);
-              closeSidebar("sidebar");
-            }}
-            key={i}
-            title={note.title}
-            className={isActiveNote ? "active" : ""}
-          >
-            {note.title}
-          </SidebarNote>
-        );
-      }
-    });
-
   return (
     <>
       <SidebarStyle id="sidebar">
@@ -84,31 +65,12 @@ const Sidebar = ({ notes, categories, activeNote, loading, getActiveNote, delete
             <Loader></Loader>
           ) : (
             <>
-              {categories.map((cat, ci) => {
+              {[...categories, noCategory].map((cat, ci) => {
                 const category = cat.name;
-                const categoryNotes =
-                  filteredNotes &&
-                  // eslint-disable-next-line
-                  filteredNotes.map((note, i) => {
-                    if (note.category_id === cat._id) {
-                      const isActiveNote = isActive(activeNote ? activeNote : notes[0], note);
-
-                      return (
-                        <SidebarNote
-                          onClick={() => {
-                            if (isActiveNote) return;
-                            setActiveNote(note._id);
-                            closeSidebar("sidebar");
-                          }}
-                          key={i}
-                          title={note.title}
-                          className={isActiveNote ? "active" : ""}
-                        >
-                          {note.title}
-                        </SidebarNote>
-                      );
-                    }
-                  });
+                const categoryNotes = filteredNotes?.filter((note) => {
+                  return note.category_id === cat._id;
+                });
+                if (categoryNotes.length <= 0) return null;
 
                 return (
                   <CategoryDiv id={`category-${cat._id}`} key={ci}>
@@ -123,20 +85,33 @@ const Sidebar = ({ notes, categories, activeNote, loading, getActiveNote, delete
                         </DeleteCategory>
                       </div>
                     </div>
-                    <div className="items">{categoryNotes}</div>
+                    <div className="items">
+                      {categoryNotes?.map((note, i) => {
+                        if (note.category_id === cat._id) {
+                          const isActiveNote = isActive(activeNote ? activeNote : notes[0], note);
+
+                          return (
+                            <SidebarNote
+                              onClick={() => {
+                                if (isActiveNote) return;
+                                setActiveNote(note._id);
+                                closeSidebar("sidebar");
+                              }}
+                              key={i}
+                              title={note.title}
+                              className={isActiveNote ? "active" : ""}
+                            >
+                              {note.title}
+                            </SidebarNote>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </div>
                   </CategoryDiv>
                 );
               })}
-
-              {/* Show all notes without no category set */}
-              {notes && !noCategoryNotesLength[0] ? null : (
-                <CategoryDiv id={"category-no-category"} key={categories.length}>
-                  <CategoryTitle title="Click to fold" onClick={() => setFoldState("no-category")}>
-                    No category
-                  </CategoryTitle>
-                  <div className="items">{noCategoryNotes}</div>
-                </CategoryDiv>
-              )}
 
               {/* don't show divider when no notes are found */}
               {notes && !notes[0] ? null : <Divider id="divider" />}
