@@ -35,5 +35,5 @@ ReactDOM.render(
       </Provider>
     </Suspense>
   </React.StrictMode>,
-  document.getElementById("app-mount")
+  document.getElementById("app-mount"),
 );

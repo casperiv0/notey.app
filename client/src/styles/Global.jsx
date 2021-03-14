@@ -4,7 +4,7 @@ import { SIDEBAR_WIDTH_FULL, DEFAULT_MIN_WIDTH } from "./constants";
 export const DEFAULT_INPUT_STYLES = css`
   padding: 7px;
   font-size: 1.2rem;
-  border: 2px solid #3A3B3C;
+  border: 2px solid #3a3b3c;
   background: #2f2f2f;
   border-radius: 5px;
   color: #f2f2f2;

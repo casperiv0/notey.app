@@ -72,7 +72,7 @@ export const ModalHeader = styled.div`
   color: #f2f2f2;
   font-size: 1.5rem;
   font-weight: 600;
-  border-bottom: 2px solid #3A3B3C;
+  border-bottom: 2px solid #3a3b3c;
   margin-bottom: 15px;
   padding-bottom: 5px;
 `;

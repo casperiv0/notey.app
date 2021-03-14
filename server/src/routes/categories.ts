@@ -38,9 +38,7 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
   }
 
   if (name.length > 20) {
-    return res
-      .json(errorObj("Category name has a limit of 20 characters."))
-      .status(400);
+    return res.json(errorObj("Category name has a limit of 20 characters.")).status(400);
   }
 
   const newCategory: ICategory = new Category({
@@ -53,9 +51,7 @@ router.post("/", useAuth, async (req: IRequest, res: Response) => {
     categories = await Category.find({ user_id: req.user?._id });
   } catch (e) {
     Logger.error("db_error", e);
-    return res
-      .json(errorObj("Something went wrong creating the category"))
-      .status(500);
+    return res.json(errorObj("Something went wrong creating the category")).status(500);
   }
 
   return res.json({ categories, status: "success" });

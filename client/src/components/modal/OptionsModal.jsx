@@ -15,7 +15,7 @@ const OptionsModal = ({ logout, deleteAccount }) => {
   function confirmDeleteAccount() {
     if (
       window.confirm(
-        "Are you sure you want to delete your account? This will delete all your notes and categories as well and cannot be undone."
+        "Are you sure you want to delete your account? This will delete all your notes and categories as well and cannot be undone.",
       )
     ) {
       deleteAccount();
@@ -53,11 +53,7 @@ const OptionsModal = ({ logout, deleteAccount }) => {
               >
                 License
               </ReportBtn>
-              <Button
-                style={{ marginBottom: "10px" }}
-                danger
-                onClick={openSetPin}
-              >
+              <Button style={{ marginBottom: "10px" }} danger onClick={openSetPin}>
                 Change/set PIN code
               </Button>
               <Button style={{ marginBottom: "10px" }} danger onClick={logout}>
@@ -66,23 +62,16 @@ const OptionsModal = ({ logout, deleteAccount }) => {
               <Button danger onClick={confirmDeleteAccount}>
                 Delete account?
               </Button>
-              <Divider
-                style={{ marginTop: "10px", marginBottom: "10px" }}
-              ></Divider>
+              <Divider style={{ marginTop: "10px", marginBottom: "10px" }}></Divider>
 
               <h3 style={{ textAlign: "center", paddingBottom: "10px" }}>
-                Icons are from{" "}
-                <a href="https://icons.getbootstrap.com/">Bootstrap</a>
+                Icons are from <a href="https://icons.getbootstrap.com/">Bootstrap</a>
               </h3>
             </Column>
           </OptionsModalBody>
           <OptionsModalFooter>
             Made with ❤️ by{" "}
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://caspertheghost.me"
-            >
+            <a target="_blank" rel="noreferrer noopener" href="https://caspertheghost.me">
               CasperTheGhost
             </a>{" "}
             on{" "}

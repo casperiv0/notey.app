@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { closeModal } from "../../utils/functions";
-import {
-  ModalStyle,
-  ModalHeader,
-  ModalBody,
-  CloseModal,
-  ModalContainer,
-} from "./modal.style";
+import { ModalStyle, ModalHeader, ModalBody, CloseModal, ModalContainer } from "./modal.style";
 
 const Modal = ({ id, title, children, ...rest }) => {
   useEffect(() => {
@@ -28,7 +22,7 @@ const Modal = ({ id, title, children, ...rest }) => {
         <ModalBody>{children}</ModalBody>
       </ModalStyle>
     </ModalContainer>,
-    document.getElementById("modal-portal")
+    document.getElementById("modal-portal"),
   );
 };
 export default Modal;

@@ -45,10 +45,7 @@ const Navbar = ({
     <NavbarContainer>
       <NavbarStyle>
         <NavTitle>
-          <OpenSidebar
-            title="Open sidebar"
-            onClick={() => openSidebar("sidebar")}
-          >
+          <OpenSidebar title="Open sidebar" onClick={() => openSidebar("sidebar")}>
             <SrOnly>Menu</SrOnly>
             <MenuIcon />
           </OpenSidebar>
@@ -57,10 +54,7 @@ const Navbar = ({
             {note && note.title ? (
               editing ? (
                 <>
-                  <EditingTitleNote
-                    setNoteTitle={setNoteTitle}
-                    noteTitle={noteTitle}
-                  />
+                  <EditingTitleNote setNoteTitle={setNoteTitle} noteTitle={noteTitle} />
                 </>
               ) : (
                 <h4 readOnly>{noteTitle}</h4>
@@ -73,10 +67,7 @@ const Navbar = ({
         <NavLinks>
           {note && note._id ? (
             <Row>
-              <OpenRightSidebar
-                title="Open Options"
-                onClick={() => openSidebar("right-sidebar")}
-              >
+              <OpenRightSidebar title="Open Options" onClick={() => openSidebar("right-sidebar")}>
                 <SrOnly>Options</SrOnly>
                 <OptionsIcon></OptionsIcon>
               </OpenRightSidebar>
@@ -148,7 +139,7 @@ const RightSidebar = ({
   categories,
   categoryId,
   setCategoryId,
-  shareNote
+  shareNote,
 }) => {
   const deleteNote_ = () => {
     closeSidebar("right-sidebar");
@@ -168,18 +159,11 @@ const RightSidebar = ({
       <RightSidebarStyle id="right-sidebar">
         <RightSidebarContent>
           <Column>
-            <CloseRightSidebar
-              onClick={() => closeSidebar("right-sidebar")}
-              title="Close Options"
-            >
+            <CloseRightSidebar onClick={() => closeSidebar("right-sidebar")} title="Close Options">
               <SrOnly>Close Options</SrOnly>
               <CloseIcon />
             </CloseRightSidebar>
-            <Button
-              style={{ marginBottom: "10px" }}
-              success
-              onClick={editNote_}
-            >
+            <Button style={{ marginBottom: "10px" }} success onClick={editNote_}>
               {editing ? "Save" : "Edit"}
             </Button>
             <Button style={{ marginBottom: "10px" }} onClick={shareNote}>
@@ -194,11 +178,7 @@ const RightSidebar = ({
                 />
               </div>
             ) : null}
-            <Button
-              style={{ marginBottom: "10px" }}
-              danger
-              onClick={deleteNote_}
-            >
+            <Button style={{ marginBottom: "10px" }} danger onClick={deleteNote_}>
               Delete
             </Button>
           </Column>

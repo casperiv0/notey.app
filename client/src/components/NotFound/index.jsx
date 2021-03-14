@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  NotFoundContainer,
-  NotFoundTitle,
-  NotFoundBtn,
-} from "./not-found.style";
+import { NotFoundContainer, NotFoundTitle, NotFoundBtn } from "./not-found.style";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {

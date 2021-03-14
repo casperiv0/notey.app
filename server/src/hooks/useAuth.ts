@@ -4,11 +4,7 @@ import { IRequest } from "../types";
 import User from "../models/User.model";
 import { AuthUser } from "../interfaces";
 
-export default async function (
-  req: IRequest,
-  res: Response,
-  next: NextFunction
-): Promise<void> {
+export default async function (req: IRequest, res: Response, next: NextFunction): Promise<void> {
   const token: string = req.cookies["notey-session"];
   const secret = String(process.env.JWT_SECRET);
 

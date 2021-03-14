@@ -6,9 +6,7 @@ class Logger {
   }
 
   listening(port: number): void {
-    console.log(
-      `[${this.getTime}][APP]: Server running on http://localhost:${port}/`
-    );
+    console.log(`[${this.getTime}][APP]: Server running on http://localhost:${port}/`);
   }
 
   mongo(): void {

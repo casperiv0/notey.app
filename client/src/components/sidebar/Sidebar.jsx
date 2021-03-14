@@ -32,7 +32,7 @@ const Sidebar = ({ notes, categories, activeNote, loading, getActiveNote, delete
         notes.filter((note) => {
           const title = note.title.toLowerCase();
           return title.includes(filter);
-        })
+        }),
     );
   };
 

@@ -40,10 +40,7 @@ const ManageNoteModal = ({ note, updateNoteOptions }) => {
       <form onSubmit={onSubmit}>
         <FormGroup>
           <FormLabel>Shareable</FormLabel>
-          <Select
-            value={shareable}
-            onChange={(e) => setShareable(e.target.value)}
-          >
+          <Select value={shareable} onChange={(e) => setShareable(e.target.value)}>
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </Select>
@@ -75,11 +72,7 @@ const ManageNoteModal = ({ note, updateNoteOptions }) => {
         </FormGroup>
         <FormGroup>
           {note.shared ? (
-            <Button
-              onClick={openShare}
-              style={{ marginBottom: "10px" }}
-              type="button"
-            >
+            <Button onClick={openShare} style={{ marginBottom: "10px" }} type="button">
               Open Share
             </Button>
           ) : null}
