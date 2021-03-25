@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, models } from "mongoose";
 import { IUser } from "./User.model";
 import { ICategory } from "./Category.model";
 
@@ -49,4 +49,4 @@ const noteSchema = new Schema({
   },
 });
 
-export default model<INote>("Note", noteSchema);
+export default models.Note || model<INote>("Note", noteSchema);
