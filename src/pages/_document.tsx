@@ -38,7 +38,6 @@ class NoteyDoc extends Document {
           <meta name="twitter:title" content="Notey.app" />
           <meta property="og:site_name" content="notey.caspertheghost.me" />
           <meta name="description" content="Simple notes app to keep track of important things." />
-          <link rel="canonical" href="https://notey.caspertheghost.me/" />
           <meta
             name="keywords"
             content="Dev-CasperTheGhost, caspertheghost, notes, note, note.app, app, notey.app"

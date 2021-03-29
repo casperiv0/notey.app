@@ -1,5 +1,6 @@
 import Note from "./Note";
 import User from "./User";
+import Category from "./Category";
 
 interface State {
   auth: {
@@ -8,7 +9,13 @@ interface State {
     isAuth: boolean;
   };
   notes: {
-    note: Note;
+    note: Note | null;
+    notes: Note[];
+    loading: boolean;
+  };
+  categories: {
+    categories: Category[];
+    loading: boolean;
   };
 }
 

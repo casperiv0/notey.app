@@ -1,17 +1,25 @@
-import { GET_NOTE_BY_ID } from "../types";
+import Note from "types/Note";
+import State from "types/State";
+import { GET_NOTES, GET_NOTE_BY_ID, SET_LOADING } from "../types";
 
-type Actions = {
-  type: typeof GET_NOTE_BY_ID;
-  note: any;
-};
+type Actions =
+  | {
+      type: typeof GET_NOTE_BY_ID;
+      note: Note;
+    }
+  | {
+      type: typeof SET_LOADING;
+      loading: boolean;
+    }
+  | {
+      type: typeof GET_NOTES;
+      notes: Note[];
+    };
 
-const initState = {
-  notes: [],
+const initState: State["notes"] = {
   note: null,
-  share: null,
-  createdNote: {},
+  notes: [],
   loading: false,
-  tempNoteId: null,
 };
 
 export default function NoteReducer(state = initState, action: Actions) {
@@ -19,7 +27,20 @@ export default function NoteReducer(state = initState, action: Actions) {
     case "GET_NOTE_BY_ID": {
       return {
         ...state,
+        ...action,
         note: action.note,
+      };
+    }
+    case "SET_LOADING": {
+      return {
+        ...state,
+        loading: action.loading,
+      };
+    }
+    case "GET_NOTES": {
+      return {
+        ...state,
+        notes: action.notes,
       };
     }
     default: {

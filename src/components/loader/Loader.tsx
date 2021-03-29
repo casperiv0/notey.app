@@ -1,10 +1,17 @@
 import { Center } from "./styles";
+import PulseLoader from "react-spinners/PulseLoader";
 
-const Loader = ({ fullSize, center, color }) => {
+interface Props {
+  fullSize?: boolean;
+  center?: boolean;
+  color?: string;
+  size?: number;
+}
+
+const Loader: React.FC<Props> = ({ size, fullSize, center, color }) => {
   return (
     <Center fullSize={fullSize} isCenter={center}>
-      Loading...
-      {/* <PulseLoader size={10} color={color ? color : "#f2f2f2"}></PulseLoader> */}
+      <PulseLoader size={size ?? 12} color={color ?? "#f2f2f2"}></PulseLoader>
     </Center>
   );
 };

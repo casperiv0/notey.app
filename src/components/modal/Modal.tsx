@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
-  const portalRef = usePortal();
+  const portalRef = usePortal(id);
 
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -25,6 +25,8 @@ const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
       window.removeEventListener("keydown", handler);
     };
   }, [id]);
+
+  console.log(portalRef);
 
   return portalRef
     ? createPortal(

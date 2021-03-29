@@ -31,7 +31,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
           return res.status(404).json(errorObj("not was not found"));
         }
 
-        if (!note.shared && note?.user_id?.toString() !== req.userId.toString()) {
+        if (!note.shared && note?.user_id?.toString() !== req.userId?.toString()) {
           return res.status(404).json(errorObj("note was not found"));
         }
 

@@ -23,9 +23,7 @@ const NotePreview: React.FC<Props> = ({ note }) => {
         ></PreviewStyle>
       </NoteStyle>
     </>
-  ) : (
-    <p>No</p>
-  );
+  ) : null;
 };
 
 export default NotePreview;

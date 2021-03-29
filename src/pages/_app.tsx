@@ -12,7 +12,6 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Notey.app - Keep track of important things</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ReduxProvider store={store}>

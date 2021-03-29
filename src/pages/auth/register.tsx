@@ -18,6 +18,7 @@ import {
 } from "@styles/Auth";
 import { RequestData } from "@lib/fetch";
 import State from "types/State";
+import Loader from "@components/loader/Loader";
 
 interface Props {
   authenticate: (data: RequestData) => Promise<boolean>;
@@ -41,7 +42,7 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
     const success = await authenticate(data);
 
     if (success) {
-      return router.push("app");
+      return router.push("/app");
     }
   }
 
@@ -88,7 +89,7 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
             />
           </FormGroup>
           <FormGroup>
-            <SubmitBtn disabled={loading}>{loading ? "loading..." : "Sign Up"}</SubmitBtn>
+            <SubmitBtn disabled={loading}>{loading ? <Loader /> : "Sign Up"}</SubmitBtn>
           </FormGroup>
           <FormGroup>
             <FormSmall>

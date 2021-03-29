@@ -51,6 +51,7 @@
     "next": "^10.0.9",
     "react": "^17.0.2",
     "react-redux": "^7.2.3",
+    "react-spinners": "^0.10.6",
     "react-toastify": "^7.0.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
