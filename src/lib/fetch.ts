@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 import { ALLOWED_METHODS } from "./shared";
 
-type RequestData = Record<string, unknown>;
+export type RequestData = Record<string, unknown>;
 
 export const handleRequest = (path: string, method: ALLOWED_METHODS, data: RequestData) => {
   return axios({
-    url: `/api/v3${path}`,
+    url: `/api${path}`,
     method,
     data: data ? data : null,
     withCredentials: true,

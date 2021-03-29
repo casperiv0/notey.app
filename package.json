@@ -1,6 +1,7 @@
 {
   "name": "notey.app",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/cookie": "^0.4.0",
     "@types/cookie-parser": "^1.4.2",
     "@types/dompurify": "^2.2.1",
@@ -8,7 +9,6 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/marked": "^2.0.0",
     "@types/mongoose": "^5.10.4",
-    "@types/bcryptjs": "^2.4.2",
     "@types/node": "^14.14.36",
     "@types/react-dom": "^17.0.3",
     "@types/styled-components": "^5.1.9",
@@ -49,6 +49,7 @@
     "next": "^10.0.9",
     "react": "^17.0.2",
     "react-redux": "^7.2.3",
+    "react-toastify": "^7.0.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",

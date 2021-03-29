@@ -25,7 +25,6 @@ class NoteyDoc extends Document {
             content="6LqjGmq_LshCupZ3FdR3meDNGaWcBjRG2snvcRtclSc"
           />
           <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#1D1E2C" />
           <meta property="og:color" content="#1D1E2C" />
           <meta property="og:type" content="website" />

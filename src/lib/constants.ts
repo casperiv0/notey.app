@@ -5,3 +5,11 @@ export enum Cookie {
 
 export const LOCKED_NOTE_MSG =
   "Note is locked with a PIN code. Please enter your pincode in the popup";
+
+export const NO_ERROR = "An unexpected error occurred.";
+
+export enum Size {
+  SidebarFull = "300px",
+  Sidebar = "100px",
+  DefaultMinWidth = "960px",
+}
