@@ -13,6 +13,7 @@ export default function useCookie(
     expires: new Date(Date.now() + expires),
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    path: "/",
   };
 
   res.setHeader("Set-Cookie", serialize(name, String(stringValue), options));

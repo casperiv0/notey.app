@@ -1,11 +1,9 @@
 import { NextApiResponse } from "next";
-import useAuth from "@hooks/useAuth";
 import { IRequest } from "types/IRequest";
-import UserModel from "src/models/User.model";
-import useCookie from "src/hooks/useCookie";
-import NoteModel from "@models/Note.model";
-import CategoryModel from "@models/Category.model";
+import useAuth from "@hooks/useAuth";
+import { errorObj } from "@lib/utils";
 import "@lib/database";
+import CategoryModel from "@models/Category.model";
 
 export default async function handler(req: IRequest, res: NextApiResponse) {
   const { method } = req;
@@ -20,22 +18,12 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
   }
 
   switch (method) {
-    case "POST": {
+    case "GET": {
       try {
-        const user = await UserModel.findById(req.userId).select({ password: 0 });
-
-        if (!user) {
-          return res.status(400).json({
-            error: "user was not found",
-            status: "error",
-          });
-        }
+        const categories = await CategoryModel.find({ user_id: req.userId });
 
         return res.json({
-          user: {
-            ...user.toJSON(),
-            pin_code: !!user.pin_code,
-          },
+          categories,
           status: "success",
         });
       } catch (e) {
@@ -47,16 +35,34 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
         });
       }
     }
-    case "DELETE": {
+    case "POST": {
       try {
-        const user = await UserModel.findById(req.userId);
+        const { name } = req.body;
 
-        await NoteModel.deleteMany({ user_id: user._id });
-        await CategoryModel.deleteMany({ user_id: user._id });
-        await UserModel.findByIdAndDelete(user._id);
-        useCookie(res, "notey-session", "", 0);
+        if (!name) {
+          return res.status(400).json({
+            status: "error",
+            error: "Please fill in all fields",
+          });
+        }
 
-        return res.json({ user: null, status: "success" });
+        if (name.length > 20) {
+          return res.status(400).json(errorObj("Category name has a limit of 20 characters."));
+        }
+
+        const category = new CategoryModel({
+          user_id: req.userId,
+          name,
+        });
+
+        await category.save();
+
+        const categories = await CategoryModel.find({ user_id: req.userId });
+
+        return res.json({
+          categories,
+          status: "success",
+        });
       } catch (e) {
         console.error(e);
 

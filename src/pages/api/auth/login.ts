@@ -47,7 +47,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
       } catch (e) {
         console.error(e);
 
-        return res.json({
+        return res.status(500).json({
           error: "An unexpected error occurred",
           status: "error",
         });
