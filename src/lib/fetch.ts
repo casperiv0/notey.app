@@ -3,7 +3,7 @@ import { ALLOWED_METHODS } from "./shared";
 
 export type RequestData = Record<string, unknown>;
 
-export const handleRequest = (path: string, method: ALLOWED_METHODS, data: RequestData) => {
+export const handleRequest = (path: string, method: ALLOWED_METHODS, data?: RequestData) => {
   return axios({
     url: `/api${path}`,
     method,

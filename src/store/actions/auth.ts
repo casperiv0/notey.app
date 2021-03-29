@@ -9,8 +9,6 @@ export const authenticate = (data: RequestData) => async (dispatch): Promise<boo
   try {
     const res = await handleRequest("/auth/login", "POST", data);
 
-    console.log(res);
-
     if (isSuccess(res)) {
       dispatch({
         type: AUTHENTICATE,
@@ -27,5 +25,24 @@ export const authenticate = (data: RequestData) => async (dispatch): Promise<boo
     toast.error(e?.response.data?.error ?? NO_ERROR);
     dispatch({ type: SET_LOADING, loading: false });
     return false;
+  }
+};
+
+export const logout = () => async (dispatch): Promise<void> => {
+  try {
+    const res = await handleRequest("/auth/logout", "POST");
+
+    if (isSuccess(res)) {
+      dispatch({
+        type: AUTHENTICATE,
+        user: null,
+        isAuth: false,
+      });
+    } else {
+      toast.error(res.data.error);
+    }
+  } catch (e) {
+    toast.error(e?.response.data?.error ?? NO_ERROR);
+    dispatch({ type: SET_LOADING, loading: false });
   }
 };
