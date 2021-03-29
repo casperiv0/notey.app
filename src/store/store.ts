@@ -11,7 +11,7 @@ function initStore(initState: Record<string, unknown>): Store {
   return createStore(reducers, initState, composeWithDevTools(applyMiddleware(thunk)));
 }
 
-export const initializeStore = (preloadState: any) => {
+export const initializeStore = (preloadState?: any) => {
   let _store = store ?? initStore(preloadState);
 
   if (preloadState && store) {

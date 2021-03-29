@@ -3,13 +3,22 @@ import { ALLOWED_METHODS } from "./shared";
 
 export type RequestData = Record<string, unknown>;
 
-export const handleRequest = (path: string, method: ALLOWED_METHODS, data?: RequestData) => {
+export const handleRequest = (
+  path: string,
+  method: ALLOWED_METHODS,
+  data?:
+    | RequestData
+    | {
+        cookie: string;
+      },
+) => {
   return axios({
-    url: `/api${path}`,
+    url: `${process.env.NEXT_PUBLIC_PROD_ORIGIN}/api${path}`,
     method,
     data: data ? data : null,
     withCredentials: true,
     headers: {
+      Session: (data?.cookie as string)?.split("notey-session=")?.[1] ?? "",
       "Content-Type": "application/json",
     },
   });

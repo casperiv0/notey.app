@@ -22,9 +22,30 @@ export const authenticate = (data: RequestData) => async (dispatch): Promise<boo
       return false;
     }
   } catch (e) {
-    toast.error(e?.response.data?.error ?? NO_ERROR);
+    console.log(e);
+
+    toast.error(e?.response?.data?.error ?? NO_ERROR);
     dispatch({ type: SET_LOADING, loading: false });
     return false;
+  }
+};
+
+export const checkAuth = (cookie?: string) => async (dispatch) => {
+  try {
+    const res = await handleRequest("/auth/me", "POST", {
+      cookie,
+    });
+
+    if (isSuccess(res)) {
+      dispatch({
+        type: AUTHENTICATE,
+        isAuth: true,
+        user: res.data.user,
+      });
+    }
+  } catch (e) {
+    dispatch({ type: SET_LOADING, loading: false });
+    return null;
   }
 };
 

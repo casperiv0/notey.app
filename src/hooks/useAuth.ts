@@ -1,14 +1,21 @@
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import { isValidObjectId } from "mongoose";
+import cors, { CorsOptions } from "cors";
 import { NextApiResponse } from "next";
 import User from "../models/User.model";
 import { IRequest } from "types/IRequest";
 import { middleWare } from "@lib/middleware";
-import { isValidObjectId } from "mongoose";
+
+const corsOptions: CorsOptions = {
+  credentials: true,
+  origin: [process.env.PROD_ORIGIN!, "http://localhost:3000"],
+};
 
 export default async function (req: IRequest, res: NextApiResponse): Promise<string> {
   await middleWare(req, res, cookieParser());
-  const token: string = req.cookies["notey-session"];
+  await middleWare(req, res, cors(corsOptions));
+  const token: string = req.cookies["notey-session"] ?? req.headers["session"];
   const secret = String(process.env.JWT_SECRET);
 
   if (!token) {
