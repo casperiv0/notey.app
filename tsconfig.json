@@ -13,10 +13,12 @@
     "baseUrl": ".",
     "jsx": "preserve",
     "paths": {
-      "@components": ["./src/components"],
-      "@icons": ["./src/components/icons"],
-      "@hooks": ["./src/hooks"],
-      "types": ["./src/interfaces"]
+      "@components/*": ["./src/components/*"],
+      "@icons/*": ["./src/components/icons/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "types/*": ["./src/interfaces/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@models/*": ["./src/models/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -27,5 +29,5 @@
     "isolatedModules": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "docs", "client", "server"]
 }

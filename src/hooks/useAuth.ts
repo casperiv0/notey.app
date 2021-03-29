@@ -1,37 +1,41 @@
 import jwt from "jsonwebtoken";
-import { NextFunction, Response } from "express";
-import { IRequest } from "../types";
+import cookieParser from "cookie-parser";
+import { NextApiResponse } from "next";
 import User from "../models/User.model";
-import { AuthUser } from "../interfaces";
+import { IRequest } from "types/IRequest";
+import { middleWare } from "@lib/middleware";
+import { isValidObjectId } from "mongoose";
 
-export default async function (req: IRequest, res: Response, next: NextFunction): Promise<void> {
+export default async function (req: IRequest, res: NextApiResponse): Promise<string> {
+  await middleWare(req, res, cookieParser());
   const token: string = req.cookies["notey-session"];
   const secret = String(process.env.JWT_SECRET);
 
   if (!token) {
-    res.json({ server_error: "invalid token", status: "error" }).status(401);
-    return;
+    return Promise.reject("invalid token");
   }
 
   try {
-    const vToken = jwt.verify(token, secret) as AuthUser;
-    const user = await User.findById(vToken._id);
+    const vToken = jwt.verify(token, secret) as { userId: string };
 
-    if (!user) {
-      res
-        .json({
-          server_error: "user not found",
-          status: "error",
-        })
-        .status(401);
-      return;
+    if (!vToken?.userId) {
+      return Promise.reject("invalid token");
     }
 
-    req.user = user;
+    if (!isValidObjectId(vToken?.userId)) {
+      return Promise.reject("Invalid object Id");
+    }
 
-    next();
+    const user = await User.findById(vToken?.userId);
+
+    if (!user) {
+      return Promise.reject("user not found");
+    }
+
+    req.userId = user._id;
+
+    return Promise.resolve("Authorized");
   } catch {
-    res.json({ server_error: "invalid token", status: "error" }).status(401);
-    return;
+    return Promise.reject("invalid token");
   }
 }

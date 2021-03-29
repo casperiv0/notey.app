@@ -10,6 +10,8 @@ module.exports = {
           "@icons": "./src/components/icons",
           "@hooks": "./src/hooks",
           types: "./src/interfaces",
+          "@lib": "./src/lib",
+          "@modals": "./src/models",
         },
       },
     ],

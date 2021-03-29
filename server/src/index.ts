@@ -2,7 +2,6 @@ import "dotenv/config";
 import "./utils/database";
 import express, { Application } from "express";
 import api from "./routes/api";
-import Logger from "./utils/Logger";
 import { join } from "path";
 
 const app: Application = express();

@@ -44,7 +44,6 @@ class NoteyDoc extends Document {
             name="keywords"
             content="Dev-CasperTheGhost, caspertheghost, notes, note, note.app, app, notey.app"
           />
-          <title>Notey.app - Keep track of important things</title>
           <link rel="shortcut icon" href="/icons/notey-app-144.png" type="image/x-icon" />
           <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
         </Head>
