@@ -34,7 +34,7 @@
     "lint:fix": "eslint . --fix",
     "prettier:fix": "prettier --write .",
     "dev": "next dev",
-    "start": "next start",
+    "start": "next start -p 5011",
     "build": "next build"
   },
   "dependencies": {
