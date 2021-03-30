@@ -1,14 +1,20 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Size } from "@lib/constants";
 
-export const NoteStyle = styled.div`
-  height: 100%;
+export const NoteStyle = styled.div<{ editing: boolean }>`
+  height: calc(100% - 60px);
   width: 100%;
   grid-area: note;
 
   @media (min-width: ${Size.DefaultMinWidth}) {
     width: 100%;
-  } ;
+  }
+
+  ${(props) =>
+    props.editing &&
+    css`
+      width: calc(100vw - 20px);
+    `}
 `;
 
 export const PreviewStyle = styled.div`
@@ -91,4 +97,16 @@ export const PreviewStyle = styled.div`
       font-size: 1.2rem;
     }
   }
+`;
+
+export const NoteTextArea = styled.textarea`
+  padding-top: 50px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  background-color: #18191a;
+  color: #fff;
+  resize: none;
+  border: none;
+  font-size: 1.2rem;
 `;

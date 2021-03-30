@@ -14,16 +14,14 @@ const NotePreview: React.FC<Props> = ({ note }) => {
     });
   }, [note?.markdown]);
 
-  return note?.markdown ? (
-    <>
-      <NoteStyle>
-        <PreviewStyle
-          id="note-preview-area"
-          dangerouslySetInnerHTML={{ __html: note?.markdown }}
-        ></PreviewStyle>
-      </NoteStyle>
-    </>
-  ) : null;
+  return (
+    <NoteStyle editing={false}>
+      <PreviewStyle
+        id="note-preview-area"
+        dangerouslySetInnerHTML={{ __html: note?.markdown as string }}
+      ></PreviewStyle>
+    </NoteStyle>
+  );
 };
 
 export default NotePreview;

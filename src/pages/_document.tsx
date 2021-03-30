@@ -28,13 +28,11 @@ class NoteyDoc extends Document {
           <meta name="theme-color" content="#1D1E2C" />
           <meta property="og:color" content="#1D1E2C" />
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://notey.caspertheghost.me" />
-          <meta property="og:title" content="Notey.app - Keep track of important things" />
-          <meta property="og:image" content="/icons/notey-app-128.svg" />
           <meta property="og:description" content="Notey.app - Keep track of important things" />
+          <meta name="twitter:description" content="Notey.app - Keep track of important things" />
+          <meta property="og:image" content="/icons/notey-app-128.svg" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:creator" content="@casper124578" />
-          <meta name="twitter:description" content="Notey.app - Keep track of important things" />
           <meta name="twitter:title" content="Notey.app" />
           <meta property="og:site_name" content="notey.caspertheghost.me" />
           <meta name="description" content="Simple notes app to keep track of important things." />

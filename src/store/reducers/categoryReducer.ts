@@ -31,6 +31,7 @@ export default function CategoryReducer(state = initState, action: Actions): Sta
       return {
         ...state,
         categories: action.categories,
+        loading: false,
       };
     }
     case "SET_CATEGORY_LOADING": {
@@ -43,12 +44,14 @@ export default function CategoryReducer(state = initState, action: Actions): Sta
       return {
         ...state,
         categories: action.categories,
+        loading: false,
       };
     }
     case "DELETE_CATEGORY": {
       return {
         ...state,
         categories: action.categories,
+        loading: false,
       };
     }
     default: {

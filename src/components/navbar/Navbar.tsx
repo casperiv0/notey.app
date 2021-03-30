@@ -40,23 +40,15 @@ const Navbar: React.FC<Props> = ({
   updateEditingNote,
   deleteNoteById,
 }) => {
-  const [categoryId, setCategoryId] = React.useState(editingNote?.category_id);
-  const [title, setTitle] = React.useState(editingNote?.title);
-
-  React.useEffect(() => {
-    updateEditingNote({
-      ...editingNote,
-      category_id: categoryId,
-      title,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId, title]);
-
   function handleEdit() {
     setEditing(!editing);
   }
 
   function handleDelete() {
+    // eslint-disable-next-line no-restricted-globals
+    const conf = confirm("Are you sure you want to deleted this note? This cannot be undone!");
+    if (conf === false) return;
+
     setEditing(false);
     deleteNoteById(`${note?._id}`);
   }
@@ -71,13 +63,18 @@ const Navbar: React.FC<Props> = ({
           </OpenSidebar>
           <>
             <SrOnly htmlFor="activeNoteTitle">Title</SrOnly>
-            {editingNote && editingNote.title ? (
+            {note ? (
               editing ? (
                 <>
                   <NavTitleInput
                     id="activeNoteTitle"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={editingNote?.title}
+                    onChange={(e) =>
+                      updateEditingNote({
+                        ...editingNote,
+                        title: e.target.value,
+                      })
+                    }
                   />
                 </>
               ) : (
@@ -100,9 +97,14 @@ const Navbar: React.FC<Props> = ({
                   <SelectCategory
                     className="is-in-nav"
                     id="activeNoteTitle"
-                    value={categoryId!}
+                    value={editingNote?.category_id!}
                     categories={categories}
-                    onChange={(e) => setCategoryId(e.target.value)}
+                    onChange={(e) =>
+                      updateEditingNote({
+                        ...editingNote,
+                        category_id: e.target.value,
+                      })
+                    }
                   />
                 ) : null}
                 <Button navBtn danger onClick={handleDelete}>

@@ -8,6 +8,9 @@ import { updateNoteById } from "@actions/note";
 import { RequestData } from "@lib/fetch";
 import { toast } from "react-toastify";
 import { NO_ERROR } from "@lib/constants";
+import EditingArea from "@components/note/EditingArea";
+import NotePreview from "@components/note/NotePreview";
+import { NoteStyle } from "@components/note/styles";
 
 interface Props {
   editingNote: Note | null;
@@ -25,12 +28,43 @@ const Main: React.FC<Props> = ({ editing, note, editingNote, updateNoteById }) =
       return;
     }
 
-    updateNoteById(editingNote?._id, (editingNote as unknown) as RequestData);
-  }, [editing, editingNote, updateNoteById]);
+    if (editingNote.title.length > 40) {
+      toast.error("Note title has a limit of 40 characters");
+      return;
+    }
+    if (editingNote.title === "") {
+      toast.error("Note title cannot be empty");
+      return;
+    }
+    if (editingNote.body === "") {
+      toast.error("Note body cannot be empty");
+      return;
+    }
+
+    if (editingNote.body.toLowerCase() !== note?.body.toLowerCase()) {
+      updateNoteById(editingNote?._id, (editingNote as unknown) as RequestData);
+    }
+
+    if (editingNote.title.toLowerCase() !== note?.title.toLowerCase()) {
+      updateNoteById(editingNote?._id, (editingNote as unknown) as RequestData);
+    }
+
+    if (editingNote.category_id !== note?.category_id) {
+      updateNoteById(editingNote?._id, (editingNote as unknown) as RequestData);
+    }
+  }, [editing, editingNote, note, updateNoteById]);
 
   return (
     <MainStyle>
       <Navbar />
+
+      {editing ? (
+        <NoteStyle editing={true}>
+          <EditingArea />
+        </NoteStyle>
+      ) : (
+        <NotePreview note={note} />
+      )}
     </MainStyle>
   );
 };

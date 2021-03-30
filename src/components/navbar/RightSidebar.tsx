@@ -32,18 +32,11 @@ const RightSidebar: React.FC<Props> = ({
   updateEditingNote,
   deleteNoteById,
 }) => {
-  const [categoryId, setCategoryId] = React.useState(editingNote?.category_id);
-
-  React.useEffect(() => {
-    updateEditingNote({
-      ...editingNote,
-      category_id: categoryId,
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId]);
-
   const handleDelete = () => {
+    // eslint-disable-next-line no-restricted-globals
+    const conf = confirm("Are you sure you want to deleted this note? This cannot be undone!");
+    if (conf === false) return;
+
     closeSidebar("right-sidebar");
     setEditing(false);
     deleteNoteById(editingNote?._id!);
@@ -76,8 +69,13 @@ const RightSidebar: React.FC<Props> = ({
               <div style={{ marginBottom: "10px" }}>
                 <SelectCategory
                   categories={categories}
-                  value={categoryId!}
-                  onChange={(e) => setCategoryId(e.target.value)}
+                  value={editingNote?.category_id!}
+                  onChange={(e) =>
+                    updateEditingNote({
+                      ...editingNote,
+                      category_id: e.target.value,
+                    })
+                  }
                 />
               </div>
             ) : null}

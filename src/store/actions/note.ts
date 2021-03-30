@@ -46,7 +46,7 @@ export const updateNoteById = (noteId: string, data: RequestData) => async (disp
     if (isSuccess(res)) {
       dispatch({
         type: UPDATE_NOTE_BY_ID,
-        note: res.data.notes[0],
+        note: res.data.note,
         notes: res.data.notes,
         loading: false,
       });

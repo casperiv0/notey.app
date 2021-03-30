@@ -13,13 +13,16 @@ import CreateCategoryModal from "@components/modals/CreateCategory";
 import CreateNoteModal from "@components/modals/CreateNote";
 import { AppLayout } from "@styles/Global";
 import Main from "@components/main/Main";
+import Note from "types/Note";
+import ManageNoteModal from "@components/modals/ManageNote";
 
 interface Props {
   isAuth: boolean;
   loading: boolean;
+  note: Note | null;
 }
 
-const AppPage: NextPage<Props> = ({ loading, isAuth }) => {
+const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
   const router = useRouter();
 
   React.useEffect(() => {
@@ -31,15 +34,35 @@ const AppPage: NextPage<Props> = ({ loading, isAuth }) => {
   return (
     <>
       <Head>
-        <title>Notey.app - Keep track of important things</title>
-        <link rel="canonical" href="https://notey.caspertheghost.me/app" />
+        {note ? (
+          <>
+            <title>{note?.title} - notey.app</title>
+            <meta
+              property="og:url"
+              content={`https://notey.caspertheghost.me/app?noteId=${note._id}`}
+            />
+            <meta property="og:title" content={`${note?.title} - notey.app`} />
+            <link rel="canonical" href={`https://notey.caspertheghost.me/app?noteId=${note._id}`} />
+          </>
+        ) : (
+          <>
+            <title>Notey.app - Keep track of important things</title>
+            <link rel="canonical" href="https://notey.caspertheghost.me/app" />
+            <meta property="og:url" content="https://notey.caspertheghost.me/app" />
+            <meta property="og:title" content="Notey.app - Keep track of important things" />
+          </>
+        )}
       </Head>
 
       <AppLayout>
         <Sidebar />
 
+        <div />
+
         <Main />
       </AppLayout>
+
+      <ManageNoteModal />
       <CreateNoteModal />
       <CreateCategoryModal />
     </>
@@ -49,6 +72,7 @@ const AppPage: NextPage<Props> = ({ loading, isAuth }) => {
 const mapToProps = (state: State) => ({
   isAuth: state.auth.isAuth,
   loading: state.auth.loading,
+  note: state.notes.note,
 });
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

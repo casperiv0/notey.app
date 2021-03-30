@@ -22,7 +22,7 @@ export const authenticate = (data: RequestData) => async (dispatch): Promise<boo
       return false;
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
 
     toast.error(e?.response?.data?.error ?? NO_ERROR);
     dispatch({ type: SET_AUTH_LOADING, loading: false });

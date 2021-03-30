@@ -1,6 +1,12 @@
 import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
 import { toast } from "react-toastify";
-import { GET_CATEGORIES, SET_CATEGORY_LOADING, CREATE_CATEGORY, DELETE_CATEGORY } from "../types";
+import {
+  GET_CATEGORIES,
+  SET_CATEGORY_LOADING,
+  CREATE_CATEGORY,
+  DELETE_CATEGORY,
+  GET_NOTES,
+} from "../types";
 
 export const getCategories = (cookie?: string) => async (dispatch) => {
   try {
@@ -15,7 +21,7 @@ export const getCategories = (cookie?: string) => async (dispatch) => {
       });
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 
@@ -55,6 +61,10 @@ export const deleteCategory = (id: string) => async (dispatch) => {
       dispatch({
         type: DELETE_CATEGORY,
         categories: res.data.categories,
+      });
+      dispatch({
+        type: GET_NOTES,
+        notes: res.data.notes,
       });
 
       toast.success("Successfully deleted category");

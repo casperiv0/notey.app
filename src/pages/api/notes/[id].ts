@@ -5,6 +5,7 @@ import { errorObj, isTrue, parseLockedNotes } from "@lib/utils";
 import NoteModel, { INote } from "@models/Note.model";
 import "@lib/database";
 import useMarkdown from "@hooks/useMarkdown";
+import { isValidObjectId } from "mongoose";
 
 export default async function handler(req: IRequest, res: NextApiResponse) {
   const { method, query } = req;
@@ -21,6 +22,15 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
   switch (method) {
     case "GET": {
       try {
+        if (!isValidObjectId(query.id)) {
+          const note = await NoteModel.find({ user_id: req.userId }).limit(1);
+
+          return res.json({
+            status: "success",
+            note: note?.[0] ?? {},
+          });
+        }
+
         const note: INote = await NoteModel.findById(query.id);
 
         if (!note) {

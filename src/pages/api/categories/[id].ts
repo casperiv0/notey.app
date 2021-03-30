@@ -4,7 +4,7 @@ import useAuth from "@hooks/useAuth";
 import { errorObj } from "@lib/utils";
 import "@lib/database";
 import CategoryModel from "@models/Category.model";
-import NoteModel from "@models/Note.model";
+import NoteModel, { INote } from "@models/Note.model";
 
 export default async function handler(req: IRequest, res: NextApiResponse) {
   const { method, query } = req;
@@ -28,13 +28,23 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
           return res.status(401).json(errorObj("Permission Denied"));
         }
 
-        await NoteModel.deleteMany({ category_id: query.id, user_id: req.userId });
+        const notes = await NoteModel.find({ category_id: query.id, user_id: req.userId });
+
+        await Promise.all(
+          notes.map(async (note: INote) => {
+            note.category_id = "no_category";
+            await note.save();
+          }),
+        );
+
         await CategoryModel.findByIdAndDelete(query.id);
 
         const categories = await CategoryModel.find({ user_id: req.userId });
+        const updatedNotes = await NoteModel.find({ user_id: req.userId });
 
         return res.json({
           categories,
+          notes: updatedNotes,
           status: "success",
         });
       } catch (e) {
