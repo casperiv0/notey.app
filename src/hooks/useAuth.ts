@@ -6,10 +6,12 @@ import { NextApiResponse } from "next";
 import User from "../models/User.model";
 import { IRequest } from "types/IRequest";
 import { middleWare } from "@lib/middleware";
+import { ALLOWED_METHODS } from "@lib/shared";
 
 const corsOptions: CorsOptions = {
   credentials: true,
   origin: [process.env.PROD_ORIGIN!, "http://localhost:3000"],
+  methods: ALLOWED_METHODS,
 };
 
 export default async function (req: IRequest, res: NextApiResponse): Promise<string> {
