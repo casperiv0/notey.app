@@ -33,7 +33,7 @@ class NoteyDoc extends Document {
           <meta property="og:image" content="/icons/notey-app-128.svg" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:creator" content="@casper124578" />
-          <meta name="twitter:title" content="Notey.app" />
+          <meta name="twitter:title" content="Notey.app - Keep track of important things" />
           <meta property="og:site_name" content="notey.caspertheghost.me" />
           <meta name="description" content="Simple notes app to keep track of important things." />
           <meta
@@ -41,7 +41,7 @@ class NoteyDoc extends Document {
             content="Dev-CasperTheGhost, caspertheghost, notes, note, note.app, app, notey.app"
           />
           <link rel="shortcut icon" href="/icons/notey-app-144.png" type="image/x-icon" />
-          <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+          <link rel="manifest" href="/manifest.json" />
         </Head>
 
         <body>

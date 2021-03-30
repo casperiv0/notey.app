@@ -36,6 +36,9 @@ const SharePage: NextPage<Props> = ({ loading, note, isAuth }) => {
     <>
       <Head>
         <title>{note?.title} - notey.app</title>
+        <link rel="canonical" href={`https://notey.caspertheghost.me/share/${note._id}`} />
+        <meta property="og:url" content={`https://notey.caspertheghost.me/share/${note._id}`} />
+        <meta property="og:title" content={`${note.title} - notey.app`} />
       </Head>
 
       {loading ? (

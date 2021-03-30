@@ -1,16 +1,16 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { NotFoundContainer, NotFoundTitle, NotFoundBtn } from "@styles/404";
 import Head from "next/head";
+import { NotFoundContainer, NotFoundTitle, NotFoundBtn } from "@styles/404";
 
-const NotFound: NextPage = () => {
+const Custom500: NextPage = () => {
   return (
     <>
       <Head>
-        <title>404 - Page not found.</title>
+        <title>5xx - That&apos;s an error. Please try again later</title>
       </Head>
       <NotFoundContainer>
-        <NotFoundTitle>404</NotFoundTitle>
+        <NotFoundTitle>5xx</NotFoundTitle>
         <Link href="/">
           <a href="/">
             <NotFoundBtn>Return home</NotFoundBtn>
@@ -21,4 +21,4 @@ const NotFound: NextPage = () => {
   );
 };
 
-export default NotFound;
+export default Custom500;

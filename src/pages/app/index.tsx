@@ -44,6 +44,7 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
             />
             <meta property="og:title" content={`${note?.title} - notey.app`} />
             <link rel="canonical" href={`https://notey.caspertheghost.me/app?noteId=${note._id}`} />
+            <meta name="twitter:title" content={`${note.title} - notey.app`} />
           </>
         ) : (
           <>
@@ -51,6 +52,7 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
             <link rel="canonical" href="https://notey.caspertheghost.me/app" />
             <meta property="og:url" content="https://notey.caspertheghost.me/app" />
             <meta property="og:title" content="Notey.app - Keep track of important things" />
+            <meta name="twitter:title" content="Notey.app - Keep track of important things" />
           </>
         )}
       </Head>
