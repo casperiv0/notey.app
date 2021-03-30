@@ -1,3 +1,4 @@
+import { closeModal } from "@lib/utils";
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { usePortal } from "src/hooks/usePortal";
@@ -11,11 +12,12 @@ interface Props {
 
 const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
   const portalRef = usePortal(id);
+  const [rendered, setRendered] = React.useState(false);
 
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        // TODO: closeModal
+        closeModal(id);
       }
     };
 
@@ -26,21 +28,20 @@ const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
     };
   }, [id]);
 
-  console.log(portalRef);
+  React.useEffect(() => setRendered(true), [portalRef]);
 
-  return portalRef
+  return rendered
     ? createPortal(
         <ModalContainer {...rest} className="modal" id={id}>
           <ModalStyle id={`style-${id}`} className={id}>
             <ModalHeader>
               {title}
-              {/* //TODO: implement this. */}
-              <CloseModal onClick={() => null}>&times;</CloseModal>
+              <CloseModal onClick={() => closeModal(id)}>&times;</CloseModal>
             </ModalHeader>
             <ModalBody>{children}</ModalBody>
           </ModalStyle>
         </ModalContainer>,
-        portalRef,
+        portalRef!,
       )
     : null;
 };

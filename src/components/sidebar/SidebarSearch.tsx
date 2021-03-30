@@ -1,19 +1,19 @@
-import React, { useRef, useState } from "react";
+import * as React from "react";
 import { SearchForm, SearchInput, SearchIconContainer, SearchContainer } from "./styles";
 import SearchIcon from "@icons/SearchIcon";
 import { SrOnly } from "@styles/Global";
 
 const SidebarSearch = ({ filterNotes }) => {
-  const ref = useRef<HTMLInputElement>(null);
-  const [query, setQuery] = useState("");
+  const ref = React.useRef<HTMLInputElement>(null);
+  const [query, setQuery] = React.useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     filterNotes(query);
   };
 
-  const search = (e) => {
+  const search = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
     filterNotes(e.target.value.toLowerCase());
   };

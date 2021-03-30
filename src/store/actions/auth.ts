@@ -1,10 +1,10 @@
 import { toast } from "react-toastify";
 import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
-import { AUTHENTICATE, SET_LOADING } from "../types";
+import { AUTHENTICATE, SET_AUTH_LOADING } from "../types";
 import { NO_ERROR } from "@lib/constants";
 
 export const authenticate = (data: RequestData) => async (dispatch): Promise<boolean> => {
-  dispatch({ type: SET_LOADING, loading: true });
+  dispatch({ type: SET_AUTH_LOADING, loading: true });
 
   try {
     const res = await handleRequest("/auth/login", "POST", data);
@@ -25,7 +25,7 @@ export const authenticate = (data: RequestData) => async (dispatch): Promise<boo
     console.log(e);
 
     toast.error(e?.response?.data?.error ?? NO_ERROR);
-    dispatch({ type: SET_LOADING, loading: false });
+    dispatch({ type: SET_AUTH_LOADING, loading: false });
     return false;
   }
 };
@@ -44,7 +44,7 @@ export const checkAuth = (cookie?: string) => async (dispatch) => {
       });
     }
   } catch (e) {
-    dispatch({ type: SET_LOADING, loading: false });
+    dispatch({ type: SET_AUTH_LOADING, loading: false });
     return null;
   }
 };
@@ -64,6 +64,6 @@ export const logout = () => async (dispatch): Promise<void> => {
     }
   } catch (e) {
     toast.error(e?.response.data?.error ?? NO_ERROR);
-    dispatch({ type: SET_LOADING, loading: false });
+    dispatch({ type: SET_AUTH_LOADING, loading: false });
   }
 };

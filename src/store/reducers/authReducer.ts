@@ -1,5 +1,5 @@
 import State from "types/State";
-import { AUTHENTICATE, SET_LOADING } from "../types";
+import { AUTHENTICATE, SET_AUTH_LOADING } from "../types";
 
 type Actions =
   | {
@@ -8,7 +8,7 @@ type Actions =
       user: any;
     }
   | {
-      type: typeof SET_LOADING;
+      type: typeof SET_AUTH_LOADING;
       loading: boolean;
     };
 
@@ -28,7 +28,7 @@ export default function AuthReducer(state = initState, action: Actions): State["
         loading: false,
       };
     }
-    case "SET_LOADING": {
+    case "SET_AUTH_LOADING": {
       return {
         ...state,
         loading: action.loading,

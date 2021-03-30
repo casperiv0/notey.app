@@ -1,7 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { useRouter } from "next/router";
 import Note from "types/Note";
 import State from "types/State";
+import { deleteCategory } from "@actions/categories";
 import { closeSidebar, openModal } from "@lib/utils";
 import {
   SidebarActive,
@@ -17,12 +19,12 @@ import CloseIcon from "@icons/CloseIcon";
 import DeleteIcon from "@icons/DeleteIcon";
 import Category from "types/Category";
 import { CategoryDiv, CategoryTitle, DeleteCategory } from "../../styles/Category";
-import { useRouter } from "next/router";
 
 interface Props {
   notes: Note[];
   activeNote: Note | null;
   categories: Category[];
+  deleteCategory: (id: string) => void;
 }
 
 const noCategory = {
@@ -30,7 +32,7 @@ const noCategory = {
   _id: "no_category",
 };
 
-const Sidebar: React.FC<Props> = ({ notes, categories, activeNote }) => {
+const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, deleteCategory }) => {
   const [filteredNotes, setFilteredNotes] = React.useState(notes);
   const router = useRouter();
 
@@ -58,6 +60,10 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote }) => {
     );
   };
 
+  const handleDelete = (id: string) => () => {
+    deleteCategory(id);
+  };
+
   return (
     <>
       <SidebarStyle id="sidebar">
@@ -76,20 +82,22 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote }) => {
               const categoryNotes = filteredNotes?.filter((note) => {
                 return note.category_id === cat._id;
               });
-              if (categoryNotes && categoryNotes.length <= 0) return null;
+              if (categoryNotes.length <= 0) return null;
 
               return (
                 <CategoryDiv id={`category-${cat._id}`} key={ci}>
                   <div style={{ display: "flex" }}>
                     {/* onClick={() => setFoldState(cat._id)} */}
                     <CategoryTitle title="Click to fold">{category}</CategoryTitle>
-                    <div>
-                      {/* onClick={() => deleteCategory(cat._id)} */}
-                      <DeleteCategory>
-                        <SrOnly>Delete</SrOnly>
-                        <DeleteIcon></DeleteIcon>
-                      </DeleteCategory>
-                    </div>
+
+                    {cat._id !== "no_category" ? (
+                      <div>
+                        <DeleteCategory onClick={handleDelete(cat._id)}>
+                          <SrOnly>Delete</SrOnly>
+                          <DeleteIcon></DeleteIcon>
+                        </DeleteCategory>
+                      </div>
+                    ) : null}
                   </div>
                   <div className="items">
                     {categoryNotes?.map((note, i) => {
@@ -146,7 +154,7 @@ const mapToProps = (state: State) => ({
   activeNote: state.notes.note,
 });
 
-export default connect(mapToProps)(Sidebar);
+export default connect(mapToProps, { deleteCategory })(Sidebar);
 
 export interface Options {
   token: string;

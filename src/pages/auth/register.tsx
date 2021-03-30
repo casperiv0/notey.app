@@ -4,7 +4,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { connect } from "react-redux";
-import { ToastContainer } from "react-toastify";
 import { authenticate } from "@actions/auth";
 import {
   AuthContainer,
@@ -52,7 +51,6 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
         <title>Register - notey.app</title>
       </Head>
       <AuthContainer>
-        <ToastContainer />
         <AuthForm onSubmit={onSubmit}>
           <FormGroup>
             <FormTitle>Sign Up</FormTitle>

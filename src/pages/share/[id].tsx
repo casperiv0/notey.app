@@ -2,7 +2,6 @@ import Head from "next/head";
 import * as React from "react";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
-import { ToastContainer } from "react-toastify";
 import Link from "next/link";
 import { GetServerSideProps, NextPage } from "next";
 import { initializeStore } from "src/store/store";
@@ -38,7 +37,6 @@ const SharePage: NextPage<Props> = ({ loading, note, isAuth }) => {
       <Head>
         <title>{note?.title} - notey.app</title>
       </Head>
-      <ToastContainer />
 
       {loading ? (
         <Loader fullSize center />

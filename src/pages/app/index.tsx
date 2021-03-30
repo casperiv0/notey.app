@@ -10,6 +10,7 @@ import { getNoteById, getNotes } from "@actions/note";
 import Sidebar from "@components/sidebar/Sidebar";
 import { getCategories } from "@actions/categories";
 import CreateCategoryModal from "@components/modals/CreateCategory";
+import CreateNoteModal from "@components/modals/CreateNote";
 
 interface Props {
   isAuth: boolean;
@@ -35,6 +36,7 @@ const AppPage: NextPage<Props> = ({ loading, isAuth }) => {
       <div>
         <Sidebar />
 
+        <CreateNoteModal />
         <CreateCategoryModal />
       </div>
     </>
@@ -53,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   await checkAuth(cookie)(store.dispatch);
   await getNotes(cookie)(store.dispatch);
   await getCategories(cookie)(store.dispatch);
-  await getNoteById(`${ctx.query.id}`, false, cookie)(store.dispatch);
+  await getNoteById(`${ctx.query.noteId}`, false, cookie)(store.dispatch);
 
   return { props: { initialReduxState: store.getState() } };
 };

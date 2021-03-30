@@ -1,6 +1,6 @@
 import Note from "types/Note";
 import State from "types/State";
-import { GET_NOTES, GET_NOTE_BY_ID, SET_LOADING } from "../types";
+import { CREATE_NOTE, GET_NOTES, GET_NOTE_BY_ID, SET_NOTE_LOADING } from "../types";
 
 type Actions =
   | {
@@ -8,12 +8,17 @@ type Actions =
       note: Note;
     }
   | {
-      type: typeof SET_LOADING;
+      type: typeof SET_NOTE_LOADING;
       loading: boolean;
     }
   | {
       type: typeof GET_NOTES;
       notes: Note[];
+    }
+  | {
+      type: typeof CREATE_NOTE;
+      notes: Note[];
+      note: Note;
     };
 
 const initState: State["notes"] = {
@@ -22,16 +27,17 @@ const initState: State["notes"] = {
   loading: false,
 };
 
-export default function NoteReducer(state = initState, action: Actions) {
+export default function NoteReducer(state = initState, action: Actions): State["notes"] {
   switch (action.type) {
     case "GET_NOTE_BY_ID": {
       return {
         ...state,
         ...action,
         note: action.note,
+        loading: false,
       };
     }
-    case "SET_LOADING": {
+    case "SET_NOTE_LOADING": {
       return {
         ...state,
         loading: action.loading,
@@ -41,6 +47,14 @@ export default function NoteReducer(state = initState, action: Actions) {
       return {
         ...state,
         notes: action.notes,
+      };
+    }
+    case "CREATE_NOTE": {
+      return {
+        ...state,
+        notes: action.notes,
+        note: action.note,
+        loading: false,
       };
     }
     default: {

@@ -6,6 +6,7 @@ export const SidebarContainer = styled.div`
   width: ${Size.SidebarFull};
   height: 100%;
   display: none;
+
   @media (min-width: ${Size.DefaultMinWidth}) {
     display: block;
   }
@@ -21,10 +22,12 @@ export const SidebarActive = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   display: none;
   pointer-events: none;
+
   &.active {
     display: block;
     pointer-events: all;
   }
+
   @media (min-width: ${Size.DefaultMinWidth}) {
     &.active {
       display: none;
@@ -48,11 +51,13 @@ export const SidebarStyle = styled.div`
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 40px auto 50px;
+
   &.active {
     width: calc(${Size.SidebarFull} + 50px);
     left: 0;
     transition: left 0.3s;
   }
+
   @media (min-width: ${Size.DefaultMinWidth}) {
     left: 0;
     width: ${Size.SidebarFull};
@@ -66,6 +71,7 @@ export const SidebarHeader = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 85% auto;
+
   @media (min-width: ${Size.DefaultMinWidth}) {
     grid-template-columns: auto;
   }
@@ -78,12 +84,15 @@ export const CloseSidebarBtn = styled.button`
   cursor: pointer;
   display: flex;
   margin-left: 10px;
+
   @media (min-width: ${Size.DefaultMinWidth}) {
     display: none;
   }
+
   & svg {
     fill: #f2f2f2;
   }
+
   &:focus {
     outline: none;
   }
@@ -103,11 +112,13 @@ export const SearchContainer = styled.div`
   border: 2px solid #555;
   transition: border 200ms;
   width: 100%;
+
   @media (hover: hover) {
     &:hover {
       border-color: rgba(255, 255, 255, 0.5);
     }
   }
+
   &:focus-within {
     border-color: rgba(255, 255, 255, 0.5);
   }
@@ -121,6 +132,7 @@ export const SearchInput = styled.input`
   background-color: #2f2f2f;
   color: #f2f2f2;
   width: 100%;
+
   &:focus {
     outline: none;
   }
@@ -130,6 +142,7 @@ export const SearchIconContainer = styled.span`
   padding: 5px;
   display: flex;
   align-items: center;
+
   & svg {
     font-size: 1.2rem;
     fill: #848484;
@@ -159,15 +172,18 @@ export const SidebarNote = styled.button`
   width: 100%;
   background: transparent;
   border: none;
+
   @media (hover: hover) {
     &:hover {
       background-color: #3a3b3c;
     }
   }
+
   &:focus {
     outline: none;
     background-color: #3a3b3c;
   }
+
   &.active {
     color: #fff;
     background-color: #3a3b3c;
@@ -185,6 +201,7 @@ export const OpenOptionsModalBtn = styled.button`
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
+
   @media (hover: hover) {
     &:hover {
       background-color: #2f2f2f;
