@@ -1,0 +1,89 @@
+{
+  "short_name": "notey.app",
+  "name": "Notey.app",
+  "description": "Notes app to keep track of important things",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#3e475a",
+  "background_color": "#3e475a",
+  "icons": [
+    {
+      "type": "image/svg",
+      "sizes": "128x128",
+      "src": "/icons/notey-app-128.svg"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "144x144",
+      "src": "/icons/notey-app-144.svg"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "512x512",
+      "src": "/icons/notey-app-512.svg"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "128x128",
+      "src": "/icons/notey-app-128-maskable.svg",
+      "purpose": "any maskable"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "144x144",
+      "src": "/icons/notey-app-144-maskable.svg",
+      "purpose": "any maskable"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "512x512",
+      "src": "/icons/notey-app-512-maskable.svg",
+      "purpose": "any maskable"
+    },
+    {
+      "type": "image/png",
+      "sizes": "128x128",
+      "src": "/icons/notey-app-128.png"
+    },
+    {
+      "type": "image/png",
+      "sizes": "144x144",
+      "src": "/icons/notey-app-144.png"
+    },
+    {
+      "type": "image/png",
+      "sizes": "512x512",
+      "src": "/icons/notey-app-512.png"
+    },
+    {
+      "type": "image/png",
+      "sizes": "128x128",
+      "src": "/icons/notey-app-128-maskable.png",
+      "purpose": "any maskable"
+    },
+    {
+      "type": "image/png",
+      "sizes": "144x144",
+      "src": "/icons/notey-app-144-maskable.png",
+      "purpose": "any maskable"
+    },
+    {
+      "type": "image/png",
+      "sizes": "512x512",
+      "src": "/icons/notey-app-512-maskable.png",
+      "purpose": "any maskable"
+    },
+    {
+      "type": "image/png",
+      "sizes": "180x180",
+      "src": "/icons/apple-touch-icon.png",
+      "purpose": "any maskable"
+    },
+    {
+      "type": "image/svg",
+      "sizes": "1080x1080",
+      "src": "/icons/safari-pinned-tab.svg",
+      "purpose": "any maskable"
+    }
+  ]
+}
