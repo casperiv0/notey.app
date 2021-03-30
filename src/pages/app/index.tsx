@@ -11,6 +11,8 @@ import Sidebar from "@components/sidebar/Sidebar";
 import { getCategories } from "@actions/categories";
 import CreateCategoryModal from "@components/modals/CreateCategory";
 import CreateNoteModal from "@components/modals/CreateNote";
+import { AppLayout } from "@styles/Global";
+import Main from "@components/main/Main";
 
 interface Props {
   isAuth: boolean;
@@ -33,12 +35,13 @@ const AppPage: NextPage<Props> = ({ loading, isAuth }) => {
         <link rel="canonical" href="https://notey.caspertheghost.me/app" />
       </Head>
 
-      <div>
+      <AppLayout>
         <Sidebar />
 
-        <CreateNoteModal />
-        <CreateCategoryModal />
-      </div>
+        <Main />
+      </AppLayout>
+      <CreateNoteModal />
+      <CreateCategoryModal />
     </>
   );
 };

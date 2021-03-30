@@ -6,7 +6,12 @@ export const AUTHENTICATE = "AUTHENTICATE";
 export const GET_NOTE_BY_ID = "GET_NOTE_BY_ID";
 export const GET_NOTES = "GET_NOTES";
 export const CREATE_NOTE = "CREATE_NOTE";
+export const UPDATE_NOTE_BY_ID = "UPDATE_NOTE_BY_ID";
+export const DELETE_NOTE_BY_ID = "DELETE_NOTE_BY_ID";
 
 export const GET_CATEGORIES = "GET_CATEGORIES";
 export const CREATE_CATEGORY = "CREATE_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
+
+export const SET_EDITING = "SET_EDITING";
+export const UPDATE_EDITING_NOTE = "UPDATE_EDITING_NOTE";

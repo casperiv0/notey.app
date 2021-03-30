@@ -16,7 +16,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
 
       <ReduxProvider store={store}>
         <Component {...pageProps} />

@@ -3,7 +3,7 @@ import { SelectCategoryStyle } from "@styles/Category";
 import Category from "types/Category";
 
 interface Props {
-  id: string;
+  id?: string;
   value: string;
   className?: string;
   categories: Category[];

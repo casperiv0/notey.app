@@ -12,6 +12,8 @@ interface State {
     note: Note | null;
     notes: Note[];
     loading: boolean;
+    editing: boolean | null;
+    editingNote: Note | null;
   };
   categories: {
     categories: Category[];

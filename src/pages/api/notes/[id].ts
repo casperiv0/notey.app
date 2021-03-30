@@ -50,9 +50,9 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
     }
     case "PUT": {
       try {
-        const { categoryId, title, body, locked, shared } = req.body;
+        const { category_id, title, body, locked, shared } = req.body;
 
-        if (!categoryId || !title || !body) {
+        if (!category_id || !title || !body) {
           return res.status(400).json(errorObj("Please fill in all fields"));
         }
 
@@ -69,7 +69,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
 
         await NoteModel.findByIdAndUpdate(note._id, {
           title,
-          category_id: categoryId,
+          category_id,
           body,
           markdown,
           locked: isTrue(locked),
