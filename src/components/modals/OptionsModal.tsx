@@ -1,17 +1,21 @@
-import React from "react";
-import Modal from "../modal/Modal";
+import * as React from "react";
 import { connect } from "react-redux";
-import { openModal } from "../../utils/functions";
-import { logout, deleteAccount } from "../../actions/auth";
-import { Divider, Column, ReportBtn, Button } from "../../styles/Global";
+import { logout, deleteAccount } from "@actions/auth";
+import Modal from "@components/modal/Modal";
+import { Divider, Column, ReportBtn, Button } from "@styles/Global";
 import {
   OptionsModalStyle,
   OptionsModalContent,
   OptionsModalBody,
   OptionsModalFooter,
-} from "./modal.style";
+} from "../modal/styles";
 
-const OptionsModal = ({ logout, deleteAccount }) => {
+interface Props {
+  logout: () => void;
+  deleteAccount: () => void;
+}
+
+const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
   function confirmDeleteAccount() {
     if (
       window.confirm(
@@ -20,10 +24,6 @@ const OptionsModal = ({ logout, deleteAccount }) => {
     ) {
       deleteAccount();
     }
-  }
-
-  function openSetPin() {
-    openModal("setPinModal");
   }
 
   return (
@@ -53,8 +53,8 @@ const OptionsModal = ({ logout, deleteAccount }) => {
               >
                 License
               </ReportBtn>
-              <Button style={{ marginBottom: "10px" }} danger onClick={openSetPin}>
-                Change/set PIN code
+              <Button style={{ marginBottom: "10px" }} danger disabled>
+                Change/set PIN code (Soon!)
               </Button>
               <Button style={{ marginBottom: "10px" }} danger onClick={logout}>
                 Logout

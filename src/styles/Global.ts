@@ -29,17 +29,21 @@ export const DEFAULT_BTN_STYLES = css<{ bgColor?: string }>`
   background: ${(props) => (props.bgColor ? props.bgColor : "#3A3B3C")};
   color: #f2f2f2;
   border: none;
-  transition: filter 200ms;
+  transition: filter 200ms, opacity 200ms;
+
   @media (min-width: ${Size.DefaultMinWidth}) {
     padding: 7px 20px;
   }
+
   &:hover {
     filter: brightness(140%);
   }
+
   &:focus {
     outline: none;
     filter: brightness(150%);
   }
+
   &:active {
     filter: brightness(120%);
   }
@@ -66,9 +70,22 @@ export const TextArea = styled.textarea<{ maxHeight?: string; minHeight?: string
 
 export const Button = styled.button<{ danger?: boolean; navBtn?: boolean }>`
   ${DEFAULT_BTN_STYLES}
+
   &.ml {
     margin-left: 5px;
   }
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      cursor: not-allowed;
+
+      &:hover {
+        filter: brightness(100%);
+        opacity: 0.8;
+      }
+    `}
+
   ${(props) =>
     props.danger &&
     css`
@@ -76,10 +93,12 @@ export const Button = styled.button<{ danger?: boolean; navBtn?: boolean }>`
       border: 1px solid #d9534f;
       color: black;
     `}
+
   ${(props) =>
     props.navBtn &&
     css`
       display: none;
+
       @media (min-width: ${Size.DefaultMinWidth}) {
         display: block;
       }

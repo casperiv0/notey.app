@@ -15,6 +15,7 @@ import { AppLayout } from "@styles/Global";
 import Main from "@components/main/Main";
 import Note from "types/Note";
 import ManageNoteModal from "@components/modals/ManageNote";
+import OptionsModal from "@components/modals/OptionsModal";
 
 interface Props {
   isAuth: boolean;
@@ -62,6 +63,7 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
         <Main />
       </AppLayout>
 
+      <OptionsModal />
       <ManageNoteModal />
       <CreateNoteModal />
       <CreateCategoryModal />

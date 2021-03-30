@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 import { Size } from "@lib/constants";
 
 export const NoteStyle = styled.div<{ editing: boolean }>`
-  height: calc(100% - 60px);
   width: 100%;
+  height: calc(100% - 60px);
   grid-area: note;
 
   @media (min-width: ${Size.DefaultMinWidth}) {
@@ -13,7 +13,8 @@ export const NoteStyle = styled.div<{ editing: boolean }>`
   ${(props) =>
     props.editing &&
     css`
-      width: calc(100vw - 20px);
+      heigh: 100%;
+      :width: calc(100vw - 20px);
     `}
 `;
 

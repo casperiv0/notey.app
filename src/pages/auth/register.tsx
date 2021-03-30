@@ -20,7 +20,7 @@ import State from "types/State";
 import Loader from "@components/loader/Loader";
 
 interface Props {
-  authenticate: (data: RequestData) => Promise<boolean>;
+  authenticate: (data: RequestData, login: boolean) => Promise<boolean>;
   loading: boolean;
 }
 
@@ -38,7 +38,7 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
       password,
       password2,
     };
-    const success = await authenticate(data);
+    const success = await authenticate(data, false);
 
     if (success) {
       return router.push("/app");
