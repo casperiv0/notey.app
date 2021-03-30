@@ -2,9 +2,10 @@ import { toast } from "react-toastify";
 import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
 import { AUTHENTICATE, SET_AUTH_LOADING } from "../types";
 import { NO_ERROR } from "@lib/constants";
+import { AuthDispatch } from "types/State";
 
 export const authenticate = (data: RequestData, login: boolean) => async (
-  dispatch,
+  dispatch: AuthDispatch,
 ): Promise<boolean> => {
   dispatch({ type: SET_AUTH_LOADING, loading: true });
 
@@ -32,7 +33,7 @@ export const authenticate = (data: RequestData, login: boolean) => async (
   }
 };
 
-export const checkAuth = (cookie?: string) => async (dispatch) => {
+export const checkAuth = (cookie?: string) => async (dispatch: AuthDispatch) => {
   try {
     const res = await handleRequest("/auth/me", "POST", {
       cookie,
@@ -51,7 +52,7 @@ export const checkAuth = (cookie?: string) => async (dispatch) => {
   }
 };
 
-export const logout = () => async (dispatch): Promise<void> => {
+export const logout = () => async (dispatch: AuthDispatch): Promise<void> => {
   try {
     const res = await handleRequest("/auth/logout", "POST");
 
@@ -70,7 +71,7 @@ export const logout = () => async (dispatch): Promise<void> => {
   }
 };
 
-export const deleteAccount = () => async (dispatch): Promise<void> => {
+export const deleteAccount = () => async (dispatch: AuthDispatch): Promise<void> => {
   try {
     const res = await handleRequest("/auth/me", "DELETE");
 

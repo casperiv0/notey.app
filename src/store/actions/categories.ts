@@ -1,5 +1,6 @@
 import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
 import { toast } from "react-toastify";
+import { CategoryDispatch } from "types/State";
 import {
   GET_CATEGORIES,
   SET_CATEGORY_LOADING,
@@ -8,7 +9,7 @@ import {
   GET_NOTES,
 } from "../types";
 
-export const getCategories = (cookie?: string) => async (dispatch) => {
+export const getCategories = (cookie?: string) => async (dispatch: CategoryDispatch) => {
   try {
     const res = await handleRequest("/categories", "GET", {
       cookie,
@@ -25,7 +26,9 @@ export const getCategories = (cookie?: string) => async (dispatch) => {
   }
 };
 
-export const createCategory = (data: RequestData) => async (dispatch): Promise<boolean> => {
+export const createCategory = (data: RequestData) => async (
+  dispatch: CategoryDispatch,
+): Promise<boolean> => {
   dispatch({ type: SET_CATEGORY_LOADING, loading: true });
 
   try {

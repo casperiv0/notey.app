@@ -12,9 +12,10 @@ import {
   DELETE_NOTE_BY_ID,
 } from "../types";
 import Note from "types/Note";
+import { NotesDispatch } from "types/State";
 
 export const getNoteById = (noteId: string, share: boolean, cookie?: string) => async (
-  dispatch,
+  dispatch: NotesDispatch,
 ) => {
   dispatch({ type: SET_NOTE_LOADING, loading: true });
 
@@ -37,7 +38,9 @@ export const getNoteById = (noteId: string, share: boolean, cookie?: string) => 
   }
 };
 
-export const updateNoteById = (noteId: string, data: RequestData) => async (dispatch) => {
+export const updateNoteById = (noteId: string, data: RequestData) => async (
+  dispatch: NotesDispatch,
+) => {
   dispatch({ type: SET_NOTE_LOADING, loading: true });
 
   try {
@@ -59,7 +62,7 @@ export const updateNoteById = (noteId: string, data: RequestData) => async (disp
   }
 };
 
-export const deleteNoteById = (noteId: string) => async (dispatch) => {
+export const deleteNoteById = (noteId: string) => async (dispatch: NotesDispatch) => {
   dispatch({ type: SET_NOTE_LOADING, loading: true });
 
   try {
@@ -81,7 +84,7 @@ export const deleteNoteById = (noteId: string) => async (dispatch) => {
   }
 };
 
-export const getNotes = (cookie?: string) => async (dispatch) => {
+export const getNotes = (cookie?: string) => async (dispatch: NotesDispatch) => {
   try {
     dispatch({ type: SET_NOTE_LOADING, loading: true });
 
@@ -99,7 +102,9 @@ export const getNotes = (cookie?: string) => async (dispatch) => {
   }
 };
 
-export const createNote = (data: RequestData) => async (dispatch): Promise<boolean | string> => {
+export const createNote = (data: RequestData) => async (
+  dispatch: NotesDispatch,
+): Promise<boolean | string> => {
   dispatch({ type: SET_NOTE_LOADING, loading: true });
 
   try {
@@ -126,13 +131,13 @@ export const createNote = (data: RequestData) => async (dispatch): Promise<boole
   }
 };
 
-export const setEditing = (v: boolean) => (dispatch) => {
+export const setEditing = (v: boolean) => (dispatch: NotesDispatch) => {
   dispatch({ type: SET_EDITING, editing: v });
 };
 
-export const updateEditingNote = (data: Partial<Note>) => (dispatch) => {
+export const updateEditingNote = (data: Partial<Note>) => (dispatch: NotesDispatch) => {
   dispatch({
     type: UPDATE_EDITING_NOTE,
-    note: data,
+    note: data as Note,
   });
 };

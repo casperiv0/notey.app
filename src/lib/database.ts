@@ -1,7 +1,6 @@
 import { connect } from "mongoose";
-import Logger from "./logger";
 
-(async function database() {
+async function database() {
   const uri = String(process.env.MONGO_URI);
 
   try {
@@ -11,9 +10,9 @@ import Logger from "./logger";
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-
-    Logger.log("DATABASE", "Connected to mongodb");
   } catch (e) {
-    Logger.error("db_error", e);
+    console.error(e);
   }
-})();
+}
+
+database();
