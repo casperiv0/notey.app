@@ -32,6 +32,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "lint:check": "eslint . --ext .tsx,.ts",
     "prettier:fix": "prettier --write .",
     "dev": "next dev",
     "start": "next start -p 5011",

@@ -18,7 +18,8 @@ export const NavbarContent = styled.div`
   justify-content: space-between;
 
   @media (min-width: ${Size.DefaultMinWidth}) {
-    width: 85%;
+    width: 1200px;
+    max-width: 95%;
   }
 `;
 
@@ -50,7 +51,7 @@ export const MainContainer = styled.main`
 `;
 
 export const MainStyle = styled.div`
-  --height: 277.5px;
+  --height: 307.5px;
   width: 90%;
   min-height: calc(100vh - var(--height));
   display: flex;
@@ -60,8 +61,11 @@ export const MainStyle = styled.div`
   margin-top: 75px;
 
   @media (min-width: ${Size.DefaultMinWidth}) {
-    width: 85%;
+    --height: 277.5px;
+    width: 1200px;
+    max-width: 95%;
     height: calc(100vh - var(--height));
+    justify-content: center;
   }
 `;
 
@@ -72,6 +76,7 @@ export const ShowCase = styled.div`
 
   @media (min-width: ${Size.DefaultMinWidth}) {
     grid-template-columns: repeat(2, 1fr);
+    width: 100%;
   }
 `;
 
@@ -89,7 +94,7 @@ export const ShowCaseParaph = styled.p`
 
 export const ShowCaseLink = styled.a`
   ${DEFAULT_BTN_STYLES}
-  padding: 10px 40px !important;
+  padding: 0.6rem 2rem !important;
   text-decoration: none;
   font-weight: 600;
 `;
@@ -131,7 +136,7 @@ export const FooterContent = styled.div`
   justify-content: space-between;
 
   @media (min-width: ${Size.DefaultMinWidth}) {
-    width: 80%;
+    width: 1200px;
     flex-direction: row;
   }
 `;

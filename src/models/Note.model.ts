@@ -8,7 +8,7 @@ export interface INote extends Document {
   title: string;
   body: string;
   markdown: string;
-  created_at: Date;
+  created_at: number;
   shared: boolean;
   locked: boolean;
 }
@@ -41,11 +41,11 @@ const noteSchema = new Schema({
   },
   shared: {
     type: Boolean,
-    default: false,
+    default: () => false,
   },
   locked: {
     type: Boolean,
-    default: false,
+    default: () => false,
   },
 });
 

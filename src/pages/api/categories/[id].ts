@@ -3,7 +3,7 @@ import { IRequest } from "types/IRequest";
 import useAuth from "@hooks/useAuth";
 import { errorObj } from "@lib/utils";
 import "@lib/database";
-import CategoryModel from "@models/Category.model";
+import CategoryModel, { ICategory } from "@models/Category.model";
 import NoteModel, { INote } from "@models/Note.model";
 
 export default async function handler(req: IRequest, res: NextApiResponse) {
@@ -18,7 +18,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
   switch (method) {
     case "DELETE": {
       try {
-        const category = await CategoryModel.findById(query.id);
+        const category: ICategory = await CategoryModel.findById(query.id);
 
         if (!category) {
           return res.status(404).json(errorObj("category was not found"));

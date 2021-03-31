@@ -26,9 +26,14 @@ interface Props {
 
 const Register: NextPage<Props> = ({ authenticate, loading }) => {
   const router = useRouter();
+  const ref = React.useRef<HTMLInputElement>(null);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [password2, setPassword2] = React.useState("");
+
+  React.useEffect(() => {
+    ref.current?.focus();
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -53,11 +58,13 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
       <AuthContainer>
         <AuthForm onSubmit={onSubmit}>
           <FormGroup>
-            <FormTitle>Sign Up</FormTitle>
+            <FormTitle>Register</FormTitle>
           </FormGroup>
           <FormGroup>
             <FormLabel htmlFor="username">Username</FormLabel>
             <FormInput
+              ref={ref}
+              autoComplete="username"
               spellCheck={false}
               type="text"
               id="username"
@@ -74,6 +81,7 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="password"
             />
           </FormGroup>
           <FormGroup>
@@ -84,6 +92,7 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
               value={password2}
               onChange={(e) => setPassword2(e.target.value)}
               required
+              autoComplete="password"
             />
           </FormGroup>
           <FormGroup>

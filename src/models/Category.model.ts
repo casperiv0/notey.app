@@ -1,10 +1,9 @@
-import { Schema, model, Document, models } from "mongoose";
-import { IUser } from "./User.model";
+import { Schema, model, Document, models, ObjectId } from "mongoose";
 
 export interface ICategory extends Document {
-  user_id: IUser["_id"];
+  user_id: ObjectId;
   name: string;
-  created_at: Date;
+  created_at: number;
 }
 
 const categorySchema = new Schema({
