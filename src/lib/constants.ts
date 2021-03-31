@@ -13,3 +13,7 @@ export enum Size {
   Sidebar = "100px",
   DefaultMinWidth = "960px",
 }
+
+export enum Styles {
+  BorderRadius = "0.3rem",
+}

@@ -9,6 +9,7 @@ import Note from "types/Note";
 import { updateNoteById } from "@actions/note";
 import { RequestData } from "@lib/fetch";
 import { isTrue } from "@lib/utils";
+import useModalEvent from "@hooks/useModalEvent";
 
 interface Props {
   note: Note | null;
@@ -18,6 +19,7 @@ interface Props {
 const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
   const [shareable, setShareable] = React.useState(`${note?.shared}`);
   const [locked, setLocked] = React.useState(`${note?.locked}`);
+  const inputRef = useModalEvent<HTMLSelectElement>("manageNoteModal");
   const router = useRouter();
 
   React.useEffect(() => {
@@ -44,7 +46,11 @@ const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
       <form onSubmit={onSubmit}>
         <FormGroup>
           <FormLabel>Shareable</FormLabel>
-          <Select value={`${shareable}`} onChange={(e) => setShareable(e.target.value)}>
+          <Select
+            ref={inputRef}
+            value={`${shareable}`}
+            onChange={(e) => setShareable(e.target.value)}
+          >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </Select>

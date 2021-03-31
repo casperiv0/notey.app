@@ -1,31 +1,32 @@
-import { Size } from "@lib/constants";
+import { Size, Styles } from "@lib/constants";
 import styled, { css } from "styled-components";
 
 export const DEFAULT_INPUT_STYLES = css`
-  padding: 7px;
+  padding: 0.4rem;
   font-size: 1.2rem;
   border: 2px solid #3a3b3c;
   background: #2f2f2f;
-  border-radius: 5px;
+  border-radius: ${Styles.BorderRadius};
   color: #f2f2f2;
   transition: border 200ms;
+
   @media (hover: hover) {
     &:hover {
       border-color: rgba(255, 255, 255, 0.5);
     }
   }
+
   &:focus {
     border-color: #fff;
   }
 `;
 
 export const DEFAULT_BTN_STYLES = css<{ bgColor?: string }>`
-  padding: 5px 10px;
+  padding: 0.3rem 10px;
   font-size: 1.2rem;
   cursor: pointer;
-  border-radius: 0;
   font-weight: 600;
-  border-radius: 0.5rem;
+  border-radius: ${Styles.BorderRadius};
   background: ${(props) => (props.bgColor ? props.bgColor : "#3A3B3C")};
   color: #f2f2f2;
   border: none;
@@ -40,7 +41,6 @@ export const DEFAULT_BTN_STYLES = css<{ bgColor?: string }>`
   }
 
   &:focus {
-    outline: none;
     filter: brightness(150%);
   }
 
@@ -98,6 +98,7 @@ export const Button = styled.button<{ danger?: boolean; navBtn?: boolean }>`
     props.navBtn &&
     css`
       display: none;
+      margin-right: 0.2rem;
 
       @media (min-width: ${Size.DefaultMinWidth}) {
         display: block;

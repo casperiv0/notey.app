@@ -33,6 +33,7 @@ export const ModalContainer = styled.div`
   display: none;
   align-items: center;
   justify-content: center;
+
   &.active {
     display: flex;
   }
@@ -47,13 +48,16 @@ export const ModalStyle = styled.div`
   max-height: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   border-radius: 0.7rem;
+
   @media (max-height: 1000px) {
     overflow-y: auto;
     scrollbar-width: thin;
   }
+
   &.active {
     animation: ${openAni} 200ms linear;
   }
+
   &.closed {
     animation: ${closeAni} 150ms linear;
   }
@@ -86,10 +90,13 @@ export const CloseModal = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
   &:hover {
     background: rgba(85, 85, 85, 0.8);
   }
+
   &:focus {
+    background: rgba(85, 85, 85, 0.8);
     outline: none;
   }
 `;
@@ -117,6 +124,7 @@ export const OptionsModalFooter = styled.div`
   color: #f2f2f2;
   font-size: 1.2rem;
   text-align: center;
+
   & a {
     color: #f5f5f5;
     text-decoration: underline;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Size } from "@lib/constants";
+import { Size, Styles } from "@lib/constants";
 
 export const SidebarContainer = styled.div`
   grid-area: aside;
@@ -106,7 +106,7 @@ export const SearchContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  border-radius: 5px;
+  border-radius: ${Styles.BorderRadius};
   padding: 2px;
   background-color: #2f2f2f;
   border: 2px solid #555;
@@ -167,8 +167,7 @@ export const SidebarNote = styled.button`
   align-items: center;
   justify-content: space-between;
   background-color: none;
-  border-radius: 0;
-  border-radius: 5px;
+  border-radius: ${Styles.BorderRadius};
   width: 100%;
   background: transparent;
   border: none;

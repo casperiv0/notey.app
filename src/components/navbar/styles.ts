@@ -76,7 +76,7 @@ export const NavLinks = styled.div`
 `;
 
 export const OpenSidebar = styled.button`
-  padding: 7px 10px 0 0;
+  padding: 0.2rem 10px 0 0;
   border: none;
   background: none;
   font-size: 2rem;

@@ -1,3 +1,4 @@
+import { Styles } from "@lib/constants";
 import styled from "styled-components";
 
 export const ShareStyle = styled.div`
@@ -14,7 +15,7 @@ export const LinkStyle = styled.a`
   text-align: center;
   text-decoration: none;
   margin-right: 1rem;
-  border-radius: 0.5rem;
+  border-radius: ${Styles.BorderRadius};
 `;
 
 export const ShareTitle = styled.h1`

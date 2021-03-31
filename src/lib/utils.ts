@@ -34,6 +34,12 @@ export const openModal = (id: string) => {
   document.querySelector(`#${id}`)?.classList.add("active");
   document.querySelector(`#style-${id}`)?.classList.remove("closed");
   document.querySelector(`#style-${id}`)?.classList.add("active");
+
+  // custom event to let the modal know it was opened (for focusing on an input)
+  const event = new CustomEvent("modalOpen", {
+    detail: id,
+  });
+  window.dispatchEvent(event);
 };
 
 export const closeModal = (id: string) => {

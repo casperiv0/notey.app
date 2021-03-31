@@ -9,6 +9,7 @@ import {
   OptionsModalBody,
   OptionsModalFooter,
 } from "../modal/styles";
+import useModalEvent from "@hooks/useModalEvent";
 
 interface Props {
   logout: () => void;
@@ -16,6 +17,8 @@ interface Props {
 }
 
 const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
+  const btnRef = useModalEvent<HTMLAnchorElement>("optionsModal");
+
   function confirmDeleteAccount() {
     if (
       window.confirm(
@@ -33,6 +36,7 @@ const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
           <OptionsModalBody>
             <Column>
               <ReportBtn
+                ref={btnRef}
                 href="https://github.com/dev-caspertheghost/notey.app/issues/new?assignees=Dev-CasperTheGhost&labels=bug&template=bug_report.md&title=%5BBUG%5D+"
                 target="_blank"
                 rel="noreferrer noopener"

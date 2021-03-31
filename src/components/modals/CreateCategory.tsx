@@ -7,6 +7,7 @@ import { closeModal, closeSidebar } from "@lib/utils";
 import State from "types/State";
 import Loader from "@components/loader/Loader";
 import { createCategory } from "@actions/categories";
+import useModalEvent from "@hooks/useModalEvent";
 
 interface Props {
   createCategory: (data: RequestData) => Promise<boolean>;
@@ -16,6 +17,7 @@ interface Props {
 const CreateCategoryModal: React.FC<Props> = ({ loading, createCategory }) => {
   const [name, setName] = React.useState("");
   const [canClose, setCanClose] = React.useState(false);
+  const inputRef = useModalEvent<HTMLInputElement>("createCategoryModal");
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -39,6 +41,7 @@ const CreateCategoryModal: React.FC<Props> = ({ loading, createCategory }) => {
         <FormGroup>
           <FormLabel htmlFor="name">Name</FormLabel>
           <FormInput
+            ref={inputRef}
             autoFocus
             type="text"
             value={name}

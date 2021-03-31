@@ -100,7 +100,7 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, deleteCategor
                     ) : null}
                   </div>
                   <div className="items">
-                    {categoryNotes?.map((note, i) => {
+                    {categoryNotes?.map((note) => {
                       if (note.category_id === cat._id) {
                         const isActiveNote = isActive(activeNote ? activeNote : notes?.[0], note);
 
@@ -111,7 +111,7 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, deleteCategor
                               setActiveNote(note._id);
                               closeSidebar("sidebar");
                             }}
-                            key={i}
+                            key={note._id}
                             title={note.title}
                             className={isActiveNote ? "active" : ""}
                           >
@@ -155,9 +155,3 @@ const mapToProps = (state: State) => ({
 });
 
 export default connect(mapToProps, { deleteCategory })(Sidebar);
-
-export interface Options {
-  token: string;
-  prefix: string;
-  owners?: string;
-}

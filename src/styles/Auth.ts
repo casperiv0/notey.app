@@ -1,3 +1,4 @@
+import { Styles } from "@lib/constants";
 import styled, { css } from "styled-components";
 import { DEFAULT_BTN_STYLES, DEFAULT_INPUT_STYLES } from "./Global";
 
@@ -17,6 +18,7 @@ export const AuthForm = styled.form<{ width?: string }>`
   padding: 15px 20px;
   border-radius: 0.7rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+
   @media (max-height: 450px) {
     overflow-y: scroll;
   }
@@ -26,6 +28,7 @@ export const FormGroup = styled.div<{ inline?: boolean }>`
   margin-bottom: 15px;
   display: flex;
   flex-direction: column;
+
   ${(props) =>
     props.inline &&
     css`
@@ -52,6 +55,7 @@ export const FormLabel = styled.label`
   text-transform: uppercase;
   font-size: 1rem;
   font-weight: 700;
+
   &.more-info::before {
     content: attr(aria-label);
     display: none;
@@ -63,13 +67,14 @@ export const FormLabel = styled.label`
     color: #f2f2f2;
     width: 350px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: ${Styles.BorderRadius};
     pointer-events: none;
     text-transform: lowercase;
     font-weight: 400;
     background: #555;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
+
   &.more-info:hover::before {
     display: block;
   }
@@ -87,6 +92,7 @@ export const FormCheckbox = styled.input`
 
 export const SubmitBtn = styled.button`
   ${DEFAULT_BTN_STYLES}
+
   &:disabled {
     cursor: not-allowed;
   }
@@ -97,6 +103,7 @@ export const FormSmall = styled.small`
   font-size: 1rem;
   font-weight: 600;
   display: flex;
+
   & a {
     margin-left: 5px;
     color: #f2f2f2;

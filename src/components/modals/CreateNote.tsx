@@ -11,6 +11,7 @@ import { RequestData } from "@lib/fetch";
 import { createNote } from "@actions/note";
 import Loader from "@components/loader/Loader";
 import SelectCategory from "@components/SelectCategory";
+import useModalEvent from "@hooks/useModalEvent";
 
 interface Props {
   loading: boolean;
@@ -26,6 +27,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
   const [canClose, setCanClose] = React.useState(false);
   const [shareable, setShareable] = React.useState("false");
   const [locked, setLocked] = React.useState("false");
+  const inputRef = useModalEvent<HTMLInputElement>("createNoteModal");
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -71,6 +73,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
         <FormGroup>
           <FormLabel htmlFor="title">Title</FormLabel>
           <FormInput
+            ref={inputRef}
             autoFocus
             type="text"
             value={title}
