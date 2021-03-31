@@ -10,6 +10,7 @@ export const Center = styled.div<{ isCenter?: boolean; fullSize?: boolean }>`
       width: 100%;
       height: 100vh;
     `}
+
   ${(props) =>
     props.fullSize &&
     css`

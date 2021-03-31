@@ -3,6 +3,7 @@ import * as React from "react";
 import { createPortal } from "react-dom";
 import { usePortal } from "src/hooks/usePortal";
 import { ModalStyle, ModalHeader, ModalBody, CloseModal, ModalContainer } from "./styles";
+import useMounted from "@hooks/useMounted";
 
 interface Props {
   id: string;
@@ -12,7 +13,7 @@ interface Props {
 
 const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
   const portalRef = usePortal(id);
-  const [rendered, setRendered] = React.useState(false);
+  const isMounted = useMounted();
 
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -28,9 +29,7 @@ const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
     };
   }, [id]);
 
-  React.useEffect(() => setRendered(true), [portalRef]);
-
-  return rendered
+  return isMounted
     ? createPortal(
         <ModalContainer {...rest} className="modal" id={id}>
           <ModalStyle id={`style-${id}`} className={id}>

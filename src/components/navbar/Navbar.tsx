@@ -65,18 +65,16 @@ const Navbar: React.FC<Props> = ({
             <SrOnly htmlFor="activeNoteTitle">Title</SrOnly>
             {note ? (
               editing ? (
-                <>
-                  <NavTitleInput
-                    id="activeNoteTitle"
-                    value={editingNote?.title}
-                    onChange={(e) =>
-                      updateEditingNote({
-                        ...editingNote,
-                        title: e.target.value,
-                      })
-                    }
-                  />
-                </>
+                <NavTitleInput
+                  id="activeNoteTitle"
+                  value={editingNote?.title}
+                  onChange={(e) =>
+                    updateEditingNote({
+                      ...editingNote,
+                      title: e.target.value,
+                    })
+                  }
+                />
               ) : (
                 <h4>{editingNote?.title}</h4>
               )

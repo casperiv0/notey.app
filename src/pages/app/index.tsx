@@ -16,6 +16,8 @@ import Main from "@components/main/Main";
 import Note from "types/Note";
 import ManageNoteModal from "@components/modals/ManageNote";
 import OptionsModal from "@components/modals/OptionsModal";
+import { openModal } from "@lib/utils";
+import useMounted from "@hooks/useMounted";
 
 interface Props {
   isAuth: boolean;
@@ -25,12 +27,37 @@ interface Props {
 
 const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
   const router = useRouter();
+  const isMounted = useMounted();
 
   React.useEffect(() => {
     if (!loading && !isAuth) {
       router.push("/auth/login");
     }
   }, [isAuth, loading, router]);
+
+  React.useEffect(() => {
+    const modal = router.query.modal as string | undefined;
+
+    // wait for app to be mounted
+    if (!isMounted) return;
+
+    switch (modal) {
+      case "note": {
+        openModal("createNoteModal");
+        break;
+      }
+      case "category": {
+        openModal("createCategoryModal");
+        break;
+      }
+      case "options": {
+        openModal("optionsModal");
+        break;
+      }
+      default:
+        break;
+    }
+  }, [router.query, isMounted]);
 
   return (
     <>
@@ -59,8 +86,6 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
 
       <AppLayout>
         <Sidebar />
-
-        <div />
 
         <Main />
       </AppLayout>

@@ -14,6 +14,7 @@ export default function useCookie(
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     path: "/",
+    sameSite: "lax",
   };
 
   res.setHeader("Set-Cookie", serialize(name, String(stringValue), options));
