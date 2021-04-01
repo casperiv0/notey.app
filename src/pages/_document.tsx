@@ -10,6 +10,7 @@ class NoteyDoc extends Document {
     return (
       <Html lang="en">
         <Head>
+          <meta charSet="utf-8" />
           <link
             href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700;800&display=swap"
             as="style"
@@ -19,7 +20,6 @@ class NoteyDoc extends Document {
             href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700;800&display=swap"
             rel="stylesheet"
           />
-          <meta charSet="utf-8" />
           <meta
             name="google-site-verification"
             content="6LqjGmq_LshCupZ3FdR3meDNGaWcBjRG2snvcRtclSc"

@@ -109,15 +109,27 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
           />
         </FormGroup>
         <FormGroup>
-          <FormLabel>Shareable (People are able to view this with a link)</FormLabel>
-          <Select value={`${shareable}`} onChange={(e) => setShareable(e.target.value)}>
+          <FormLabel htmlFor="create_shareable">
+            Shareable (People are able to view this with a link)
+          </FormLabel>
+          <Select
+            name="Shareable"
+            id="create_shareable"
+            value={`${shareable}`}
+            onChange={(e) => setShareable(e.target.value)}
+          >
             <option value={"true"}>Yes</option>
             <option value={"false"}>No</option>
           </Select>
         </FormGroup>
         <FormGroup>
-          <FormLabel>Locked</FormLabel>
-          <Select value={`${locked}`} onChange={(e) => setLocked(e.target.value)}>
+          <FormLabel htmlFor="create_locked">Locked</FormLabel>
+          <Select
+            name="Locked"
+            id="create_locked"
+            value={`${locked}`}
+            onChange={(e) => setLocked(e.target.value)}
+          >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </Select>

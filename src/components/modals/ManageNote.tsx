@@ -46,8 +46,10 @@ const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
     <Modal id={ModalIds.ManageNoteModal} title="Manage Note">
       <form onSubmit={onSubmit}>
         <FormGroup>
-          <FormLabel>Shareable</FormLabel>
+          <FormLabel htmlFor="shareable">Shareable</FormLabel>
           <Select
+            name="Shareable"
+            id="shareable"
             ref={inputRef}
             value={`${shareable}`}
             onChange={(e) => setShareable(e.target.value)}
@@ -66,8 +68,10 @@ const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
           </FormSmall>
         </FormGroup>
         <FormGroup>
-          <FormLabel>Locked</FormLabel>
+          <FormLabel htmlFor="locked">Locked</FormLabel>
           <Select
+            name="Locked"
+            id="locked"
             style={{ cursor: "not-allowed" }}
             disabled
             value={`${locked}`}
