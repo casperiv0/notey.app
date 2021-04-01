@@ -37,6 +37,7 @@ const noCategory: Category = {
 };
 
 const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing }) => {
+  const [searching, setSearching] = React.useState(false);
   const [filteredNotes, setFilteredNotes] = React.useState(notes);
   const [tempNoteId, setTempNoteId] = React.useState<string | null>(null);
   const [tempCategory, setTempCategory] = React.useState<Category | null>(null);
@@ -64,7 +65,12 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing }) =>
   };
 
   const filterNotes = (filter: string) => {
-    if (filter === "") return setFilteredNotes(notes);
+    if (filter === "") {
+      setSearching(false);
+      return setFilteredNotes(notes);
+    }
+
+    setSearching(true);
     setFilteredNotes(
       notes &&
         notes.filter((note) => {
@@ -97,7 +103,9 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing }) =>
               const categoryNotes = filteredNotes?.filter((note) => {
                 return note.category_id === cat._id;
               });
-              if (categoryNotes.length <= 0) return null;
+              if (searching && categoryNotes.length <= 0) {
+                return null;
+              } else if (cat._id === "no_category" && categoryNotes.length <= 0) return null;
 
               return (
                 <CategoryDiv id={`category-${cat._id}`} key={ci}>

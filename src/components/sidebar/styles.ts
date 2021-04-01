@@ -128,6 +128,7 @@ export const SearchInput = styled.input`
   background-color: #2f2f2f;
   color: #f2f2f2;
   width: 100%;
+  outline: none;
 `;
 
 export const SearchIconContainer = styled.span`
