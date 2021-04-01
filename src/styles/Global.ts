@@ -79,10 +79,10 @@ export const Button = styled.button<{ danger?: boolean; navBtn?: boolean }>`
     props.disabled &&
     css`
       cursor: not-allowed;
+      opacity: 0.7;
 
       &:hover {
         filter: brightness(100%);
-        opacity: 0.8;
       }
     `}
 

@@ -1,4 +1,6 @@
+import { ModalIds } from "@lib/constants";
 import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
+import { closeModal } from "@lib/utils";
 import { toast } from "react-toastify";
 import { CategoryDispatch } from "types/State";
 import {
@@ -7,6 +9,7 @@ import {
   CREATE_CATEGORY,
   DELETE_CATEGORY,
   GET_NOTES,
+  UPDATE_CATEGORY_BY_ID,
 } from "../types";
 
 export const getCategories = (cookie?: string) => async (dispatch: CategoryDispatch) => {
@@ -71,6 +74,32 @@ export const deleteCategory = (id: string) => async (dispatch) => {
       });
 
       toast.success("Successfully deleted category");
+    } else {
+      dispatch({ type: SET_CATEGORY_LOADING, loading: false });
+      toast.error(res.data.error);
+    }
+  } catch (e) {
+    dispatch({ type: SET_CATEGORY_LOADING, loading: false });
+    toast.error(e?.response?.data?.error);
+  }
+};
+
+export const updateCategoryById = (id: string, data: RequestData) => async (
+  dispatch: CategoryDispatch,
+) => {
+  dispatch({ type: SET_CATEGORY_LOADING, loading: true });
+
+  try {
+    const res = await handleRequest(`/categories/${id}`, "PUT", data);
+
+    if (isSuccess(res)) {
+      dispatch({
+        type: UPDATE_CATEGORY_BY_ID,
+        categories: res.data.categories,
+      });
+
+      closeModal(ModalIds.EditCategory);
+      toast.success("Successfully updated category");
     } else {
       dispatch({ type: SET_CATEGORY_LOADING, loading: false });
       toast.error(res.data.error);

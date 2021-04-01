@@ -44,7 +44,7 @@ export const SelectCategoryStyle = styled.select`
   }
 `;
 
-export const DeleteCategory = styled.button`
+export const EditCategory = styled.button`
   padding: 5px 10px;
   background: none;
   border: none;
@@ -53,7 +53,7 @@ export const DeleteCategory = styled.button`
 
   &:hover {
     & svg {
-      fill: #d9534f;
+      fill: #fff;
     }
   }
 

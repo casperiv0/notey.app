@@ -1,6 +1,12 @@
 import Category from "types/Category";
 import State from "types/State";
-import { CREATE_CATEGORY, DELETE_CATEGORY, GET_CATEGORIES, SET_CATEGORY_LOADING } from "../types";
+import {
+  CREATE_CATEGORY,
+  DELETE_CATEGORY,
+  GET_CATEGORIES,
+  SET_CATEGORY_LOADING,
+  UPDATE_CATEGORY_BY_ID,
+} from "../types";
 
 type Actions =
   | {
@@ -17,6 +23,10 @@ type Actions =
     }
   | {
       type: typeof DELETE_CATEGORY;
+      categories: Category[];
+    }
+  | {
+      type: typeof UPDATE_CATEGORY_BY_ID;
       categories: Category[];
     };
 
@@ -48,6 +58,13 @@ export default function CategoryReducer(state = initState, action: Actions): Sta
       };
     }
     case "DELETE_CATEGORY": {
+      return {
+        ...state,
+        categories: action.categories,
+        loading: false,
+      };
+    }
+    case "UPDATE_CATEGORY_BY_ID": {
       return {
         ...state,
         categories: action.categories,

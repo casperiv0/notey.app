@@ -24,6 +24,7 @@ export enum ModalIds {
   CreateNoteModal = "createNoteModal",
   CreateCategoryModal = "createCategoryModal",
   AlertModal = "alertModal",
+  EditCategory = "editCategoryModal",
   AlertDeleteAccount = "alertModal_deleteAccount",
   AlertDeleteNote = "alertModal_deleteNote",
   AlertUnsavedChanges = "alertModal_unsavedChanges",

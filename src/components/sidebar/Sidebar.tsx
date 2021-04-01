@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import Note from "types/Note";
 import State from "types/State";
-import { deleteCategory } from "@actions/categories";
 import { closeModal, closeSidebar, foldCategory, openModal } from "@lib/utils";
 import {
   SidebarActive,
@@ -16,29 +15,31 @@ import {
 import { SrOnly, Divider } from "@styles/Global";
 import SidebarSearch from "./SidebarSearch";
 import CloseIcon from "@icons/CloseIcon";
-import DeleteIcon from "@icons/DeleteIcon";
+import EditIcon from "@icons/EditIcon";
 import Category from "types/Category";
-import { CategoryDiv, CategoryTitle, DeleteCategory } from "../../styles/Category";
+import { CategoryDiv, CategoryTitle, EditCategory } from "../../styles/Category";
 import AlertModal from "@components/modals/AlertModal";
 import { ModalIds } from "@lib/constants";
+import EditCategoryModal from "@components/modals/EditCategory";
 
 interface Props {
   notes: Note[];
   activeNote: Note | null;
   categories: Category[];
   editing: boolean | null;
-  deleteCategory: (id: string) => void;
 }
 
-const noCategory = {
+const noCategory: Category = {
   name: "No Category",
   _id: "no_category",
+  user_id: null,
+  created_at: null,
 };
 
-const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, deleteCategory }) => {
+const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing }) => {
   const [filteredNotes, setFilteredNotes] = React.useState(notes);
   const [tempNoteId, setTempNoteId] = React.useState<string | null>(null);
-  const [tempCategoryId, setTempCategoryId] = React.useState<string | null>(null);
+  const [tempCategory, setTempCategory] = React.useState<Category | null>(null);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -62,13 +63,6 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
     });
   };
 
-  const handleDeleteCategory = () => {
-    tempCategoryId && deleteCategory(tempCategoryId);
-
-    setTempCategoryId(null);
-    closeModal(ModalIds.AlertDeleteCategory);
-  };
-
   const filterNotes = (filter: string) => {
     if (filter === "") return setFilteredNotes(notes);
     setFilteredNotes(
@@ -80,9 +74,9 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
     );
   };
 
-  const handleDelete = (id: string) => () => {
-    openModal(ModalIds.AlertDeleteCategory);
-    setTempCategoryId(id);
+  const handleEditCategory = (category: Category) => () => {
+    setTempCategory(category);
+    openModal(ModalIds.EditCategory);
   };
 
   return (
@@ -114,10 +108,10 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
 
                     {cat._id !== "no_category" ? (
                       <div>
-                        <DeleteCategory onClick={handleDelete(cat._id)}>
-                          <SrOnly>Delete</SrOnly>
-                          <DeleteIcon></DeleteIcon>
-                        </DeleteCategory>
+                        <EditCategory onClick={handleEditCategory(cat)}>
+                          <SrOnly>Edit</SrOnly>
+                          <EditIcon />
+                        </EditCategory>
                       </div>
                     ) : null}
                   </div>
@@ -152,11 +146,13 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
             {/* don't show divider when no notes are found */}
             {notes && !notes[0] ? null : <Divider id="divider" />}
 
-            <SidebarNote onClick={() => openModal("createNoteModal")}>Create new Note</SidebarNote>
-            <SidebarNote onClick={() => openModal("createCategoryModal")}>
+            <SidebarNote onClick={() => openModal(ModalIds.CreateNoteModal)}>
+              Create new Note
+            </SidebarNote>
+            <SidebarNote onClick={() => openModal(ModalIds.CreateCategoryModal)}>
               Create new Category
             </SidebarNote>
-            <SidebarNote onClick={() => openModal("optionsModal")}>Options</SidebarNote>
+            <SidebarNote onClick={() => openModal(ModalIds.OptionsModal)}>Options</SidebarNote>
           </>
         </SidebarBody>
       </SidebarStyle>
@@ -184,29 +180,7 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
         ]}
       />
 
-      <AlertModal
-        id={ModalIds.AlertDeleteCategory}
-        title="Are you sure?"
-        description={
-          <>
-            Are you sure you want to deleted this <strong>category</strong>? This cannot be undone!
-          </>
-        }
-        actions={[
-          {
-            name: "Cancel",
-            onClick: () => {
-              setTempCategoryId(null);
-              closeModal(ModalIds.AlertDeleteCategory);
-            },
-          },
-          {
-            danger: true,
-            name: "Delete",
-            onClick: handleDeleteCategory,
-          },
-        ]}
-      />
+      <EditCategoryModal category={tempCategory} />
     </>
   );
 };
@@ -222,4 +196,4 @@ const mapToProps = (state: State) => ({
   editing: state.notes.editing,
 });
 
-export default connect(mapToProps, { deleteCategory })(Sidebar);
+export default connect(mapToProps)(Sidebar);

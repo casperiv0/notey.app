@@ -16,16 +16,16 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
     return res.json(errorObj(e));
   }
 
+  if (!isValidObjectId(query.id)) {
+    return res.status(400).json({
+      error: "Invalid objectId",
+      status: "error",
+    });
+  }
+
   switch (method) {
     case "DELETE": {
       try {
-        if (!isValidObjectId(query.id)) {
-          return res.status(400).json({
-            error: "Invalid objectId",
-            status: "error",
-          });
-        }
-
         const category: ICategory = await CategoryModel.findById(query.id);
 
         if (!category) {
@@ -63,6 +63,35 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
           status: "error",
         });
       }
+    }
+    case "PUT": {
+      const { name } = req.body;
+
+      if (!name) {
+        return res.status(400).json({
+          error: "Please fill in all fields",
+          status: "error",
+        });
+      }
+
+      const category: ICategory = await CategoryModel.findById(query.id);
+
+      if (!category) {
+        return res.status(404).json({
+          error: "category was not found",
+          status: "error",
+        });
+      }
+
+      category.name = name;
+      await category.save();
+
+      const categories = await CategoryModel.find({ user_id: req.userId });
+
+      return res.json({
+        categories,
+        status: "success",
+      });
     }
     default: {
       return res.status(405).json({

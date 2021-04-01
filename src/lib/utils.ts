@@ -1,5 +1,5 @@
 import { INote } from "@models/Note.model";
-import { LOCKED_NOTE_MSG } from "./constants";
+import { LOCKED_NOTE_MSG, ModalIds } from "./constants";
 
 export const isTrue = (v: string): boolean => `${v}` === "true";
 
@@ -30,7 +30,7 @@ export const closeSidebar = (id: string) => {
   document.querySelector(`#${id}`)?.classList.remove("active");
 };
 
-export const openModal = (id: string) => {
+export const openModal = (id: ModalIds) => {
   document.querySelector(`#${id}`)?.classList.add("active");
   document.querySelector(`#style-${id}`)?.classList.remove("closed");
   document.querySelector(`#style-${id}`)?.classList.add("active");
@@ -42,7 +42,7 @@ export const openModal = (id: string) => {
   window.dispatchEvent(event);
 };
 
-export const closeModal = (id: string) => {
+export const closeModal = (id: ModalIds) => {
   document.querySelector(`#style-${id}`)?.classList.replace("active", "closed");
 
   setTimeout(() => {
