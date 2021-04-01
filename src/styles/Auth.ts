@@ -15,8 +15,8 @@ export const AuthForm = styled.form<{ width?: string }>`
   max-width: 90%;
   max-height: 95%;
   background-color: #242526;
-  padding: 15px 20px;
-  border-radius: 0.7rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 
   @media (max-height: 450px) {

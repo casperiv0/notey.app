@@ -41,13 +41,13 @@ export const ModalContainer = styled.div`
 
 export const ModalStyle = styled.div`
   z-index: 35;
-  padding: 10px 15px;
+  padding: 0.8rem 1rem;
   background-color: #242526;
   width: 600px;
   max-width: 90%;
   max-height: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 0.7rem;
+  border-radius: 0.5rem;
 
   @media (max-height: 1000px) {
     overflow-y: auto;
@@ -72,8 +72,8 @@ export const ModalHeader = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
   border-bottom: 2px solid #3a3b3c;
-  margin-bottom: 15px;
-  padding-bottom: 5px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
 `;
 
 export const CloseModal = styled.button`
