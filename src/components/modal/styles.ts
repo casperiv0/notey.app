@@ -39,11 +39,11 @@ export const ModalContainer = styled.div`
   }
 `;
 
-export const ModalStyle = styled.div`
+export const ModalStyle = styled.div<{ width?: string }>`
   z-index: 35;
   padding: 0.8rem 1rem;
   background-color: #242526;
-  width: 600px;
+  width: ${(props) => props.width ?? "600px"};
   max-width: 90%;
   max-height: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -129,4 +129,16 @@ export const OptionsModalFooter = styled.div`
     color: #f5f5f5;
     text-decoration: underline;
   }
+`;
+
+// alertModal
+export const AlertDescription = styled.p`
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin: 1.5rem 0;
+`;
+
+export const AlertActions = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

@@ -17,3 +17,14 @@ export enum Size {
 export enum Styles {
   BorderRadius = "0.3rem",
 }
+
+export enum ModalIds {
+  OptionsModal = "optionsModal",
+  ManageNoteModal = "manageNoteModal",
+  CreateNoteModal = "createNoteModal",
+  CreateCategoryModal = "createCategoryModal",
+  AlertModal = "alertModal",
+  AlertDeleteAccount = "alertModal_deleteAccount",
+  AlertDeleteNote = "alertModal_deleteNote",
+  AlertUnsavedChanges = "alertModal_unsavedChanges",
+}

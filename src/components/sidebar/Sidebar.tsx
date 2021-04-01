@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Note from "types/Note";
 import State from "types/State";
 import { deleteCategory } from "@actions/categories";
-import { closeSidebar, openModal } from "@lib/utils";
+import { closeModal, closeSidebar, openModal } from "@lib/utils";
 import {
   SidebarActive,
   SidebarStyle,
@@ -19,11 +19,14 @@ import CloseIcon from "@icons/CloseIcon";
 import DeleteIcon from "@icons/DeleteIcon";
 import Category from "types/Category";
 import { CategoryDiv, CategoryTitle, DeleteCategory } from "../../styles/Category";
+import AlertModal from "@components/modals/AlertModal";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
   notes: Note[];
   activeNote: Note | null;
   categories: Category[];
+  editing: boolean | null;
   deleteCategory: (id: string) => void;
 }
 
@@ -32,15 +35,24 @@ const noCategory = {
   _id: "no_category",
 };
 
-const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, deleteCategory }) => {
+const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, deleteCategory }) => {
   const [filteredNotes, setFilteredNotes] = React.useState(notes);
+  const [tempId, setTempId] = React.useState<string | null>(null);
   const router = useRouter();
 
   React.useEffect(() => {
     setFilteredNotes(notes);
   }, [notes]);
 
-  const setActiveNote = (id: string) => {
+  const setActiveNote = (id: string, force = editing) => {
+    if (force) {
+      setTempId(id);
+      return openModal(ModalIds.AlertUnsavedChanges);
+    }
+
+    closeModal(ModalIds.AlertUnsavedChanges);
+    setTempId(null);
+
     router.push({
       href: "/app",
       query: {
@@ -140,6 +152,27 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, deleteCategor
       </SidebarStyle>
 
       <SidebarActive onClick={() => closeSidebar("sidebar")} id="sidebarActive"></SidebarActive>
+
+      <AlertModal
+        width="600px"
+        id="unsavedChanges"
+        title="Unsaved changes"
+        description="You have unsaved changes, please save them before continuing!"
+        actions={[
+          {
+            onClick: () => {
+              setTempId(null);
+              closeModal(ModalIds.AlertUnsavedChanges);
+            },
+            name: "Go back",
+          },
+          {
+            danger: true,
+            onClick: () => setActiveNote(tempId!, false),
+            name: "Continue without saving",
+          },
+        ]}
+      />
     </>
   );
 };
@@ -152,6 +185,7 @@ const mapToProps = (state: State) => ({
   notes: state.notes.notes,
   categories: state.categories.categories,
   activeNote: state.notes.note,
+  editing: state.notes.editing,
 });
 
 export default connect(mapToProps, { deleteCategory })(Sidebar);

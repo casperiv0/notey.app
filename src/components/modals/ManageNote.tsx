@@ -10,6 +10,7 @@ import { updateNoteById } from "@actions/note";
 import { RequestData } from "@lib/fetch";
 import { isTrue } from "@lib/utils";
 import useModalEvent from "@hooks/useModalEvent";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
   note: Note | null;
@@ -19,7 +20,7 @@ interface Props {
 const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
   const [shareable, setShareable] = React.useState(`${note?.shared}`);
   const [locked, setLocked] = React.useState(`${note?.locked}`);
-  const inputRef = useModalEvent<HTMLSelectElement>("manageNoteModal");
+  const inputRef = useModalEvent<HTMLSelectElement>(ModalIds.ManageNoteModal);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -42,7 +43,7 @@ const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
   }
 
   return (
-    <Modal id="manageNoteModal" title="Manage Note">
+    <Modal id={ModalIds.ManageNoteModal} title="Manage Note">
       <form onSubmit={onSubmit}>
         <FormGroup>
           <FormLabel>Shareable</FormLabel>

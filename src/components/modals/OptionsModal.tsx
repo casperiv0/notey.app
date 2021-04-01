@@ -10,6 +10,9 @@ import {
   OptionsModalFooter,
 } from "../modal/styles";
 import useModalEvent from "@hooks/useModalEvent";
+import AlertModal from "./AlertModal";
+import { closeModal, openModal } from "@lib/utils";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
   logout: () => void;
@@ -17,79 +20,95 @@ interface Props {
 }
 
 const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
-  const btnRef = useModalEvent<HTMLAnchorElement>("optionsModal");
+  const btnRef = useModalEvent<HTMLAnchorElement>(ModalIds.OptionsModal);
 
-  function confirmDeleteAccount() {
-    if (
-      window.confirm(
-        "Are you sure you want to delete your account? This will delete all your notes and categories as well and cannot be undone.",
-      )
-    ) {
-      deleteAccount();
-    }
+  function handleDelete() {
+    deleteAccount();
+
+    closeModal(ModalIds.AlertDeleteAccount);
   }
 
   return (
-    <Modal style={{ zIndex: "29" }} title="Options" id="optionsModal">
-      <OptionsModalStyle>
-        <OptionsModalContent>
-          <OptionsModalBody>
-            <Column>
-              <ReportBtn
-                ref={btnRef}
-                href="https://github.com/dev-caspertheghost/notey.app/issues/new?assignees=Dev-CasperTheGhost&labels=bug&template=bug_report.md&title=%5BBUG%5D+"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Report a bug
-              </ReportBtn>
-              <ReportBtn
-                href="https://github.com/dev-caspertheghost/notey.app/issues"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Request a feature
-              </ReportBtn>
-              <ReportBtn
-                href="https://github.com/dev-caspertheghost/notey.app/blob/master/LICENSE"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                License
-              </ReportBtn>
-              <Button style={{ marginBottom: "10px" }} danger disabled>
-                Change/set PIN code (Soon!)
-              </Button>
-              <Button style={{ marginBottom: "10px" }} danger onClick={logout}>
-                Logout
-              </Button>
-              <Button danger onClick={confirmDeleteAccount}>
-                Delete account?
-              </Button>
-              <Divider style={{ marginTop: "10px", marginBottom: "10px" }}></Divider>
+    <>
+      <Modal style={{ zIndex: "29" }} title="Options" id={ModalIds.OptionsModal}>
+        <OptionsModalStyle>
+          <OptionsModalContent>
+            <OptionsModalBody>
+              <Column>
+                <ReportBtn
+                  ref={btnRef}
+                  href="https://github.com/dev-caspertheghost/notey.app/issues/new?assignees=Dev-CasperTheGhost&labels=bug&template=bug_report.md&title=%5BBUG%5D+"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Report a bug
+                </ReportBtn>
+                <ReportBtn
+                  href="https://github.com/dev-caspertheghost/notey.app/issues"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Request a feature
+                </ReportBtn>
+                <ReportBtn
+                  href="https://github.com/dev-caspertheghost/notey.app/blob/master/LICENSE"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  License
+                </ReportBtn>
+                <Button style={{ marginBottom: "10px" }} danger disabled>
+                  Change/set PIN code (Soon!)
+                </Button>
+                <Button style={{ marginBottom: "10px" }} danger onClick={logout}>
+                  Logout
+                </Button>
+                <Button danger onClick={() => openModal(ModalIds.AlertDeleteAccount)}>
+                  Delete account?
+                </Button>
+                <Divider style={{ marginTop: "10px", marginBottom: "10px" }}></Divider>
 
-              <h3 style={{ textAlign: "center", paddingBottom: "10px" }}>
-                Icons are from <a href="https://icons.getbootstrap.com/">Bootstrap</a>
-              </h3>
-            </Column>
-          </OptionsModalBody>
-          <OptionsModalFooter>
-            Made with ❤️ by{" "}
-            <a target="_blank" rel="noreferrer noopener" href="https://caspertheghost.me">
-              CasperTheGhost
-            </a>{" "}
-            on{" "}
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://github.com/dev-caspertheghost/notey.app"
-            >
-              Github
-            </a>
-          </OptionsModalFooter>
-        </OptionsModalContent>
-      </OptionsModalStyle>
-    </Modal>
+                <h3 style={{ textAlign: "center", paddingBottom: "10px" }}>
+                  Icons are from <a href="https://icons.getbootstrap.com/">Bootstrap</a>
+                </h3>
+              </Column>
+            </OptionsModalBody>
+            <OptionsModalFooter>
+              Made with ❤️ by{" "}
+              <a target="_blank" rel="noreferrer noopener" href="https://caspertheghost.me">
+                CasperTheGhost
+              </a>{" "}
+              on{" "}
+              <a
+                target="_blank"
+                rel="noreferrer noopener"
+                href="https://github.com/dev-caspertheghost/notey.app"
+              >
+                Github
+              </a>
+            </OptionsModalFooter>
+          </OptionsModalContent>
+        </OptionsModalStyle>
+
+        <AlertModal
+          width="650px"
+          title="Delete my account"
+          description="Are you sure you want to delete your account? This will delete all your notes and categories. This action cannot be undone!"
+          id="deleteAccount"
+          actions={[
+            {
+              name: "No, Don't delete",
+              onClick: () => closeModal(ModalIds.AlertDeleteAccount),
+            },
+            {
+              danger: true,
+              name: "Yes, Delete my account",
+              onClick: handleDelete,
+            },
+          ]}
+        />
+      </Modal>
+    </>
   );
 };
 

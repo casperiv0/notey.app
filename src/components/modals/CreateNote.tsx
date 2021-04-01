@@ -12,6 +12,7 @@ import { createNote } from "@actions/note";
 import Loader from "@components/loader/Loader";
 import SelectCategory from "@components/SelectCategory";
 import useModalEvent from "@hooks/useModalEvent";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
   loading: boolean;
@@ -27,7 +28,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
   const [canClose, setCanClose] = React.useState(false);
   const [shareable, setShareable] = React.useState("false");
   const [locked, setLocked] = React.useState("false");
-  const inputRef = useModalEvent<HTMLInputElement>("createNoteModal");
+  const inputRef = useModalEvent<HTMLInputElement>(ModalIds.CreateNoteModal);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -62,13 +63,13 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
       setCategoryId("no_category");
       setShareable("false");
       setLocked("false");
-      closeModal("createNoteModal");
+      closeModal(ModalIds.CreateNoteModal);
       setCanClose(false);
     }
   }, [canClose]);
 
   return (
-    <Modal style={{ zIndex: 29 }} title="Create new title" id="createNoteModal">
+    <Modal style={{ zIndex: 29 }} title="Create new title" id={ModalIds.CreateNoteModal}>
       <form onSubmit={onSubmit}>
         <FormGroup>
           <FormLabel htmlFor="title">Title</FormLabel>

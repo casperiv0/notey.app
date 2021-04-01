@@ -14,11 +14,13 @@ import {
 } from "./styles";
 import MenuIcon from "@icons/MenuIcon";
 import OptionsIcon from "@icons/OptionsIcon";
-import { openModal, openSidebar } from "@lib/utils";
+import { closeModal, openModal, openSidebar } from "@lib/utils";
 import Note from "types/Note";
 import SelectCategory from "@components/SelectCategory";
 import RightSidebar from "./RightSidebar";
 import { setEditing, updateEditingNote, deleteNoteById } from "@actions/note";
+import AlertModal from "@components/modals/AlertModal";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
   categories: Category[];
@@ -45,83 +47,100 @@ const Navbar: React.FC<Props> = ({
   }
 
   function handleDelete() {
-    // eslint-disable-next-line no-restricted-globals
-    const conf = confirm("Are you sure you want to deleted this note? This cannot be undone!");
-    if (conf === false) return;
-
     setEditing(false);
     deleteNoteById(`${note?._id}`);
+
+    closeModal(ModalIds.AlertDeleteNote);
   }
 
   return (
-    <NavbarContainer>
-      <NavbarStyle>
-        <NavTitle>
-          <OpenSidebar title="Open sidebar" onClick={() => openSidebar("sidebar")}>
-            <SrOnly>Menu</SrOnly>
-            <MenuIcon />
-          </OpenSidebar>
-          <>
-            <SrOnly htmlFor="activeNoteTitle">Title</SrOnly>
-            {note ? (
-              editing ? (
-                <NavTitleInput
-                  id="activeNoteTitle"
-                  value={editingNote?.title}
-                  onChange={(e) =>
-                    updateEditingNote({
-                      ...editingNote,
-                      title: e.target.value,
-                    })
-                  }
-                />
-              ) : (
-                <h4>{editingNote?.title}</h4>
-              )
-            ) : (
-              "No notes found"
-            )}
-          </>
-        </NavTitle>
-        <NavLinks>
-          {note && note._id ? (
-            <Row>
-              <OpenRightSidebar title="Open Options" onClick={() => openSidebar("right-sidebar")}>
-                <SrOnly>Options</SrOnly>
-                <OptionsIcon />
-              </OpenRightSidebar>
-              <Row>
-                {editing ? (
-                  <SelectCategory
-                    className="is-in-nav"
+    <>
+      <NavbarContainer>
+        <NavbarStyle>
+          <NavTitle>
+            <OpenSidebar title="Open sidebar" onClick={() => openSidebar("sidebar")}>
+              <SrOnly>Menu</SrOnly>
+              <MenuIcon />
+            </OpenSidebar>
+            <>
+              <SrOnly htmlFor="activeNoteTitle">Title</SrOnly>
+              {note ? (
+                editing ? (
+                  <NavTitleInput
                     id="activeNoteTitle"
-                    value={editingNote?.category_id!}
-                    categories={categories}
+                    value={editingNote?.title}
                     onChange={(e) =>
                       updateEditingNote({
                         ...editingNote,
-                        category_id: e.target.value,
+                        title: e.target.value,
                       })
                     }
                   />
-                ) : null}
-                <Button navBtn danger onClick={handleDelete}>
-                  Delete
-                </Button>
-                <Button navBtn className="ml" onClick={handleEdit}>
-                  {editing ? "Save" : "Edit"}
-                </Button>
-                <Button navBtn className="ml" onClick={() => openModal("manageNoteModal")}>
-                  Manage
-                </Button>
+                ) : (
+                  <h4>{editingNote?.title}</h4>
+                )
+              ) : (
+                "No notes found"
+              )}
+            </>
+          </NavTitle>
+          <NavLinks>
+            {note && note._id ? (
+              <Row>
+                <OpenRightSidebar title="Open Options" onClick={() => openSidebar("right-sidebar")}>
+                  <SrOnly>Options</SrOnly>
+                  <OptionsIcon />
+                </OpenRightSidebar>
+                <Row>
+                  {editing ? (
+                    <SelectCategory
+                      className="is-in-nav"
+                      id="activeNoteTitle"
+                      value={editingNote?.category_id!}
+                      categories={categories}
+                      onChange={(e) =>
+                        updateEditingNote({
+                          ...editingNote,
+                          category_id: e.target.value,
+                        })
+                      }
+                    />
+                  ) : null}
+                  <Button navBtn danger onClick={() => openModal(ModalIds.AlertDeleteNote)}>
+                    Delete
+                  </Button>
+                  <Button navBtn className="ml" onClick={handleEdit}>
+                    {editing ? "Save" : "Edit"}
+                  </Button>
+                  <Button navBtn className="ml" onClick={() => openModal("manageNoteModal")}>
+                    Manage
+                  </Button>
+                </Row>
               </Row>
-            </Row>
-          ) : null}
-        </NavLinks>
-      </NavbarStyle>
+            ) : null}
+          </NavLinks>
+        </NavbarStyle>
 
-      <RightSidebar />
-    </NavbarContainer>
+        <RightSidebar />
+      </NavbarContainer>
+
+      <AlertModal
+        id="deleteNote"
+        title="Are you sure?"
+        description="Are you sure you want to deleted this note? This cannot be undone!"
+        actions={[
+          {
+            name: "Cancel",
+            onClick: () => closeModal(ModalIds.AlertDeleteNote),
+          },
+          {
+            danger: true,
+            name: "Delete",
+            onClick: handleDelete,
+          },
+        ]}
+      />
+    </>
   );
 };
 

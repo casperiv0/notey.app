@@ -29,7 +29,7 @@ export const DEFAULT_BTN_STYLES = css<{ bgColor?: string }>`
   border-radius: ${Styles.BorderRadius};
   background: ${(props) => (props.bgColor ? props.bgColor : "#3A3B3C")};
   color: #f2f2f2;
-  border: none;
+  border: 1px solid transparent;
   transition: filter 200ms, opacity 200ms;
 
   @media (min-width: ${Size.DefaultMinWidth}) {

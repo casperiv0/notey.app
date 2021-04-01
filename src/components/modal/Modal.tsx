@@ -8,6 +8,7 @@ import useMounted from "@hooks/useMounted";
 interface Props {
   id: string;
   title: string;
+  width?: string;
   [key: string]: unknown;
 }
 
@@ -32,7 +33,7 @@ const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
   return isMounted
     ? createPortal(
         <ModalContainer {...rest} className="modal" id={id}>
-          <ModalStyle id={`style-${id}`} className={id}>
+          <ModalStyle width={rest.width} id={`style-${id}`} className={id}>
             <ModalHeader>
               {title}
               <CloseModal onClick={() => closeModal(id)}>&times;</CloseModal>
