@@ -125,8 +125,8 @@ const Navbar: React.FC<Props> = ({
       </NavbarContainer>
 
       <AlertModal
-        id="deleteNote"
-        title="Are you sure?"
+        id={ModalIds.AlertDeleteNote}
+        title="Delete note"
         description="Are you sure you want to deleted this note? This cannot be undone!"
         actions={[
           {

@@ -94,7 +94,7 @@ const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
           width="650px"
           title="Delete my account"
           description="Are you sure you want to delete your account? This will delete all your notes and categories. This action cannot be undone!"
-          id="deleteAccount"
+          id={ModalIds.AlertDeleteAccount}
           actions={[
             {
               name: "No, Don't delete",

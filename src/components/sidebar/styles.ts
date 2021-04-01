@@ -92,10 +92,6 @@ export const CloseSidebarBtn = styled.button`
   & svg {
     fill: #f2f2f2;
   }
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const SearchForm = styled.form`
@@ -132,10 +128,6 @@ export const SearchInput = styled.input`
   background-color: #2f2f2f;
   color: #f2f2f2;
   width: 100%;
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const SearchIconContainer = styled.span`
@@ -179,7 +171,6 @@ export const SidebarNote = styled.button`
   }
 
   &:focus {
-    outline: none;
     background-color: #3a3b3c;
   }
 

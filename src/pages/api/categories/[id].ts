@@ -1,3 +1,4 @@
+import { isValidObjectId } from "mongoose";
 import { NextApiResponse } from "next";
 import { IRequest } from "types/IRequest";
 import useAuth from "@hooks/useAuth";
@@ -18,6 +19,13 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
   switch (method) {
     case "DELETE": {
       try {
+        if (!isValidObjectId(query.id)) {
+          return res.status(400).json({
+            error: "Invalid objectId",
+            status: "error",
+          });
+        }
+
         const category: ICategory = await CategoryModel.findById(query.id);
 
         if (!category) {

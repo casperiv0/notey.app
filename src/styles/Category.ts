@@ -4,12 +4,12 @@ import { DEFAULT_INPUT_STYLES } from "./Global";
 
 export const CategoryDiv = styled.div`
   margin: 10px 0 20px 0;
+
   &.folded {
-    .items {
-      button {
-        display: none;
-      }
+    .items button {
+      display: none;
     }
+
     margin: 5px 0;
   }
 `;
@@ -26,9 +26,6 @@ export const CategoryTitle = styled.button`
   justify-content: space-between;
   align-items: center;
   text-transform: uppercase;
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const SelectCategoryStyle = styled.select`

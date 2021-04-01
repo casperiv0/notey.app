@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Note from "types/Note";
 import State from "types/State";
 import { deleteCategory } from "@actions/categories";
-import { closeModal, closeSidebar, openModal } from "@lib/utils";
+import { closeModal, closeSidebar, foldCategory, openModal } from "@lib/utils";
 import {
   SidebarActive,
   SidebarStyle,
@@ -37,7 +37,8 @@ const noCategory = {
 
 const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, deleteCategory }) => {
   const [filteredNotes, setFilteredNotes] = React.useState(notes);
-  const [tempId, setTempId] = React.useState<string | null>(null);
+  const [tempNoteId, setTempNoteId] = React.useState<string | null>(null);
+  const [tempCategoryId, setTempCategoryId] = React.useState<string | null>(null);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -46,12 +47,12 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
 
   const setActiveNote = (id: string, force = editing) => {
     if (force) {
-      setTempId(id);
+      setTempNoteId(id);
       return openModal(ModalIds.AlertUnsavedChanges);
     }
 
     closeModal(ModalIds.AlertUnsavedChanges);
-    setTempId(null);
+    setTempNoteId(null);
 
     router.push({
       href: "/app",
@@ -59,6 +60,13 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
         noteId: id,
       },
     });
+  };
+
+  const handleDeleteCategory = () => {
+    tempCategoryId && deleteCategory(tempCategoryId);
+
+    setTempCategoryId(null);
+    closeModal(ModalIds.AlertDeleteCategory);
   };
 
   const filterNotes = (filter: string) => {
@@ -73,7 +81,8 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
   };
 
   const handleDelete = (id: string) => () => {
-    deleteCategory(id);
+    openModal(ModalIds.AlertDeleteCategory);
+    setTempCategoryId(id);
   };
 
   return (
@@ -99,8 +108,9 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
               return (
                 <CategoryDiv id={`category-${cat._id}`} key={ci}>
                   <div style={{ display: "flex" }}>
-                    {/* onClick={() => setFoldState(cat._id)} */}
-                    <CategoryTitle title="Click to fold">{category}</CategoryTitle>
+                    <CategoryTitle onClick={() => foldCategory(cat._id)} title="Click to fold">
+                      {category}
+                    </CategoryTitle>
 
                     {cat._id !== "no_category" ? (
                       <div>
@@ -155,21 +165,45 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing, dele
 
       <AlertModal
         width="600px"
-        id="unsavedChanges"
+        id={ModalIds.AlertUnsavedChanges}
         title="Unsaved changes"
         description="You have unsaved changes, please save them before continuing!"
         actions={[
           {
             onClick: () => {
-              setTempId(null);
+              setTempNoteId(null);
               closeModal(ModalIds.AlertUnsavedChanges);
             },
             name: "Go back",
           },
           {
             danger: true,
-            onClick: () => setActiveNote(tempId!, false),
+            onClick: () => setActiveNote(tempNoteId!, false),
             name: "Continue without saving",
+          },
+        ]}
+      />
+
+      <AlertModal
+        id={ModalIds.AlertDeleteCategory}
+        title="Are you sure?"
+        description={
+          <>
+            Are you sure you want to deleted this <strong>category</strong>? This cannot be undone!
+          </>
+        }
+        actions={[
+          {
+            name: "Cancel",
+            onClick: () => {
+              setTempCategoryId(null);
+              closeModal(ModalIds.AlertDeleteCategory);
+            },
+          },
+          {
+            danger: true,
+            name: "Delete",
+            onClick: handleDeleteCategory,
           },
         ]}
       />

@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import CloseIcon from "@components/icons/CloseIcon";
 import SelectCategory from "@components/SelectCategory";
-import { closeSidebar } from "@lib/utils";
+import { closeModal, closeSidebar, openModal } from "@lib/utils";
 import { Button, Column, SrOnly } from "@styles/Global";
 import Category from "types/Category";
 import Note from "types/Note";
@@ -14,6 +14,8 @@ import {
   CloseRightSidebar,
 } from "./styles";
 import { setEditing, updateEditingNote, deleteNoteById } from "@actions/note";
+import AlertModal from "@components/modals/AlertModal";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
   editing: boolean | null;
@@ -32,15 +34,12 @@ const RightSidebar: React.FC<Props> = ({
   updateEditingNote,
   deleteNoteById,
 }) => {
-  const handleDelete = () => {
-    // eslint-disable-next-line no-restricted-globals
-    const conf = confirm("Are you sure you want to deleted this note? This cannot be undone!");
-    if (conf === false) return;
-
-    closeSidebar("right-sidebar");
+  function handleDelete() {
     setEditing(false);
-    deleteNoteById(editingNote?._id!);
-  };
+    deleteNoteById(`${editingNote?._id}`);
+
+    closeModal(ModalIds.AlertDeleteNote);
+  }
 
   const handleEdit = () => {
     setEditing(!editing);
@@ -79,12 +78,33 @@ const RightSidebar: React.FC<Props> = ({
                 />
               </div>
             ) : null}
-            <Button style={{ marginBottom: "10px" }} danger onClick={handleDelete}>
+            <Button
+              style={{ marginBottom: "10px" }}
+              danger
+              onClick={() => openModal(ModalIds.AlertDeleteNote)}
+            >
               Delete
             </Button>
           </Column>
         </RightSidebarContent>
       </RightSidebarStyle>
+
+      <AlertModal
+        id={ModalIds.AlertDeleteNote}
+        title="Delete note"
+        description="Are you sure you want to deleted this note? This cannot be undone!"
+        actions={[
+          {
+            name: "Cancel",
+            onClick: () => closeModal(ModalIds.AlertDeleteNote),
+          },
+          {
+            danger: true,
+            name: "Delete",
+            onClick: handleDelete,
+          },
+        ]}
+      />
     </>
   );
 };

@@ -110,4 +110,6 @@ export const NoteTextArea = styled.textarea`
   resize: none;
   border: none;
   font-size: 1.2rem;
+
+  outline: none !important;
 `;

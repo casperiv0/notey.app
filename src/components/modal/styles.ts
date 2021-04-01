@@ -55,7 +55,7 @@ export const ModalStyle = styled.div<{ width?: string }>`
   }
 
   &.active {
-    animation: ${openAni} 200ms linear;
+    animation: ${openAni} 150ms linear;
   }
 
   &.closed {
@@ -97,7 +97,6 @@ export const CloseModal = styled.button`
 
   &:focus {
     background: rgba(85, 85, 85, 0.8);
-    outline: none;
   }
 `;
 

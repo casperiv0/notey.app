@@ -6,7 +6,7 @@ import { Button } from "@styles/Global";
 interface Props {
   id: string;
   title: string;
-  description: string;
+  description: string | React.ReactFragment;
   width?: string;
   actions: ModalAction[];
 }
@@ -19,7 +19,7 @@ export interface ModalAction {
 
 const AlertModal = (props: Props) => {
   return (
-    <Modal width={props.width ?? "500px"} title={props.title} id={`alertModal_${props.id}`}>
+    <Modal width={props.width ?? "500px"} title={props.title} id={props.id}>
       <AlertDescription>{props.description}</AlertDescription>
 
       <AlertActions>

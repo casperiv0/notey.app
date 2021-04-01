@@ -53,10 +53,6 @@ export const NavTitleInput = styled.input`
   font-size: 1.2rem;
   font-weight: 600;
   color: #f2f2f2;
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const NavLinks = styled.div`
@@ -90,10 +86,6 @@ export const OpenSidebar = styled.button`
   @media (min-width: ${Size.DefaultMinWidth}) {
     display: none;
   }
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const OpenRightSidebar = styled.button`
@@ -106,10 +98,6 @@ export const OpenRightSidebar = styled.button`
 
   & svg {
     fill: #f2f2f2;
-  }
-
-  &:focus {
-    outline: none;
   }
 
   @media (min-width: ${Size.DefaultMinWidth}) {
@@ -174,10 +162,6 @@ export const CloseRightSidebar = styled.button`
   text-align: left;
   width: 50px;
   height: 50px;
-
-  &:focus {
-    outline: none;
-  }
 
   & svg {
     fill: #f2f2f2;

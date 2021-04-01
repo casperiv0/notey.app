@@ -27,4 +27,5 @@ export enum ModalIds {
   AlertDeleteAccount = "alertModal_deleteAccount",
   AlertDeleteNote = "alertModal_deleteNote",
   AlertUnsavedChanges = "alertModal_unsavedChanges",
+  AlertDeleteCategory = "alertModal_deleteCategory",
 }

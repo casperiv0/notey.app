@@ -10,7 +10,7 @@ import { ALLOWED_METHODS } from "@lib/shared";
 
 const corsOptions: CorsOptions = {
   credentials: true,
-  origin: [process.env.PROD_ORIGIN!, "http://localhost:3000"],
+  origin: [process.env.NEXT_PUBLIC_PROD_ORIGIN!, process.env.DEV_ORIGIN!],
   methods: ALLOWED_METHODS,
 };
 

@@ -51,6 +51,9 @@ Simple notes app to keep track of important things
 - Authentication in react
 - React portals
 - convert text to markdown using [marked](https://www.npmjs.com/package/marked)
+- Use of React portals
+- Server Side rendering using next.js
+- Static Site rendering using next.js
 
 ## Supporting notey.app
 

@@ -57,3 +57,14 @@ export const closeAllModals = () => {
     modal.classList.remove("active");
   });
 };
+
+export const foldCategory = (categoryId: string) => {
+  const el = document.getElementById(`category-${categoryId}`);
+  if (!el) return;
+
+  if (el.classList.contains("folded")) {
+    el.classList.remove("folded");
+  } else {
+    el.classList.add("folded");
+  }
+};
