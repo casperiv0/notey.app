@@ -1,17 +1,5 @@
 import { Schema, model, Document, models } from "mongoose";
-import { IUser } from "./User.model";
-import { ICategory } from "./Category.model";
-
-export interface INote extends Document {
-  user_id: IUser["_id"];
-  category_id: ICategory["_id"];
-  title: string;
-  body: string;
-  markdown: string;
-  created_at: number;
-  shared: boolean;
-  locked: boolean;
-}
+import Note from "types/Note";
 
 const noteSchema = new Schema({
   user_id: {
@@ -49,4 +37,5 @@ const noteSchema = new Schema({
   },
 });
 
-export default models.Note || model<INote>("Note", noteSchema);
+export type NoteDoc = Note & Document;
+export default models.Note || model<NoteDoc>("Note", noteSchema);

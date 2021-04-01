@@ -1,7 +1,7 @@
 import { NextApiResponse } from "next";
 import { IRequest } from "types/IRequest";
 import { errorObj } from "@lib/utils";
-import NoteModel, { INote } from "@models/Note.model";
+import NoteModel, { NoteDoc } from "@models/Note.model";
 import "@lib/database";
 
 export default async function handler(req: IRequest, res: NextApiResponse) {
@@ -10,7 +10,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
   switch (method) {
     case "GET": {
       try {
-        const note: INote = await NoteModel.findById(query.id);
+        const note: NoteDoc = await NoteModel.findById(query.id);
 
         if (!note) {
           return res.status(404).json(errorObj("not was not found"));

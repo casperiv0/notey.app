@@ -53,31 +53,27 @@ const EditCategoryModal = ({ category, deleteCategory, updateCategoryById }: Pro
   return (
     <>
       <Modal title="Edit category" id={ModalIds.EditCategory}>
-        {!category?._id ? (
-          <p>A category must be provided as props.</p>
-        ) : (
-          <form onSubmit={onSubmit}>
-            <FormGroup>
-              <FormLabel htmlFor="edit_category_name">Category name</FormLabel>
+        <form onSubmit={onSubmit}>
+          <FormGroup>
+            <FormLabel htmlFor="edit_category_name">Category name</FormLabel>
 
-              <FormInput
-                ref={ref}
-                id="edit_category_name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </FormGroup>
+            <FormInput
+              ref={ref}
+              id="edit_category_name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </FormGroup>
 
-            <Row style={{ justifyContent: "space-between" }}>
-              <Button type="button" onClick={handleDelete} danger>
-                Delete
-              </Button>
-              <Button disabled={isDisabled} type="submit">
-                Save Changes
-              </Button>
-            </Row>
-          </form>
-        )}
+          <Row style={{ justifyContent: "space-between" }}>
+            <Button type="button" onClick={handleDelete} danger>
+              Delete
+            </Button>
+            <Button disabled={isDisabled} type="submit">
+              Save Changes
+            </Button>
+          </Row>
+        </form>
       </Modal>
 
       <AlertModal

@@ -1,18 +1,64 @@
-export const SET_CATEGORY_LOADING = "SET_CATEGORY_LOADING";
-export const SET_NOTE_LOADING = "SET_NOTE_LOADING";
-export const SET_AUTH_LOADING = "SET_AUTH_LOADING";
-export const AUTHENTICATE = "AUTHENTICATE";
+import * as React from "react";
+import Category from "types/Category";
+import Note from "types/Note";
+import User from "types/User";
 
-export const GET_NOTE_BY_ID = "GET_NOTE_BY_ID";
-export const GET_NOTES = "GET_NOTES";
-export const CREATE_NOTE = "CREATE_NOTE";
-export const UPDATE_NOTE_BY_ID = "UPDATE_NOTE_BY_ID";
-export const DELETE_NOTE_BY_ID = "DELETE_NOTE_BY_ID";
+export type Dis<T> = React.Dispatch<T | SetLoading>;
 
-export const GET_CATEGORIES = "GET_CATEGORIES";
-export const CREATE_CATEGORY = "CREATE_CATEGORY";
-export const DELETE_CATEGORY = "DELETE_CATEGORY";
-export const UPDATE_CATEGORY_BY_ID = "UPDATE_CATEGORY_BY_ID";
+export interface SetLoading {
+  type: "SET_CATEGORY_LOADING" | "SET_AUTH_LOADING" | "SET_NOTE_LOADING";
+  loading: boolean;
+}
 
-export const SET_EDITING = "SET_EDITING";
-export const UPDATE_EDITING_NOTE = "UPDATE_EDITING_NOTE";
+// Note actions
+export interface GetNoteById {
+  type: "GET_NOTE_BY_ID";
+  note: Note;
+}
+
+export interface GetAllNotes {
+  type: "GET_NOTES";
+  notes: Note[];
+}
+
+export interface CreateNote {
+  type: "CREATE_NOTE";
+  note: Note;
+  notes: Note[];
+}
+
+export interface SetEditing {
+  type: "SET_EDITING";
+  editing: boolean;
+}
+
+export interface UpdateEditingNote {
+  type: "UPDATE_EDITING_NOTE";
+  note: Note;
+}
+
+export interface UpdateNoteById {
+  type: "UPDATE_NOTE_BY_ID";
+  notes: Note[];
+  note: Note;
+}
+
+export interface DeleteNoteById {
+  type: "DELETE_NOTE_BY_ID";
+  notes: Note[];
+  note: Note;
+}
+
+// Category actions
+export interface UpdateCategoriesState {
+  // do this because it all returns the same data.
+  type: "GET_CATEGORIES" | "UPDATE_CATEGORY_BY_ID" | "CREATE_CATEGORY" | "DELETE_CATEGORY";
+  categories: Category[];
+}
+
+// auth actions
+export interface Authenticate {
+  type: "AUTHENTICATE";
+  user: User | null;
+  isAuth: boolean;
+}

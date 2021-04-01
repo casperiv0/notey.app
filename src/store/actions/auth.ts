@@ -1,20 +1,19 @@
 import { toast } from "react-toastify";
 import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
-import { AUTHENTICATE, SET_AUTH_LOADING } from "../types";
+import { Dis, Authenticate } from "../types";
 import { NO_ERROR } from "@lib/constants";
-import { AuthDispatch } from "types/State";
 
 export const authenticate = (data: RequestData, login: boolean) => async (
-  dispatch: AuthDispatch,
+  dispatch: Dis<Authenticate>,
 ): Promise<boolean> => {
-  dispatch({ type: SET_AUTH_LOADING, loading: true });
+  dispatch({ type: "SET_AUTH_LOADING", loading: true });
 
   try {
     const res = await handleRequest(`/auth/${login ? "login" : "register"}`, "POST", data);
 
     if (isSuccess(res)) {
       dispatch({
-        type: AUTHENTICATE,
+        type: "AUTHENTICATE",
         user: res.data.user,
         isAuth: true,
       });
@@ -28,12 +27,12 @@ export const authenticate = (data: RequestData, login: boolean) => async (
     console.error(e);
 
     toast.error(e?.response?.data?.error ?? NO_ERROR);
-    dispatch({ type: SET_AUTH_LOADING, loading: false });
+    dispatch({ type: "SET_AUTH_LOADING", loading: false });
     return false;
   }
 };
 
-export const checkAuth = (cookie?: string) => async (dispatch: AuthDispatch) => {
+export const checkAuth = (cookie?: string) => async (dispatch: Dis<Authenticate>) => {
   try {
     const res = await handleRequest("/auth/me", "POST", {
       cookie,
@@ -41,24 +40,24 @@ export const checkAuth = (cookie?: string) => async (dispatch: AuthDispatch) => 
 
     if (isSuccess(res)) {
       dispatch({
-        type: AUTHENTICATE,
+        type: "AUTHENTICATE",
         isAuth: true,
         user: res.data.user,
       });
     }
   } catch (e) {
-    dispatch({ type: SET_AUTH_LOADING, loading: false });
+    dispatch({ type: "SET_AUTH_LOADING", loading: false });
     return null;
   }
 };
 
-export const logout = () => async (dispatch: AuthDispatch): Promise<void> => {
+export const logout = () => async (dispatch: Dis<Authenticate>): Promise<void> => {
   try {
     const res = await handleRequest("/auth/logout", "POST");
 
     if (isSuccess(res)) {
       dispatch({
-        type: AUTHENTICATE,
+        type: "AUTHENTICATE",
         user: null,
         isAuth: false,
       });
@@ -67,17 +66,17 @@ export const logout = () => async (dispatch: AuthDispatch): Promise<void> => {
     }
   } catch (e) {
     toast.error(e?.response.data?.error ?? NO_ERROR);
-    dispatch({ type: SET_AUTH_LOADING, loading: false });
+    dispatch({ type: "SET_AUTH_LOADING", loading: false });
   }
 };
 
-export const deleteAccount = () => async (dispatch: AuthDispatch): Promise<void> => {
+export const deleteAccount = () => async (dispatch: Dis<Authenticate>): Promise<void> => {
   try {
     const res = await handleRequest("/auth/me", "DELETE");
 
     if (isSuccess(res)) {
       dispatch({
-        type: AUTHENTICATE,
+        type: "AUTHENTICATE",
         user: null,
         isAuth: false,
       });
@@ -86,6 +85,6 @@ export const deleteAccount = () => async (dispatch: AuthDispatch): Promise<void>
     }
   } catch (e) {
     toast.error(e?.response.data?.error ?? NO_ERROR);
-    dispatch({ type: SET_AUTH_LOADING, loading: false });
+    dispatch({ type: "SET_AUTH_LOADING", loading: false });
   }
 };

@@ -1,7 +1,6 @@
 import Note from "./Note";
 import User from "./User";
 import Category from "./Category";
-import { Dispatch } from "react";
 
 interface State {
   auth: {
@@ -21,9 +20,5 @@ interface State {
     loading: boolean;
   };
 }
-
-export type AuthDispatch = Dispatch<{ type: string } & Partial<State["auth"]>>;
-export type CategoryDispatch = Dispatch<{ type: string } & Partial<State["categories"]>>;
-export type NotesDispatch = Dispatch<{ type: string } & Partial<State["notes"]>>;
 
 export default State;

@@ -1,52 +1,24 @@
-import Note from "types/Note";
 import State from "types/State";
 import {
-  CREATE_NOTE,
-  DELETE_NOTE_BY_ID,
-  GET_NOTES,
-  GET_NOTE_BY_ID,
-  SET_EDITING,
-  SET_NOTE_LOADING,
-  UPDATE_EDITING_NOTE,
-  UPDATE_NOTE_BY_ID,
+  CreateNote,
+  DeleteNoteById,
+  GetAllNotes,
+  GetNoteById,
+  SetEditing,
+  SetLoading,
+  UpdateEditingNote,
+  UpdateNoteById,
 } from "../types";
 
 type Actions =
-  | {
-      type: typeof GET_NOTE_BY_ID;
-      note: Note;
-    }
-  | {
-      type: typeof SET_NOTE_LOADING;
-      loading: boolean;
-    }
-  | {
-      type: typeof GET_NOTES;
-      notes: Note[];
-    }
-  | {
-      type: typeof CREATE_NOTE;
-      notes: Note[];
-      note: Note;
-    }
-  | {
-      type: typeof SET_EDITING;
-      editing: boolean;
-    }
-  | {
-      type: typeof UPDATE_EDITING_NOTE;
-      note: Note;
-    }
-  | {
-      type: typeof UPDATE_NOTE_BY_ID;
-      notes: Note[];
-      note: Note;
-    }
-  | {
-      type: typeof DELETE_NOTE_BY_ID;
-      notes: Note[];
-      note: Note;
-    };
+  | GetNoteById
+  | SetLoading
+  | GetAllNotes
+  | CreateNote
+  | SetEditing
+  | UpdateEditingNote
+  | UpdateNoteById
+  | DeleteNoteById;
 
 const initState: State["notes"] = {
   note: null,
@@ -61,7 +33,6 @@ export default function NoteReducer(state = initState, action: Actions): State["
     case "GET_NOTE_BY_ID": {
       return {
         ...state,
-        ...action,
         note: action.note,
         editingNote: action.note,
         loading: false,
@@ -117,6 +88,7 @@ export default function NoteReducer(state = initState, action: Actions): State["
         notes: action.notes,
         editingNote: action.note,
         loading: false,
+        editing: null,
       };
     }
     default: {

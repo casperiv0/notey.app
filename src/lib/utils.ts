@@ -1,4 +1,4 @@
-import { INote } from "@models/Note.model";
+import Note from "types/Note";
 import { LOCKED_NOTE_MSG, ModalIds } from "./constants";
 
 export const isTrue = (v: string): boolean => `${v}` === "true";
@@ -10,8 +10,8 @@ export function errorObj(err: string): { error: typeof err; status: "error" } {
   };
 }
 
-export function parseLockedNotes(notes: INote[]) {
-  return notes.map((note: INote) => {
+export function parseLockedNotes(notes: Note[]) {
+  return notes.map((note: Note) => {
     if (note.locked === true) {
       note.body = LOCKED_NOTE_MSG;
       note.markdown = LOCKED_NOTE_MSG;

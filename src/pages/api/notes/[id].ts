@@ -2,7 +2,7 @@ import { NextApiResponse } from "next";
 import { IRequest } from "types/IRequest";
 import useAuth from "@hooks/useAuth";
 import { errorObj, isTrue, parseLockedNotes } from "@lib/utils";
-import NoteModel, { INote } from "@models/Note.model";
+import NoteModel, { NoteDoc } from "@models/Note.model";
 import "@lib/database";
 import useMarkdown from "@hooks/useMarkdown";
 import { isValidObjectId } from "mongoose";
@@ -31,7 +31,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
           });
         }
 
-        const note: INote = await NoteModel.findById(query.id);
+        const note: NoteDoc = await NoteModel.findById(query.id);
 
         if (!note) {
           return res.status(404).json(errorObj("not was not found"));
@@ -66,7 +66,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
           return res.status(400).json(errorObj("Please fill in all fields"));
         }
 
-        const note: INote = await NoteModel.findById(query.id);
+        const note: NoteDoc = await NoteModel.findById(query.id);
         const markdown = useMarkdown(body);
 
         if (!note) {
@@ -105,7 +105,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
     }
     case "DELETE": {
       try {
-        const note: INote = await NoteModel.findById(query.id);
+        const note: NoteDoc = await NoteModel.findById(query.id);
 
         if (!note) {
           return res.json(errorObj("note was not found"));

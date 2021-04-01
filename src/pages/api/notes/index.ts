@@ -2,7 +2,7 @@ import { NextApiResponse } from "next";
 import { IRequest } from "types/IRequest";
 import useAuth from "@hooks/useAuth";
 import { errorObj, isTrue, parseLockedNotes } from "@lib/utils";
-import NoteModel, { INote } from "@models/Note.model";
+import NoteModel, { NoteDoc } from "@models/Note.model";
 import useMarkdown from "@hooks/useMarkdown";
 import "@lib/database";
 
@@ -48,7 +48,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
       }
 
       const markdown = useMarkdown(body);
-      const newNote: INote = new NoteModel({
+      const newNote: NoteDoc = new NoteModel({
         user_id: req.userId,
         category_id: categoryId,
         title,

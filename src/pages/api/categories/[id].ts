@@ -4,8 +4,8 @@ import { IRequest } from "types/IRequest";
 import useAuth from "@hooks/useAuth";
 import { errorObj } from "@lib/utils";
 import "@lib/database";
-import CategoryModel, { ICategory } from "@models/Category.model";
-import NoteModel, { INote } from "@models/Note.model";
+import CategoryModel, { CategoryDoc } from "@models/Category.model";
+import NoteModel, { NoteDoc } from "@models/Note.model";
 
 export default async function handler(req: IRequest, res: NextApiResponse) {
   const { method, query } = req;
@@ -26,20 +26,20 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
   switch (method) {
     case "DELETE": {
       try {
-        const category: ICategory = await CategoryModel.findById(query.id);
+        const category: CategoryDoc = await CategoryModel.findById(query.id);
 
         if (!category) {
           return res.status(404).json(errorObj("category was not found"));
         }
 
-        if (req.userId.toString() !== category?.user_id.toString()) {
+        if (req.userId.toString() !== category?.user_id?.toString()) {
           return res.status(401).json(errorObj("Permission Denied"));
         }
 
         const notes = await NoteModel.find({ category_id: query.id, user_id: req.userId });
 
         await Promise.all(
-          notes.map(async (note: INote) => {
+          notes.map(async (note: NoteDoc) => {
             note.category_id = "no_category";
             await note.save();
           }),
@@ -74,7 +74,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
         });
       }
 
-      const category: ICategory = await CategoryModel.findById(query.id);
+      const category: CategoryDoc = await CategoryModel.findById(query.id);
 
       if (!category) {
         return res.status(404).json({

@@ -1,10 +1,5 @@
-import { Schema, model, Document, models, ObjectId } from "mongoose";
-
-export interface ICategory extends Document {
-  user_id: ObjectId;
-  name: string;
-  created_at: number;
-}
+import { Schema, model, Document, models } from "mongoose";
+import Category from "types/Category";
 
 const categorySchema = new Schema({
   user_id: {
@@ -22,4 +17,5 @@ const categorySchema = new Schema({
   },
 });
 
-export default models.Category || model<ICategory>("Category", categorySchema);
+export type CategoryDoc = Category & Document;
+export default models.Category || model<CategoryDoc>("Category", categorySchema);

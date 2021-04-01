@@ -1,17 +1,7 @@
 import State from "types/State";
-import { AUTHENTICATE, SET_AUTH_LOADING } from "../types";
+import { Authenticate, SetLoading } from "../types";
 
-type Actions =
-  | {
-      type: typeof AUTHENTICATE;
-      isAuth: boolean;
-      user: any;
-    }
-  | {
-      type: typeof SET_AUTH_LOADING;
-      loading: boolean;
-    };
-
+type Actions = Authenticate | SetLoading;
 const initState: State["auth"] = {
   loading: false,
   isAuth: false,
