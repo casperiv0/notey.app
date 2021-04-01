@@ -2,9 +2,10 @@ import * as React from "react";
 import Modal from "@components/modal/Modal";
 import { AlertDescription, AlertActions } from "@components/modal/styles";
 import { Button } from "@styles/Global";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
-  id: string;
+  id: ModalIds;
   title: string;
   description: string | React.ReactFragment;
   width?: string;

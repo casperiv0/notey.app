@@ -112,7 +112,7 @@ const Navbar: React.FC<Props> = ({
                   <Button navBtn className="ml" onClick={handleEdit}>
                     {editing ? "Save" : "Edit"}
                   </Button>
-                  <Button navBtn className="ml" onClick={() => openModal("manageNoteModal")}>
+                  <Button navBtn className="ml" onClick={() => openModal(ModalIds.ManageNoteModal)}>
                     Manage
                   </Button>
                 </Row>

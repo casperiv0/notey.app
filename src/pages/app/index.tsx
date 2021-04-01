@@ -18,6 +18,7 @@ import ManageNoteModal from "@components/modals/ManageNote";
 import OptionsModal from "@components/modals/OptionsModal";
 import { openModal } from "@lib/utils";
 import useMounted from "@hooks/useMounted";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
   isAuth: boolean;
@@ -43,15 +44,15 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
 
     switch (modal) {
       case "note": {
-        openModal("createNoteModal");
+        openModal(ModalIds.CreateNoteModal);
         break;
       }
       case "category": {
-        openModal("createCategoryModal");
+        openModal(ModalIds.CreateCategoryModal);
         break;
       }
       case "options": {
-        openModal("optionsModal");
+        openModal(ModalIds.OptionsModal);
         break;
       }
       default:

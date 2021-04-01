@@ -4,9 +4,10 @@ import { createPortal } from "react-dom";
 import { usePortal } from "src/hooks/usePortal";
 import { ModalStyle, ModalHeader, ModalBody, CloseModal, ModalContainer } from "./styles";
 import useMounted from "@hooks/useMounted";
+import { ModalIds } from "@lib/constants";
 
 interface Props {
-  id: string;
+  id: ModalIds;
   title: string;
   width?: string;
   [key: string]: unknown;
