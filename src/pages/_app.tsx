@@ -4,11 +4,11 @@ import { AppProps } from "next/app";
 import Router from "next/router";
 import { Provider as ReduxProvider } from "react-redux";
 import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStore } from "../store/store";
 import "@styles/index.css";
-import "@styles/nprogress.css";
 
 Router.events.on("routeChangeStart", NProgress.start);
 Router.events.on("routeChangeComplete", NProgress.done);

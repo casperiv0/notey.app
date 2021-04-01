@@ -51,7 +51,7 @@
     "marked": "^2.0.1",
     "mongoose": "^5.12.3",
     "next": "^10.1.2",
-    "nprogress": "^0.2.0",
+    "nprogress": "github:Dev-CasperTheGhost/nprogress",
     "react": "^17.0.2",
     "react-redux": "^7.2.3",
     "react-spinners": "^0.10.6",
