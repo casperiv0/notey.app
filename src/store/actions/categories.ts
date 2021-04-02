@@ -79,7 +79,7 @@ export const deleteCategory = (id: string) => async (
   }
 };
 
-export const updateCategoryById = (id: string, data: RequestData) => async (
+export const updateCategoryById = (id: string, data: RequestData, notify: boolean = true) => async (
   dispatch: Dis<UpdateCategoriesState>,
 ) => {
   dispatch({ type: "SET_CATEGORY_LOADING", loading: true });
@@ -94,7 +94,7 @@ export const updateCategoryById = (id: string, data: RequestData) => async (
       });
 
       closeModal(ModalIds.EditCategory);
-      toast.success("Successfully updated category");
+      notify && toast.success("Successfully updated category");
     } else {
       dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
       toast.error(res.data.error);

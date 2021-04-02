@@ -2,7 +2,7 @@ import { isValidObjectId } from "mongoose";
 import { NextApiResponse } from "next";
 import { IRequest } from "types/IRequest";
 import useAuth from "@hooks/useAuth";
-import { errorObj } from "@lib/utils";
+import { errorObj, isTrue } from "@lib/utils";
 import "@lib/database";
 import CategoryModel, { CategoryDoc } from "@models/Category.model";
 import NoteModel, { NoteDoc } from "@models/Note.model";
@@ -65,7 +65,7 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
       }
     }
     case "PUT": {
-      const { name } = req.body;
+      const { name, folded } = req.body;
 
       if (!name) {
         return res.status(400).json({
@@ -83,6 +83,9 @@ export default async function handler(req: IRequest, res: NextApiResponse) {
         });
       }
 
+      if (folded !== undefined) {
+        category.folded = isTrue(folded);
+      }
       category.name = name;
       await category.save();
 

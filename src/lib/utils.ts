@@ -67,4 +67,6 @@ export const foldCategory = (categoryId: string) => {
   } else {
     el.classList.add("folded");
   }
+
+  return el.classList.contains("folded");
 };

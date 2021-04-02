@@ -15,6 +15,10 @@ const categorySchema = new Schema({
     type: Date,
     default: () => Date.now(),
   },
+  folded: {
+    type: Boolean,
+    default: () => false,
+  },
 });
 
 export type CategoryDoc = Category & Document;

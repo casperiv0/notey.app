@@ -21,22 +21,32 @@ import { CategoryDiv, CategoryTitle, EditCategory } from "../../styles/Category"
 import AlertModal from "@components/modals/AlertModal";
 import { ModalIds } from "@lib/constants";
 import EditCategoryModal from "@components/modals/EditCategory";
+import { updateCategoryById } from "@actions/categories";
+import { RequestData } from "@lib/fetch";
 
 interface Props {
   notes: Note[];
   activeNote: Note | null;
   categories: Category[];
   editing: boolean | null;
+  updateCategoryById: (id: string, data: RequestData, notify?: boolean) => void;
 }
 
 const noCategory: Category = {
   name: "No Category",
   _id: "no_category",
+  folded: false,
   user_id: null,
   created_at: null,
 };
 
-const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing }) => {
+const Sidebar: React.FC<Props> = ({
+  notes,
+  categories,
+  activeNote,
+  editing,
+  updateCategoryById,
+}) => {
   const [searching, setSearching] = React.useState(false);
   const [filteredNotes, setFilteredNotes] = React.useState(notes);
   const [tempNoteId, setTempNoteId] = React.useState<string | null>(null);
@@ -85,6 +95,19 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing }) =>
     openModal(ModalIds.EditCategory);
   };
 
+  const handleFold = (category: Category) => () => {
+    const folded = foldCategory(category._id);
+
+    updateCategoryById(
+      category._id,
+      {
+        folded: folded,
+        name: category.name,
+      },
+      false,
+    );
+  };
+
   return (
     <>
       <SidebarStyle id="sidebar">
@@ -108,9 +131,13 @@ const Sidebar: React.FC<Props> = ({ notes, categories, activeNote, editing }) =>
               } else if (cat._id === "no_category" && categoryNotes.length <= 0) return null;
 
               return (
-                <CategoryDiv id={`category-${cat._id}`} key={ci}>
+                <CategoryDiv
+                  className={cat.folded ? "folded" : ""}
+                  id={`category-${cat._id}`}
+                  key={ci}
+                >
                   <div style={{ display: "flex" }}>
-                    <CategoryTitle onClick={() => foldCategory(cat._id)} title="Click to fold">
+                    <CategoryTitle onClick={handleFold(cat)} title="Click to fold">
                       {category}
                     </CategoryTitle>
 
@@ -204,4 +231,4 @@ const mapToProps = (state: State) => ({
   editing: state.notes.editing,
 });
 
-export default connect(mapToProps)(Sidebar);
+export default connect(mapToProps, { updateCategoryById })(Sidebar);

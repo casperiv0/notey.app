@@ -31,9 +31,15 @@ const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
     };
   }, [id]);
 
+  const handleOuterClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLDivElement).classList.contains("modal")) {
+      closeModal(id);
+    }
+  };
+
   return isMounted
     ? createPortal(
-        <ModalContainer {...rest} className="modal" id={id}>
+        <ModalContainer onClick={handleOuterClick} {...rest} className="modal" id={id}>
           <ModalStyle width={rest.width} id={`style-${id}`} className={id}>
             <ModalHeader>
               {title}
