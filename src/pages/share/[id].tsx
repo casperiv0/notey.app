@@ -1,4 +1,3 @@
-import Head from "next/head";
 import * as React from "react";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
@@ -12,6 +11,7 @@ import { checkAuth } from "@actions/auth";
 import Note from "types/Note";
 import NotePreview from "@components/note/NotePreview";
 import Loader from "@components/loader/Loader";
+import Seo from "@components/Seo";
 
 interface Props {
   note: Note | null;
@@ -34,12 +34,10 @@ const SharePage: NextPage<Props> = ({ loading, note, isAuth }) => {
 
   return (
     <>
-      <Head>
-        <title>{note?.title} - notey.app</title>
-        <link rel="canonical" href={`https://notey.caspertheghost.me/share/${note._id}`} />
-        <meta property="og:url" content={`https://notey.caspertheghost.me/share/${note._id}`} />
-        <meta property="og:title" content={`${note.title} - notey.app`} />
-      </Head>
+      <Seo
+        title={`${note.title} - notey.app`}
+        url={`https://notey.caspertheghost.me/share/${note._id}`}
+      />
 
       {loading ? (
         <Loader fullSize center />

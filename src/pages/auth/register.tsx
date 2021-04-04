@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { connect } from "react-redux";
@@ -18,6 +17,7 @@ import {
 import { RequestData } from "@lib/fetch";
 import State from "types/State";
 import Loader from "@components/loader/Loader";
+import Seo from "@components/Seo";
 
 interface Props {
   authenticate: (data: RequestData, login: boolean) => Promise<boolean>;
@@ -37,6 +37,7 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    router.prefetch("/app");
 
     const data = {
       username,
@@ -52,9 +53,11 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
 
   return (
     <>
-      <Head>
-        <title>Register - notey.app</title>
-      </Head>
+      <Seo
+        description="Authenticate with username and password to gain access to notey.app."
+        url="https://notey.caspertheghost.me/auth/register"
+        title="Register - notey.app"
+      />
       <AuthContainer>
         <AuthForm onSubmit={onSubmit}>
           <FormGroup>

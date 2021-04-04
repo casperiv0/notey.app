@@ -2,7 +2,6 @@ import { checkAuth } from "@actions/auth";
 import { GetServerSideProps, NextPage } from "next";
 import * as React from "react";
 import { connect } from "react-redux";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { initializeStore } from "src/store/store";
 import State from "types/State";
@@ -19,6 +18,7 @@ import OptionsModal from "@components/modals/OptionsModal";
 import { openModal } from "@lib/utils";
 import useMounted from "@hooks/useMounted";
 import { ModalIds } from "@lib/constants";
+import Seo from "@components/Seo";
 
 interface Props {
   isAuth: boolean;
@@ -62,28 +62,14 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
 
   return (
     <>
-      <Head>
-        {note ? (
-          <>
-            <title>{note?.title} - notey.app</title>
-            <meta
-              property="og:url"
-              content={`https://notey.caspertheghost.me/app?noteId=${note._id}`}
-            />
-            <meta property="og:title" content={`${note?.title} - notey.app`} />
-            <link rel="canonical" href={`https://notey.caspertheghost.me/app?noteId=${note._id}`} />
-            <meta name="twitter:title" content={`${note.title} - notey.app`} />
-          </>
-        ) : (
-          <>
-            <title>Notey.app - Keep track of important things</title>
-            <link rel="canonical" href="https://notey.caspertheghost.me/app" />
-            <meta property="og:url" content="https://notey.caspertheghost.me/app" />
-            <meta property="og:title" content="Notey.app - Keep track of important things" />
-            <meta name="twitter:title" content="Notey.app - Keep track of important things" />
-          </>
-        )}
-      </Head>
+      {note ? (
+        <Seo
+          url={`https://notey.caspertheghost.me/app?noteId=${note._id}`}
+          title={`${note.title} - notey.app`}
+        />
+      ) : (
+        <Seo url="https://notey.caspertheghost.me/app" />
+      )}
 
       <AppLayout>
         <Sidebar />
