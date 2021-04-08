@@ -92,7 +92,9 @@ const RightSidebar: React.FC<Props> = ({
       <AlertModal
         id={ModalIds.AlertDeleteNote}
         title="Delete note"
-        description="Are you sure you want to deleted this note? This cannot be undone!"
+        description={`Are you sure you want to delete ${
+          editingNote?.title ?? "this note"
+        }? This cannot be undone!`}
         actions={[
           {
             name: "Cancel",
