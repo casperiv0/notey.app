@@ -27,8 +27,6 @@ class NoteyDoc extends Document {
           <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
           <meta name="theme-color" content="#1D1E2C" />
           <meta property="og:color" content="#1D1E2C" />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content="/icons/notey-app-128.svg" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:creator" content="@casper124578" />
           <link rel="shortcut icon" href="/icons/notey-app-144.png" type="image/x-icon" />

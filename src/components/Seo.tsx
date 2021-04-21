@@ -1,5 +1,6 @@
 import * as React from "react";
 import Head from "next/head";
+import { OGP } from "react-ogp";
 
 interface Props {
   title?: string;
@@ -32,18 +33,22 @@ const Seo: React.FC<Props> = (props) => {
 
   return (
     <Head>
-      <title>{tags.title}</title>
-      <meta name="twitter:title" content={tags.title} />
-      <meta property="og:site_name" content={tags.title} />
-      <meta property="og:title" content={tags.title} />
+      <OGP
+        title={tags.title!}
+        description={tags.description!}
+        url={tags.url!}
+        siteName="notey.app"
+        type="website"
+        locale="en-US"
+        image="/icons/notey-app-128.svg"
+      />
 
+      <meta name="twitter:title" content={tags.title} />
       <meta name="description" content={tags.description} />
-      <meta property="og:description" content={tags.description} />
       <meta name="twitter:description" content={tags.description} />
 
       <link rel="canonical" href={tags.url} />
-      <meta property="og:url" content={tags.url} />
-
+      <title>{tags.title}</title>
       <meta name="keywords" content={[...DEFAULT_KEYWORDS, ...(tags?.keywords ?? [])].join(", ")} />
     </Head>
   );
