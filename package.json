@@ -25,7 +25,6 @@
     "nprogress": "github:Dev-CasperTheGhost/nprogress",
     "preact": "^10.5.13",
     "react": "^17.0.2",
-    "react-ogp": "^0.0.2",
     "react-redux": "^7.2.3",
     "react-spinners": "^0.10.6",
     "react-toastify": "^7.0.3",
