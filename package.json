@@ -22,6 +22,7 @@
     "marked": "^2.0.1",
     "mongoose": "^5.12.3",
     "next": "^10.1.3",
+    "next-pwa": "^5.2.15",
     "nprogress": "github:Dev-CasperTheGhost/nprogress",
     "preact": "^10.5.13",
     "react": "^17.0.2",

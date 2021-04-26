@@ -7,10 +7,16 @@ export const NotFoundContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
+
+  p {
+    text-align: center;
+    font-size: clamp(1.5rem, 8vw, 3rem);
+    color: #f2f2f2;
+  }
 `;
 
-export const NotFoundTitle = styled.h1`
-  font-size: 10rem;
+export const NotFoundTitle = styled.h1<{ error?: boolean }>`
+  font-size: clamp(6rem, 20vw, 10rem);
   color: #f2f2f2;
 `;
 
