@@ -11,15 +11,6 @@ class NoteyDoc extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700;800&display=swap"
-            as="style"
-            rel="preload"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700;800&display=swap"
-            rel="stylesheet"
-          />
           <meta
             name="google-site-verification"
             content="6LqjGmq_LshCupZ3FdR3meDNGaWcBjRG2snvcRtclSc"

@@ -1,9 +1,9 @@
 import { closeModal } from "@lib/utils";
 import * as React from "react";
 import { createPortal } from "react-dom";
-import { usePortal } from "src/hooks/usePortal";
+import { usePortal } from "@casper124578/useful/hooks/usePortal";
 import { ModalStyle, ModalHeader, ModalBody, CloseModal, ModalContainer } from "./styles";
-import useMounted from "@hooks/useMounted";
+import { useMounted } from "@casper124578/useful/hooks/useMounted";
 import { ModalIds } from "@lib/constants";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
-  const portalRef = usePortal(id);
+  const portalRef = usePortal(`Modal_Portal_${id}`);
   const isMounted = useMounted();
 
   React.useEffect(() => {

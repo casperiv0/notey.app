@@ -3,6 +3,7 @@ import { GetServerSideProps, NextPage } from "next";
 import * as React from "react";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
+import { useMounted } from "@casper124578/useful/hooks/useMounted";
 import { initializeStore } from "src/store/store";
 import State from "types/State";
 import { getNoteById, getNotes } from "@actions/note";
@@ -16,7 +17,6 @@ import Note from "types/Note";
 import ManageNoteModal from "@components/modals/ManageNote";
 import OptionsModal from "@components/modals/OptionsModal";
 import { openModal } from "@lib/utils";
-import useMounted from "@hooks/useMounted";
 import { ModalIds } from "@lib/constants";
 import Seo from "@components/Seo";
 

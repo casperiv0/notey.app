@@ -9,8 +9,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStore } from "../store/store";
 import "@styles/index.css";
-import useHasNetwork from "@hooks/useHasNetwork";
+import { useNetworkStatus } from "@casper124578/useful/hooks/useNetworkStatus";
 import UserOfflineError from "@components/UserOfflineError/UserOfflineError";
+import "@styles/fonts.css";
 
 Router.events.on("routeChangeStart", NProgress.start);
 Router.events.on("routeChangeComplete", NProgress.done);
@@ -18,7 +19,7 @@ Router.events.on("routeChangeError", NProgress.done);
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   const store = useStore(pageProps?.initialReduxState ?? pageProps);
-  const networkStatus = useHasNetwork();
+  const networkStatus = useNetworkStatus();
 
   if (networkStatus === "offline") {
     return <UserOfflineError />;
