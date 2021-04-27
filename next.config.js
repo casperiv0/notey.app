@@ -32,5 +32,9 @@ module.exports = withPWA({
   },
   pwa: {
     dest: "public",
+    modifyURLPrefix: {
+      "static/": "_next/static/",
+      "../public/": "/",
+    },
   },
 });
