@@ -10,7 +10,7 @@
     "build": "next build"
   },
   "dependencies": {
-    "@casper124578/useful": "^0.0.5",
+    "@casper124578/useful": "^0.0.9",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.4.1",
