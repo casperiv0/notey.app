@@ -10,6 +10,7 @@ import {
   Put,
   Param,
   HttpException,
+  Query,
 } from "@storyofams/next-api-decorators";
 import "@lib/database";
 import NoteModel, { NoteDoc } from "@models/Note.model";
@@ -26,8 +27,13 @@ class NotesApiManager {
 
   @Get()
   // @AuthGuard()
-  async getUserNotes(@Req() req: IRequest) {
-    const notes = await this._getUserNotes(req.userId);
+  async getUserNotes(@Req() req: IRequest, @Query("lastId") lastId: string) {
+    let notes = await this._getUserNotes(req.userId);
+
+    if (lastId) {
+      const lastNote = notes.findIndex((n) => n._id.toString() === lastId);
+      notes = notes.splice(0, lastNote);
+    }
 
     return {
       notes: parseLockedNotes(notes),

@@ -13,16 +13,3 @@ const UserOfflineError = () => {
 };
 
 export default UserOfflineError;
-
-// import { NextPage } from "next";
-// import Link from "next/link";
-// import { NotFoundContainer, NotFoundTitle, NotFoundBtn } from "@styles/404";
-// import Head from "next/head";
-
-// const NotFound: NextPage = () => {
-//   return (
-
-//   );
-// };
-
-// export default NotFound;
