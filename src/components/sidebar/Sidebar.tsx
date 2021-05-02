@@ -17,7 +17,12 @@ import SidebarSearch from "./SidebarSearch";
 import CloseIcon from "@icons/CloseIcon";
 import EditIcon from "@icons/EditIcon";
 import Category from "types/Category";
-import { CategoryDiv, CategoryTitle, EditCategory } from "../../styles/Category";
+import {
+  CategoryDiv,
+  CategoryTitle,
+  EditCategory,
+  CategoryTitleContainer,
+} from "../../styles/Category";
 import AlertModal from "@components/modals/AlertModal";
 import { ModalIds } from "@lib/constants";
 import EditCategoryModal from "@components/modals/EditCategory";
@@ -137,7 +142,7 @@ const Sidebar: React.FC<Props> = ({
                   id={`category-${cat._id}`}
                   key={ci}
                 >
-                  <div style={{ display: "flex" }}>
+                  <CategoryTitleContainer>
                     <CategoryTitle
                       categoryId={cat._id}
                       onClick={handleFold(cat)}
@@ -154,7 +159,7 @@ const Sidebar: React.FC<Props> = ({
                         </EditCategory>
                       </div>
                     ) : null}
-                  </div>
+                  </CategoryTitleContainer>
 
                   <div className="items">
                     {categoryNotes?.map((note) => {
