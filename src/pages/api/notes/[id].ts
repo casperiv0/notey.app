@@ -1,3 +1,4 @@
+import { isValidObjectId } from "mongoose";
 import { NextApiResponse } from "next";
 import { IRequest } from "types/IRequest";
 import useAuth from "@hooks/useAuth";
@@ -5,7 +6,6 @@ import { errorObj, isTrue, parseLockedNotes } from "@lib/utils";
 import NoteModel, { NoteDoc } from "@models/Note.model";
 import "@lib/database";
 import useMarkdown from "@hooks/useMarkdown";
-import { isValidObjectId } from "mongoose";
 
 export default async function handler(req: IRequest, res: NextApiResponse) {
   const { method, query } = req;

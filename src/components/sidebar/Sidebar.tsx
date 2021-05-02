@@ -96,6 +96,7 @@ const Sidebar: React.FC<Props> = ({
   };
 
   const handleFold = (category: Category) => () => {
+    if (category._id === "no_category") return;
     const folded = foldCategory(category._id);
 
     updateCategoryById(
@@ -137,7 +138,11 @@ const Sidebar: React.FC<Props> = ({
                   key={ci}
                 >
                   <div style={{ display: "flex" }}>
-                    <CategoryTitle onClick={handleFold(cat)} title="Click to fold">
+                    <CategoryTitle
+                      categoryId={cat._id}
+                      onClick={handleFold(cat)}
+                      title="Click to fold"
+                    >
                       {category}
                     </CategoryTitle>
 
@@ -150,6 +155,7 @@ const Sidebar: React.FC<Props> = ({
                       </div>
                     ) : null}
                   </div>
+
                   <div className="items">
                     {categoryNotes?.map((note) => {
                       if (note.category_id === cat._id) {

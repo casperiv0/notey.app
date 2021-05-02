@@ -14,12 +14,12 @@ export const CategoryDiv = styled.div`
   }
 `;
 
-export const CategoryTitle = styled.button`
+export const CategoryTitle = styled.button<{ categoryId: string }>`
   background: none;
   border: none;
   width: 100%;
   font-weight: bold;
-  cursor: pointer;
+  cursor: ${(props) => (props.categoryId === "no_category" ? "default" : "pointer")};
   color: #f2f2f2;
   font-size: 1.2rem;
   display: flex;
