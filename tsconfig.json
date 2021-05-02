@@ -12,6 +12,7 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "jsx": "preserve",
+    "experimentalDecorators": true,
     "paths": {
       "@components/*": ["./src/components/*"],
       "@icons/*": ["./src/components/icons/*"],
