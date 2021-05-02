@@ -19,6 +19,7 @@ import useMarkdown from "@hooks/useMarkdown";
 import NoteModel from "@models/Note.model";
 import { IRequest } from "types/IRequest";
 import CategoryModel from "@models/Category.model";
+import { ErrorMessages } from "@lib/errors";
 // import { AuthGuard } from "@lib/middlewares";
 
 class AuthenticationApiManager {
@@ -29,19 +30,19 @@ class AuthenticationApiManager {
     const expires = rememberMe ? Cookie.RememberMeExpires : Cookie.Expires;
 
     if (!username || !password) {
-      throw new BadRequestException("Please fill in all fields");
+      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
     }
 
     const user = await UserModel.findOne({ username });
 
     if (!user) {
-      throw new NotFoundException("User was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("user"));
     }
 
     const isPwCorrect = compareSync(password, user.password);
 
     if (!isPwCorrect) {
-      throw new BadRequestException("Password is incorrect");
+      throw new BadRequestException(ErrorMessages.PW_INCORRECT);
     }
 
     const token = useToken(user._id, expires / 1000);
@@ -61,16 +62,16 @@ class AuthenticationApiManager {
     const { username, password, password2 } = body;
 
     if (!username || !password) {
-      throw new BadRequestException("Please fill in all fields");
+      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
     }
 
     if (password !== password2) {
-      throw new BadRequestException("Passwords do not match");
+      throw new BadRequestException(ErrorMessages.PW_NOT_MATCH);
     }
 
     const user = await UserModel.findOne({ username: username });
     if (user) {
-      throw new BadRequestException("Username is already in use");
+      throw new BadRequestException(ErrorMessages.USERNAME_IN_USE);
     }
 
     const hash = hashSync(password, 15);
@@ -119,7 +120,7 @@ class AuthenticationApiManager {
     const user = await UserModel.findById(req.userId).select({ password: 0 });
 
     if (!user) {
-      throw new NotFoundException("User was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("user"));
     }
 
     return {

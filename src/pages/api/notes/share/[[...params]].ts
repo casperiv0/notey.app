@@ -10,6 +10,7 @@ import {
 } from "@storyofams/next-api-decorators";
 import "@lib/database";
 import { isValidObjectId } from "mongoose";
+import { ErrorMessages } from "@lib/errors";
 // import { AuthGuard } from "@lib/middlewares";
 
 class NotesShareApiManager {
@@ -22,15 +23,15 @@ class NotesShareApiManager {
     const note: NoteDoc = await NoteModel.findById(id);
 
     if (!note) {
-      throw new NotFoundException("note was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
     if (note?.locked) {
-      throw new NotFoundException("note was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
     if (note.shared === false) {
-      throw new NotFoundException("note was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
     return {

@@ -17,6 +17,7 @@ import { IRequest } from "types/IRequest";
 import CategoryModel from "@models/Category.model";
 import { isTrue } from "@lib/utils";
 import { ObjectId } from "mongoose";
+import { ErrorMessages } from "@lib/errors";
 // import { AuthGuard } from "@lib/middlewares";
 
 class CategoriesApiManager {
@@ -41,11 +42,11 @@ class CategoriesApiManager {
     const { name } = body;
 
     if (!name) {
-      throw new BadRequestException("Please fill in all fields");
+      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
     }
 
     if (name.length > 20) {
-      throw new BadRequestException("Category name has a limit of 20 characters.");
+      throw new BadRequestException(ErrorMessages.CATEGORY_LIMIT_20);
     }
 
     const category = new CategoryModel({
@@ -72,17 +73,17 @@ class CategoriesApiManager {
     const { name, folded } = body;
 
     if (!name) {
-      throw new BadRequestException("please fill in all fields");
+      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
     }
 
     if (name.length > 20) {
-      throw new BadRequestException("category name has a limit of 20 characters.");
+      throw new BadRequestException(ErrorMessages.CATEGORY_LIMIT_20);
     }
 
     const category = await CategoryModel.findById(id);
 
     if (!category) {
-      throw new NotFoundException("category was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("category"));
     }
 
     if (folded !== undefined) {
@@ -105,11 +106,11 @@ class CategoriesApiManager {
     const category = await CategoryModel.findById(id);
 
     if (!category) {
-      throw new NotFoundException("category was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("category"));
     }
 
     if (req.userId.toString() !== category?.user_id?.toString()) {
-      throw new HttpException(403, "permission denied");
+      throw new HttpException(403, ErrorMessages.PERMISSION_DENIED);
     }
 
     const notes = await NoteModel.find({ category_id: id, user_id: req.userId });

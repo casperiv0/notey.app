@@ -18,6 +18,7 @@ import { IRequest } from "types/IRequest";
 import { isTrue, parseLockedNotes } from "@lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
 import useMarkdown from "@hooks/useMarkdown";
+import { ErrorMessages } from "@lib/errors";
 // import { AuthGuard } from "@lib/middlewares";
 
 class NotesApiManager {
@@ -47,11 +48,11 @@ class NotesApiManager {
     const { categoryId, title, body: noteBody, shareable, locked } = body;
 
     if (!categoryId || !title || !noteBody) {
-      throw new BadRequestException("please fill in all fields");
+      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
     }
 
     if (title.length > 40) {
-      throw new BadRequestException("title has a limit of 40 characters");
+      throw new BadRequestException(ErrorMessages.NOTE_TITLE_LIMIT_40);
     }
 
     const markdown = useMarkdown(noteBody);
@@ -89,15 +90,15 @@ class NotesApiManager {
     const note: NoteDoc = await NoteModel.findById(id);
 
     if (!note) {
-      throw new NotFoundException("note was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
     if (note?.locked) {
-      throw new NotFoundException("note was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
     if (!note.shared && note?.user_id?.toString() !== req.userId?.toString()) {
-      throw new NotFoundException("note was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
     return {
@@ -116,18 +117,22 @@ class NotesApiManager {
     const { category_id, title, body: noteBody, locked, shared } = body;
 
     if (!category_id || !title || !noteBody) {
-      throw new BadRequestException("please fill in all fields");
+      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
+    }
+
+    if (title.length > 40) {
+      throw new BadRequestException(ErrorMessages.NOTE_TITLE_LIMIT_40);
     }
 
     const note: NoteDoc = await NoteModel.findById(id);
     const markdown = useMarkdown(noteBody);
 
     if (!note) {
-      throw new NotFoundException("note was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
     if (note.user_id.toString() !== req.userId.toString()) {
-      throw new HttpException(403, "permission denied");
+      throw new HttpException(403, ErrorMessages.PERMISSION_DENIED);
     }
 
     await NoteModel.findByIdAndUpdate(note._id, {
@@ -155,11 +160,11 @@ class NotesApiManager {
     const note: NoteDoc = await NoteModel.findById(id);
 
     if (!note) {
-      throw new NotFoundException("note was not found");
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
     if (note.user_id.toString() !== req.userId.toString()) {
-      throw new HttpException(403, "permission denied");
+      throw new HttpException(403, ErrorMessages.PERMISSION_DENIED);
     }
 
     await NoteModel.findByIdAndDelete(note._id);
