@@ -14,6 +14,11 @@ export const CategoryDiv = styled.div`
   }
 `;
 
+export const CategoryTitleContainer = styled.div`
+  margin-bottom: 0.5rem;
+  display: flex;
+`;
+
 export const CategoryTitle = styled.button<{ categoryId: string }>`
   background: none;
   border: none;
@@ -50,8 +55,12 @@ export const EditCategory = styled.button`
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background 200ms;
 
   &:hover {
+    background: #3a3b3c;
+
     & svg {
       fill: #fff;
     }
