@@ -19,7 +19,7 @@ export const handleRequest = (
     data: data ? data : null,
     withCredentials: true,
     headers: {
-      Session: (data?.cookie as string)?.split("notey-session=")?.[1] ?? "",
+      Session: (data?.cookie as string)?.split("__Secure-notey-session=")?.[1] ?? "",
       "Content-Type": "application/json",
     },
   });
