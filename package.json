@@ -17,7 +17,6 @@
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "dateformat": "^4.5.1",
     "dompurify": "^2.2.8",
     "jsdom": "^16.5.3",
     "jsonwebtoken": "^8.5.1",
@@ -68,6 +67,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "next-sitemap": "^1.6.34",
     "prettier": "^2.2.1",
     "typescript": "^4.2.4"
   }

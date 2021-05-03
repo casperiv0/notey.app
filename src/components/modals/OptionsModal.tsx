@@ -74,7 +74,11 @@ const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
               </Column>
             </OptionsModalBody>
             <OptionsModalFooter>
-              Made with ❤️ by{" "}
+              Made with{" "}
+              <span aria-label="heart emoji" role="img">
+                ❤️
+              </span>{" "}
+              by{" "}
               <a target="_blank" rel="noreferrer noopener" href="https://caspertheghost.me">
                 CasperTheGhost
               </a>{" "}

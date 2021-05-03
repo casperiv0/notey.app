@@ -43,7 +43,6 @@ const CreateCategoryModal: React.FC<Props> = ({ loading, createCategory }) => {
           <FormLabel htmlFor="name">Name</FormLabel>
           <FormInput
             ref={inputRef}
-            autoFocus
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
