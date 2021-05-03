@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { NO_ERROR } from "./constants";
 import { ALLOWED_METHODS } from "./shared";
 
 export type RequestData = Record<string, unknown>;
@@ -26,4 +27,8 @@ export const handleRequest = (
 
 export const isSuccess = (res: AxiosResponse): boolean => {
   return res.data.status === "success";
+};
+
+export const getErrorFromResponse = (e: any) => {
+  return e?.response?.data?.errors?.[0] ?? e?.response?.data?.error ?? NO_ERROR;
 };
