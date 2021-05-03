@@ -6,8 +6,8 @@
     "lint:check": "eslint . --ext .js,.jsx,.json,.ts,.tsx",
     "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\" --ignore-path .gitignore",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\"",
-    "dev": "next dev  -p 5011",
-    "start": "next start",
+    "dev": "next dev",
+    "start": "next start -p 5011",
     "build": "next build && next-sitemap"
   },
   "dependencies": {
