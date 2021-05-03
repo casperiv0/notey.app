@@ -19,7 +19,7 @@ import { isTrue, parseLockedNotes } from "@lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
 import useMarkdown from "@hooks/useMarkdown";
 import { ErrorMessages } from "@lib/errors";
-// import { AuthGuard } from "@lib/middlewares";
+import { AuthGuard } from "@lib/middlewares";
 
 class NotesApiManager {
   private async _getUserNotes(userId: ObjectId): Promise<NoteDoc[]> {
@@ -27,7 +27,7 @@ class NotesApiManager {
   }
 
   @Get()
-  // @AuthGuard()
+  @AuthGuard()
   async getUserNotes(@Req() req: IRequest, @Query("lastId") lastId: string) {
     let notes = await this._getUserNotes(req.userId);
 
@@ -43,7 +43,7 @@ class NotesApiManager {
   }
 
   @Post()
-  // @AuthGuard()
+  @AuthGuard()
   async createNote(@Body() body: IRequest["body"], @Req() req: IRequest) {
     const { categoryId, title, body: noteBody, shareable, locked } = body;
 
@@ -76,7 +76,7 @@ class NotesApiManager {
   }
 
   @Get("/:id")
-  // @AuthGuard()
+  @AuthGuard()
   async getNoteById(@Param("id") id: string, @Req() req: IRequest) {
     if (!isValidObjectId(id)) {
       const note = await NoteModel.find({ user_id: req.userId }).limit(1);
@@ -108,7 +108,7 @@ class NotesApiManager {
   }
 
   @Put("/:id")
-  // @AuthGuard()
+  @AuthGuard()
   async updateNoteById(
     @Param("id") id: string,
     @Body() body: IRequest["body"],
@@ -155,7 +155,7 @@ class NotesApiManager {
   }
 
   @Delete("/:id")
-  // @AuthGuard()
+  @AuthGuard()
   async deleteNoteById(@Param("id") id: string, @Req() req: IRequest) {
     const note: NoteDoc = await NoteModel.findById(id);
 
@@ -172,6 +172,31 @@ class NotesApiManager {
 
     return {
       notes: parseLockedNotes(notes),
+      status: "success",
+    };
+  }
+
+  @Get("/share/:id")
+  async getShareById(@Param("id") id: string) {
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException("invalid objectId");
+    }
+    const note: NoteDoc = await NoteModel.findById(id);
+
+    if (!note) {
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
+    }
+
+    if (note?.locked) {
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
+    }
+
+    if (note.shared === false) {
+      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
+    }
+
+    return {
+      note,
       status: "success",
     };
   }

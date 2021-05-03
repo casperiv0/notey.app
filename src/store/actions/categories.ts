@@ -17,7 +17,7 @@ export const getCategories = (cookie?: string) => async (dispatch: Dis<UpdateCat
       });
     }
   } catch (e) {
-    console.error(e);
+    return false;
   }
 };
 

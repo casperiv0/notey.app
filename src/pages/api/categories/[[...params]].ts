@@ -18,7 +18,7 @@ import CategoryModel from "@models/Category.model";
 import { isTrue } from "@lib/utils";
 import { ObjectId } from "mongoose";
 import { ErrorMessages } from "@lib/errors";
-// import { AuthGuard } from "@lib/middlewares";
+import { AuthGuard } from "@lib/middlewares";
 
 class CategoriesApiManager {
   private _getUserCategories(userId: ObjectId) {
@@ -26,7 +26,7 @@ class CategoriesApiManager {
   }
 
   @Get()
-  // @AuthGuard()
+  @AuthGuard()
   async getUserCategories(@Req() req: IRequest) {
     const categories = await this._getUserCategories(req.userId);
 
@@ -37,7 +37,7 @@ class CategoriesApiManager {
   }
 
   @Post()
-  // @AuthGuard()
+  @AuthGuard()
   async createCategory(@Body() body: IRequest["body"], @Req() req: IRequest) {
     const { name } = body;
 
@@ -64,7 +64,7 @@ class CategoriesApiManager {
   }
 
   @Put("/:id")
-  // @AuthGuard()
+  @AuthGuard()
   async updateCategory(
     @Body() body: IRequest["body"],
     @Param("id") id: string,
@@ -101,7 +101,7 @@ class CategoriesApiManager {
   }
 
   @Delete("/:id")
-  // @AuthGuard()
+  @AuthGuard()
   async deleteCategory(@Param("id") id: string, @Req() req: IRequest) {
     const category = await CategoryModel.findById(id);
 

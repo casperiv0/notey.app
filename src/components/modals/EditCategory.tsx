@@ -43,11 +43,11 @@ const EditCategoryModal = ({ category, deleteCategory, updateCategoryById }: Pro
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isDisabled) return;
+    if (!category?._id) return;
 
-    category?._id &&
-      updateCategoryById(category._id, {
-        name,
-      });
+    updateCategoryById(category._id, {
+      name,
+    });
   };
 
   return (

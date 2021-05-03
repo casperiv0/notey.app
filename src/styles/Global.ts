@@ -25,7 +25,7 @@ export const DEFAULT_BTN_STYLES = css<{ bgColor?: string }>`
   padding: 0.3rem 10px;
   font-size: 1.2rem;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   border-radius: ${Styles.BorderRadius};
   background: ${(props) => (props.bgColor ? props.bgColor : "#3A3B3C")};
   color: #f2f2f2;

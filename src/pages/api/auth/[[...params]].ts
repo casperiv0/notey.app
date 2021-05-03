@@ -20,7 +20,7 @@ import NoteModel from "@models/Note.model";
 import { IRequest } from "types/IRequest";
 import CategoryModel from "@models/Category.model";
 import { ErrorMessages } from "@lib/errors";
-// import { AuthGuard } from "@lib/middlewares";
+import { AuthGuard } from "@lib/middlewares";
 
 class AuthenticationApiManager {
   @Post("/login")
@@ -48,13 +48,13 @@ class AuthenticationApiManager {
     const token = useToken(user._id, expires / 1000);
     useCookie(res, "notey-session", token, expires);
 
-    return {
+    return res.json({
       user: {
         _id: user._id,
         username: user.username,
       },
       status: "success",
-    };
+    });
   }
 
   @Post("/register")
@@ -94,13 +94,13 @@ class AuthenticationApiManager {
     const token = useToken(newUser._id, 3600000);
     useCookie(res, "notey-session", token, Cookie.Expires);
 
-    return {
+    return res.json({
       user: {
         _id: newUser._id,
         username: newUser.username,
       },
       status: "success",
-    };
+    });
   }
 
   @Post("/logout")
@@ -113,9 +113,8 @@ class AuthenticationApiManager {
     });
   }
 
-  // TODO: wait for middleware support from '@storyofams/next-api-decorators'
-  // @AuthGuard()
   @Post("/me")
+  @AuthGuard()
   async getMe(@Req() req: IRequest) {
     const user = await UserModel.findById(req.userId).select({ password: 0 });
 
@@ -132,8 +131,8 @@ class AuthenticationApiManager {
     };
   }
 
-  // @AuthGuard()
   @Delete("/me")
+  @AuthGuard()
   async deleteMe(@Req() req: IRequest, @Res() res: NextApiResponse) {
     const user = await UserModel.findById(req.userId);
 
