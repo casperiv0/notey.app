@@ -54,7 +54,7 @@
     "react/display-name": "off",
     "no-return-await": "warn",
     "func-call-spacing": "error",
-    "jsx-quotes": ["double", "error"],
+    "jsx-quotes": "error",
     "prettier/prettier": [
       "warn",
       {

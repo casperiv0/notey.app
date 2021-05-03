@@ -1,3 +1,6 @@
+import { CorsOptions } from "cors";
+import { ALLOWED_METHODS } from "./shared";
+
 export enum Cookie {
   Expires = 60 * 60 * 1000 * 6, // 6 hours
   RememberMeExpires = 60 * 60 * 1000 * 24 * 30, // 30 days
@@ -30,3 +33,9 @@ export enum ModalIds {
   AlertUnsavedChanges = "alertModal_unsavedChanges",
   AlertDeleteCategory = "alertModal_deleteCategory",
 }
+
+export const corsOptions: CorsOptions = {
+  credentials: true,
+  origin: [process.env.NEXT_PUBLIC_PROD_ORIGIN!, process.env.DEV_ORIGIN!],
+  methods: ALLOWED_METHODS,
+};

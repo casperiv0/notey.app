@@ -10,6 +10,7 @@ import {
   Put,
   Param,
   HttpException,
+  UseMiddleware,
 } from "@storyofams/next-api-decorators";
 import "@lib/database";
 import NoteModel, { NoteDoc } from "@models/Note.model";
@@ -18,8 +19,9 @@ import CategoryModel from "@models/Category.model";
 import { isTrue } from "@lib/utils";
 import { ObjectId } from "mongoose";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors } from "@lib/middlewares";
 
+@UseMiddleware(Cors(), CookieParser())
 class CategoriesApiManager {
   private _getUserCategories(userId: ObjectId) {
     return CategoryModel.find({ user_id: userId });

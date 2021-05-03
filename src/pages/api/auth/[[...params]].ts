@@ -7,6 +7,7 @@ import {
   Res,
   Req,
   Delete,
+  UseMiddleware,
 } from "@storyofams/next-api-decorators";
 import { NextApiRequest, NextApiResponse } from "next";
 import { compareSync, hashSync } from "bcryptjs";
@@ -20,8 +21,9 @@ import NoteModel from "@models/Note.model";
 import { IRequest } from "types/IRequest";
 import CategoryModel from "@models/Category.model";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors } from "@lib/middlewares";
 
+@UseMiddleware(Cors(), CookieParser())
 class AuthenticationApiManager {
   @Post("/login")
   async login(@Body() body: NextApiRequest["body"], @Res() res: NextApiResponse) {

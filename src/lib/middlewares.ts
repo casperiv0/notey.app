@@ -7,8 +7,11 @@ import {
 } from "@storyofams/next-api-decorators";
 import jwt from "jsonwebtoken";
 import { isValidObjectId } from "mongoose";
+import cors from "cors";
 import { NextApiRequest } from "next";
 import { IRequest } from "types/IRequest";
+import { corsOptions } from "./constants";
+import cookieParser from "cookie-parser";
 
 const JWT_SECRET = String(process.env.JWT_SECRET);
 
@@ -60,3 +63,6 @@ export const AuthGuard = createMiddlewareDecorator(
     next();
   },
 );
+
+export const Cors = () => cors(corsOptions);
+export const CookieParser = () => cookieParser();
