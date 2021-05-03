@@ -1,5 +1,5 @@
 import { ModalIds } from "@lib/constants";
-import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
+import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "@lib/fetch";
 import { closeModal } from "@lib/utils";
 import { toast } from "react-toastify";
 import { Dis, GetAllNotes, UpdateCategoriesState } from "../types";
@@ -17,7 +17,7 @@ export const getCategories = (cookie?: string) => async (dispatch: Dis<UpdateCat
       });
     }
   } catch (e) {
-    console.error(e);
+    return false;
   }
 };
 
@@ -44,7 +44,7 @@ export const createCategory = (data: RequestData) => async (
     }
   } catch (e) {
     dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-    toast.error(e?.response?.data?.error);
+    toast.error(getErrorFromResponse(e));
     return false;
   }
 };
@@ -75,7 +75,7 @@ export const deleteCategory = (id: string) => async (
     }
   } catch (e) {
     dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-    toast.error(e?.response?.data?.error);
+    toast.error(getErrorFromResponse(e));
   }
 };
 
@@ -101,6 +101,6 @@ export const updateCategoryById = (id: string, data: RequestData, notify: boolea
     }
   } catch (e) {
     dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-    toast.error(e?.response?.data?.error);
+    toast.error(getErrorFromResponse(e));
   }
 };

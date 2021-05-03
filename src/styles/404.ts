@@ -23,8 +23,9 @@ export const NotFoundTitle = styled.h1<{ error?: boolean }>`
 export const NotFoundBtn = styled.p`
   color: #f2f2f2;
   background-color: #2f2f2f;
-  padding: 10px;
-  width: 200px;
+  padding: 1rem 2rem;
+  width: 100%;
+  border-radius: 0.5rem;
   text-align: center;
   text-decoration: none;
   font-size: 1.5rem;

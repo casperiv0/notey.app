@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { NO_ERROR } from "@lib/constants";
-import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
+import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "@lib/fetch";
 import {
   Dis,
   GetNoteById,
@@ -31,7 +31,7 @@ export const getNoteById = (noteId: string, share: boolean, cookie?: string) => 
       });
     }
   } catch (e) {
-    toast.error(e?.response?.data?.error ?? NO_ERROR);
+    toast.error(getErrorFromResponse(e));
     dispatch({ type: "SET_NOTE_LOADING", loading: false });
   }
 };
@@ -54,7 +54,7 @@ export const updateNoteById = (noteId: string, data: RequestData) => async (
       toast.success("Successfully updated note");
     }
   } catch (e) {
-    toast.error(e?.response?.data?.error ?? NO_ERROR);
+    toast.error(getErrorFromResponse(e));
     dispatch({ type: "SET_NOTE_LOADING", loading: false });
   }
 };
@@ -75,7 +75,7 @@ export const deleteNoteById = (noteId: string) => async (dispatch: Dis<DeleteNot
       toast.success("Successfully deleted note");
     }
   } catch (e) {
-    toast.error(e?.response?.data?.error ?? NO_ERROR);
+    toast.error(getErrorFromResponse(e));
     dispatch({ type: "SET_NOTE_LOADING", loading: false });
   }
 };
@@ -93,7 +93,7 @@ export const getNotes = (cookie?: string) => async (dispatch: Dis<GetAllNotes>) 
       });
     }
   } catch (e) {
-    toast.error(e?.response?.data?.error ?? NO_ERROR);
+    toast.error(getErrorFromResponse(e));
     dispatch({ type: "SET_NOTE_LOADING", loading: false });
   }
 };
@@ -121,7 +121,7 @@ export const createNote = (data: RequestData) => async (
       return false;
     }
   } catch (e) {
-    toast.error(e?.response?.data?.error ?? NO_ERROR);
+    toast.error(getErrorFromResponse(e));
     dispatch({ type: "SET_NOTE_LOADING", loading: false });
     return false;
   }

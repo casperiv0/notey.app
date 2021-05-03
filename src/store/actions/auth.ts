@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
-import { handleRequest, isSuccess, RequestData } from "@lib/fetch";
+import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "@lib/fetch";
 import { Dis, Authenticate } from "../types";
-import { NO_ERROR } from "@lib/constants";
 
 export const authenticate = (data: RequestData, login: boolean) => async (
   dispatch: Dis<Authenticate>,
@@ -26,7 +25,7 @@ export const authenticate = (data: RequestData, login: boolean) => async (
   } catch (e) {
     console.error(e);
 
-    toast.error(e?.response?.data?.error ?? NO_ERROR);
+    toast.error(getErrorFromResponse(e));
     dispatch({ type: "SET_AUTH_LOADING", loading: false });
     return false;
   }
@@ -65,7 +64,7 @@ export const logout = () => async (dispatch: Dis<Authenticate>): Promise<void> =
       toast.error(res.data.error);
     }
   } catch (e) {
-    toast.error(e?.response.data?.error ?? NO_ERROR);
+    toast.error(getErrorFromResponse(e));
     dispatch({ type: "SET_AUTH_LOADING", loading: false });
   }
 };
@@ -84,7 +83,7 @@ export const deleteAccount = () => async (dispatch: Dis<Authenticate>): Promise<
       toast.error(res.data.error);
     }
   } catch (e) {
-    toast.error(e?.response.data?.error ?? NO_ERROR);
+    toast.error(getErrorFromResponse(e));
     dispatch({ type: "SET_AUTH_LOADING", loading: false });
   }
 };

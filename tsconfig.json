@@ -12,6 +12,7 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "jsx": "preserve",
+    "experimentalDecorators": true,
     "paths": {
       "@components/*": ["./src/components/*"],
       "@icons/*": ["./src/components/icons/*"],
@@ -28,7 +29,10 @@
     "noEmit": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "strictBindCallApply": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "docs"]

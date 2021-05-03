@@ -31,7 +31,7 @@
     "semi": ["error", "always"],
     "no-multi-spaces": ["error"],
     "eqeqeq": ["warn", "always"],
-    "no-unused-vars": ["error"],
+    "no-unused-vars": "off",
     "no-duplicate-case": ["error"],
     "no-extra-semi": ["error"],
     "no-unreachable": ["error"],
@@ -41,6 +41,20 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "warn",
+    "react/jsx-uses-vars": "warn",
+    "react/no-danger-with-children": "warn",
+    "react/no-deprecated": "warn",
+    "react/no-direct-mutation-state": "warn",
+    "react/no-is-mounted": "warn",
+    "react/no-typos": "error",
+    "react/require-render-return": "error",
+    "react/style-prop-object": "warn",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "no-return-await": "warn",
+    "func-call-spacing": "error",
+    "jsx-quotes": "error",
     "prettier/prettier": [
       "warn",
       {
@@ -50,19 +64,11 @@
   },
   "overrides": [
     {
-      "files": ["**/*.tsx", "**/*.ts"],
-      "rules": {
-        "no-unused-vars": "off",
-        "react/prop-types": "off",
-        "react/display-name": "off"
-      }
-    },
-    {
       "files": ["./src/pages/api/**/**.ts"],
       "rules": {
         "react-hooks/rules-of-hooks": "off",
         "react-hooks/exhaustive-deps": "off",
-        "react/react-in-jsx-scope": "off"
+        "no-unused-vars": "error"
       }
     }
   ],
