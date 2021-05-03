@@ -52,6 +52,9 @@
     "react/style-prop-object": "warn",
     "react/prop-types": "off",
     "react/display-name": "off",
+    "no-return-await": "warn",
+    "func-call-spacing": "error",
+    "jsx-quotes": ["double", "error"],
     "prettier/prettier": [
       "warn",
       {
