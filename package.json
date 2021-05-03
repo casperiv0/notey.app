@@ -29,6 +29,7 @@
     "path-to-regexp": "^6.2.0",
     "preact": "^10.5.13",
     "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
     "react-spinners": "^0.10.6",
     "react-toastify": "^7.0.3",
@@ -40,7 +41,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/plugin-proposal-decorators": "^7.12.13",
-    "@storyofams/next-api-decorators": "^1.4.1",
+    "@storyofams/next-api-decorators": "^v1.5.0-beta.4",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie": "^0.4.0",
     "@types/cookie-parser": "^1.4.2",

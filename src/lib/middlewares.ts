@@ -1,7 +1,7 @@
 // import UserModel from "@models/User.model";
 // import {
 //   createMiddlewareDecorator,
-//   MiddlewarePosition,
+//   NextFunction,
 //   NotFoundException,
 //   UnauthorizedException,
 // } from "@storyofams/next-api-decorators";
@@ -27,8 +27,7 @@
 // }
 
 // export const AuthGuard = createMiddlewareDecorator(
-//   MiddlewarePosition.BEFORE,
-//   async (req: IRequest, _: any, next: (err?: Error) => void) => {
+//   async (req: IRequest, _: any, next: NextFunction) => {
 //     const token: string = req.cookies["notey-session"] ?? req.headers["session"];
 
 //     if (!token) {
@@ -54,4 +53,5 @@
 //     next();
 //   },
 // );
+
 export {};
