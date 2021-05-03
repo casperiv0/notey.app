@@ -15,14 +15,6 @@ import cookieParser from "cookie-parser";
 
 const JWT_SECRET = String(process.env.JWT_SECRET);
 
-function findCorrectCookie(req: NextApiRequest) {
-  if (process.env.NODE_ENV === "production") {
-    return req.cookies["__Secure-notey-session"] ?? req.headers["session"];
-  } else {
-    return req.cookies["__Secure-notey-session"] ?? req.headers["session"];
-  }
-}
-
 async function checkJWT(token: string): Promise<boolean | { userId: string }> {
   return new Promise((resolve) => {
     jwt.verify(token, JWT_SECRET, (error, decode) => {
@@ -38,7 +30,7 @@ async function checkJWT(token: string): Promise<boolean | { userId: string }> {
 
 export const AuthGuard = createMiddlewareDecorator(
   async (req: NextApiRequest, _: any, next: NextFunction) => {
-    const token: string = findCorrectCookie(req);
+    const token: string = req.cookies["notey-session"] ?? req.headers["session"];
 
     if (!token) {
       throw new UnauthorizedException("invalid token");
