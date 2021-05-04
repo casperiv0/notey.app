@@ -31,11 +31,7 @@ module.exports = withPWA({
     return config;
   },
   pwa: {
-    disable: process.env.NODE_ENV !== "production",
+    disable: true,
     dest: "public",
-    modifyURLPrefix: {
-      "static/": "_next/static/",
-      "../public/": "/",
-    },
   },
 });
