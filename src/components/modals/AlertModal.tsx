@@ -27,16 +27,21 @@ const AlertModal = (props: Props) => {
       <AlertDescription>{props.description}</AlertDescription>
 
       <AlertActions>
-        {props.actions.map((action, idx) => (
-          <Button
-            ref={idx === 0 ? ref : null}
-            danger={action.danger}
-            onClick={action.onClick}
-            key={idx}
-          >
-            {action.name}
-          </Button>
-        ))}
+        {props.actions.map((action, idx) => {
+          // a spacer if there's only 1 button
+          if (!action.name) return <p key={idx}></p>;
+
+          return (
+            <Button
+              ref={idx === 0 ? ref : null}
+              danger={action.danger}
+              onClick={action.onClick}
+              key={idx}
+            >
+              {action.name}
+            </Button>
+          );
+        })}
       </AlertActions>
     </Modal>
   );

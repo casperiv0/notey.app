@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { NO_ERROR } from "./constants";
+import { ModalIds, NO_ERROR } from "./constants";
 import { ALLOWED_METHODS } from "./shared";
+import { openModal } from "./utils";
 
 export type RequestData = Record<string, unknown>;
 
@@ -30,5 +31,10 @@ export const isSuccess = (res: AxiosResponse): boolean => {
 };
 
 export const getErrorFromResponse = (e: any) => {
+  if (e?.message?.toLowerCase?.().includes("failed with status code 429")) {
+    openModal(ModalIds.AlertTooManyRequests);
+    return null;
+  }
+
   return e?.response?.data?.errors?.[0] ?? e?.response?.data?.error ?? NO_ERROR;
 };

@@ -47,6 +47,14 @@ export const DEFAULT_BTN_STYLES = css<{ bgColor?: string }>`
   &:active {
     filter: brightness(120%);
   }
+
+  &:disabled {
+    &:hover,
+    &:active,
+    &:focus {
+      filter: brightness(100%);
+    }
+  }
 `;
 
 export const AppLayout = styled.div`
@@ -81,7 +89,9 @@ export const Button = styled.button<{ danger?: boolean; navBtn?: boolean }>`
       cursor: not-allowed;
       opacity: 0.7;
 
-      &:hover {
+      &:hover,
+      &:active,
+      &:focus {
         filter: brightness(100%);
       }
     `}

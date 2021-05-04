@@ -81,12 +81,13 @@ export const CloseModal = styled.button`
   font-weight: 600;
   background: none;
   border: none;
-  font-size: 2.5rem;
+  font-size: 2rem;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 1rem;
   transition: background 200ms;
-  border-radius: 50%;
+  border-radius: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;

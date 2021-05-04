@@ -32,6 +32,7 @@ export enum ModalIds {
   AlertDeleteNote = "alertModal_deleteNote",
   AlertUnsavedChanges = "alertModal_unsavedChanges",
   AlertDeleteCategory = "alertModal_deleteCategory",
+  AlertTooManyRequests = "alertModal_tooManyRequests",
 }
 
 export const corsOptions: CorsOptions = {

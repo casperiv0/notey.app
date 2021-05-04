@@ -11,13 +11,17 @@ import { RequestData } from "@lib/fetch";
 import { isTrue } from "@lib/utils";
 import useModalEvent from "@hooks/useModalEvent";
 import { ModalIds } from "@lib/constants";
+import SelectCategory from "@components/SelectCategory";
+import Category from "types/Category";
 
 interface Props {
   note: Note | null;
+  categories: Category[];
   updateNoteById: (id: string, data: RequestData) => void;
 }
 
-const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
+const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) => {
+  const [categoryId, setCategoryId] = React.useState(`${note?.category_id}`);
   const [shareable, setShareable] = React.useState(`${note?.shared}`);
   const [locked, setLocked] = React.useState(`${note?.locked}`);
   const inputRef = useModalEvent<HTMLSelectElement>(ModalIds.ManageNoteModal);
@@ -26,6 +30,7 @@ const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
   React.useEffect(() => {
     setShareable(`${note?.shared}`);
     setLocked(`${note?.locked}`);
+    setCategoryId(`${note?.category_id}`);
   }, [note]);
 
   function onSubmit(e: React.FormEvent) {
@@ -34,6 +39,7 @@ const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
 
     updateNoteById(note?._id, {
       ...note,
+      category_id: categoryId,
       shared: isTrue(shareable),
     });
   }
@@ -46,11 +52,20 @@ const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
     <Modal id={ModalIds.ManageNoteModal} title="Manage Note">
       <form onSubmit={onSubmit}>
         <FormGroup>
+          <FormLabel htmlFor="edit_category">Category</FormLabel>
+          <SelectCategory
+            ref={inputRef}
+            id="edit_category"
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+            categories={categories}
+          />
+        </FormGroup>
+        <FormGroup>
           <FormLabel htmlFor="shareable">Shareable</FormLabel>
           <Select
             name="Shareable"
             id="shareable"
-            ref={inputRef}
             value={`${shareable}`}
             onChange={(e) => setShareable(e.target.value)}
           >
@@ -105,6 +120,7 @@ const ManageNoteModal: React.FC<Props> = ({ note, updateNoteById }) => {
 
 const mapToProps = (state: State) => ({
   note: state.notes.note,
+  categories: state.categories.categories,
 });
 
 export default connect(mapToProps, { updateNoteById })(ManageNoteModal);

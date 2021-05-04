@@ -10,9 +10,9 @@ interface Props {
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
 }
 
-const SelectCategory: React.FC<Props> = ({ categories, ...rest }) => {
-  return (
-    <SelectCategoryStyle {...rest}>
+const SelectCategory = React.forwardRef<HTMLSelectElement, Props>(
+  ({ categories, ...rest }, ref) => (
+    <SelectCategoryStyle ref={ref} {...rest}>
       <option value="no_category">No category</option>
       {categories?.map((category) => (
         <option key={category._id} value={category._id}>
@@ -20,7 +20,7 @@ const SelectCategory: React.FC<Props> = ({ categories, ...rest }) => {
         </option>
       ))}
     </SelectCategoryStyle>
-  );
-};
+  ),
+);
 
 export default SelectCategory;

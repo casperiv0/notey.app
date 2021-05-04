@@ -12,6 +12,9 @@ import "@styles/index.css";
 import { useNetworkStatus } from "@casper124578/useful/hooks/useNetworkStatus";
 import UserOfflineError from "@components/UserOfflineError/UserOfflineError";
 import "@styles/fonts.css";
+import AlertModal, { ModalAction } from "@components/modals/AlertModal";
+import { ModalIds } from "@lib/constants";
+import { closeModal } from "@lib/utils";
 
 Router.events.on("routeChangeStart", NProgress.start);
 Router.events.on("routeChangeComplete", NProgress.done);
@@ -35,6 +38,19 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
 
       <ReduxProvider store={store}>
         <Component {...pageProps} />
+
+        <AlertModal
+          title="Woah!"
+          id={ModalIds.AlertTooManyRequests}
+          description="You're moving way too fast! Please try again in a few minutes."
+          actions={[
+            {} as ModalAction,
+            {
+              name: "OK!",
+              onClick: () => closeModal(ModalIds.AlertTooManyRequests),
+            },
+          ]}
+        />
       </ReduxProvider>
     </>
   );

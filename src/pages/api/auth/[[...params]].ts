@@ -21,9 +21,9 @@ import NoteModel from "@models/Note.model";
 import { IRequest } from "types/IRequest";
 import CategoryModel from "@models/Category.model";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, RateLimit } from "@lib/middlewares";
 
-@UseMiddleware(Cors(), CookieParser())
+@UseMiddleware(Cors, CookieParser, RateLimit)
 class AuthenticationApiManager {
   @Post("/login")
   async login(@Body() body: NextApiRequest["body"], @Res() res: NextApiResponse) {

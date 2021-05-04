@@ -20,9 +20,9 @@ import { isTrue, parseLockedNotes } from "@lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
 import useMarkdown from "@hooks/useMarkdown";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, RateLimit } from "@lib/middlewares";
 
-@UseMiddleware(Cors(), CookieParser())
+@UseMiddleware(Cors, CookieParser, RateLimit)
 class NotesApiManager {
   private async _getUserNotes(userId: ObjectId): Promise<NoteDoc[]> {
     return NoteModel.find({ user_id: userId });

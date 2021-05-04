@@ -19,9 +19,9 @@ import CategoryModel from "@models/Category.model";
 import { isTrue } from "@lib/utils";
 import { ObjectId } from "mongoose";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, RateLimit } from "@lib/middlewares";
 
-@UseMiddleware(Cors(), CookieParser())
+@UseMiddleware(Cors, CookieParser, RateLimit)
 class CategoriesApiManager {
   private _getUserCategories(userId: ObjectId) {
     return CategoryModel.find({ user_id: userId });

@@ -7,11 +7,12 @@ import {
 } from "@storyofams/next-api-decorators";
 import jwt from "jsonwebtoken";
 import { isValidObjectId } from "mongoose";
+import cookieParser from "cookie-parser";
+import rateLimit from "express-rate-limit";
 import cors from "cors";
 import { NextApiRequest } from "next";
 import { IRequest } from "types/IRequest";
 import { corsOptions } from "./constants";
-import cookieParser from "cookie-parser";
 
 const JWT_SECRET = String(process.env.JWT_SECRET);
 
@@ -56,5 +57,17 @@ export const AuthGuard = createMiddlewareDecorator(
   },
 );
 
-export const Cors = () => cors(corsOptions);
-export const CookieParser = () => cookieParser();
+export const Cors = cors(corsOptions);
+export const CookieParser = cookieParser();
+export const RateLimit = rateLimit({
+  skip: (req) => {
+    // don't limit /api/notes
+    const skipRoutes = ["/api/notes", "/api/categories", "/api/auth/me"];
+
+    if (req.method === "GET" && skipRoutes.some((v) => v === req.url)) return true;
+
+    return false;
+  },
+  windowMs: 5 * 60 * 1000,
+  max: 50,
+});
