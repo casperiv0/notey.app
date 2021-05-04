@@ -30,7 +30,11 @@ Simple notes app to keep track of important things
 
 ### Create new category
 
-![Create note](./docs/screens/create-category.png)
+![Create category](./docs/screens/create-category.png)
+
+### Edit a category
+
+![Edit category](./docs/screens/edit-category.png)
 
 ### Main app
 

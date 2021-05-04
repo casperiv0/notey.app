@@ -20,7 +20,7 @@ const NoteEditingArea: React.FC<Props> = ({ editingNote, updateEditingNote }) =>
         })
       }
       value={editingNote?.body}
-    ></NoteTextArea>
+    />
   );
 };
 

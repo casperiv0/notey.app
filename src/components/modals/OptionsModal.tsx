@@ -51,7 +51,7 @@ const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
                   Request a feature
                 </ReportBtn>
                 <ReportBtn
-                  href="https://github.com/dev-caspertheghost/notey.app/blob/master/LICENSE"
+                  href="https://github.com/dev-caspertheghost/notey.app/blob/main/LICENSE"
                   target="_blank"
                   rel="noreferrer noopener"
                 >

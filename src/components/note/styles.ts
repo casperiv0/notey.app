@@ -44,9 +44,20 @@ export const PreviewStyle = styled.div`
     text-decoration: underline;
   }
 
+  & details {
+    margin: 15px 0;
+
+    & p {
+      margin-left: 0.5rem;
+    }
+  }
+
   & summary {
     cursor: pointer;
-    margin-bottom: 15px;
+    margin-bottom: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    transition: background 200ms;
   }
 
   & summary:hover {

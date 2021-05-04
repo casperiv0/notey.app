@@ -29,6 +29,7 @@ import EditCategoryModal from "@components/modals/EditCategory";
 import { updateCategoryById } from "@actions/categories";
 import { RequestData } from "@lib/fetch";
 import ArrowIcon from "@components/icons/ArrowIcon";
+import { getNoteById } from "@actions/note";
 
 interface Props {
   notes: Note[];
@@ -36,6 +37,7 @@ interface Props {
   categories: Category[];
   editing: boolean | null;
   updateCategoryById: (id: string, data: RequestData, notify?: boolean) => void;
+  getNoteById: (noteId: string, share: boolean) => Promise<void>;
 }
 
 const noCategory: Category = {
@@ -52,6 +54,7 @@ const Sidebar: React.FC<Props> = ({
   activeNote,
   editing,
   updateCategoryById,
+  getNoteById,
 }) => {
   const [searching, setSearching] = React.useState(false);
   const [filteredNotes, setFilteredNotes] = React.useState(notes);
@@ -63,7 +66,7 @@ const Sidebar: React.FC<Props> = ({
     setFilteredNotes(notes);
   }, [notes]);
 
-  const setActiveNote = (id: string, force = editing) => {
+  const setActiveNote = async (id: string, force = editing) => {
     if (force) {
       setTempNoteId(id);
       return openModal(ModalIds.AlertUnsavedChanges);
@@ -71,9 +74,9 @@ const Sidebar: React.FC<Props> = ({
 
     closeModal(ModalIds.AlertUnsavedChanges);
     setTempNoteId(null);
+    await getNoteById(id, false);
 
-    router.push({
-      href: "/app",
+    router.replace({
       query: {
         noteId: id,
       },
@@ -244,4 +247,4 @@ const mapToProps = (state: State) => ({
   editing: state.notes.editing,
 });
 
-export default connect(mapToProps, { updateCategoryById })(Sidebar);
+export default connect(mapToProps, { updateCategoryById, getNoteById })(Sidebar);
