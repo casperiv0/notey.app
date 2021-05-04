@@ -12,7 +12,7 @@ import rateLimit from "express-rate-limit";
 import cors from "cors";
 import { NextApiRequest } from "next";
 import { IRequest } from "types/IRequest";
-import { corsOptions } from "./constants";
+import { ALLOWED_METHODS } from "./shared";
 
 const JWT_SECRET = String(process.env.JWT_SECRET);
 
@@ -57,7 +57,11 @@ export const AuthGuard = createMiddlewareDecorator(
   },
 );
 
-export const Cors = cors(corsOptions);
+export const Cors = cors({
+  credentials: true,
+  origin: [process.env.NEXT_PUBLIC_PROD_ORIGIN!, process.env.DEV_ORIGIN!],
+  methods: ALLOWED_METHODS,
+});
 export const CookieParser = cookieParser();
 export const RateLimit = rateLimit({
   skip: (req) => {

@@ -6,11 +6,15 @@ export const CategoryDiv = styled.div`
   margin: 10px 0 20px 0;
 
   &.folded {
+    margin-bottom: 0;
+
     .items button {
       display: none;
     }
 
-    margin: 5px 0;
+    & svg {
+      transform: rotate(0deg);
+    }
   }
 `;
 
@@ -28,9 +32,17 @@ export const CategoryTitle = styled.button<{ categoryId: string }>`
   color: #f2f2f2;
   font-size: 1.2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   text-transform: uppercase;
+
+  & svg {
+    transition: transform 200ms;
+    margin-right: 0.2rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    transform: rotate(90deg);
+  }
 `;
 
 export const SelectCategoryStyle = styled.select`

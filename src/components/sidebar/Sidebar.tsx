@@ -28,6 +28,7 @@ import { ModalIds } from "@lib/constants";
 import EditCategoryModal from "@components/modals/EditCategory";
 import { updateCategoryById } from "@actions/categories";
 import { RequestData } from "@lib/fetch";
+import ArrowIcon from "@components/icons/ArrowIcon";
 
 interface Props {
   notes: Note[];
@@ -148,6 +149,7 @@ const Sidebar: React.FC<Props> = ({
                       onClick={handleFold(cat)}
                       title="Click to fold"
                     >
+                      {cat._id !== "no_category" ? <ArrowIcon /> : null}
                       {category}
                     </CategoryTitle>
 
