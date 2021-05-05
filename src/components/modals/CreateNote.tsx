@@ -36,7 +36,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
     const data = {
       title,
       body,
-      categoryId,
+      category_id: categoryId,
       shareable: isTrue(shareable),
       locked: isTrue(locked),
     };

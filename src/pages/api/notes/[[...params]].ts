@@ -13,13 +13,14 @@ import {
   UseMiddleware,
 } from "@storyofams/next-api-decorators";
 import "@lib/database";
-import NoteModel, { NoteDoc } from "@models/Note.model";
+import NoteModel, { NoteDoc, createOrUpdateNoteSchema } from "@models/Note.model";
 import { IRequest } from "types/IRequest";
 import { isTrue, parseLockedNotes } from "@lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
 import useMarkdown from "@hooks/useMarkdown";
 import { ErrorMessages } from "@lib/errors";
 import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
+import { createYupSchema } from "@lib/createYupSchema";
 
 @UseMiddleware(Cors, CookieParser, RateLimit)
 class NotesApiManager {
@@ -46,20 +47,23 @@ class NotesApiManager {
   @Post()
   @AuthGuard()
   async createNote(@Body() body: IRequest["body"], @UserId() userId: ObjectId) {
-    const { categoryId, title, body: noteBody, shareable, locked } = body;
+    const { category_id, title, body: noteBody, shareable, locked } = body;
 
-    if (!categoryId || !title || !noteBody) {
-      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
-    }
+    const schema = createYupSchema(createOrUpdateNoteSchema);
+    const isValid = await schema.isValid({ category_id, title, body: noteBody, shareable, locked });
 
-    if (title.length > 40) {
-      throw new BadRequestException(ErrorMessages.NOTE_TITLE_LIMIT_40);
+    if (!isValid) {
+      const error = await schema
+        .validate({ category_id, title, body: noteBody, shareable, locked })
+        .catch((e) => e);
+
+      throw new BadRequestException(error.errors[0]);
     }
 
     const markdown = useMarkdown(noteBody);
     const newNote: NoteDoc = new NoteModel({
       user_id: userId,
-      category_id: categoryId,
+      category_id,
       title,
       body: noteBody,
       markdown: markdown,
@@ -117,12 +121,21 @@ class NotesApiManager {
   ) {
     const { category_id, title, body: noteBody, locked, shared } = body;
 
-    if (!category_id || !title || !noteBody) {
-      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
-    }
+    const schema = createYupSchema(createOrUpdateNoteSchema);
+    const isValid = await schema.isValid({
+      category_id,
+      title,
+      body: noteBody,
+      shareable: shared,
+      locked,
+    });
 
-    if (title.length > 40) {
-      throw new BadRequestException(ErrorMessages.NOTE_TITLE_LIMIT_40);
+    if (!isValid) {
+      const error = await schema
+        .validate({ category_id, title, body: noteBody, shareable: shared, locked })
+        .catch((e) => e);
+
+      throw new BadRequestException(error.errors[0]);
     }
 
     const note: NoteDoc = await NoteModel.findById(id);

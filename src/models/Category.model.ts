@@ -1,4 +1,5 @@
 import { Schema, model, Document, models } from "mongoose";
+import * as yup from "yup";
 import Category from "types/Category";
 
 const categorySchema = new Schema({
@@ -20,6 +21,10 @@ const categorySchema = new Schema({
     default: () => false,
   },
 });
+
+export const createAndUpdateCategoryValidation = {
+  name: yup.string().trim().required().max(20),
+};
 
 export type CategoryDoc = Category & Document;
 export default models.Category || model<CategoryDoc>("Category", categorySchema);

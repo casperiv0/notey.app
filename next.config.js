@@ -4,6 +4,19 @@ module.exports = withPWA({
   future: {
     webpack5: true,
   },
+  async headers() {
+    return [
+      {
+        source: "/fonts/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       {
@@ -29,6 +42,10 @@ module.exports = withPWA({
     }
 
     return config;
+  },
+  reactStrictMode: true,
+  experimental: {
+    turboMode: true,
   },
   pwa: {
     disable: true,

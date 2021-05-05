@@ -1,5 +1,6 @@
 import { Schema, model, Document, models } from "mongoose";
 import User from "types/User";
+import * as yup from "yup";
 
 const userSchema = new Schema({
   username: {
@@ -21,6 +22,15 @@ const userSchema = new Schema({
     default: () => null,
   },
 });
+
+export const baseSchema = {
+  username: yup.string().trim().required(),
+  password: yup.string().required(),
+};
+
+export const registerSchema = {
+  password2: yup.string().required(),
+};
 
 export type UserDoc = User & Document;
 export default models.User || model<UserDoc>("User", userSchema);

@@ -14,11 +14,12 @@ import {
 import "@lib/database";
 import NoteModel, { NoteDoc } from "@models/Note.model";
 import { IRequest } from "types/IRequest";
-import CategoryModel from "@models/Category.model";
+import CategoryModel, { createAndUpdateCategoryValidation } from "@models/Category.model";
 import { isTrue, parseLockedNotes } from "@lib/utils";
 import { ObjectId } from "mongoose";
 import { ErrorMessages } from "@lib/errors";
 import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
+import { createYupSchema } from "@lib/createYupSchema";
 
 @UseMiddleware(Cors, CookieParser, RateLimit)
 class CategoriesApiManager {
@@ -42,12 +43,12 @@ class CategoriesApiManager {
   async createCategory(@Body() body: IRequest["body"], @UserId() userId: ObjectId) {
     const { name } = body;
 
-    if (!name) {
-      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
-    }
+    const schema = createYupSchema(createAndUpdateCategoryValidation);
+    const isValid = await schema.isValid({ name });
 
-    if (name.length > 20) {
-      throw new BadRequestException(ErrorMessages.CATEGORY_LIMIT_20);
+    if (!isValid) {
+      const error = await schema.validate({ name }).catch((e) => e);
+      throw new BadRequestException(error.errors[0]);
     }
 
     const category = new CategoryModel({
@@ -72,17 +73,15 @@ class CategoriesApiManager {
     @UserId() userId: ObjectId,
   ) {
     const { name, folded } = body;
+    const schema = createYupSchema(createAndUpdateCategoryValidation);
+    const isValid = await schema.isValid({ name });
 
-    if (!name) {
-      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
-    }
-
-    if (name.length > 20) {
-      throw new BadRequestException(ErrorMessages.CATEGORY_LIMIT_20);
+    if (!isValid) {
+      const error = await schema.validate({ name }).catch((e) => e);
+      throw new BadRequestException(error.errors[0]);
     }
 
     const category = await CategoryModel.findById(id);
-
     if (!category) {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("category"));
     }

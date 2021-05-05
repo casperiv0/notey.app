@@ -11,7 +11,7 @@ import {
 import { NextApiRequest, NextApiResponse } from "next";
 import { compareSync, hashSync } from "bcryptjs";
 import useToken from "@hooks/useToken";
-import UserModel from "src/models/User.model";
+import UserModel, { baseSchema, registerSchema } from "src/models/User.model";
 import { Cookie } from "@lib/constants";
 import useCookie from "src/hooks/useCookie";
 import "@lib/database";
@@ -20,17 +20,22 @@ import NoteModel from "@models/Note.model";
 import CategoryModel from "@models/Category.model";
 import { ErrorMessages } from "@lib/errors";
 import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
+import { createYupSchema } from "@lib/createYupSchema";
 
 @UseMiddleware(Cors, CookieParser, RateLimit)
 class AuthenticationApiManager {
   @Post("/login")
   async login(@Body() body: NextApiRequest["body"], @Res() res: NextApiResponse) {
     const { username, password, rememberMe } = body;
-
     const expires = rememberMe ? Cookie.RememberMeExpires : Cookie.Expires;
 
-    if (!username || !password) {
-      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
+    const schema = createYupSchema(baseSchema);
+    const isValid = await schema.isValid({ username, password });
+
+    if (!isValid) {
+      const error = await schema.validate({ username, password }).catch((e) => e);
+
+      throw new BadRequestException(error.errors[0]);
     }
 
     const user = await UserModel.findOne({ username });
@@ -61,10 +66,14 @@ class AuthenticationApiManager {
   async register(@Body() body: NextApiRequest["body"], @Res() res: NextApiResponse) {
     const { username, password, password2 } = body;
 
-    if (!username || !password) {
-      throw new BadRequestException(ErrorMessages.ALL_FIELDS);
-    }
+    const schema = createYupSchema(baseSchema, registerSchema);
+    const isValid = await schema.isValid({ username, password, password2 });
 
+    if (!isValid) {
+      const error = await schema.validate({ username, password, password2 }).catch((e) => e);
+
+      throw new BadRequestException(error.errors[0]);
+    }
     if (password !== password2) {
       throw new BadRequestException(ErrorMessages.PW_NOT_MATCH);
     }
