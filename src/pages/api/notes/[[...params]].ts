@@ -4,7 +4,6 @@ import {
   BadRequestException,
   NotFoundException,
   Body,
-  Req,
   Delete,
   Get,
   Put,
@@ -20,7 +19,7 @@ import { isTrue, parseLockedNotes } from "@lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
 import useMarkdown from "@hooks/useMarkdown";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, RateLimit } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
 
 @UseMiddleware(Cors, CookieParser, RateLimit)
 class NotesApiManager {
@@ -30,8 +29,8 @@ class NotesApiManager {
 
   @Get()
   @AuthGuard()
-  async getUserNotes(@Req() req: IRequest, @Query("lastId") lastId: string) {
-    let notes = await this._getUserNotes(req.userId);
+  async getUserNotes(@UserId() userId: ObjectId, @Query("lastId") lastId: string) {
+    let notes = await this._getUserNotes(userId);
 
     if (lastId) {
       const lastNote = notes.findIndex((n) => n._id.toString() === lastId);
@@ -46,7 +45,7 @@ class NotesApiManager {
 
   @Post()
   @AuthGuard()
-  async createNote(@Body() body: IRequest["body"], @Req() req: IRequest) {
+  async createNote(@Body() body: IRequest["body"], @UserId() userId: ObjectId) {
     const { categoryId, title, body: noteBody, shareable, locked } = body;
 
     if (!categoryId || !title || !noteBody) {
@@ -59,7 +58,7 @@ class NotesApiManager {
 
     const markdown = useMarkdown(noteBody);
     const newNote: NoteDoc = new NoteModel({
-      user_id: req.userId,
+      user_id: userId,
       category_id: categoryId,
       title,
       body: noteBody,
@@ -68,7 +67,7 @@ class NotesApiManager {
       locked: isTrue(locked),
     });
     await newNote.save();
-    const notes = await this._getUserNotes(req.userId);
+    const notes = await this._getUserNotes(userId);
 
     return {
       note: newNote,
@@ -79,9 +78,9 @@ class NotesApiManager {
 
   @Get("/:id")
   @AuthGuard()
-  async getNoteById(@Param("id") id: string, @Req() req: IRequest) {
+  async getNoteById(@Param("id") id: string, @UserId() userId: ObjectId) {
     if (!isValidObjectId(id)) {
-      const note = await NoteModel.find({ user_id: req.userId }).limit(1);
+      const note = await NoteModel.find({ user_id: userId }).limit(1);
 
       return {
         status: "success",
@@ -99,7 +98,7 @@ class NotesApiManager {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
-    if (!note.shared && note?.user_id?.toString() !== req.userId?.toString()) {
+    if (!note.shared && note?.user_id?.toString() !== userId?.toString()) {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
@@ -114,7 +113,7 @@ class NotesApiManager {
   async updateNoteById(
     @Param("id") id: string,
     @Body() body: IRequest["body"],
-    @Req() req: IRequest,
+    @UserId() userId: ObjectId,
   ) {
     const { category_id, title, body: noteBody, locked, shared } = body;
 
@@ -133,7 +132,7 @@ class NotesApiManager {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
-    if (note.user_id.toString() !== req.userId.toString()) {
+    if (note.user_id.toString() !== userId.toString()) {
       throw new HttpException(403, ErrorMessages.PERMISSION_DENIED);
     }
 
@@ -147,7 +146,7 @@ class NotesApiManager {
     });
 
     const updated = await NoteModel.findById(id);
-    const notes = await this._getUserNotes(req.userId);
+    const notes = await this._getUserNotes(userId);
 
     return {
       notes: parseLockedNotes(notes),
@@ -158,19 +157,19 @@ class NotesApiManager {
 
   @Delete("/:id")
   @AuthGuard()
-  async deleteNoteById(@Param("id") id: string, @Req() req: IRequest) {
+  async deleteNoteById(@Param("id") id: string, @UserId() userId: ObjectId) {
     const note: NoteDoc = await NoteModel.findById(id);
 
     if (!note) {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
-    if (note.user_id.toString() !== req.userId.toString()) {
+    if (note.user_id.toString() !== userId.toString()) {
       throw new HttpException(403, ErrorMessages.PERMISSION_DENIED);
     }
 
     await NoteModel.findByIdAndDelete(note._id);
-    const notes = await this._getUserNotes(req.userId);
+    const notes = await this._getUserNotes(userId);
 
     return {
       notes: parseLockedNotes(notes),

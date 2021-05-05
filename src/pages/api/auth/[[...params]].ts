@@ -5,7 +5,6 @@ import {
   NotFoundException,
   Body,
   Res,
-  Req,
   Delete,
   UseMiddleware,
 } from "@storyofams/next-api-decorators";
@@ -18,10 +17,9 @@ import useCookie from "src/hooks/useCookie";
 import "@lib/database";
 import useMarkdown from "@hooks/useMarkdown";
 import NoteModel from "@models/Note.model";
-import { IRequest } from "types/IRequest";
 import CategoryModel from "@models/Category.model";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, RateLimit } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
 
 @UseMiddleware(Cors, CookieParser, RateLimit)
 class AuthenticationApiManager {
@@ -117,8 +115,8 @@ class AuthenticationApiManager {
 
   @Post("/me")
   @AuthGuard()
-  async getMe(@Req() req: IRequest) {
-    const user = await UserModel.findById(req.userId).select({ password: 0 });
+  async getMe(@UserId() userId: string) {
+    const user = await UserModel.findById(userId).select({ password: 0 });
 
     if (!user) {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("user"));
@@ -135,8 +133,8 @@ class AuthenticationApiManager {
 
   @Delete("/me")
   @AuthGuard()
-  async deleteMe(@Req() req: IRequest, @Res() res: NextApiResponse) {
-    const user = await UserModel.findById(req.userId);
+  async deleteMe(@UserId() userId: string, @Res() res: NextApiResponse) {
+    const user = await UserModel.findById(userId);
 
     await NoteModel.deleteMany({ user_id: user._id });
     await CategoryModel.deleteMany({ user_id: user._id });

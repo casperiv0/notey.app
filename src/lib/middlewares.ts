@@ -1,12 +1,13 @@
 import UserModel from "@models/User.model";
 import {
   createMiddlewareDecorator,
+  createParamDecorator,
   NextFunction,
   NotFoundException,
   UnauthorizedException,
 } from "@storyofams/next-api-decorators";
 import jwt from "jsonwebtoken";
-import { isValidObjectId } from "mongoose";
+import { isValidObjectId, Schema } from "mongoose";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
@@ -29,6 +30,9 @@ async function checkJWT(token: string): Promise<boolean | { userId: string }> {
   });
 }
 
+/**
+ * Check if a user is authenticated
+ */
 export const AuthGuard = createMiddlewareDecorator(
   async (req: NextApiRequest, _: any, next: NextFunction) => {
     const token: string = req.cookies["notey-session"] ?? req.headers["session"];
@@ -55,6 +59,13 @@ export const AuthGuard = createMiddlewareDecorator(
 
     next();
   },
+);
+
+/**
+ * Get the userId from the request
+ */
+export const UserId = createParamDecorator<Schema.Types.ObjectId | undefined>(
+  (req) => (req as IRequest).userId,
 );
 
 export const Cors = cors({

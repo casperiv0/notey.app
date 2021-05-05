@@ -4,7 +4,6 @@ import {
   BadRequestException,
   NotFoundException,
   Body,
-  Req,
   Delete,
   Get,
   Put,
@@ -16,10 +15,10 @@ import "@lib/database";
 import NoteModel, { NoteDoc } from "@models/Note.model";
 import { IRequest } from "types/IRequest";
 import CategoryModel from "@models/Category.model";
-import { isTrue } from "@lib/utils";
+import { isTrue, parseLockedNotes } from "@lib/utils";
 import { ObjectId } from "mongoose";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, RateLimit } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
 
 @UseMiddleware(Cors, CookieParser, RateLimit)
 class CategoriesApiManager {
@@ -29,8 +28,8 @@ class CategoriesApiManager {
 
   @Get()
   @AuthGuard()
-  async getUserCategories(@Req() req: IRequest) {
-    const categories = await this._getUserCategories(req.userId);
+  async getUserCategories(@UserId() userId: ObjectId) {
+    const categories = await this._getUserCategories(userId);
 
     return {
       categories,
@@ -40,7 +39,7 @@ class CategoriesApiManager {
 
   @Post()
   @AuthGuard()
-  async createCategory(@Body() body: IRequest["body"], @Req() req: IRequest) {
+  async createCategory(@Body() body: IRequest["body"], @UserId() userId: ObjectId) {
     const { name } = body;
 
     if (!name) {
@@ -52,13 +51,13 @@ class CategoriesApiManager {
     }
 
     const category = new CategoryModel({
-      user_id: req.userId,
+      user_id: userId,
       name,
     });
 
     await category.save();
 
-    const categories = await this._getUserCategories(req.userId);
+    const categories = await this._getUserCategories(userId);
     return {
       categories,
       status: "success",
@@ -70,7 +69,7 @@ class CategoriesApiManager {
   async updateCategory(
     @Body() body: IRequest["body"],
     @Param("id") id: string,
-    @Req() req: IRequest,
+    @UserId() userId: ObjectId,
   ) {
     const { name, folded } = body;
 
@@ -95,7 +94,7 @@ class CategoriesApiManager {
     category.name = name;
     await category.save();
 
-    const categories = await this._getUserCategories(req.userId);
+    const categories = await this._getUserCategories(userId);
     return {
       categories,
       status: "success",
@@ -104,18 +103,18 @@ class CategoriesApiManager {
 
   @Delete("/:id")
   @AuthGuard()
-  async deleteCategory(@Param("id") id: string, @Req() req: IRequest) {
+  async deleteCategory(@Param("id") id: string, @UserId() userId: ObjectId) {
     const category = await CategoryModel.findById(id);
 
     if (!category) {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("category"));
     }
 
-    if (req.userId.toString() !== category?.user_id?.toString()) {
+    if (userId.toString() !== category?.user_id?.toString()) {
       throw new HttpException(403, ErrorMessages.PERMISSION_DENIED);
     }
 
-    const notes = await NoteModel.find({ category_id: id, user_id: req.userId });
+    const notes = await NoteModel.find({ category_id: id, user_id: userId });
 
     await Promise.all(
       notes.map(async (note: NoteDoc) => {
@@ -126,12 +125,12 @@ class CategoriesApiManager {
 
     await CategoryModel.findByIdAndDelete(id);
 
-    const categories = await this._getUserCategories(req.userId);
-    const updatedNotes = await NoteModel.find({ user_id: req.userId });
+    const categories = await this._getUserCategories(userId);
+    const updatedNotes = await NoteModel.find({ user_id: userId });
 
     return {
       categories,
-      notes: updatedNotes,
+      notes: parseLockedNotes(updatedNotes),
       status: "success",
     };
   }

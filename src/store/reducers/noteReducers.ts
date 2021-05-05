@@ -33,8 +33,8 @@ export default function NoteReducer(state = initState, action: Actions): State["
     case "GET_NOTE_BY_ID": {
       return {
         ...state,
-        note: action.note,
-        editingNote: action.note,
+        note: action.note ?? null,
+        editingNote: action.note ?? null,
         loading: false,
         editing: null,
       };
@@ -48,7 +48,7 @@ export default function NoteReducer(state = initState, action: Actions): State["
     case "GET_NOTES": {
       return {
         ...state,
-        notes: action.notes,
+        notes: action.notes ?? [],
         loading: false,
       };
     }
@@ -76,17 +76,17 @@ export default function NoteReducer(state = initState, action: Actions): State["
     case "UPDATE_NOTE_BY_ID": {
       return {
         ...state,
-        notes: action.notes,
-        note: action.note,
+        notes: action.notes ?? [],
+        note: action.note ?? null,
         loading: false,
       };
     }
     case "DELETE_NOTE_BY_ID": {
       return {
         ...state,
-        note: action.note,
-        notes: action.notes,
-        editingNote: action.note,
+        note: action.note ?? null,
+        notes: action.notes ?? [],
+        editingNote: action.note ?? null,
         loading: false,
         editing: null,
       };
