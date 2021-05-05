@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import cookie from "cookie";
 import { ModalIds, NO_ERROR } from "./constants";
 import { ALLOWED_METHODS } from "./shared";
 import { openModal } from "./utils";
@@ -14,13 +15,15 @@ export const handleRequest = (
         cookie: string;
       },
 ) => {
+  const parsedCookie = cookie.parse((data?.cookie as string) ?? "")?.["notey-session"];
+
   return axios({
     url: `${process.env.NEXT_PUBLIC_PROD_ORIGIN}/api${path}`,
     method,
     data: data ? data : null,
     withCredentials: true,
     headers: {
-      Session: (data?.cookie as string)?.split("notey-session=")?.[1] ?? "",
+      Session: parsedCookie,
       "Content-Type": "application/json",
     },
   });
