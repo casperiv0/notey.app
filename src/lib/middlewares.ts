@@ -73,5 +73,5 @@ export const RateLimit = rateLimit({
     return false;
   },
   windowMs: 5 * 60 * 1000,
-  max: 50,
+  max: 500,
 });
