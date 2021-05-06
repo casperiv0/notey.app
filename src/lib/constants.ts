@@ -30,4 +30,5 @@ export enum ModalIds {
   AlertUnsavedChanges = "alertModal_unsavedChanges",
   AlertDeleteCategory = "alertModal_deleteCategory",
   AlertTooManyRequests = "alertModal_tooManyRequests",
+  PinRequired = "pinRequiredModal",
 }

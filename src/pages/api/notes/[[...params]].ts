@@ -21,6 +21,8 @@ import useMarkdown from "@hooks/useMarkdown";
 import { ErrorMessages } from "@lib/errors";
 import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
 import { createYupSchema } from "@lib/createYupSchema";
+import UserModel from "@models/User.model";
+import { compareSync } from "bcryptjs";
 
 @UseMiddleware(Cors, CookieParser, RateLimit)
 class NotesApiManager {
@@ -80,9 +82,9 @@ class NotesApiManager {
     };
   }
 
-  @Get("/:id")
+  @Post("/:id")
   @AuthGuard()
-  async getNoteById(@Param("id") id: string, @UserId() userId: ObjectId) {
+  async getNoteById(@Param("id") id: string, @UserId() userId: ObjectId, @Body() body: any) {
     if (!isValidObjectId(id)) {
       const note = await NoteModel.find({ user_id: userId }).limit(1);
 
@@ -98,8 +100,17 @@ class NotesApiManager {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
-    if (note?.locked) {
-      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
+    if (note?.locked === true && !body.pin) {
+      throw new NotFoundException(ErrorMessages.PIN_REQUIRED);
+    }
+
+    if (note?.locked && body.pin) {
+      const user = await UserModel.findById(userId);
+      const isCorrect = compareSync(body.pin, String(user?.pin_code));
+
+      if (!isCorrect) {
+        throw new BadRequestException("PIN was incorrect");
+      }
     }
 
     if (!note.shared && note?.user_id?.toString() !== userId?.toString()) {

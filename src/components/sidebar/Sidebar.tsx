@@ -37,7 +37,7 @@ interface Props {
   categories: Category[];
   editing: boolean | null;
   updateCategoryById: (id: string, data: RequestData, notify?: boolean) => void;
-  getNoteById: (noteId: string, share: boolean) => Promise<void>;
+  getNoteById: (noteId: string, share: boolean) => Promise<boolean | undefined>;
 }
 
 const noCategory: Category = {

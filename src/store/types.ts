@@ -16,6 +16,12 @@ export interface GetNoteById {
   note: Note;
 }
 
+export interface PinRequired {
+  type: "PIN_REQUIRED";
+  pinRequired: boolean;
+  tempNoteId: string;
+}
+
 export interface GetAllNotes {
   type: "GET_NOTES";
   notes: Note[];

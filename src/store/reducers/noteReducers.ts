@@ -4,6 +4,7 @@ import {
   DeleteNoteById,
   GetAllNotes,
   GetNoteById,
+  PinRequired,
   SetEditing,
   SetLoading,
   UpdateEditingNote,
@@ -18,7 +19,8 @@ type Actions =
   | SetEditing
   | UpdateEditingNote
   | UpdateNoteById
-  | DeleteNoteById;
+  | DeleteNoteById
+  | PinRequired;
 
 const initState: State["notes"] = {
   note: null,
@@ -26,6 +28,8 @@ const initState: State["notes"] = {
   loading: false,
   editing: null,
   editingNote: null,
+  pinRequired: false,
+  tempNoteId: null,
 };
 
 export default function NoteReducer(state = initState, action: Actions): State["notes"] {
@@ -37,6 +41,8 @@ export default function NoteReducer(state = initState, action: Actions): State["
         editingNote: action.note ?? null,
         loading: false,
         editing: null,
+        pinRequired: false,
+        tempNoteId: null,
       };
     }
     case "SET_NOTE_LOADING": {
@@ -89,6 +95,13 @@ export default function NoteReducer(state = initState, action: Actions): State["
         editingNote: action.note ?? null,
         loading: false,
         editing: null,
+      };
+    }
+    case "PIN_REQUIRED": {
+      return {
+        ...state,
+        pinRequired: action.pinRequired,
+        tempNoteId: action.tempNoteId,
       };
     }
     default: {

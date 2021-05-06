@@ -19,16 +19,24 @@ import OptionsModal from "@components/modals/OptionsModal";
 import { openModal } from "@lib/utils";
 import { ModalIds } from "@lib/constants";
 import Seo from "@components/Seo";
+import PinModal from "@components/modals/PinModal";
 
 interface Props {
   isAuth: boolean;
   loading: boolean;
   note: Note | null;
+  pinRequired: boolean;
 }
 
-const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
+const AppPage: NextPage<Props> = ({ loading, isAuth, note, pinRequired }) => {
   const router = useRouter();
   const isMounted = useMounted();
+
+  React.useEffect(() => {
+    if (pinRequired) {
+      openModal(ModalIds.PinRequired);
+    }
+  }, [pinRequired]);
 
   React.useEffect(() => {
     if (!loading && !isAuth) {
@@ -81,6 +89,7 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
       <ManageNoteModal />
       <CreateNoteModal />
       <CreateCategoryModal />
+      <PinModal />
     </>
   );
 };
@@ -89,6 +98,7 @@ const mapToProps = (state: State) => ({
   isAuth: state.auth.isAuth,
   loading: state.auth.loading,
   note: state.notes.note,
+  pinRequired: state.notes.pinRequired,
 });
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
