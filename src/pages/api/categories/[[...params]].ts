@@ -18,10 +18,10 @@ import CategoryModel, { createAndUpdateCategoryValidation } from "@models/Catego
 import { isTrue, parseLockedNotes } from "@lib/utils";
 import { ObjectId } from "mongoose";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
 import { createYupSchema } from "@lib/createYupSchema";
 
-@UseMiddleware(Cors, CookieParser, RateLimit)
+@UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class CategoriesApiManager {
   private _getUserCategories(userId: ObjectId) {
     return CategoryModel.find({ user_id: userId });

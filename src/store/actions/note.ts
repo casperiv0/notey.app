@@ -10,17 +10,21 @@ import {
   CreateNote,
   SetEditing,
   UpdateEditingNote,
+  PinRequired,
 } from "../types";
 import Note from "types/Note";
 
 export const getNoteById =
-  (noteId: string, share: boolean, cookie?: string) => async (dispatch: Dis<GetNoteById>) => {
+  (noteId: string, share: boolean, cookie?: string, pin?: string) =>
+  async (dispatch: Dis<GetNoteById | PinRequired>) => {
     dispatch({ type: "SET_NOTE_LOADING", loading: true });
 
     try {
       const path = share === true ? `/notes/share/${noteId}` : `/notes/${noteId}`;
-      const res = await handleRequest(path, "GET", {
+      const method = share === true ? "GET" : "POST";
+      const res = await handleRequest(path, method, {
         cookie,
+        pin,
       });
 
       if (isSuccess(res)) {
@@ -28,9 +32,24 @@ export const getNoteById =
           type: "GET_NOTE_BY_ID",
           note: res.data.note,
         });
+
+        return true;
+      } else {
+        if (res.data.pin_required === true) {
+          dispatch({
+            type: "PIN_REQUIRED",
+            pinRequired: true,
+            tempNoteId: res.data?.note?._id ?? noteId,
+          });
+          return;
+        }
       }
+
+      return false;
     } catch (e) {
-      toast.error(getErrorFromResponse(e));
+      const error = getErrorFromResponse(e);
+
+      toast.error(error);
       dispatch({ type: "SET_NOTE_LOADING", loading: false });
     }
   };

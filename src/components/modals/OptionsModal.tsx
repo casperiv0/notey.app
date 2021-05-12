@@ -57,8 +57,12 @@ const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
                 >
                   License
                 </ReportBtn>
-                <Button style={{ marginBottom: "10px" }} danger disabled>
-                  Change/set PIN code (Soon!)
+                <Button
+                  onClick={() => openModal(ModalIds.ChangePin)}
+                  style={{ marginBottom: "10px" }}
+                  danger
+                >
+                  Change/set PIN code
                 </Button>
                 <Button style={{ marginBottom: "10px" }} danger onClick={logout}>
                   Logout

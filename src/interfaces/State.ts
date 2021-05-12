@@ -14,6 +14,8 @@ interface State {
     loading: boolean;
     editing: boolean | null;
     editingNote: Note | null;
+    pinRequired: boolean;
+    tempNoteId: string | null;
   };
   categories: {
     categories: Category[];

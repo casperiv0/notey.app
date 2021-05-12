@@ -7,6 +7,7 @@ import {
   Res,
   Delete,
   UseMiddleware,
+  Put,
 } from "@storyofams/next-api-decorators";
 import { NextApiRequest, NextApiResponse } from "next";
 import { compareSync, hashSync } from "bcryptjs";
@@ -19,10 +20,10 @@ import useMarkdown from "@hooks/useMarkdown";
 import NoteModel from "@models/Note.model";
 import CategoryModel from "@models/Category.model";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
 import { createYupSchema } from "@lib/createYupSchema";
 
-@UseMiddleware(Cors, CookieParser, RateLimit)
+@UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class AuthenticationApiManager {
   @Post("/login")
   async login(@Body() body: NextApiRequest["body"], @Res() res: NextApiResponse) {
@@ -151,6 +152,18 @@ class AuthenticationApiManager {
     useCookie(res, "notey-session", "", 0);
 
     return { user: null, status: "success" };
+  }
+
+  @Put("/me/pin")
+  @AuthGuard()
+  async updatePinCode(@UserId() userId: string, @Body() body: any) {
+    if (!body.pin) {
+      throw new BadRequestException("`pin` code is required");
+    }
+
+    await UserModel.findByIdAndUpdate(userId, { pin_code: hashSync(body.pin, 10) });
+
+    return { status: "success" };
   }
 }
 

@@ -8,7 +8,8 @@
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\"",
     "dev": "next dev -p 5011",
     "start": "next start -p 5011",
-    "build": "next build && next-sitemap"
+    "build": "next build && next-sitemap",
+    "build:tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@casper124578/useful": "^0.0.9",
@@ -19,6 +20,7 @@
     "cors": "^2.8.5",
     "dompurify": "^2.2.8",
     "express-rate-limit": "^5.2.6",
+    "helmet": "^4.6.0",
     "jsdom": "^16.5.3",
     "jsonwebtoken": "^8.5.1",
     "marked": "^2.0.3",

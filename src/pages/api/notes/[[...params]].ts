@@ -19,10 +19,27 @@ import { isTrue, parseLockedNotes } from "@lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
 import useMarkdown from "@hooks/useMarkdown";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
 import { createYupSchema } from "@lib/createYupSchema";
+import UserModel from "@models/User.model";
+import { compareSync } from "bcryptjs";
+import { LOCKED_NOTE_MSG } from "@lib/constants";
 
-@UseMiddleware(Cors, CookieParser, RateLimit)
+function returnLockedNote(note: NoteDoc) {
+  return {
+    ...note.toJSON(),
+    // make sure these values are hidden
+    __v: undefined,
+    category_id: undefined,
+    user_id: undefined,
+    shared: undefined,
+    created_at: undefined,
+    body: LOCKED_NOTE_MSG,
+    markdown: LOCKED_NOTE_MSG,
+  };
+}
+
+@UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class NotesApiManager {
   private async _getUserNotes(userId: ObjectId): Promise<NoteDoc[]> {
     return NoteModel.find({ user_id: userId });
@@ -80,11 +97,19 @@ class NotesApiManager {
     };
   }
 
-  @Get("/:id")
+  @Post("/:id")
   @AuthGuard()
-  async getNoteById(@Param("id") id: string, @UserId() userId: ObjectId) {
+  async getNoteById(@Param("id") id: string, @UserId() userId: ObjectId, @Body() body: any) {
     if (!isValidObjectId(id)) {
-      const note = await NoteModel.find({ user_id: userId }).limit(1);
+      const note: NoteDoc[] | undefined = await NoteModel.find({ user_id: userId }).limit(1);
+
+      if (note?.[0]?.locked) {
+        return {
+          status: "error",
+          pin_required: true,
+          note: returnLockedNote(note[0]),
+        };
+      }
 
       return {
         status: "success",
@@ -98,8 +123,21 @@ class NotesApiManager {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
     }
 
-    if (note?.locked) {
-      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
+    if (note?.locked === true && !body.pin) {
+      return {
+        status: "error",
+        pin_required: true,
+        note: returnLockedNote(note),
+      };
+    }
+
+    if (note?.locked && body.pin) {
+      const user = await UserModel.findById(userId);
+      const isCorrect = compareSync(body.pin, String(user?.pin_code));
+
+      if (!isCorrect) {
+        throw new BadRequestException("PIN was incorrect");
+      }
     }
 
     if (!note.shared && note?.user_id?.toString() !== userId?.toString()) {

@@ -124,20 +124,17 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
         <FormGroup>
           <FormLabel htmlFor="create_locked">Locked</FormLabel>
           <Select
-            disabled
             name="Locked"
             id="create_locked"
             value={`${locked}`}
             onChange={(e) => setLocked(e.target.value)}
-            style={{ cursor: "not-allowed" }}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </Select>
           <FormSmall>
-            {/* You can set a PIN code by clicking &quot;options&quot; in the sidebar then pressing
-            &quot;change/set PIN Code&quot; */}
-            Coming soon!
+            You can set a PIN code by clicking &quot;options&quot; in the sidebar then pressing
+            &quot;change/set PIN Code&quot;
           </FormSmall>
         </FormGroup>
         <FormGroup>

@@ -16,6 +16,12 @@ export interface GetNoteById {
   note: Note;
 }
 
+export interface PinRequired {
+  type: "PIN_REQUIRED";
+  pinRequired: boolean;
+  tempNoteId: string;
+}
+
 export interface GetAllNotes {
   type: "GET_NOTES";
   notes: Note[];
@@ -61,4 +67,8 @@ export interface Authenticate {
   type: "AUTHENTICATE";
   user: User | null;
   isAuth: boolean;
+}
+
+export interface UpdatePinCode {
+  type: "UPDATE_PIN_CODE";
 }

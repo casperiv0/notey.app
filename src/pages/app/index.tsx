@@ -9,26 +9,37 @@ import State from "types/State";
 import { getNoteById, getNotes } from "@actions/note";
 import Sidebar from "@components/sidebar/Sidebar";
 import { getCategories } from "@actions/categories";
-import CreateCategoryModal from "@components/modals/CreateCategory";
-import CreateNoteModal from "@components/modals/CreateNote";
 import { AppLayout } from "@styles/Global";
 import Main from "@components/main/Main";
 import Note from "types/Note";
-import ManageNoteModal from "@components/modals/ManageNote";
-import OptionsModal from "@components/modals/OptionsModal";
 import { openModal } from "@lib/utils";
 import { ModalIds } from "@lib/constants";
 import Seo from "@components/Seo";
+import PinModal from "@components/modals/PinModal";
+import dynamic from "next/dynamic";
+
+const OptionsModal = dynamic(() => import("@components/modals/OptionsModal"));
+const ManageNoteModal = dynamic(() => import("@components/modals/ManageNote"));
+const ChangePinModal = dynamic(() => import("@components/modals/ChangePinModal"));
+const CreateNoteModal = dynamic(() => import("@components/modals/CreateNote"));
+const CreateCategoryModal = dynamic(() => import("@components/modals/CreateCategory"));
 
 interface Props {
   isAuth: boolean;
   loading: boolean;
   note: Note | null;
+  pinRequired: boolean;
 }
 
-const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
+const AppPage: NextPage<Props> = ({ loading, isAuth, note, pinRequired }) => {
   const router = useRouter();
   const isMounted = useMounted();
+
+  React.useEffect(() => {
+    if (pinRequired && isMounted) {
+      openModal(ModalIds.PinRequired);
+    }
+  }, [pinRequired, isMounted]);
 
   React.useEffect(() => {
     if (!loading && !isAuth) {
@@ -81,6 +92,8 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note }) => {
       <ManageNoteModal />
       <CreateNoteModal />
       <CreateCategoryModal />
+      <PinModal />
+      <ChangePinModal />
     </>
   );
 };
@@ -89,6 +102,7 @@ const mapToProps = (state: State) => ({
   isAuth: state.auth.isAuth,
   loading: state.auth.loading,
   note: state.notes.note,
+  pinRequired: state.notes.pinRequired,
 });
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
