@@ -11,6 +11,7 @@ import { isValidObjectId, Schema } from "mongoose";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
+import helmet from "helmet";
 import { NextApiRequest } from "next";
 import { IRequest } from "types/IRequest";
 import { ALLOWED_METHODS } from "./shared";
@@ -86,3 +87,5 @@ export const RateLimit = rateLimit({
   windowMs: 5 * 60 * 1000,
   max: 500,
 });
+
+export const Helmet = helmet();

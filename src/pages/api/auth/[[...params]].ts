@@ -19,10 +19,10 @@ import useMarkdown from "@hooks/useMarkdown";
 import NoteModel from "@models/Note.model";
 import CategoryModel from "@models/Category.model";
 import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewares";
+import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
 import { createYupSchema } from "@lib/createYupSchema";
 
-@UseMiddleware(Cors, CookieParser, RateLimit)
+@UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class AuthenticationApiManager {
   @Post("/login")
   async login(@Body() body: NextApiRequest["body"], @Res() res: NextApiResponse) {

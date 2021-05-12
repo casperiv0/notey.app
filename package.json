@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "dompurify": "^2.2.8",
     "express-rate-limit": "^5.2.6",
+    "helmet": "^4.6.0",
     "jsdom": "^16.5.3",
     "jsonwebtoken": "^8.5.1",
     "marked": "^2.0.3",
