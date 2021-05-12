@@ -3,7 +3,7 @@ import createDompurify from "dompurify";
 import { JSDOM } from "jsdom";
 
 /* Thanks to: https://github.com/cure53/DOMPurify/issues/437#issuecomment-632021941 */
-const window = (new JSDOM("<!DOCTYPE html>").window as unknown) as Window;
+const window = new JSDOM("<!DOCTYPE html>").window as unknown as Window;
 const dompurify = createDompurify(window);
 
 /**

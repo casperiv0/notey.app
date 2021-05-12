@@ -13,51 +13,49 @@ import {
 } from "../types";
 import Note from "types/Note";
 
-export const getNoteById = (noteId: string, share: boolean, cookie?: string) => async (
-  dispatch: Dis<GetNoteById>,
-) => {
-  dispatch({ type: "SET_NOTE_LOADING", loading: true });
+export const getNoteById =
+  (noteId: string, share: boolean, cookie?: string) => async (dispatch: Dis<GetNoteById>) => {
+    dispatch({ type: "SET_NOTE_LOADING", loading: true });
 
-  try {
-    const path = share === true ? `/notes/share/${noteId}` : `/notes/${noteId}`;
-    const res = await handleRequest(path, "GET", {
-      cookie,
-    });
-
-    if (isSuccess(res)) {
-      dispatch({
-        type: "GET_NOTE_BY_ID",
-        note: res.data.note,
-      });
-    }
-  } catch (e) {
-    toast.error(getErrorFromResponse(e));
-    dispatch({ type: "SET_NOTE_LOADING", loading: false });
-  }
-};
-
-export const updateNoteById = (noteId: string, data: RequestData) => async (
-  dispatch: Dis<UpdateNoteById>,
-) => {
-  dispatch({ type: "SET_NOTE_LOADING", loading: true });
-
-  try {
-    const res = await handleRequest(`/notes/${noteId}`, "PUT", data);
-
-    if (isSuccess(res)) {
-      dispatch({
-        type: "UPDATE_NOTE_BY_ID",
-        note: res.data.note,
-        notes: res.data.notes,
+    try {
+      const path = share === true ? `/notes/share/${noteId}` : `/notes/${noteId}`;
+      const res = await handleRequest(path, "GET", {
+        cookie,
       });
 
-      toast.success("Successfully updated note");
+      if (isSuccess(res)) {
+        dispatch({
+          type: "GET_NOTE_BY_ID",
+          note: res.data.note,
+        });
+      }
+    } catch (e) {
+      toast.error(getErrorFromResponse(e));
+      dispatch({ type: "SET_NOTE_LOADING", loading: false });
     }
-  } catch (e) {
-    toast.error(getErrorFromResponse(e));
-    dispatch({ type: "SET_NOTE_LOADING", loading: false });
-  }
-};
+  };
+
+export const updateNoteById =
+  (noteId: string, data: RequestData) => async (dispatch: Dis<UpdateNoteById>) => {
+    dispatch({ type: "SET_NOTE_LOADING", loading: true });
+
+    try {
+      const res = await handleRequest(`/notes/${noteId}`, "PUT", data);
+
+      if (isSuccess(res)) {
+        dispatch({
+          type: "UPDATE_NOTE_BY_ID",
+          note: res.data.note,
+          notes: res.data.notes,
+        });
+
+        toast.success("Successfully updated note");
+      }
+    } catch (e) {
+      toast.error(getErrorFromResponse(e));
+      dispatch({ type: "SET_NOTE_LOADING", loading: false });
+    }
+  };
 
 export const deleteNoteById = (noteId: string) => async (dispatch: Dis<DeleteNoteById>) => {
   dispatch({ type: "SET_NOTE_LOADING", loading: true });
@@ -98,34 +96,34 @@ export const getNotes = (cookie?: string) => async (dispatch: Dis<GetAllNotes>) 
   }
 };
 
-export const createNote = (data: RequestData) => async (
-  dispatch: Dis<CreateNote>,
-): Promise<boolean | string> => {
-  dispatch({ type: "SET_NOTE_LOADING", loading: true });
+export const createNote =
+  (data: RequestData) =>
+  async (dispatch: Dis<CreateNote>): Promise<boolean | string> => {
+    dispatch({ type: "SET_NOTE_LOADING", loading: true });
 
-  try {
-    const res = await handleRequest("/notes", "POST", data);
+    try {
+      const res = await handleRequest("/notes", "POST", data);
 
-    if (isSuccess(res)) {
-      dispatch({
-        type: "CREATE_NOTE",
-        notes: res.data.notes,
-        note: res.data.note,
-      });
+      if (isSuccess(res)) {
+        dispatch({
+          type: "CREATE_NOTE",
+          notes: res.data.notes,
+          note: res.data.note,
+        });
 
-      return res.data.note?._id;
-    } else {
-      toast.error(res.data?.error ?? NO_ERROR);
+        return res.data.note?._id;
+      } else {
+        toast.error(res.data?.error ?? NO_ERROR);
+        dispatch({ type: "SET_NOTE_LOADING", loading: false });
+
+        return false;
+      }
+    } catch (e) {
+      toast.error(getErrorFromResponse(e));
       dispatch({ type: "SET_NOTE_LOADING", loading: false });
-
       return false;
     }
-  } catch (e) {
-    toast.error(getErrorFromResponse(e));
-    dispatch({ type: "SET_NOTE_LOADING", loading: false });
-    return false;
-  }
-};
+  };
 
 export const setEditing = (v: boolean) => (dispatch: Dis<SetEditing>) => {
   dispatch({ type: "SET_EDITING", editing: v });

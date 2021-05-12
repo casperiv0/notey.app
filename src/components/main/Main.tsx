@@ -42,15 +42,15 @@ const Main: React.FC<Props> = ({ editing, note, editingNote, updateNoteById }) =
     }
 
     if (editingNote.body.toLowerCase() !== note?.body.toLowerCase()) {
-      updateNoteById(editingNote?._id, (editingNote as unknown) as RequestData);
+      updateNoteById(editingNote?._id, editingNote as unknown as RequestData);
     }
 
     if (editingNote.title.toLowerCase() !== note?.title.toLowerCase()) {
-      updateNoteById(editingNote?._id, (editingNote as unknown) as RequestData);
+      updateNoteById(editingNote?._id, editingNote as unknown as RequestData);
     }
 
     if (editingNote.category_id !== note?.category_id) {
-      updateNoteById(editingNote?._id, (editingNote as unknown) as RequestData);
+      updateNoteById(editingNote?._id, editingNote as unknown as RequestData);
     }
   }, [editing, editingNote, note, updateNoteById]);
 
