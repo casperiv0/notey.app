@@ -68,3 +68,7 @@ export interface Authenticate {
   user: User | null;
   isAuth: boolean;
 }
+
+export interface UpdatePinCode {
+  type: "UPDATE_PIN_CODE";
+}

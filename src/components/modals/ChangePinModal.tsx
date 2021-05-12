@@ -5,52 +5,45 @@ import useModalEvent from "@hooks/useModalEvent";
 import { closeModal } from "@lib/utils";
 import { ModalIds } from "@lib/constants";
 import { FormGroup, FormInput, FormLabel, SubmitBtn } from "@styles/Auth";
-import { getNoteById } from "@actions/note";
-import State from "types/State";
 import Loader from "@components/loader/Loader";
+import { updatePinCode } from "@actions/auth";
 
 interface Props {
-  tempId: string | null;
-  getNoteById: (
-    noteId: string,
-    share: boolean,
-    cookie?: string,
-    pin?: string,
-  ) => Promise<boolean | undefined>;
+  updatePinCode: (pin: string) => Promise<boolean>;
 }
 
-const EnterPinModal: React.FC<Props> = ({ tempId, getNoteById }) => {
+const ChangePinModal: React.FC<Props> = ({ updatePinCode }) => {
   const [pin, setPin] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  const inputRef = useModalEvent<HTMLInputElement>(ModalIds.PinRequired);
+  const inputRef = useModalEvent<HTMLInputElement>(ModalIds.ChangePin);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!tempId) return;
     setLoading(true);
 
-    const success = await getNoteById(tempId, false, undefined, pin);
+    const success = await updatePinCode(pin.slice(0, 8));
 
     if (success) {
-      closeModal(ModalIds.PinRequired);
+      closeModal(ModalIds.ChangePin);
     }
 
     setLoading(false);
   }
 
   return (
-    <Modal style={{ zIndex: "50" }} title="Enter PIN to continue" id={ModalIds.PinRequired}>
+    <Modal style={{ zIndex: "50" }} title="Change PIN" id={ModalIds.ChangePin}>
       <form onSubmit={onSubmit}>
         <FormGroup>
-          <FormLabel htmlFor="pin">Pin Code</FormLabel>
+          <FormLabel htmlFor="new_pin_code">New Pin Code</FormLabel>
           <FormInput
             ref={inputRef}
             type="password"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
-            id="enter_pin"
+            id="new_pin_code"
             maxLength={8}
             required
+            autoComplete="off"
           />
         </FormGroup>
         <FormGroup>
@@ -63,8 +56,4 @@ const EnterPinModal: React.FC<Props> = ({ tempId, getNoteById }) => {
   );
 };
 
-const mapStateToProps = (state: State) => ({
-  tempId: state.notes.tempNoteId,
-});
-
-export default connect(mapStateToProps, { getNoteById })(EnterPinModal);
+export default connect(null, { updatePinCode })(ChangePinModal);

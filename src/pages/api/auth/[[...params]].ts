@@ -7,6 +7,7 @@ import {
   Res,
   Delete,
   UseMiddleware,
+  Put,
 } from "@storyofams/next-api-decorators";
 import { NextApiRequest, NextApiResponse } from "next";
 import { compareSync, hashSync } from "bcryptjs";
@@ -151,6 +152,18 @@ class AuthenticationApiManager {
     useCookie(res, "notey-session", "", 0);
 
     return { user: null, status: "success" };
+  }
+
+  @Put("/me/pin")
+  @AuthGuard()
+  async updatePinCode(@UserId() userId: string, @Body() body: any) {
+    if (!body.pin) {
+      throw new BadRequestException("`pin` code is required");
+    }
+
+    await UserModel.findByIdAndUpdate(userId, { pin_code: hashSync(body.pin, 10) });
+
+    return { status: "success" };
   }
 }
 

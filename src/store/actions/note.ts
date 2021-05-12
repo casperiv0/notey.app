@@ -39,7 +39,7 @@ export const getNoteById =
           dispatch({
             type: "PIN_REQUIRED",
             pinRequired: true,
-            tempNoteId: noteId,
+            tempNoteId: res.data?.note?._id ?? noteId,
           });
           return;
         }

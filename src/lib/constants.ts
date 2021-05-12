@@ -31,4 +31,5 @@ export enum ModalIds {
   AlertDeleteCategory = "alertModal_deleteCategory",
   AlertTooManyRequests = "alertModal_tooManyRequests",
   PinRequired = "pinRequiredModal",
+  ChangePin = "changePinModal",
 }

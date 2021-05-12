@@ -105,7 +105,8 @@ class NotesApiManager {
 
       if (note?.[0]?.locked) {
         return {
-          status: "success",
+          status: "error",
+          pin_required: true,
           note: returnLockedNote(note[0]),
         };
       }
