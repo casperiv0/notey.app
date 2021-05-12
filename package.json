@@ -8,7 +8,8 @@
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\"",
     "dev": "next dev -p 5011",
     "start": "next start -p 5011",
-    "build": "next build && next-sitemap"
+    "build": "next build && next-sitemap",
+    "build:tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@casper124578/useful": "^0.0.9",
