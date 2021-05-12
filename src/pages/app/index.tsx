@@ -33,10 +33,10 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note, pinRequired }) => {
   const isMounted = useMounted();
 
   React.useEffect(() => {
-    if (pinRequired) {
+    if (pinRequired && isMounted) {
       openModal(ModalIds.PinRequired);
     }
-  }, [pinRequired]);
+  }, [pinRequired, isMounted]);
 
   React.useEffect(() => {
     if (!loading && !isAuth) {

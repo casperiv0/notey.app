@@ -23,6 +23,21 @@ import { AuthGuard, CookieParser, Cors, RateLimit, UserId } from "@lib/middlewar
 import { createYupSchema } from "@lib/createYupSchema";
 import UserModel from "@models/User.model";
 import { compareSync } from "bcryptjs";
+import { LOCKED_NOTE_MSG } from "@lib/constants";
+
+function returnLockedNote(note: NoteDoc) {
+  return {
+    ...note.toJSON(),
+    // make sure these values are hidden
+    __v: undefined,
+    category_id: undefined,
+    user_id: undefined,
+    shared: undefined,
+    created_at: undefined,
+    body: LOCKED_NOTE_MSG,
+    markdown: LOCKED_NOTE_MSG,
+  };
+}
 
 @UseMiddleware(Cors, CookieParser, RateLimit)
 class NotesApiManager {
@@ -86,7 +101,14 @@ class NotesApiManager {
   @AuthGuard()
   async getNoteById(@Param("id") id: string, @UserId() userId: ObjectId, @Body() body: any) {
     if (!isValidObjectId(id)) {
-      const note = await NoteModel.find({ user_id: userId }).limit(1);
+      const note: NoteDoc[] | undefined = await NoteModel.find({ user_id: userId }).limit(1);
+
+      if (note?.[0]?.locked) {
+        return {
+          status: "success",
+          note: returnLockedNote(note[0]),
+        };
+      }
 
       return {
         status: "success",
@@ -101,7 +123,11 @@ class NotesApiManager {
     }
 
     if (note?.locked === true && !body.pin) {
-      throw new NotFoundException(ErrorMessages.PIN_REQUIRED);
+      return {
+        status: "error",
+        pin_required: true,
+        note: returnLockedNote(note),
+      };
     }
 
     if (note?.locked && body.pin) {

@@ -21,7 +21,8 @@ export const getNoteById =
 
     try {
       const path = share === true ? `/notes/share/${noteId}` : `/notes/${noteId}`;
-      const res = await handleRequest(path, "POST", {
+      const method = share === true ? "GET" : "POST";
+      const res = await handleRequest(path, method, {
         cookie,
         pin,
       });
@@ -33,20 +34,20 @@ export const getNoteById =
         });
 
         return true;
+      } else {
+        if (res.data.pin_required === true) {
+          dispatch({
+            type: "PIN_REQUIRED",
+            pinRequired: true,
+            tempNoteId: noteId,
+          });
+          return;
+        }
       }
 
       return false;
     } catch (e) {
       const error = getErrorFromResponse(e);
-
-      if (error === "pin_required") {
-        dispatch({
-          type: "PIN_REQUIRED",
-          pinRequired: true,
-          tempNoteId: noteId,
-        });
-        return;
-      }
 
       toast.error(error);
       dispatch({ type: "SET_NOTE_LOADING", loading: false });

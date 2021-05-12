@@ -41,6 +41,7 @@ const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) 
       ...note,
       category_id: categoryId,
       shared: isTrue(shareable),
+      locked: isTrue(locked),
     });
   }
 
@@ -87,8 +88,6 @@ const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) 
           <Select
             name="Locked"
             id="locked"
-            style={{ cursor: "not-allowed" }}
-            disabled
             value={`${locked}`}
             onChange={(e) => setLocked(e.target.value)}
           >
