@@ -20,10 +20,10 @@ interface Props {
 const EditCategoryModal = ({ category, deleteCategory, updateCategoryById }: Props) => {
   const [name, setName] = React.useState(category?.name ?? "");
   const ref = useModalEvent<HTMLInputElement>(ModalIds.EditCategory);
-  const isDisabled = React.useMemo(() => name.toLowerCase() === category?.name.toLowerCase(), [
-    name,
-    category?.name,
-  ]);
+  const isDisabled = React.useMemo(
+    () => name.toLowerCase() === category?.name.toLowerCase(),
+    [name, category?.name],
+  );
 
   React.useEffect(() => {
     setName(category?.name ?? "");

@@ -21,86 +21,85 @@ export const getCategories = (cookie?: string) => async (dispatch: Dis<UpdateCat
   }
 };
 
-export const createCategory = (data: RequestData) => async (
-  dispatch: Dis<UpdateCategoriesState>,
-): Promise<boolean> => {
-  dispatch({ type: "SET_CATEGORY_LOADING", loading: true });
+export const createCategory =
+  (data: RequestData) =>
+  async (dispatch: Dis<UpdateCategoriesState>): Promise<boolean> => {
+    dispatch({ type: "SET_CATEGORY_LOADING", loading: true });
 
-  try {
-    const res = await handleRequest("/categories", "POST", data);
+    try {
+      const res = await handleRequest("/categories", "POST", data);
 
-    if (isSuccess(res)) {
-      dispatch({
-        type: "CREATE_CATEGORY",
-        categories: res.data.categories,
-      });
+      if (isSuccess(res)) {
+        dispatch({
+          type: "CREATE_CATEGORY",
+          categories: res.data.categories,
+        });
 
-      toast.success(`Successfully created category with name: ${data.name}`);
-      return true;
-    } else {
+        toast.success(`Successfully created category with name: ${data.name}`);
+        return true;
+      } else {
+        dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
+        toast.error(res.data.error);
+        return false;
+      }
+    } catch (e) {
       dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-      toast.error(res.data.error);
+      toast.error(getErrorFromResponse(e));
       return false;
     }
-  } catch (e) {
-    dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-    toast.error(getErrorFromResponse(e));
-    return false;
-  }
-};
+  };
 
-export const deleteCategory = (id: string) => async (
-  dispatch: Dis<UpdateCategoriesState | GetAllNotes>,
-) => {
-  dispatch({ type: "SET_CATEGORY_LOADING", loading: true });
+export const deleteCategory =
+  (id: string) => async (dispatch: Dis<UpdateCategoriesState | GetAllNotes>) => {
+    dispatch({ type: "SET_CATEGORY_LOADING", loading: true });
 
-  try {
-    const res = await handleRequest(`/categories/${id}`, "DELETE");
+    try {
+      const res = await handleRequest(`/categories/${id}`, "DELETE");
 
-    if (isSuccess(res)) {
-      dispatch({
-        type: "DELETE_CATEGORY",
-        categories: res.data.categories,
-      });
+      if (isSuccess(res)) {
+        dispatch({
+          type: "DELETE_CATEGORY",
+          categories: res.data.categories,
+        });
 
-      dispatch({
-        type: "GET_NOTES",
-        notes: res.data.notes,
-      });
+        dispatch({
+          type: "GET_NOTES",
+          notes: res.data.notes,
+        });
 
-      toast.success("Successfully deleted category");
-    } else {
+        toast.success("Successfully deleted category");
+      } else {
+        dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
+        toast.error(res.data.error);
+      }
+    } catch (e) {
       dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-      toast.error(res.data.error);
+      toast.error(getErrorFromResponse(e));
     }
-  } catch (e) {
-    dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-    toast.error(getErrorFromResponse(e));
-  }
-};
+  };
 
-export const updateCategoryById = (id: string, data: RequestData, notify: boolean = true) => async (
-  dispatch: Dis<UpdateCategoriesState>,
-) => {
-  dispatch({ type: "SET_CATEGORY_LOADING", loading: true });
+export const updateCategoryById =
+  (id: string, data: RequestData, notify: boolean = true) =>
+  async (dispatch: Dis<UpdateCategoriesState>) => {
+    dispatch({ type: "SET_CATEGORY_LOADING", loading: true });
 
-  try {
-    const res = await handleRequest(`/categories/${id}`, "PUT", data);
+    try {
+      const res = await handleRequest(`/categories/${id}`, "PUT", data);
 
-    if (isSuccess(res)) {
-      dispatch({
-        type: "UPDATE_CATEGORY_BY_ID",
-        categories: res.data.categories,
-      });
+      if (isSuccess(res)) {
+        dispatch({
+          type: "UPDATE_CATEGORY_BY_ID",
+          categories: res.data.categories,
+        });
 
-      closeModal(ModalIds.EditCategory);
-      notify && toast.success("Successfully updated category");
-    } else {
+        closeModal(ModalIds.EditCategory);
+        notify && toast.success("Successfully updated category");
+      } else {
+        dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
+        toast.error(res.data.error);
+      }
+    } catch (e) {
       dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-      toast.error(res.data.error);
+      toast.error(getErrorFromResponse(e));
     }
-  } catch (e) {
-    dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-    toast.error(getErrorFromResponse(e));
-  }
-};
+  };

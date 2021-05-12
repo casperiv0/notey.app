@@ -164,6 +164,7 @@ export const SidebarNote = styled.button`
   width: 100%;
   background: transparent;
   border: none;
+  text-align: left;
 
   @media (hover: hover) {
     &:hover {
