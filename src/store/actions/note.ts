@@ -37,6 +37,11 @@ export const getNoteById =
       } else {
         if (res.data.pin_required === true) {
           dispatch({
+            type: "GET_NOTE_BY_ID",
+            note: res.data.note,
+          });
+
+          dispatch({
             type: "PIN_REQUIRED",
             pinRequired: true,
             tempNoteId: res.data?.note?._id ?? noteId,

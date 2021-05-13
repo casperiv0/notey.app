@@ -28,6 +28,7 @@ interface Props {
   note: Note | null;
   editingNote: Note | null;
   editing: boolean | null;
+  pinRequired: boolean;
   setEditing: (v: boolean) => void;
   updateEditingNote: (data: Partial<Note>) => void;
   deleteNoteById: (noteId: string) => void;
@@ -38,6 +39,7 @@ const Navbar: React.FC<Props> = ({
   note,
   editingNote,
   editing,
+  pinRequired,
   setEditing,
   updateEditingNote,
   deleteNoteById,
@@ -92,29 +94,41 @@ const Navbar: React.FC<Props> = ({
                   <OptionsIcon />
                 </OpenRightSidebar>
                 <Row>
-                  {editing ? (
-                    <SelectCategory
-                      className="is-in-nav"
-                      id="activeNoteTitle"
-                      value={editingNote?.category_id!}
-                      categories={categories}
-                      onChange={(e) =>
-                        updateEditingNote({
-                          ...editingNote,
-                          category_id: e.target.value,
-                        })
-                      }
-                    />
-                  ) : null}
-                  <Button navBtn danger onClick={() => openModal(ModalIds.AlertDeleteNote)}>
-                    Delete
-                  </Button>
-                  <Button navBtn className="ml" onClick={handleEdit}>
-                    {editing ? "Save" : "Edit"}
-                  </Button>
-                  <Button navBtn className="ml" onClick={() => openModal(ModalIds.ManageNoteModal)}>
-                    Manage
-                  </Button>
+                  {note.locked === true && pinRequired === true ? (
+                    <Button navBtn onClick={() => openModal(ModalIds.PinRequired)}>
+                      Unlock
+                    </Button>
+                  ) : (
+                    <>
+                      {editing ? (
+                        <SelectCategory
+                          className="is-in-nav"
+                          id="activeNoteTitle"
+                          value={editingNote?.category_id!}
+                          categories={categories}
+                          onChange={(e) =>
+                            updateEditingNote({
+                              ...editingNote,
+                              category_id: e.target.value,
+                            })
+                          }
+                        />
+                      ) : null}
+                      <Button navBtn danger onClick={() => openModal(ModalIds.AlertDeleteNote)}>
+                        Delete
+                      </Button>
+                      <Button navBtn className="ml" onClick={handleEdit}>
+                        {editing ? "Save" : "Edit"}
+                      </Button>
+                      <Button
+                        navBtn
+                        className="ml"
+                        onClick={() => openModal(ModalIds.ManageNoteModal)}
+                      >
+                        Manage
+                      </Button>
+                    </>
+                  )}
                 </Row>
               </Row>
             ) : null}
@@ -155,6 +169,7 @@ const mapToProps = (state: State) => ({
   note: state.notes.note,
   editingNote: state.notes.editingNote,
   editing: state.notes.editing,
+  pinRequired: state.notes.pinRequired,
 });
 
 export default connect(mapToProps, { setEditing, updateEditingNote, deleteNoteById })(Navbar);

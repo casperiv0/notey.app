@@ -51,6 +51,7 @@ const EnterPinModal: React.FC<Props> = ({ tempId, getNoteById }) => {
             id="enter_pin"
             maxLength={8}
             required
+            autoComplete="pin-code"
           />
         </FormGroup>
         <FormGroup>

@@ -30,6 +30,8 @@ const Seo: React.FC<Props> = (props) => {
     ...props,
   };
 
+  console.log(tags);
+
   return (
     <Head>
       <title>{tags.title}</title>
@@ -43,6 +45,18 @@ const Seo: React.FC<Props> = (props) => {
 
       <link rel="canonical" href={tags.url} />
       <meta property="og:url" content={tags.url} />
+      <meta property="og:site_name" content="notey.caspertheghost.me" />
+
+      <meta property="og:color" content="#1D1E2C" />
+
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:creator" content="@casper124578" />
+      <meta property="twitter:domain" content="notey.caspertheghost.me" />
+      <meta property="twitter:url" content="https://notey.caspertheghost.me" />
+      <meta
+        name="twitter:image"
+        content="https://notey.caspertheghost.me/icons/notey-app-144.png"
+      />
 
       <meta name="keywords" content={[...DEFAULT_KEYWORDS, ...(tags?.keywords ?? [])].join(", ")} />
     </Head>

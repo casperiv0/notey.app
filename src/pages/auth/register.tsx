@@ -58,6 +58,7 @@ const Register: NextPage<Props> = ({ authenticate, loading }) => {
         url="https://notey.caspertheghost.me/auth/register"
         title="Register - notey.app"
       />
+
       <AuthContainer>
         <AuthForm onSubmit={onSubmit}>
           <FormGroup>

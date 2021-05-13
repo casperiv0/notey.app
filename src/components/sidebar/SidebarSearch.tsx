@@ -27,7 +27,7 @@ const SidebarSearch = ({ filterNotes }) => {
         </SearchIconContainer>
         <SearchInput
           ref={ref}
-          type="text"
+          type="search"
           value={query}
           id="query"
           name="query"

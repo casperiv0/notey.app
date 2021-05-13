@@ -59,6 +59,7 @@ const LoginPage: NextPage<Props> = ({ loading, authenticate }) => {
         url="https://notey.caspertheghost.me/auth/login"
         title="Login - notey.app"
       />
+
       <AuthContainer>
         <AuthForm onSubmit={onSubmit}>
           <FormGroup>

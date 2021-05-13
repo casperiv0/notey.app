@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import Head from "next/head";
 import Link from "next/link";
 import { checkAuth } from "@actions/auth";
 import { GetServerSideProps, NextPage } from "next";
@@ -28,6 +27,7 @@ import {
   FooterLink,
 } from "@styles/Landing";
 import { RowCenter } from "@styles/Global";
+import Seo from "@components/Seo";
 
 interface Props {
   isAuth: boolean;
@@ -36,12 +36,7 @@ interface Props {
 const IndexPage: NextPage<Props> = ({ isAuth }) => {
   return (
     <>
-      <Head>
-        <title>Notey.app - Keep track of important things</title>
-        <link rel="canonical" href="https://notey.caspertheghost.me" />
-        <meta property="og:url" content="https://notey.caspertheghost.me" />
-        <meta property="og:title" content="Notey.app - Keep track of important things" />
-      </Head>
+      <Seo />
 
       <NavbarStyle>
         <NavbarContent>
