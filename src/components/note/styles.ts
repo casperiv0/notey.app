@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Size } from "@lib/constants";
+import { NoteyColors, Size } from "@lib/constants";
 
 export const NoteStyle = styled.div<{ editing: boolean }>`
   width: 100%;
@@ -20,7 +20,7 @@ export const NoteStyle = styled.div<{ editing: boolean }>`
 
 export const PreviewStyle = styled.div`
   padding: 10px;
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-size: 1.2rem;
 
   & table,
@@ -61,7 +61,7 @@ export const PreviewStyle = styled.div`
   }
 
   & summary:hover {
-    background-color: #3a3b3c;
+    background-color: ${NoteyColors.LightGray};
   }
 
   & h1,
@@ -78,11 +78,11 @@ export const PreviewStyle = styled.div`
   & pre {
     padding: 10px;
     width: 100%;
-    background: #3a3b3c;
+    background: ${NoteyColors.LightGray};
   }
 
   & code {
-    background: #3a3b3c;
+    background: ${NoteyColors.LightGray};
     font-family: Consolas, "Courier New", monospace !important;
     padding: 2px;
   }
@@ -105,7 +105,7 @@ export const PreviewStyle = styled.div`
   & li {
     margin-left: 20px;
     &::marker {
-      color: #f2f2f2;
+      color: ${NoteyColors.Text};
       font-size: 1.2rem;
     }
   }
@@ -116,7 +116,7 @@ export const NoteTextArea = styled.textarea`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: #18191a;
+  background: ${NoteyColors.Dark};
   color: #fff;
   resize: none;
   border: none;

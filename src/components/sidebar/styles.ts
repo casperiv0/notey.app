@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Size, Styles } from "@lib/constants";
+import { NoteyColors, Size, Styles } from "@lib/constants";
 
 export const SidebarContainer = styled.div`
   grid-area: aside;
@@ -42,7 +42,7 @@ export const SidebarStyle = styled.div`
   width: ${Size.SidebarFull};
   max-width: 95%;
   padding: 10px;
-  background-color: #242526;
+  background: ${NoteyColors.DarkerGray};
   top: 0;
   left: calc(-${Size.SidebarFull} - 50px);
   bottom: 0;
@@ -90,7 +90,7 @@ export const CloseSidebarBtn = styled.button`
   }
 
   & svg {
-    fill: #f2f2f2;
+    fill: ${NoteyColors.Text};
   }
 `;
 
@@ -104,7 +104,7 @@ export const SearchContainer = styled.div`
   align-items: center;
   border-radius: ${Styles.BorderRadius};
   padding: 2px;
-  background-color: #2f2f2f;
+  background-color: ${NoteyColors.DarkGray};
   border: 2px solid #555;
   transition: border 200ms;
   width: 100%;
@@ -125,8 +125,8 @@ export const SearchInput = styled.input`
   font-size: 1.2rem;
   border: none;
   border-right: none;
-  background-color: #2f2f2f;
-  color: #f2f2f2;
+  background-color: ${NoteyColors.DarkGray};
+  color: ${NoteyColors.Text};
   width: 100%;
   outline: none;
 `;
@@ -168,17 +168,17 @@ export const SidebarNote = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: #3a3b3c;
+      background-color: ${NoteyColors.LightGray};
     }
   }
 
   &:focus {
-    background-color: #3a3b3c;
+    background-color: ${NoteyColors.LightGray};
   }
 
   &.active {
     color: #fff;
-    background-color: #3a3b3c;
+    background-color: ${NoteyColors.LightGray};
   }
 `;
 
@@ -186,9 +186,9 @@ export const OpenOptionsModalBtn = styled.button`
   padding: 10px;
   width: 100%;
   height: 100%;
-  background-color: #2f2f2f;
-  color: #f2f2f2;
-  border: solid #2f2f2f;
+  background-color: ${NoteyColors.DarkGray};
+  color: ${NoteyColors.Text};
+  border: solid ${NoteyColors.DarkGray};
   border-width: 2px 0px 2px 0px;
   font-size: 1.2rem;
   font-weight: 600;
@@ -196,8 +196,8 @@ export const OpenOptionsModalBtn = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: #2f2f2f;
-      color: #f2f2f2;
+      background-color: ${NoteyColors.DarkGray};
+      color: ${NoteyColors.Text};
     }
   }
 `;

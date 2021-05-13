@@ -33,3 +33,15 @@ export enum ModalIds {
   PinRequired = "pinRequiredModal",
   ChangePin = "changePinModal",
 }
+
+export enum NoteyColors {
+  Dark = "#18191A",
+  Red = "#d9534f",
+  White = "#ffffff",
+
+  Text = "#f2f2f2",
+
+  DarkerGray = "#242526",
+  DarkGray = "#2F2F2F",
+  LightGray = "#3A3B3C",
+}

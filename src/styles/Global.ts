@@ -1,13 +1,13 @@
-import { Size, Styles } from "@lib/constants";
+import { NoteyColors, Size, Styles } from "@lib/constants";
 import styled, { css } from "styled-components";
 
 export const DEFAULT_INPUT_STYLES = css`
   padding: 0.4rem;
   font-size: 1.2rem;
-  border: 2px solid #3a3b3c;
-  background: #2f2f2f;
+  border: 2px solid ${NoteyColors.LightGray};
+  background: ${NoteyColors.DarkGray};
   border-radius: ${Styles.BorderRadius};
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   transition: border 200ms;
 
   @media (hover: hover) {
@@ -27,8 +27,8 @@ export const DEFAULT_BTN_STYLES = css<{ bgColor?: string }>`
   cursor: pointer;
   font-weight: 500;
   border-radius: ${Styles.BorderRadius};
-  background: ${(props) => (props.bgColor ? props.bgColor : "#3A3B3C")};
-  color: #f2f2f2;
+  background: ${(props) => (props.bgColor ? props.bgColor : NoteyColors.LightGray)};
+  color: ${NoteyColors.Text};
   border: 1px solid transparent;
   transition: filter 200ms, opacity 200ms;
 
@@ -99,8 +99,8 @@ export const Button = styled.button<{ danger?: boolean; navBtn?: boolean }>`
   ${(props) =>
     props.danger &&
     css`
-      background-color: #d9534f;
-      border: 1px solid #d9534f;
+      background-color: ${NoteyColors.Red};
+      border: 1px solid ${NoteyColors.Red};
       color: black;
     `}
 

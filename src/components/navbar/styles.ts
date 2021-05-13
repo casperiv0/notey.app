@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Size } from "@lib/constants";
+import { NoteyColors, Size } from "@lib/constants";
 
 export const NavbarContainer = styled.div`
   grid-area: nav;
@@ -17,7 +17,7 @@ export const NavbarStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #18191a;
+  background: ${NoteyColors.Dark};
   border-left: none;
   border-bottom: 2px solid #666;
 
@@ -30,7 +30,7 @@ export const NavbarStyle = styled.div`
 
 export const NavTitle = styled.div`
   margin-left: 10px;
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-size: 1.3rem;
   display: flex;
   align-items: center;
@@ -52,7 +52,7 @@ export const NavTitleInput = styled.input`
   border: none;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
 `;
 
 export const NavLinks = styled.div`
@@ -80,7 +80,7 @@ export const OpenSidebar = styled.button`
   display: flex;
 
   & svg {
-    fill: #f2f2f2;
+    fill: ${NoteyColors.Text};
   }
 
   @media (min-width: ${Size.DefaultMinWidth}) {
@@ -97,7 +97,7 @@ export const OpenRightSidebar = styled.button`
   display: flex;
 
   & svg {
-    fill: #f2f2f2;
+    fill: ${NoteyColors.Text};
   }
 
   @media (min-width: ${Size.DefaultMinWidth}) {
@@ -136,7 +136,7 @@ export const RightSidebarStyle = styled.div`
   right: -${Size.SidebarFull};
   top: 0;
   background: #252525;
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   transition: right 200ms;
 
   &.active {
@@ -164,6 +164,6 @@ export const CloseRightSidebar = styled.button`
   height: 50px;
 
   & svg {
-    fill: #f2f2f2;
+    fill: ${NoteyColors.Text};
   }
 `;

@@ -1,4 +1,4 @@
-import UserModel from "@models/User.model";
+import { NextApiRequest } from "next";
 import {
   createMiddlewareDecorator,
   createParamDecorator,
@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
 import helmet from "helmet";
-import { NextApiRequest } from "next";
+import UserModel from "@models/User.model";
 import { IRequest } from "types/IRequest";
 import { ALLOWED_METHODS } from "./shared";
 

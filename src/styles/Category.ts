@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Size } from "@lib/constants";
+import { Size, NoteyColors } from "@lib/constants";
 import { DEFAULT_INPUT_STYLES } from "./Global";
 
 export const CategoryDiv = styled.div`
@@ -29,7 +29,7 @@ export const CategoryTitle = styled.button<{ categoryId: string }>`
   width: 100%;
   font-weight: bold;
   cursor: ${(props) => (props.categoryId === "no_category" ? "default" : "pointer")};
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-size: 1.2rem;
   display: flex;
   justify-content: flex-start;
@@ -71,7 +71,7 @@ export const EditCategory = styled.button`
   transition: background 200ms;
 
   &:hover {
-    background: #3a3b3c;
+    background: ${NoteyColors.LightGray};
 
     & svg {
       fill: #fff;

@@ -41,11 +41,13 @@ const Modal: React.FC<Props> = ({ id, title, children, ...rest }) => {
     ? createPortal(
         <ModalContainer onClick={handleOuterClick} {...rest} className="modal" id={id}>
           <ModalStyle width={rest.width} id={`style-${id}`} className={id}>
-            <ModalHeader>
-              {title}
-              <CloseModal onClick={() => closeModal(id)}>&times;</CloseModal>
-            </ModalHeader>
-            <ModalBody>{children}</ModalBody>
+            <div>
+              <ModalHeader>
+                {title}
+                <CloseModal onClick={() => closeModal(id)}>&times;</CloseModal>
+              </ModalHeader>
+              <ModalBody>{children}</ModalBody>
+            </div>
           </ModalStyle>
         </ModalContainer>,
         portalRef!,

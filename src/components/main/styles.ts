@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { Size } from "@lib/constants";
+import { NoteyColors, Size } from "@lib/constants";
 
 export const MainStyle = styled.div`
   border-left: none;
   grid-area: main;
   color: white;
   position: relative;
-  background-color: #18191a;
+  background: ${NoteyColors.Dark};
   width: 100%;
   height: 100%;
   display: grid;

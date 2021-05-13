@@ -7,5 +7,4 @@ export const ErrorMessages = {
   NOTE_TITLE_LIMIT_40: "title has a limit of 40 characters",
   PERMISSION_DENIED: "permission denied",
   NOT_FOUND: (item: string) => `${item} was not found`,
-  PIN_REQUIRED: "pin_required",
 };

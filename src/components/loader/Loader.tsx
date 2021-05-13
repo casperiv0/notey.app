@@ -1,5 +1,6 @@
 import { Center } from "./styles";
 import PulseLoader from "react-spinners/PulseLoader";
+import { NoteyColors } from "@lib/constants";
 
 interface Props {
   fullSize?: boolean;
@@ -11,7 +12,7 @@ interface Props {
 const Loader: React.FC<Props> = ({ size, fullSize, center, color }) => {
   return (
     <Center fullSize={fullSize} isCenter={center}>
-      <PulseLoader size={size ?? 12} color={color ?? "#f2f2f2"}></PulseLoader>
+      <PulseLoader size={size ?? 12} color={color ?? NoteyColors.Text}></PulseLoader>
     </Center>
   );
 };

@@ -3,6 +3,7 @@ import { GetServerSideProps, NextPage } from "next";
 import * as React from "react";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import { useMounted } from "@casper124578/useful/hooks/useMounted";
 import { initializeStore } from "src/store/store";
 import State from "types/State";
@@ -16,13 +17,14 @@ import { openModal } from "@lib/utils";
 import { ModalIds } from "@lib/constants";
 import Seo from "@components/Seo";
 import PinModal from "@components/modals/PinModal";
-import dynamic from "next/dynamic";
 
-const OptionsModal = dynamic(() => import("@components/modals/OptionsModal"));
-const ManageNoteModal = dynamic(() => import("@components/modals/ManageNote"));
-const ChangePinModal = dynamic(() => import("@components/modals/ChangePinModal"));
-const CreateNoteModal = dynamic(() => import("@components/modals/CreateNote"));
-const CreateCategoryModal = dynamic(() => import("@components/modals/CreateCategory"));
+const OptionsModal = dynamic(() => import("@components/modals/OptionsModal"), { ssr: false });
+const ManageNoteModal = dynamic(() => import("@components/modals/ManageNote"), { ssr: false });
+const ChangePinModal = dynamic(() => import("@components/modals/ChangePinModal"), { ssr: false });
+const CreateNoteModal = dynamic(() => import("@components/modals/CreateNote"), { ssr: false });
+const CreateCategoryModal = dynamic(() => import("@components/modals/CreateCategory"), {
+  ssr: false,
+});
 
 interface Props {
   isAuth: boolean;

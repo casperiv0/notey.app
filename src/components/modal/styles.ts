@@ -1,3 +1,4 @@
+import { NoteyColors } from "@lib/constants";
 import styled, { keyframes } from "styled-components";
 
 const openAni = keyframes`
@@ -41,17 +42,18 @@ export const ModalContainer = styled.div`
 
 export const ModalStyle = styled.div<{ width?: string }>`
   z-index: 35;
-  padding: 0.8rem 1rem;
-  background-color: #242526;
+  background: ${NoteyColors.DarkerGray};
   width: ${(props) => props.width ?? "600px"};
   max-width: 90%;
-  max-height: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
+  overflow: hidden;
 
-  @media (max-height: 1000px) {
+  & > div {
+    max-height: 800px;
     overflow-y: auto;
     scrollbar-width: thin;
+    padding: 0.8rem 1rem;
   }
 
   &.active {
@@ -64,20 +66,25 @@ export const ModalStyle = styled.div<{ width?: string }>`
 `;
 
 export const ModalHeader = styled.div`
+  position: sticky;
+  top: 0;
+  background: ${NoteyColors.DarkerGray};
+  z-index: 1;
+
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-size: 1.5rem;
   font-weight: 600;
-  border-bottom: 2px solid #3a3b3c;
+  border-bottom: 2px solid ${NoteyColors.LightGray};
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
 `;
 
 export const CloseModal = styled.button`
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-weight: 600;
   background: none;
   border: none;
@@ -107,7 +114,7 @@ export const ModalBody = styled.div`
 
 // OptionsModal
 export const OptionsModalStyle = styled.div`
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
 `;
 
 export const OptionsModalContent = styled.div`
@@ -121,7 +128,7 @@ export const OptionsModalBody = styled.div`
 export const OptionsModalFooter = styled.div`
   border-top: 2px solid #5c5c5c;
   padding: 10px 0;
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-size: 1.2rem;
   text-align: center;
 
@@ -134,7 +141,7 @@ export const OptionsModalFooter = styled.div`
 // alertModal
 export const AlertDescription = styled.p`
   font-size: 1.2rem;
-  color: #ffffff;
+  color: ${NoteyColors.Text};
   margin: 1.5rem 0;
 `;
 

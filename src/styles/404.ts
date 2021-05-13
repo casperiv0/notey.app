@@ -1,3 +1,4 @@
+import { NoteyColors } from "@lib/constants";
 import styled from "styled-components";
 
 export const NotFoundContainer = styled.div`
@@ -11,18 +12,18 @@ export const NotFoundContainer = styled.div`
   p {
     text-align: center;
     font-size: clamp(1.5rem, 8vw, 3rem);
-    color: #f2f2f2;
+    color: ${NoteyColors.Text};
   }
 `;
 
 export const NotFoundTitle = styled.h1<{ error?: boolean }>`
   font-size: clamp(6rem, 20vw, 10rem);
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
 `;
 
 export const NotFoundBtn = styled.p`
-  color: #f2f2f2;
-  background-color: #2f2f2f;
+  color: ${NoteyColors.Text};
+  background: ${NoteyColors.DarkGray};
   padding: 1rem 2rem;
   width: 100%;
   border-radius: 0.5rem;

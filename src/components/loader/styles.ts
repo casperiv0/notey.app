@@ -1,3 +1,4 @@
+import { NoteyColors } from "@lib/constants";
 import styled, { css } from "styled-components";
 
 export const Center = styled.div<{ isCenter?: boolean; fullSize?: boolean }>`
@@ -20,7 +21,7 @@ export const Center = styled.div<{ isCenter?: boolean; fullSize?: boolean }>`
       left: 0;
       right: 0;
       bottom: 0;
-      background: #18191a;
+      background: ${NoteyColors.Dark};
       display: flex;
       align-items: center;
       justify-content: center;

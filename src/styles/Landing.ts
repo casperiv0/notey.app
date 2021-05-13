@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Size } from "@lib/constants";
+import { NoteyColors, Size } from "@lib/constants";
 import { DEFAULT_BTN_STYLES } from "./Global";
 
 export const NavbarStyle = styled.nav`
@@ -7,7 +7,7 @@ export const NavbarStyle = styled.nav`
   justify-content: center;
   width: 100%;
   height: 80px;
-  background: #18191a;
+  background: ${NoteyColors.Dark};
 `;
 
 export const NavbarContent = styled.div`
@@ -32,7 +32,7 @@ export const NavIcon = styled.a`
 export const NavLinks = styled.div``;
 
 export const NavLink = styled.a<{ large?: boolean }>`
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-size: 1.2rem;
   padding: 10px 20px;
   text-decoration: none;
@@ -100,7 +100,7 @@ export const ShowCaseLink = styled.a`
 `;
 
 export const ShowCaseInfo = styled.p`
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-size: 1.2rem;
   margin-left: 20px;
   display: none;
@@ -120,7 +120,7 @@ export const FooterStyle = styled.footer`
   align-items: center;
   justify-content: center;
   height: 150px;
-  background: #18191a;
+  background: ${NoteyColors.Dark};
 
   @media (min-width: ${Size.DefaultMinWidth}) {
     height: 120px;
@@ -152,14 +152,14 @@ export const FooterIcon = styled.img`
 `;
 
 export const FooterTitle = styled.h1`
-  color: #ffffff;
+  color: ${NoteyColors.White};
   font-size: 1.2rem;
   font-weight: normal;
   text-align: center;
 
   & a {
     margin-right: 0;
-    color: #f2f2f2;
+    color: ${NoteyColors.Text};
   }
 `;
 
@@ -170,7 +170,7 @@ export const FooterLinks = styled.div`
 
 export const FooterLink = styled.a`
   font-size: 1.2rem;
-  color: #f2f2f2;
+  color: ${NoteyColors.Text};
   font-weight: 600;
   margin-top: 10px;
 `;
