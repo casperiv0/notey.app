@@ -49,11 +49,18 @@ const RightSidebar: React.FC<Props> = ({
               <SrOnly>Close Options</SrOnly>
               <CloseIcon />
             </CloseRightSidebar>
+
             <Button style={{ marginBottom: "10px" }} onClick={handleEdit}>
               {editing ? "Save" : "Edit"}
             </Button>
-            {/*  onClick={shareNote} */}
-            <Button style={{ marginBottom: "10px" }}>Manage</Button>
+
+            <Button
+              onClick={() => openModal(ModalIds.ManageNoteModal)}
+              style={{ marginBottom: "10px" }}
+            >
+              Manage
+            </Button>
+
             {editing ? (
               <div style={{ marginBottom: "10px" }}>
                 <SelectCategory
@@ -68,6 +75,7 @@ const RightSidebar: React.FC<Props> = ({
                 />
               </div>
             ) : null}
+
             <Button
               style={{ marginBottom: "10px" }}
               danger
