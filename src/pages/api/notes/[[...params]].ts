@@ -45,6 +45,10 @@ class NotesApiManager {
     return NoteModel.find({ user_id: userId });
   }
 
+  private async returnNoteIfNotFound(userId: ObjectId): Promise<NoteDoc[]> {
+    return NoteModel.find({ user_id: userId }).limit(1);
+  }
+
   @Get()
   @AuthGuard()
   async getUserNotes(@UserId() userId: ObjectId, @Query("lastId") lastId: string) {
@@ -101,26 +105,31 @@ class NotesApiManager {
   @AuthGuard()
   async getNoteById(@Param("id") id: string, @UserId() userId: ObjectId, @Body() body: any) {
     if (!isValidObjectId(id)) {
-      const note: NoteDoc[] | undefined = await NoteModel.find({ user_id: userId }).limit(1);
+      const [note]: NoteDoc[] | undefined = await this.returnNoteIfNotFound(userId);
 
-      if (note?.[0]?.locked) {
+      if (note.locked) {
         return {
           status: "error",
           pin_required: true,
-          note: returnLockedNote(note[0]),
+          note: returnLockedNote(note),
         };
       }
 
       return {
         status: "success",
-        note: note?.[0] ?? {},
+        note: note ?? {},
       };
     }
 
     const note: NoteDoc = await NoteModel.findById(id);
 
     if (!note) {
-      throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
+      const [note] = await this.returnNoteIfNotFound(userId);
+
+      return {
+        status: "success",
+        note: note ?? {},
+      };
     }
 
     if (note?.locked === true && !body.pin) {

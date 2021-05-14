@@ -8,6 +8,8 @@ Simple notes app to keep track of important things
 - Categorize notes by a category
 - Edit notes
 - Share notes
+- Locked notes
+- Mobile friendly
 - More soon
 
 ## Performance and pwa

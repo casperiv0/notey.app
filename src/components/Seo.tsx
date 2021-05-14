@@ -30,8 +30,6 @@ const Seo: React.FC<Props> = (props) => {
     ...props,
   };
 
-  console.log(tags);
-
   return (
     <Head>
       <title>{tags.title}</title>

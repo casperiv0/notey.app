@@ -5,6 +5,7 @@ export const NoteStyle = styled.div<{ editing: boolean }>`
   width: 100%;
   height: calc(100% - 60px);
   grid-area: note;
+  overflow: hidden;
 
   @media (min-width: ${Size.DefaultMinWidth}) {
     width: 100%;
@@ -14,7 +15,7 @@ export const NoteStyle = styled.div<{ editing: boolean }>`
     props.editing &&
     css`
       heigh: 100%;
-      :width: calc(100vw - 20px);
+      width: calc(100vw - 20px);
     `}
 `;
 
@@ -78,7 +79,9 @@ export const PreviewStyle = styled.div`
   & pre {
     padding: 10px;
     width: 100%;
+    max-width: 100%;
     background: ${NoteyColors.LightGray};
+    overflow: auto;
   }
 
   & code {

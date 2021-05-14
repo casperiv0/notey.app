@@ -48,7 +48,7 @@ module.exports = withPWA({
     turboMode: true,
   },
   pwa: {
-    disable: true,
+    disable: process.env.NODE_ENV === "development",
     dest: "public",
   },
 });
