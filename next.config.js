@@ -50,5 +50,6 @@ module.exports = withPWA({
   pwa: {
     disable: process.env.NODE_ENV === "development",
     dest: "public",
+    buildExcludes: [/chunks\/pages\/app.js/, /chunks\/pages\/share\/.*$/],
   },
 });
