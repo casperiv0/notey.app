@@ -71,6 +71,7 @@ export const PreviewStyle = styled.div`
     padding-bottom: 3px;
     margin-bottom: 10px;
     margin-top: 20px;
+
     &:first-child {
       margin-top: 0;
     }
@@ -107,6 +108,7 @@ export const PreviewStyle = styled.div`
 
   & li {
     margin-left: 20px;
+
     &::marker {
       color: ${NoteyColors.Text};
       font-size: 1.2rem;
