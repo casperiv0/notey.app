@@ -11,6 +11,7 @@ import {
   SidebarNote,
   SidebarBody,
   CloseSidebarBtn,
+  SidebarFooter,
 } from "./styles";
 import { SrOnly, Divider } from "@styles/Global";
 import SidebarSearch from "./SidebarSearch";
@@ -131,79 +132,83 @@ const Sidebar: React.FC<Props> = ({
 
         <SidebarBody>
           <>
-            {[...categories, noCategory].map((cat, ci) => {
-              const category = cat.name;
-              const categoryNotes = filteredNotes?.filter((note) => {
-                return note.category_id === cat._id;
-              });
-              if (searching && categoryNotes.length <= 0) {
-                return null;
-              } else if (cat._id === "no_category" && categoryNotes.length <= 0) return null;
+            <div>
+              {[...categories, noCategory].map((cat, ci) => {
+                const category = cat.name;
+                const categoryNotes = filteredNotes?.filter((note) => {
+                  return note.category_id === cat._id;
+                });
+                if (searching && categoryNotes.length <= 0) {
+                  return null;
+                } else if (cat._id === "no_category" && categoryNotes.length <= 0) return null;
 
-              return (
-                <CategoryDiv
-                  className={cat.folded ? "folded" : ""}
-                  id={`category-${cat._id}`}
-                  key={ci}
-                >
-                  <CategoryTitleContainer>
-                    <CategoryTitle
-                      categoryId={cat._id}
-                      onClick={handleFold(cat)}
-                      title="Click to fold"
-                    >
-                      {cat._id !== "no_category" ? <ArrowIcon /> : null}
-                      {category}
-                    </CategoryTitle>
+                return (
+                  <CategoryDiv
+                    className={cat.folded ? "folded" : ""}
+                    id={`category-${cat._id}`}
+                    key={ci}
+                  >
+                    <CategoryTitleContainer>
+                      <CategoryTitle
+                        categoryId={cat._id}
+                        onClick={handleFold(cat)}
+                        title="Click to fold"
+                      >
+                        {cat._id !== "no_category" ? <ArrowIcon /> : null}
+                        {category}
+                      </CategoryTitle>
 
-                    {cat._id !== "no_category" ? (
-                      <div>
-                        <EditCategory onClick={handleEditCategory(cat)}>
-                          <SrOnly>Edit</SrOnly>
-                          <EditIcon />
-                        </EditCategory>
-                      </div>
-                    ) : null}
-                  </CategoryTitleContainer>
+                      {cat._id !== "no_category" ? (
+                        <div>
+                          <EditCategory onClick={handleEditCategory(cat)}>
+                            <SrOnly>Edit</SrOnly>
+                            <EditIcon />
+                          </EditCategory>
+                        </div>
+                      ) : null}
+                    </CategoryTitleContainer>
 
-                  <div className="items">
-                    {categoryNotes?.map((note) => {
-                      if (note.category_id === cat._id) {
-                        const isActiveNote = isActive(activeNote ? activeNote : notes?.[0], note);
+                    <div className="items">
+                      {categoryNotes?.map((note) => {
+                        if (note.category_id === cat._id) {
+                          const isActiveNote = isActive(activeNote ? activeNote : notes?.[0], note);
 
-                        return (
-                          <SidebarNote
-                            onClick={() => {
-                              if (isActiveNote) return;
-                              setActiveNote(note._id);
-                              closeSidebar("sidebar");
-                            }}
-                            key={note._id}
-                            title={note.title}
-                            className={isActiveNote ? "active" : ""}
-                          >
-                            {note.title}
-                          </SidebarNote>
-                        );
-                      } else {
-                        return null;
-                      }
-                    })}
-                  </div>
-                </CategoryDiv>
-              );
-            })}
+                          return (
+                            <SidebarNote
+                              onClick={() => {
+                                if (isActiveNote) return;
+                                setActiveNote(note._id);
+                                closeSidebar("sidebar");
+                              }}
+                              key={note._id}
+                              title={note.title}
+                              className={isActiveNote ? "active" : ""}
+                            >
+                              {note.title}
+                            </SidebarNote>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </div>
+                  </CategoryDiv>
+                );
+              })}
+            </div>
 
-            {/* don't show divider when no notes are found */}
-            {notes && !notes[0] ? null : <Divider id="divider" />}
+            <SidebarFooter>
+              {/* don't show divider when no notes are found */}
+              {notes && !notes[0] ? null : <Divider id="divider" />}
 
-            <SidebarNote onClick={() => openModal(ModalIds.CreateNoteModal)}>
-              Create new Note
-            </SidebarNote>
-            <SidebarNote onClick={() => openModal(ModalIds.CreateCategoryModal)}>
-              Create new Category
-            </SidebarNote>
-            <SidebarNote onClick={() => openModal(ModalIds.OptionsModal)}>Options</SidebarNote>
+              <SidebarNote onClick={() => openModal(ModalIds.CreateNoteModal)}>
+                Create new Note
+              </SidebarNote>
+              <SidebarNote onClick={() => openModal(ModalIds.CreateCategoryModal)}>
+                Create new Category
+              </SidebarNote>
+              <SidebarNote onClick={() => openModal(ModalIds.OptionsModal)}>Options</SidebarNote>
+            </SidebarFooter>
           </>
         </SidebarBody>
       </SidebarStyle>

@@ -143,6 +143,11 @@ export const SearchIconContainer = styled.span`
 `;
 
 export const SidebarBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
   margin-top: 10px;
   width: 98%;
 `;
@@ -200,4 +205,12 @@ export const OpenOptionsModalBtn = styled.button`
       color: ${NoteyColors.Text};
     }
   }
+`;
+
+export const SidebarFooter = styled.div`
+  position: sticky;
+  bottom: -0.6rem;
+  background: ${NoteyColors.DarkerGray};
+  height: 105%;
+  overflow: hidden;
 `;
