@@ -97,7 +97,7 @@ const AppPage: NextPage<Props> = ({ loading, isAuth, note, pinRequired }) => {
       <ChangePinModal />
       <PinModal />
 
-      {/* Don't render this modal when the user still needs to enter their PIN */}
+      {/* don't render this modal when the user still needs to enter their PIN */}
       {!pinRequired ? (
         <>
           <ManageNoteModal />

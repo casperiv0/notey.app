@@ -32,7 +32,7 @@ async function checkJWT(token: string): Promise<boolean | { userId: string }> {
 }
 
 /**
- * Check if a user is authenticated
+ * check if a user is authenticated
  */
 export const AuthGuard = createMiddlewareDecorator(
   async (req: NextApiRequest, _: any, next: NextFunction) => {
@@ -63,7 +63,7 @@ export const AuthGuard = createMiddlewareDecorator(
 );
 
 /**
- * Get the userId from the request
+ * get the userId from the request
  */
 export const UserId = createParamDecorator<Schema.Types.ObjectId | undefined>(
   (req) => (req as IRequest).userId,

@@ -10,7 +10,7 @@ export interface SetLoading {
   loading: boolean;
 }
 
-// Note actions
+// note actions
 export interface GetNoteById {
   type: "GET_NOTE_BY_ID";
   note: Note;
@@ -55,7 +55,7 @@ export interface DeleteNoteById {
   note: Note;
 }
 
-// Category actions
+// category actions
 export interface UpdateCategoriesState {
   // do this because it all returns the same data.
   type: "GET_CATEGORIES" | "UPDATE_CATEGORY_BY_ID" | "CREATE_CATEGORY" | "DELETE_CATEGORY";

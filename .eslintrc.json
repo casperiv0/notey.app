@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
   "extends": [
     "eslint:recommended",
@@ -12,6 +13,7 @@
     "plugin:json/recommended",
     "plugin:promise/recommended",
     "plugin:jsx-a11y/recommended",
+    "@casper124578/eslint-config",
     "prettier"
   ],
   "globals": {
@@ -28,17 +30,6 @@
   },
   "plugins": ["react", "@typescript-eslint", "promise", "prettier", "json", "jsx-a11y"],
   "rules": {
-    "quotes": ["error", "double"],
-    "semi": ["error", "always"],
-    "no-multi-spaces": ["error"],
-    "eqeqeq": ["warn", "always"],
-    "no-unused-vars": "off",
-    "no-duplicate-case": ["error"],
-    "no-extra-semi": ["error"],
-    "no-unreachable": ["error"],
-    "default-case": ["warn"],
-    "default-case-last": ["error"],
-    "no-useless-catch": ["warn"],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",

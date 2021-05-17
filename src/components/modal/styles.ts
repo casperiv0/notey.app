@@ -112,7 +112,7 @@ export const ModalBody = styled.div`
   max-height: 90%;
 `;
 
-// OptionsModal
+// optionsModal
 export const OptionsModalStyle = styled.div`
   color: ${NoteyColors.Text};
 `;
