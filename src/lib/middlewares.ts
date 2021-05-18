@@ -22,11 +22,10 @@ async function checkJWT(token: string): Promise<boolean | { userId: string }> {
   return new Promise((resolve) => {
     jwt.verify(token, JWT_SECRET, (error, decode) => {
       if (error) {
-        resolve(false);
-        return false;
-      } else {
-        resolve({ userId: (decode as { userId: string })?.userId });
+        return resolve(false);
       }
+
+      return resolve({ userId: (decode as { userId: string })?.userId });
     });
   });
 }

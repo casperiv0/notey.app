@@ -7,7 +7,7 @@ export default function useCookie(
   value: unknown,
   expires: number,
 ) {
-  const stringValue = typeof value === "object" ? "j:" + JSON.stringify(value) : String(value);
+  const stringValue = typeof value === "object" ? `j:${JSON.stringify(value)}` : String(value);
 
   const options: CookieSerializeOptions = {
     expires: new Date(Date.now() + expires),

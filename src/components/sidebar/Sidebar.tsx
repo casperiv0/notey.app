@@ -112,7 +112,7 @@ const Sidebar: React.FC<Props> = ({
     updateCategoryById(
       category._id,
       {
-        folded: folded,
+        folded,
         name: category.name,
       },
       false,
@@ -187,9 +187,9 @@ const Sidebar: React.FC<Props> = ({
                               {note.title}
                             </SidebarNote>
                           );
-                        } else {
-                          return null;
                         }
+
+                        return null;
                       })}
                     </div>
                   </CategoryDiv>

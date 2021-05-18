@@ -34,20 +34,20 @@ export const getNoteById =
         });
 
         return true;
-      } else {
-        if (res.data.pin_required === true) {
-          dispatch({
-            type: "GET_NOTE_BY_ID",
-            note: res.data.note,
-          });
+      }
 
-          dispatch({
-            type: "PIN_REQUIRED",
-            pinRequired: true,
-            tempNoteId: res.data?.note?._id ?? noteId,
-          });
-          return;
-        }
+      if (res.data.pin_required === true) {
+        dispatch({
+          type: "GET_NOTE_BY_ID",
+          note: res.data.note,
+        });
+
+        dispatch({
+          type: "PIN_REQUIRED",
+          pinRequired: true,
+          tempNoteId: res.data?.note?._id ?? noteId,
+        });
+        return;
       }
 
       return false;
@@ -136,12 +136,12 @@ export const createNote =
         });
 
         return res.data.note?._id;
-      } else {
-        toast.error(res.data?.error ?? NO_ERROR);
-        dispatch({ type: "SET_NOTE_LOADING", loading: false });
-
-        return false;
       }
+
+      toast.error(res.data?.error ?? NO_ERROR);
+      dispatch({ type: "SET_NOTE_LOADING", loading: false });
+
+      return false;
     } catch (e) {
       toast.error(getErrorFromResponse(e));
       dispatch({ type: "SET_NOTE_LOADING", loading: false });

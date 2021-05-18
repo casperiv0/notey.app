@@ -79,7 +79,7 @@ class AuthenticationApiManager {
       throw new BadRequestException(ErrorMessages.PW_NOT_MATCH);
     }
 
-    const user = await UserModel.findOne({ username: username });
+    const user = await UserModel.findOne({ username });
     if (user) {
       throw new BadRequestException(ErrorMessages.USERNAME_IN_USE);
     }

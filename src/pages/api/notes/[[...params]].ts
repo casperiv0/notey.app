@@ -87,7 +87,7 @@ class NotesApiManager {
       category_id,
       title,
       body: noteBody,
-      markdown: markdown,
+      markdown,
       shared: isTrue(shareable),
       locked: isTrue(locked),
     });

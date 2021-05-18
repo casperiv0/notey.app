@@ -37,11 +37,11 @@ export const createCategory =
 
         toast.success(`Successfully created category with name: ${data.name}`);
         return true;
-      } else {
-        dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
-        toast.error(res.data.error);
-        return false;
       }
+
+      dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
+      toast.error(res.data.error);
+      return false;
     } catch (e) {
       dispatch({ type: "SET_CATEGORY_LOADING", loading: false });
       toast.error(getErrorFromResponse(e));

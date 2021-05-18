@@ -18,10 +18,10 @@ export const authenticate =
         });
 
         return true;
-      } else {
-        toast.error(res.data.error);
-        return false;
       }
+
+      toast.error(res.data.error);
+      return false;
     } catch (e) {
       console.error(e);
 
@@ -104,11 +104,10 @@ export const updatePinCode =
         });
 
         return true;
-      } else {
-        toast.error(res.data.error);
-
-        return false;
       }
+
+      toast.error(res.data.error);
+      return false;
     } catch (e) {
       toast.error(getErrorFromResponse(e));
       dispatch({ type: "SET_AUTH_LOADING", loading: false });
