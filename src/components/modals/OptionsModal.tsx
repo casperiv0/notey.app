@@ -70,7 +70,7 @@ const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
                 <Button danger onClick={() => openModal(ModalIds.AlertDeleteAccount)}>
                   Delete account?
                 </Button>
-                <Divider style={{ marginTop: "10px", marginBottom: "10px" }}></Divider>
+                <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
 
                 <h3 style={{ textAlign: "center", paddingBottom: "10px" }}>
                   Icons are from <a href="https://icons.getbootstrap.com/">Bootstrap</a>

@@ -12,7 +12,7 @@ interface Props {
 const Loader: React.FC<Props> = ({ size, fullSize, center, color }) => {
   return (
     <Center fullSize={fullSize} isCenter={center}>
-      <PulseLoader size={size ?? 12} color={color ?? NoteyColors.Text}></PulseLoader>
+      <PulseLoader size={size ?? 12} color={color ?? NoteyColors.Text} />
     </Center>
   );
 };

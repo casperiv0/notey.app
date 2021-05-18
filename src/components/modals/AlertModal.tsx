@@ -29,7 +29,7 @@ const AlertModal = (props: Props) => {
       <AlertActions>
         {props.actions.map((action, idx) => {
           // a spacer if there's only 1 button
-          if (!action.name) return <p key={idx}></p>;
+          if (!action.name) return <p key={idx} />;
 
           return (
             <Button

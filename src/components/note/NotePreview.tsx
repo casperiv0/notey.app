@@ -19,7 +19,7 @@ const NotePreview: React.FC<Props> = ({ note }) => {
       <PreviewStyle
         id="note-preview-area"
         dangerouslySetInnerHTML={{ __html: note?.markdown as string }}
-      ></PreviewStyle>
+      />
     </NoteStyle>
   );
 };

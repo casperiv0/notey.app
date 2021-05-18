@@ -6,14 +6,12 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:react-hooks/recommended",
     "plugin:promise/recommended",
     "plugin:json/recommended",
     "plugin:promise/recommended",
-    "plugin:jsx-a11y/recommended",
     "@casper124578/eslint-config",
+    "@casper124578/eslint-config-react",
     "prettier"
   ],
   "globals": {
@@ -22,31 +20,14 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    },
-    "ecmaVersion": 2021,
-    "sourceType": "module"
+    }
   },
-  "plugins": ["react", "@typescript-eslint", "promise", "prettier", "json", "jsx-a11y"],
+  "plugins": ["@typescript-eslint", "promise", "prettier", "json"],
   "rules": {
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-uses-react": "warn",
-    "react/jsx-uses-vars": "warn",
-    "react/no-danger-with-children": "warn",
-    "react/no-deprecated": "warn",
-    "react/no-direct-mutation-state": "warn",
-    "react/no-is-mounted": "warn",
-    "react/no-typos": "error",
-    "react/require-render-return": "error",
-    "react/style-prop-object": "warn",
-    "react/prop-types": "off",
-    "react/display-name": "off",
-    "no-return-await": "warn",
-    "func-call-spacing": "error",
-    "jsx-quotes": "error",
     "prettier/prettier": [
       "warn",
       {
@@ -63,13 +44,5 @@
         "no-unused-vars": "error"
       }
     }
-  ],
-  "settings": {
-    "react": {
-      "createClass": "createReactClass",
-      "pragma": "React",
-      "fragment": "Fragment",
-      "version": "detect"
-    }
-  }
+  ]
 }

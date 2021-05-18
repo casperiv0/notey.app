@@ -59,7 +59,7 @@ const Main: React.FC<Props> = ({ editing, note, editingNote, updateNoteById }) =
       <Navbar />
 
       {editing ? (
-        <NoteStyle editing={true}>
+        <NoteStyle editing>
           <EditingArea />
         </NoteStyle>
       ) : (

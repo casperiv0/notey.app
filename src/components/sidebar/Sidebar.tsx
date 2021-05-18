@@ -213,7 +213,7 @@ const Sidebar: React.FC<Props> = ({
         </SidebarBody>
       </SidebarStyle>
 
-      <SidebarActive onClick={() => closeSidebar("sidebar")} id="sidebarActive"></SidebarActive>
+      <SidebarActive onClick={() => closeSidebar("sidebar")} id="sidebarActive" />
 
       <AlertModal
         width="600px"

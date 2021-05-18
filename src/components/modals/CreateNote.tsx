@@ -96,7 +96,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
             autoCorrect="false"
             autoComplete="false"
             id="body"
-          ></TextArea>
+          />
         </FormGroup>
         <FormGroup>
           <FormLabel htmlFor="category">Category</FormLabel>

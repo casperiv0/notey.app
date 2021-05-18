@@ -37,10 +37,7 @@ const RightSidebar: React.FC<Props> = ({
 
   return (
     <>
-      <RightSidebarActive
-        onClick={() => closeSidebar("right-sidebar")}
-        id="right-sidebarActive"
-      ></RightSidebarActive>
+      <RightSidebarActive onClick={() => closeSidebar("right-sidebar")} id="right-sidebarActive" />
 
       <RightSidebarStyle id="right-sidebar">
         <RightSidebarContent>
