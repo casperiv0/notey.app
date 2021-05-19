@@ -35,6 +35,8 @@ class NoteyDoc extends Document {
         </Head>
 
         <body>
+          {/* "fix" FOUC */}
+          <script>0</script>
           <Main />
           <NextScript />
         </body>
