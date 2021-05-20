@@ -5,13 +5,9 @@
     "node": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:promise/recommended",
-    "plugin:json/recommended",
-    "plugin:promise/recommended",
     "@casper124578/eslint-config",
     "@casper124578/eslint-config-react",
+    "@casper124578/eslint-config-next",
     "prettier"
   ],
   "globals": {
@@ -26,7 +22,7 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint", "promise", "prettier", "json"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": [
       "warn",
