@@ -135,7 +135,7 @@ const Navbar: React.FC<Props> = ({
           </NavLinks>
         </NavbarStyle>
 
-        <RightSidebar />
+        <RightSidebar locked={note?.locked ?? false} pinRequired={pinRequired} />
       </NavbarContainer>
 
       <AlertModal

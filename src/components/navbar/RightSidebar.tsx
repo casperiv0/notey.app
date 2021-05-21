@@ -20,6 +20,8 @@ interface Props {
   editing: boolean | null;
   categories: Category[];
   editingNote: Note | null;
+  locked: boolean;
+  pinRequired: boolean;
   updateEditingNote: (data: Partial<Note>) => void;
   setEditing: (v: boolean) => void;
 }
@@ -27,6 +29,8 @@ interface Props {
 const RightSidebar: React.FC<Props> = ({
   editingNote,
   editing,
+  locked,
+  pinRequired,
   categories,
   setEditing,
   updateEditingNote,
@@ -47,39 +51,45 @@ const RightSidebar: React.FC<Props> = ({
               <CloseIcon />
             </CloseRightSidebar>
 
-            <Button style={{ marginBottom: "10px" }} onClick={handleEdit}>
-              {editing ? "Save" : "Edit"}
-            </Button>
+            {locked === true && pinRequired === true ? (
+              <Button onClick={() => openModal(ModalIds.PinRequired)}>Unlock</Button>
+            ) : (
+              <>
+                <Button style={{ marginBottom: "10px" }} onClick={handleEdit}>
+                  {editing ? "Save" : "Edit"}
+                </Button>
 
-            <Button
-              onClick={() => openModal(ModalIds.ManageNoteModal)}
-              style={{ marginBottom: "10px" }}
-            >
-              Manage
-            </Button>
+                <Button
+                  onClick={() => openModal(ModalIds.ManageNoteModal)}
+                  style={{ marginBottom: "10px" }}
+                >
+                  Manage
+                </Button>
 
-            {editing ? (
-              <div style={{ marginBottom: "10px" }}>
-                <SelectCategory
-                  categories={categories}
-                  value={editingNote?.category_id!}
-                  onChange={(e) =>
-                    updateEditingNote({
-                      ...editingNote,
-                      category_id: e.target.value,
-                    })
-                  }
-                />
-              </div>
-            ) : null}
+                {editing ? (
+                  <div style={{ marginBottom: "10px" }}>
+                    <SelectCategory
+                      categories={categories}
+                      value={editingNote?.category_id!}
+                      onChange={(e) =>
+                        updateEditingNote({
+                          ...editingNote,
+                          category_id: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                ) : null}
 
-            <Button
-              style={{ marginBottom: "10px" }}
-              danger
-              onClick={() => openModal(ModalIds.AlertDeleteNote)}
-            >
-              Delete
-            </Button>
+                <Button
+                  style={{ marginBottom: "10px" }}
+                  danger
+                  onClick={() => openModal(ModalIds.AlertDeleteNote)}
+                >
+                  Delete
+                </Button>
+              </>
+            )}
           </Column>
         </RightSidebarContent>
       </RightSidebarStyle>
