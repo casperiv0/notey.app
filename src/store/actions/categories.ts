@@ -79,7 +79,7 @@ export const deleteCategory =
   };
 
 export const updateCategoryById =
-  (id: string, data: RequestData, notify: boolean = true) =>
+  (id: string, data: RequestData, notify = true) =>
   async (dispatch: Dis<UpdateCategoriesState>) => {
     dispatch({ type: "SET_CATEGORY_LOADING", loading: true });
 
