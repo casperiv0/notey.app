@@ -2,6 +2,7 @@ import { NextApiRequest } from "next";
 import {
   createMiddlewareDecorator,
   createParamDecorator,
+  Middleware,
   NextFunction,
   NotFoundException,
   UnauthorizedException,
@@ -87,4 +88,4 @@ export const RateLimit = rateLimit({
   max: 500,
 });
 
-export const Helmet = helmet();
+export const Helmet = helmet() as Middleware;
