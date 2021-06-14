@@ -47,7 +47,7 @@
     "@casper124578/eslint-config": "^0.0.13",
     "@casper124578/eslint-config-next": "^0.0.2",
     "@casper124578/eslint-config-react": "0.0.5",
-    "@storyofams/next-api-decorators": "^v1.5.0-beta.11",
+    "@storyofams/next-api-decorators": "^v1.5.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie": "^0.4.0",
     "@types/cookie-parser": "^1.4.2",
@@ -66,7 +66,7 @@
     "babel-plugin-styled-components": "^1.12.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^7.28.0",
-    "next-sitemap": "^1.6.108",
+    "next-sitemap": "^1.6.111",
     "prettier": "^2.3.1",
     "typescript": "^4.3.2"
   }

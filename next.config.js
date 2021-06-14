@@ -46,6 +46,7 @@ module.exports = withPWA({
   reactStrictMode: true,
   experimental: {
     turboMode: true,
+    disableOptimizedLoading: false,
   },
   pwa: {
     disable: process.env.NODE_ENV === "development",
