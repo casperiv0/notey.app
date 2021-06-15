@@ -1,3 +1,4 @@
+import * as React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 import { AppProps } from "next/app";
@@ -16,13 +17,28 @@ import AlertModal, { ModalAction } from "@components/modals/AlertModal";
 import { ModalIds } from "@lib/constants";
 import { closeModal } from "@lib/utils";
 
-Router.events.on("routeChangeStart", NProgress.start);
-Router.events.on("routeChangeComplete", NProgress.done);
-Router.events.on("routeChangeError", NProgress.done);
-
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   const store = useStore(pageProps?.initialReduxState ?? pageProps);
   const networkStatus = useNetworkStatus();
+
+  React.useEffect(() => {
+    function handleRouteStart() {
+      NProgress.start();
+    }
+    function handleRouteDone() {
+      NProgress.done();
+    }
+
+    Router.events.on("routeChangeStart", handleRouteStart);
+    Router.events.on("routeChangeComplete", handleRouteDone);
+    Router.events.on("routeChangeError", handleRouteDone);
+
+    return () => {
+      Router.events.off("routeChangeStart", handleRouteStart);
+      Router.events.off("routeChangeComplete", handleRouteDone);
+      Router.events.off("routeChangeError", handleRouteDone);
+    };
+  }, []);
 
   if (networkStatus === "offline") {
     return <UserOfflineError />;

@@ -1,9 +1,7 @@
 const withPWA = require("next-pwa");
 
 module.exports = withPWA({
-  future: {
-    webpack5: true,
-  },
+  webpack5: true,
   async headers() {
     return [
       {
@@ -46,7 +44,6 @@ module.exports = withPWA({
   reactStrictMode: true,
   experimental: {
     turboMode: true,
-    disableOptimizedLoading: false,
   },
   pwa: {
     disable: process.env.NODE_ENV === "development",

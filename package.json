@@ -25,7 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "marked": "^2.0.7",
     "mongoose": "^5.12.13",
-    "next": "^10.2.3",
+    "next": "^11.0.0",
     "next-pwa": "^5.2.21",
     "nprogress": "github:Dev-CasperTheGhost/nprogress",
     "path-to-regexp": "^6.2.0",
@@ -42,12 +42,12 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.5",
+    "@babel/core": "^7.14.6",
     "@babel/plugin-proposal-decorators": "^7.14.5",
-    "@casper124578/eslint-config": "^0.0.13",
-    "@casper124578/eslint-config-next": "^0.0.2",
+    "@casper124578/eslint-config": "^0.0.14",
+    "@casper124578/eslint-config-next": "^0.0.3",
     "@casper124578/eslint-config-react": "0.0.5",
-    "@storyofams/next-api-decorators": "^v1.5.0",
+    "@storyofams/next-api-decorators": "^v1.5.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie": "^0.4.0",
     "@types/cookie-parser": "^1.4.2",
@@ -66,7 +66,7 @@
     "babel-plugin-styled-components": "^1.12.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^7.28.0",
-    "next-sitemap": "^1.6.111",
+    "next-sitemap": "^1.6.116",
     "prettier": "^2.3.1",
     "typescript": "^4.3.2"
   }
