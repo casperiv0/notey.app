@@ -67,7 +67,7 @@
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^7.28.0",
     "next-sitemap": "^1.6.116",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "typescript": "^4.3.2"
   }
 }
