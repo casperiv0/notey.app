@@ -5,3 +5,5 @@ node_modules
 
 public/*.js
 public/*.map
+
+next-env.d.ts
