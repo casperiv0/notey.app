@@ -11,6 +11,7 @@ import {
   HttpException,
   UseMiddleware,
 } from "@storyofams/next-api-decorators";
+import { validateSchema } from "@casper124578/utils";
 import "@lib/database";
 import NoteModel, { NoteDoc } from "@models/Note.model";
 import { IRequest } from "types/IRequest";
@@ -19,7 +20,6 @@ import { isTrue, parseLockedNotes } from "@lib/utils";
 import { ObjectId } from "mongoose";
 import { ErrorMessages } from "@lib/errors";
 import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
-import { createYupSchema } from "@lib/createYupSchema";
 
 @UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class CategoriesApiManager {
@@ -43,12 +43,9 @@ class CategoriesApiManager {
   async createCategory(@Body() body: IRequest["body"], @UserId() userId: ObjectId) {
     const { name } = body;
 
-    const schema = createYupSchema(createAndUpdateCategoryValidation);
-    const isValid = await schema.isValid({ name });
-
-    if (!isValid) {
-      const error = await schema.validate({ name }).catch((e) => e);
-      throw new BadRequestException(error.errors[0]);
+    const [error] = await validateSchema(createAndUpdateCategoryValidation, { name });
+    if (error) {
+      throw new BadRequestException(error.message, error.errors);
     }
 
     const category = new CategoryModel({
@@ -73,12 +70,10 @@ class CategoriesApiManager {
     @UserId() userId: ObjectId,
   ) {
     const { name, folded } = body;
-    const schema = createYupSchema(createAndUpdateCategoryValidation);
-    const isValid = await schema.isValid({ name });
 
-    if (!isValid) {
-      const error = await schema.validate({ name }).catch((e) => e);
-      throw new BadRequestException(error.errors[0]);
+    const [error] = await validateSchema(createAndUpdateCategoryValidation, { name });
+    if (error) {
+      throw new BadRequestException(error.message, error.errors);
     }
 
     const category = await CategoryModel.findById(id);

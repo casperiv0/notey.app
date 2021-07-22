@@ -13,6 +13,7 @@ import {
   UseMiddleware,
 } from "@storyofams/next-api-decorators";
 import "@lib/database";
+import { validateSchema } from "@casper124578/utils";
 import NoteModel, { NoteDoc, createOrUpdateNoteSchema } from "@models/Note.model";
 import { IRequest } from "types/IRequest";
 import { isTrue, parseLockedNotes } from "@lib/utils";
@@ -20,7 +21,6 @@ import { isValidObjectId, ObjectId } from "mongoose";
 import useMarkdown from "@hooks/useMarkdown";
 import { ErrorMessages } from "@lib/errors";
 import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
-import { createYupSchema } from "@lib/createYupSchema";
 import UserModel from "@models/User.model";
 import { compareSync } from "bcryptjs";
 import { LOCKED_NOTE_MSG } from "@lib/constants";
@@ -70,15 +70,15 @@ class NotesApiManager {
   async createNote(@Body() body: IRequest["body"], @UserId() userId: ObjectId) {
     const { category_id, title, body: noteBody, shareable, locked } = body;
 
-    const schema = createYupSchema(createOrUpdateNoteSchema);
-    const isValid = await schema.isValid({ category_id, title, body: noteBody, shareable, locked });
-
-    if (!isValid) {
-      const error = await schema
-        .validate({ category_id, title, body: noteBody, shareable, locked })
-        .catch((e) => e);
-
-      throw new BadRequestException(error.errors[0]);
+    const [error] = await validateSchema(createOrUpdateNoteSchema, {
+      category_id,
+      title,
+      body: noteBody,
+      shareable,
+      locked,
+    });
+    if (error) {
+      throw new BadRequestException(error.message, error.errors);
     }
 
     const markdown = useMarkdown(noteBody);
@@ -168,21 +168,15 @@ class NotesApiManager {
   ) {
     const { category_id, title, body: noteBody, locked, shared } = body;
 
-    const schema = createYupSchema(createOrUpdateNoteSchema);
-    const isValid = await schema.isValid({
+    const [error] = await validateSchema(createOrUpdateNoteSchema, {
       category_id,
       title,
       body: noteBody,
       shareable: shared,
       locked,
     });
-
-    if (!isValid) {
-      const error = await schema
-        .validate({ category_id, title, body: noteBody, shareable: shared, locked })
-        .catch((e) => e);
-
-      throw new BadRequestException(error.errors[0]);
+    if (error) {
+      throw new BadRequestException(error.message, error.errors);
     }
 
     const note: NoteDoc = await NoteModel.findById(id);

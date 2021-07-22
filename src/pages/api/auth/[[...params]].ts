@@ -11,6 +11,7 @@ import {
 } from "@storyofams/next-api-decorators";
 import { NextApiRequest, NextApiResponse } from "next";
 import { compareSync, hashSync } from "bcryptjs";
+import { validateSchema } from "@casper124578/utils";
 import useToken from "@hooks/useToken";
 import UserModel, { baseSchema, registerSchema } from "src/models/User.model";
 import { Cookie } from "@lib/constants";
@@ -21,7 +22,6 @@ import NoteModel from "@models/Note.model";
 import CategoryModel from "@models/Category.model";
 import { ErrorMessages } from "@lib/errors";
 import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
-import { createYupSchema } from "@lib/createYupSchema";
 
 @UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class AuthenticationApiManager {
@@ -30,13 +30,9 @@ class AuthenticationApiManager {
     const { username, password, rememberMe } = body;
     const expires = rememberMe ? Cookie.RememberMeExpires : Cookie.Expires;
 
-    const schema = createYupSchema(baseSchema);
-    const isValid = await schema.isValid({ username, password });
-
-    if (!isValid) {
-      const error = await schema.validate({ username, password }).catch((e) => e);
-
-      throw new BadRequestException(error.errors[0]);
+    const [error] = await validateSchema(baseSchema, { username, password });
+    if (error) {
+      throw new BadRequestException(error.message, error.errors);
     }
 
     const user = await UserModel.findOne({ username });
@@ -52,7 +48,7 @@ class AuthenticationApiManager {
     }
 
     const token = useToken(user._id, expires / 1000);
-    useCookie(res, "notey-session", token, expires);
+    useCookie({ res, name: "notey-session", value: token, expires });
 
     return res.json({
       user: {
@@ -67,14 +63,15 @@ class AuthenticationApiManager {
   async register(@Body() body: NextApiRequest["body"], @Res() res: NextApiResponse) {
     const { username, password, password2 } = body;
 
-    const schema = createYupSchema(baseSchema, registerSchema);
-    const isValid = await schema.isValid({ username, password, password2 });
-
-    if (!isValid) {
-      const error = await schema.validate({ username, password, password2 }).catch((e) => e);
-
-      throw new BadRequestException(error.errors[0]);
+    const [error] = await validateSchema([baseSchema, registerSchema], {
+      username,
+      password,
+      password2,
+    });
+    if (error) {
+      throw new BadRequestException(error.message, error.errors);
     }
+
     if (password !== password2) {
       throw new BadRequestException(ErrorMessages.PW_NOT_MATCH);
     }
@@ -102,7 +99,7 @@ class AuthenticationApiManager {
     await firstNote.save();
 
     const token = useToken(newUser._id, 3600000);
-    useCookie(res, "notey-session", token, Cookie.Expires);
+    useCookie({ res, name: "notey-session", value: token, expires: Cookie.Expires });
 
     return res.json({
       user: {
@@ -115,7 +112,7 @@ class AuthenticationApiManager {
 
   @Post("/logout")
   async logout(@Res() res: NextApiResponse) {
-    useCookie(res, "notey-session", "", 0);
+    useCookie({ res, name: "notey-session", value: "", expires: 0 });
 
     return res.json({
       user: null,
@@ -149,7 +146,8 @@ class AuthenticationApiManager {
     await NoteModel.deleteMany({ user_id: user._id });
     await CategoryModel.deleteMany({ user_id: user._id });
     await UserModel.findByIdAndDelete(user._id);
-    useCookie(res, "notey-session", "", 0);
+
+    useCookie({ res, name: "notey-session", value: "", expires: 0 });
 
     return { user: null, status: "success" };
   }
