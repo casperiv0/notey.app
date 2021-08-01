@@ -48,7 +48,7 @@
     "@casper124578/eslint-config": "^0.0.15",
     "@casper124578/eslint-config-next": "^0.0.4",
     "@casper124578/eslint-config-react": "0.0.5",
-    "@storyofams/next-api-decorators": "^v1.5.2",
+    "@storyofams/next-api-decorators": "^v1.5.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie": "^0.4.0",
     "@types/cookie-parser": "^1.4.2",
