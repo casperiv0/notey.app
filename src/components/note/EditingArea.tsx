@@ -1,31 +1,19 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import Note from "types/Note";
-import State from "types/State";
 import { NoteTextArea } from "./styles";
-import { updateEditingNote } from "@actions/note";
+import { useStore } from "store/StoreProvider";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-  editingNote: Note | null;
-  updateEditingNote: (data: Partial<Note>) => void;
-}
+const NoteEditingArea = () => {
+  const store = useStore();
 
-const NoteEditingArea: React.FC<Props> = ({ editingNote, updateEditingNote }) => {
   return (
     <NoteTextArea
-      onChange={(e) =>
-        updateEditingNote({
-          ...editingNote,
-          body: e.target.value,
-        })
-      }
-      value={editingNote?.body}
+      onChange={(e) => {
+        store.setEditingNote({ ...store.editingNote, body: e.target.value });
+      }}
+      value={store.editingNote?.body}
     />
   );
 };
 
-const mapToProps = (state: State) => ({
-  editingNote: state.notes.editingNote,
-});
-
-export default connect(mapToProps, { updateEditingNote })(NoteEditingArea);
+export default observer(NoteEditingArea);

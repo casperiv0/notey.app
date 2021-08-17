@@ -1,90 +1,72 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { GetServerSideProps, NextPage } from "next";
-import { initializeStore } from "src/store/store";
-import State from "types/State";
+import { observer } from "mobx-react-lite";
+import { GetServerSideProps } from "next";
 import { LinkStyle, ShareStyle, ShareTitle, ShareFooter } from "@styles/Share";
-import { getNoteById } from "@actions/note";
-import { checkAuth } from "@actions/auth";
-import Note from "types/Note";
+import { getShareById } from "@actions/note";
+import { verifyAuth } from "@actions/auth";
 import NotePreview from "@components/note/NotePreview";
 import Loader from "@components/loader/Loader";
 import Seo from "@components/Seo";
+import { useStore } from "store/StoreProvider";
 
-interface Props {
-  note: Note | null;
-  isAuth: boolean;
-  loading: boolean;
-}
-
-const SharePage: NextPage<Props> = ({ loading, note, isAuth }) => {
+const SharePage = () => {
   const router = useRouter();
+  const store = useStore();
 
   React.useEffect(() => {
-    if (!loading && !note?._id) {
+    if (!store.note?._id) {
       router.push("/404");
     }
-  }, [note?._id, router, loading]);
+  }, [store.note?._id, router]);
 
-  if (!note) {
+  if (!store.note) {
     return <Loader fullSize center />;
   }
 
   return (
     <>
       <Seo
-        title={`${note.title} - notey.app`}
-        url={`https://notey.caspertheghost.me/share/${note._id}`}
+        title={`${store.note.title} - notey.app`}
+        url={`https://notey.caspertheghost.me/share/${store.note._id}`}
       />
 
-      {loading ? (
-        <Loader fullSize center />
-      ) : (
-        <ShareStyle>
-          {isAuth ? (
-            <Link href={`/app?noteId=${note?._id}`}>
-              <LinkStyle href={`/app?noteId=${note?._id}`}>Return to app</LinkStyle>
+      <ShareStyle>
+        {store.isAuth ? (
+          <Link href={`/app?noteId=${store.note?._id}`}>
+            <LinkStyle href={`/app?noteId=${store.note?._id}`}>Return to app</LinkStyle>
+          </Link>
+        ) : (
+          <>
+            <Link href="/auth/login">
+              <LinkStyle href="/auth/login">Login</LinkStyle>
             </Link>
-          ) : (
-            <>
-              <Link href="/auth/login">
-                <LinkStyle href="/auth/login">Login</LinkStyle>
-              </Link>
-              <Link href="/auth/register">
-                <LinkStyle href="/auth/register">Create an Account</LinkStyle>
-              </Link>
-            </>
-          )}
-          <ShareTitle>{note?.title}</ShareTitle>
+            <Link href="/auth/register">
+              <LinkStyle href="/auth/register">Create an Account</LinkStyle>
+            </Link>
+          </>
+        )}
+        <ShareTitle>{store.note?.title}</ShareTitle>
 
-          <NotePreview note={note} />
+        <NotePreview note={store.note} />
 
-          <ShareFooter>
-            Created by{" "}
-            <a target="_blank" rel="noopener noreferrer" href="https://caspertheghost.me">
-              CasperTheGhost
-            </a>
-          </ShareFooter>
-        </ShareStyle>
-      )}
+        <ShareFooter>
+          Created by{" "}
+          <a target="_blank" rel="noopener noreferrer" href="https://caspertheghost.me">
+            CasperTheGhost
+          </a>
+        </ShareFooter>
+      </ShareStyle>
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const store = initializeStore();
-  await getNoteById(`${ctx.query.id}`, true, ctx.req.headers.cookie)(store.dispatch);
-  await checkAuth(ctx.req.headers.cookie)(store.dispatch);
+  const share = await getShareById(ctx.query.id?.toString()!, ctx.req.headers.cookie);
+  const auth = await verifyAuth(ctx.req.headers.cookie);
 
-  return { props: { initialReduxState: store.getState() } };
+  return { props: { initialState: { ...auth, ...share } } };
 };
 
-const mapToProps = (state: State) => ({
-  note: state.notes.note,
-  isAuth: state.auth.isAuth,
-  loading: state.notes.loading,
-});
-
-export default connect(mapToProps)(SharePage);
+export default observer(SharePage);

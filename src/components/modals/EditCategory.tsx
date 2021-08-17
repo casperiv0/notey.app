@@ -6,22 +6,22 @@ import { Button, Row } from "@styles/Global";
 import * as React from "react";
 import { connect } from "react-redux";
 import Category from "types/Category";
-import AlertModal from "./AlertModal";
+import { AlertModal } from "./AlertModal";
 import { deleteCategory, updateCategoryById } from "@actions/categories";
 import useModalEvent from "@hooks/useModalEvent";
-import { RequestData } from "@lib/fetch";
+import { useStore } from "store/StoreProvider";
 
 interface Props {
   category: Category | null;
-  deleteCategory: (id: string) => void;
-  updateCategoryById: (id: string, data: RequestData) => void;
 }
 
-const EditCategoryModal = ({ category, deleteCategory, updateCategoryById }: Props) => {
+const EditCategoryModal = ({ category }: Props) => {
   const [name, setName] = React.useState(category?.name ?? "");
+
+  const store = useStore();
   const ref = useModalEvent<HTMLInputElement>(ModalIds.EditCategory);
   const isDisabled = React.useMemo(
-    () => name.toLowerCase() === category?.name.toLowerCase(),
+    () => name.toLowerCase() === category?.name.toLowerCase() || !name,
     [name, category?.name],
   );
 
@@ -29,25 +29,30 @@ const EditCategoryModal = ({ category, deleteCategory, updateCategoryById }: Pro
     setName(category?.name ?? "");
   }, [category?.name]);
 
-  const handleDeleteCategory = () => {
-    category?._id && deleteCategory(category._id);
+  async function handleDeleteCategory() {
+    if (!category?._id) return;
+    await deleteCategory(category._id);
 
     closeModal(ModalIds.AlertDeleteCategory);
     closeModal(ModalIds.EditCategory);
-  };
+  }
 
-  const handleDelete = () => {
+  const openDeleteAlert = () => {
     openModal(ModalIds.AlertDeleteCategory);
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isDisabled) return;
     if (!category?._id) return;
 
-    updateCategoryById(category._id, {
+    const data = await updateCategoryById(category._id, {
       name,
     });
+
+    if (data) {
+      store.hydrate(data);
+    }
   };
 
   return (
@@ -66,7 +71,7 @@ const EditCategoryModal = ({ category, deleteCategory, updateCategoryById }: Pro
           </FormGroup>
 
           <Row style={{ justifyContent: "space-between" }}>
-            <Button type="button" onClick={handleDelete} danger>
+            <Button type="button" onClick={openDeleteAlert} danger>
               Delete
             </Button>
             <Button disabled={isDisabled} type="submit">

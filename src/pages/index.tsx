@@ -1,10 +1,8 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import Link from "next/link";
-import { checkAuth } from "@actions/auth";
-import { GetServerSideProps, NextPage } from "next";
-import { initializeStore } from "src/store/store";
-import State from "types/State";
+import { verifyAuth } from "@actions/auth";
+import { observer } from "mobx-react-lite";
+import { GetServerSideProps } from "next";
 import {
   NavbarStyle,
   NavbarContent,
@@ -28,12 +26,11 @@ import {
 } from "@styles/Landing";
 import { RowCenter } from "@styles/Global";
 import Seo from "@components/Seo";
+import { useStore } from "store/StoreProvider";
 
-interface Props {
-  isAuth: boolean;
-}
+const IndexPage = () => {
+  const store = useStore();
 
-const IndexPage: NextPage<Props> = ({ isAuth }) => {
   return (
     <>
       <Seo />
@@ -45,7 +42,7 @@ const IndexPage: NextPage<Props> = ({ isAuth }) => {
           </Link>
 
           <NavLinks>
-            {isAuth ? (
+            {store.isAuth ? (
               <Link href="/app">
                 <NavLink href="/app">Open App</NavLink>
               </Link>
@@ -72,7 +69,7 @@ const IndexPage: NextPage<Props> = ({ isAuth }) => {
                 Notes app to keep track of the most important things securely and easy.
               </ShowCaseParaph>
               <RowCenter>
-                {isAuth ? (
+                {store.isAuth ? (
                   <Link href="/app">
                     <ShowCaseLink href="/app">Open App</ShowCaseLink>
                   </Link>
@@ -106,19 +103,12 @@ const IndexPage: NextPage<Props> = ({ isAuth }) => {
   );
 };
 
-const mapToProps = (state: State) => ({
-  isAuth: state.auth.isAuth,
-  loading: state.auth.loading,
-  note: state.notes.note,
-});
-
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const store = initializeStore();
   const cookie = ctx.req.headers.cookie;
 
-  await checkAuth(cookie)(store.dispatch);
+  const auth = await verifyAuth(cookie);
 
-  return { props: { initialReduxState: store.getState() } };
+  return { props: { initialState: auth } };
 };
 
-export default connect(mapToProps)(IndexPage);
+export default observer(IndexPage);

@@ -21,7 +21,8 @@
       "@lib/*": ["./src/lib/*"],
       "@models/*": ["./src/models/*"],
       "@styles/*": ["./src/styles/*"],
-      "@actions/*": ["./src/store/actions/*"]
+      "@actions/*": ["./src/store/actions/*"],
+      "store/*": ["./src/store/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

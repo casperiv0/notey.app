@@ -1,5 +1,4 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import { logout, deleteAccount } from "@actions/auth";
 import Modal from "@components/modal/Modal";
 import { Divider, Column, ReportBtn, Button } from "@styles/Global";
@@ -10,21 +9,25 @@ import {
   OptionsModalFooter,
 } from "../modal/styles";
 import useModalEvent from "@hooks/useModalEvent";
-import AlertModal from "./AlertModal";
+import { AlertModal } from "./AlertModal";
 import { closeModal, openModal } from "@lib/utils";
 import { ModalIds } from "@lib/constants";
+import { useStore } from "store/StoreProvider";
 
-interface Props {
-  logout: () => void;
-  deleteAccount: () => void;
-}
-
-const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
+const OptionsModal = () => {
   const btnRef = useModalEvent<HTMLAnchorElement>(ModalIds.OptionsModal);
+  const store = useStore();
 
-  function handleDelete() {
-    deleteAccount();
+  async function handleLogout() {
+    await logout();
 
+    store.setUser(null);
+  }
+
+  async function handleDelete() {
+    await deleteAccount();
+
+    store.setUser(null);
     closeModal(ModalIds.AlertDeleteAccount);
   }
 
@@ -64,7 +67,7 @@ const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
                 >
                   Change/set PIN code
                 </Button>
-                <Button style={{ marginBottom: "10px" }} danger onClick={logout}>
+                <Button style={{ marginBottom: "10px" }} danger onClick={handleLogout}>
                   Logout
                 </Button>
                 <Button danger onClick={() => openModal(ModalIds.AlertDeleteAccount)}>
@@ -120,4 +123,4 @@ const OptionsModal: React.FC<Props> = ({ logout, deleteAccount }) => {
   );
 };
 
-export default connect(null, { logout, deleteAccount })(OptionsModal);
+export default OptionsModal;

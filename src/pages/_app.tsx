@@ -3,22 +3,20 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { AppProps } from "next/app";
 import Router from "next/router";
-import { Provider as ReduxProvider } from "react-redux";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useStore } from "../store/store";
 import "@styles/index.css";
 import { useNetworkStatus } from "@casper124578/useful/hooks/useNetworkStatus";
 import UserOfflineError from "@components/UserOfflineError/UserOfflineError";
 import "@styles/fonts.css";
-import AlertModal, { ModalAction } from "@components/modals/AlertModal";
+import { AlertModal, ModalAction } from "@components/modals/AlertModal";
 import { ModalIds } from "@lib/constants";
 import { closeModal } from "@lib/utils";
+import { StoreProvider } from "store/StoreProvider";
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const store = useStore(pageProps?.initialReduxState ?? pageProps);
   const networkStatus = useNetworkStatus();
 
   React.useEffect(() => {
@@ -52,7 +50,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
 
       <ToastContainer pauseOnFocusLoss={false} position="bottom-right" />
 
-      <ReduxProvider store={store}>
+      <StoreProvider initState={pageProps.initialState ?? {}}>
         <Component {...pageProps} />
 
         <AlertModal
@@ -67,7 +65,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
             },
           ]}
         />
-      </ReduxProvider>
+      </StoreProvider>
     </>
   );
 };

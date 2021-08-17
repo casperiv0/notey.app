@@ -1,23 +1,26 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import { logout } from "@actions/auth";
 import { useRouter } from "next/router";
-import { NextPage } from "next";
+import { useStore } from "store/StoreProvider";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-  logout: () => void;
-}
-
-const Logout: NextPage<Props> = ({ logout }) => {
+const Logout = () => {
   const router = useRouter();
+  const store = useStore();
 
-  React.useEffect(() => {
-    logout();
+  const handleLogout = React.useCallback(async () => {
+    const data = await logout();
+
+    store.hydrate(data);
 
     router.push("/");
-  }, [logout, router]);
+  }, [store, router]);
 
-  return null;
+  React.useEffect(() => {
+    handleLogout();
+  }, [handleLogout]);
+
+  return <p>Logging you out...</p>;
 };
 
-export default connect(null, { logout })(Logout);
+export default observer(Logout);

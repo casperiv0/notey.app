@@ -13,6 +13,7 @@ import Loader from "@components/loader/Loader";
 import SelectCategory from "@components/SelectCategory";
 import useModalEvent from "@hooks/useModalEvent";
 import { ModalIds } from "@lib/constants";
+import { useStore } from "store/StoreProvider";
 
 interface Props {
   loading: boolean;
@@ -22,13 +23,14 @@ interface Props {
 
 const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) => {
   const router = useRouter();
+  const store = useStore();
+  const inputRef = useModalEvent<HTMLInputElement>(ModalIds.CreateNoteModal);
+
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
   const [categoryId, setCategoryId] = React.useState("no_category");
-  const [canClose, setCanClose] = React.useState(false);
-  const [shareable, setShareable] = React.useState("false");
-  const [locked, setLocked] = React.useState("false");
-  const inputRef = useModalEvent<HTMLInputElement>(ModalIds.CreateNoteModal);
+  const [shareable, setShareable] = React.useState(false);
+  const [locked, setLocked] = React.useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -37,36 +39,30 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
       title,
       body,
       category_id: categoryId,
-      shareable: isTrue(shareable),
-      locked: isTrue(locked),
+      shareable,
+      locked,
     };
-    const created = await createNote(data);
+    const createdData = await createNote(data);
 
-    if (created === false) {
-      setCanClose(false);
-    } else {
-      setCanClose(true);
-      router.push({
-        href: "/app",
-        query: {
-          noteId: created,
-        },
-      });
-    }
-  }
+    if (createdData) {
+      store.hydrate(createdData);
 
-  React.useEffect(() => {
-    if (canClose) {
       closeSidebar("sidebar");
       setTitle("");
       setBody("");
       setCategoryId("no_category");
-      setShareable("false");
-      setLocked("false");
+      setShareable(false);
+      setLocked(false);
       closeModal(ModalIds.CreateNoteModal);
-      setCanClose(false);
+
+      router.push({
+        href: "/app",
+        query: {
+          noteId: createdData.noteId,
+        },
+      });
     }
-  }, [canClose]);
+  }
 
   return (
     <Modal style={{ zIndex: 29 }} title="Create new title" id={ModalIds.CreateNoteModal}>
@@ -115,7 +111,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
             name="Shareable"
             id="create_shareable"
             value={`${shareable}`}
-            onChange={(e) => setShareable(e.target.value)}
+            onChange={(e) => setShareable(isTrue(e.target.value))}
           >
             <option value={"true"}>Yes</option>
             <option value={"false"}>No</option>
@@ -127,7 +123,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
             name="Locked"
             id="create_locked"
             value={`${locked}`}
-            onChange={(e) => setLocked(e.target.value)}
+            onChange={(e) => setLocked(isTrue(e.target.value))}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>

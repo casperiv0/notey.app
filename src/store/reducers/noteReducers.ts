@@ -2,7 +2,6 @@ import State from "types/State";
 import {
   CreateNote,
   DeleteNoteById,
-  GetAllNotes,
   GetNoteById,
   PinRequired,
   SetEditing,
@@ -14,7 +13,6 @@ import {
 type Actions =
   | GetNoteById
   | SetLoading
-  | GetAllNotes
   | CreateNote
   | SetEditing
   | UpdateEditingNote

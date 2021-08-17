@@ -1,8 +1,6 @@
-import { connect } from "react-redux";
 import * as React from "react";
+import { observer } from "mobx-react-lite";
 import { Button, Row, SrOnly } from "@styles/Global";
-import Category from "types/Category";
-import State from "types/State";
 import {
   NavbarContainer,
   NavbarStyle,
@@ -15,42 +13,26 @@ import {
 import MenuIcon from "@icons/MenuIcon";
 import OptionsIcon from "@icons/OptionsIcon";
 import { closeModal, openModal, openSidebar } from "@lib/utils";
-import Note from "types/Note";
 import SelectCategory from "@components/SelectCategory";
 import RightSidebar from "./RightSidebar";
-import { setEditing, updateEditingNote, deleteNoteById } from "@actions/note";
-import AlertModal from "@components/modals/AlertModal";
+import { deleteNoteById } from "@actions/note";
+import { AlertModal } from "@components/modals/AlertModal";
 import { ModalIds } from "@lib/constants";
+import { useStore } from "store/StoreProvider";
 
-interface Props {
-  categories: Category[];
-  loading: boolean;
-  note: Note | null;
-  editingNote: Note | null;
-  editing: boolean | null;
-  pinRequired: boolean;
-  setEditing: (v: boolean) => void;
-  updateEditingNote: (data: Partial<Note>) => void;
-  deleteNoteById: (noteId: string) => void;
-}
+const Navbar = () => {
+  const store = useStore();
 
-const Navbar: React.FC<Props> = ({
-  categories,
-  note,
-  editingNote,
-  editing,
-  pinRequired,
-  setEditing,
-  updateEditingNote,
-  deleteNoteById,
-}) => {
   function handleEdit() {
-    setEditing(!editing);
+    store.setEditing(!store.editing);
   }
 
-  function handleDelete() {
-    setEditing(false);
-    deleteNoteById(`${note?._id}`);
+  async function handleDelete() {
+    if (!store.note) return;
+
+    store.setEditing(false);
+    const data = await deleteNoteById(store.note._id);
+    store.hydrate(data);
 
     closeModal(ModalIds.AlertDeleteNote);
   }
@@ -66,20 +48,20 @@ const Navbar: React.FC<Props> = ({
             </OpenSidebar>
             <>
               <SrOnly htmlFor="activeNoteTitle">Title</SrOnly>
-              {note ? (
-                editing ? (
+              {store.note ? (
+                store.editing ? (
                   <NavTitleInput
                     id="activeNoteTitle"
-                    value={editingNote?.title}
+                    value={store.editingNote?.title}
                     onChange={(e) =>
-                      updateEditingNote({
-                        ...editingNote,
+                      store.setEditingNote({
+                        ...store.editingNote,
                         title: e.target.value,
                       })
                     }
                   />
                 ) : (
-                  <h4>{editingNote?.title}</h4>
+                  <h4>{store.editingNote?.title}</h4>
                 )
               ) : (
                 "No notes found"
@@ -87,28 +69,28 @@ const Navbar: React.FC<Props> = ({
             </>
           </NavTitle>
           <NavLinks>
-            {note && note._id ? (
+            {store.note?._id ? (
               <Row>
                 <OpenRightSidebar title="Open Options" onClick={() => openSidebar("right-sidebar")}>
                   <SrOnly>Options</SrOnly>
                   <OptionsIcon />
                 </OpenRightSidebar>
                 <Row>
-                  {note.locked === true && pinRequired === true ? (
+                  {store.note.locked === true && store.pinRequired === true ? (
                     <Button navBtn onClick={() => openModal(ModalIds.PinRequired)}>
                       Unlock
                     </Button>
                   ) : (
                     <>
-                      {editing ? (
+                      {store.editing ? (
                         <SelectCategory
                           className="is-in-nav"
                           id="activeNoteTitle"
-                          value={editingNote?.category_id!}
-                          categories={categories}
+                          value={store.editingNote?.category_id!}
+                          categories={store.categories}
                           onChange={(e) =>
-                            updateEditingNote({
-                              ...editingNote,
+                            store.setEditingNote({
+                              ...store.editingNote,
                               category_id: e.target.value,
                             })
                           }
@@ -118,7 +100,7 @@ const Navbar: React.FC<Props> = ({
                         Delete
                       </Button>
                       <Button navBtn className="ml" onClick={handleEdit}>
-                        {editing ? "Save" : "Edit"}
+                        {store.editing ? "Save" : "Edit"}
                       </Button>
                       <Button
                         navBtn
@@ -135,7 +117,7 @@ const Navbar: React.FC<Props> = ({
           </NavLinks>
         </NavbarStyle>
 
-        <RightSidebar locked={note?.locked ?? false} pinRequired={pinRequired} />
+        <RightSidebar locked={store.note?.locked ?? false} pinRequired={store.pinRequired} />
       </NavbarContainer>
 
       <AlertModal
@@ -143,8 +125,8 @@ const Navbar: React.FC<Props> = ({
         title="Delete note"
         description={
           <>
-            Are you sure you want to delete <strong>{note?.title ?? "this note"}</strong>? This
-            cannot be undone!
+            Are you sure you want to delete <strong>{store.note?.title ?? "this note"}</strong>?
+            This cannot be undone!
           </>
         }
         actions={[
@@ -163,13 +145,4 @@ const Navbar: React.FC<Props> = ({
   );
 };
 
-const mapToProps = (state: State) => ({
-  loading: state.notes.loading,
-  categories: state.categories.categories,
-  note: state.notes.note,
-  editingNote: state.notes.editingNote,
-  editing: state.notes.editing,
-  pinRequired: state.notes.pinRequired,
-});
-
-export default connect(mapToProps, { setEditing, updateEditingNote, deleteNoteById })(Navbar);
+export default observer(Navbar);
