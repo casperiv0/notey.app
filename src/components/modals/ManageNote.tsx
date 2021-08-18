@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react-lite";
+import toast from "react-hot-toast";
 import Modal from "@components/modal/Modal";
 import { FormGroup, FormLabel, FormSmall } from "@styles/Auth";
 import { Select, Button } from "@styles/Global";
@@ -10,7 +11,6 @@ import useModalEvent from "@hooks/useModalEvent";
 import { ModalIds } from "lib/constants";
 import SelectCategory from "@components/SelectCategory";
 import { useStore } from "store/StoreProvider";
-import { toast } from "react-toastify";
 
 const ManageNoteModal = () => {
   const [categoryId, setCategoryId] = React.useState<string>("");
@@ -42,7 +42,7 @@ const ManageNoteModal = () => {
 
     if (data) {
       store.hydrate(data);
-      toast.success("Successfully updated note.");
+      toast.success("Note was successfully saved.");
     }
   }
 

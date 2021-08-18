@@ -6,7 +6,7 @@ const StoreContext = React.createContext<AppStore>(new AppStore());
 
 interface StoreProps {
   initState: Record<string, unknown>;
-  children: React.ReactChild[];
+  children: React.ReactChild[] | React.ReactChild;
 }
 
 export const StoreProvider = ({ initState, children }: StoreProps) => {

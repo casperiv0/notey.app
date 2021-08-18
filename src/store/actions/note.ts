@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { NO_ERROR } from "lib/constants";
 import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "lib/fetch";
 

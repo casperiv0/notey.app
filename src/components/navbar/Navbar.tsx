@@ -19,6 +19,7 @@ import { deleteNoteById, updateNoteById } from "actions/note";
 import { AlertModal } from "@components/modals/AlertModal";
 import { ModalIds } from "lib/constants";
 import { useStore } from "store/StoreProvider";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const store = useStore();
@@ -43,6 +44,7 @@ const Navbar = () => {
     store.hydrate(data);
 
     closeModal(ModalIds.AlertDeleteNote);
+    toast.success("Note was successfully deleted.");
   }
 
   return (
