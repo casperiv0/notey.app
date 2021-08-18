@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useRouter } from "next/router";
+import { observer } from "mobx-react-lite";
 import Note from "types/Note";
 import { closeModal, closeSidebar, foldCategory, openModal } from "lib/utils";
 import {
@@ -13,8 +14,9 @@ import {
 } from "./styles";
 import { SrOnly, Divider } from "@styles/Global";
 import SidebarSearch from "./SidebarSearch";
-import CloseIcon from "@icons/CloseIcon";
-import EditIcon from "@icons/EditIcon";
+import { CloseIcon } from "@icons/CloseIcon";
+import { ArrowIcon } from "@components/icons/ArrowIcon";
+import { EditIcon } from "@icons/EditIcon";
 import Category from "types/Category";
 import {
   CategoryDiv,
@@ -26,10 +28,8 @@ import { AlertModal } from "@components/modals/AlertModal";
 import { ModalIds } from "lib/constants";
 import EditCategoryModal from "@components/modals/EditCategory";
 import { updateCategoryById } from "actions/categories";
-import ArrowIcon from "@components/icons/ArrowIcon";
 import { getNoteById } from "actions/note";
 import { useStore } from "store/StoreProvider";
-import { observer } from "mobx-react-lite";
 
 const noCategory: Category = {
   name: "No Category",

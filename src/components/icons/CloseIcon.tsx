@@ -1,12 +1,14 @@
-const CloseIcon: React.FC = () => {
+import { IconProps } from ".";
+
+export const CloseIcon = (props: IconProps) => {
   return (
     <svg
       width="1em"
       height="1em"
       viewBox="0 0 16 16"
-      className="bi bi-x"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fillRule="evenodd"
@@ -19,5 +21,3 @@ const CloseIcon: React.FC = () => {
     </svg>
   );
 };
-
-export default CloseIcon;

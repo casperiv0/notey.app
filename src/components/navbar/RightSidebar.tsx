@@ -1,6 +1,6 @@
 import * as React from "react";
 import { observer } from "mobx-react-lite";
-import CloseIcon from "@components/icons/CloseIcon";
+import { CloseIcon } from "@components/icons/CloseIcon";
 import SelectCategory from "@components/SelectCategory";
 import { closeSidebar, openModal } from "lib/utils";
 import { Button, Column, SrOnly } from "@styles/Global";

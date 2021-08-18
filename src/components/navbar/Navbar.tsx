@@ -10,8 +10,8 @@ import {
   OpenRightSidebar,
   NavTitleInput,
 } from "./styles";
-import MenuIcon from "@icons/MenuIcon";
-import OptionsIcon from "@icons/OptionsIcon";
+import { MenuIcon } from "@icons/MenuIcon";
+import { OptionsIcon } from "@icons/OptionsIcon";
 import { closeModal, openModal, openSidebar } from "lib/utils";
 import SelectCategory from "@components/SelectCategory";
 import RightSidebar from "./RightSidebar";

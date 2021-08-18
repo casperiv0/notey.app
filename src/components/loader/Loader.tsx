@@ -1,5 +1,5 @@
-import { Center } from "./styles";
 import PulseLoader from "react-spinners/PulseLoader";
+import { Center } from "./styles";
 import { NoteyColors } from "lib/constants";
 
 interface Props {
