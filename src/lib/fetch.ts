@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import cookie from "cookie";
-import { ModalIds, NO_ERROR } from "./constants";
-import { ALLOWED_METHODS } from "./shared";
+import { ModalIds, NO_ERROR, ALLOWED_METHODS } from "./constants";
 import { openModal } from "./utils";
 
 export type RequestData = Record<string, unknown>;

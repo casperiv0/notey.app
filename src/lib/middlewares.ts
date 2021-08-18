@@ -15,7 +15,7 @@ import cors from "cors";
 import helmet from "helmet";
 import UserModel from "models/User.model";
 import { IRequest } from "types/IRequest";
-import { ALLOWED_METHODS } from "./shared";
+import { ALLOWED_METHODS } from "./constants";
 
 const JWT_SECRET = String(process.env.JWT_SECRET);
 

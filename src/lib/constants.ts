@@ -1,3 +1,6 @@
+export type ALLOWED_METHODS = "PATCH" | "PUT" | "DELETE" | "OPTIONS" | "GET" | "POST";
+export const ALLOWED_METHODS = ["PATCH", "PUT", "DELETE", "OPTIONS", "GET", "POST"];
+
 export enum Cookie {
   Expires = 60 * 60 * 1000 * 6, // 6 hours
   RememberMeExpires = 60 * 60 * 1000 * 24 * 30, // 30 days
