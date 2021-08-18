@@ -27,10 +27,7 @@ const CreateCategoryModal = dynamic(() => import("@components/modals/CreateCateg
 const AppPage = () => {
   const router = useRouter();
   const isMounted = useMounted();
-
   const store = useStore();
-
-  console.log(JSON.stringify(store, null, 2));
 
   React.useEffect(() => {
     if (store.pinRequired && isMounted) {
@@ -43,30 +40,6 @@ const AppPage = () => {
       router.push("/auth/login");
     }
   }, [store.isAuth, router]);
-
-  React.useEffect(() => {
-    const modal = router.query.modal as string | undefined;
-
-    // wait for app to be mounted
-    if (!isMounted) return;
-
-    switch (modal) {
-      case "note": {
-        openModal(ModalIds.CreateNoteModal);
-        break;
-      }
-      case "category": {
-        openModal(ModalIds.CreateCategoryModal);
-        break;
-      }
-      case "options": {
-        openModal(ModalIds.OptionsModal);
-        break;
-      }
-      default:
-        break;
-    }
-  }, [router.query, isMounted]);
 
   return (
     <>

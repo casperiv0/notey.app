@@ -1,10 +1,10 @@
+import * as React from "react";
+import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
 import { ModalIds } from "@lib/constants";
 import { closeModal, openModal } from "@lib/utils";
 import { FormGroup, FormInput, FormLabel } from "@styles/Auth";
 import { Button, Row } from "@styles/Global";
-import * as React from "react";
-import { connect } from "react-redux";
 import Category from "types/Category";
 import { AlertModal } from "./AlertModal";
 import { deleteCategory, updateCategoryById } from "@actions/categories";
@@ -31,7 +31,11 @@ const EditCategoryModal = ({ category }: Props) => {
 
   async function handleDeleteCategory() {
     if (!category?._id) return;
-    await deleteCategory(category._id);
+    const data = await deleteCategory(category._id);
+
+    if (data) {
+      store.hydrate(data);
+    }
 
     closeModal(ModalIds.AlertDeleteCategory);
     closeModal(ModalIds.EditCategory);
@@ -105,4 +109,4 @@ const EditCategoryModal = ({ category }: Props) => {
   );
 };
 
-export default connect(null, { deleteCategory, updateCategoryById })(EditCategoryModal);
+export default observer(EditCategoryModal);

@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 import { NO_ERROR } from "@lib/constants";
 import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "@lib/fetch";
-import { Dis, UpdateNoteById, CreateNote } from "../types";
 
 export async function getShareById(noteId: string, cookie?: string) {
   try {
@@ -28,6 +27,8 @@ export async function getNoteById(noteId: string, cookie?: string, pin?: string)
       return {
         note: res.data.note ?? null,
         editingNote: res.data.note ?? null,
+        pinRequired: false,
+        tempNoteId: null,
       };
     }
 
@@ -46,27 +47,21 @@ export async function getNoteById(noteId: string, cookie?: string, pin?: string)
   }
 }
 
-export const updateNoteById =
-  (noteId: string, data: RequestData) => async (dispatch: Dis<UpdateNoteById>) => {
-    dispatch({ type: "SET_NOTE_LOADING", loading: true });
+export async function updateNoteById(noteId: string, data: RequestData) {
+  try {
+    const res = await handleRequest(`/notes/${noteId}`, "PUT", data);
 
-    try {
-      const res = await handleRequest(`/notes/${noteId}`, "PUT", data);
-
-      if (isSuccess(res)) {
-        dispatch({
-          type: "UPDATE_NOTE_BY_ID",
-          note: res.data.note,
-          notes: res.data.notes,
-        });
-
-        toast.success("Successfully updated note");
-      }
-    } catch (e) {
-      toast.error(getErrorFromResponse(e));
-      dispatch({ type: "SET_NOTE_LOADING", loading: false });
+    if (isSuccess(res)) {
+      return {
+        note: res.data.note,
+        notes: res.data.notes,
+      };
     }
-  };
+  } catch (e) {
+    toast.error(getErrorFromResponse(e));
+    return null;
+  }
+}
 
 export async function deleteNoteById(noteId: string) {
   try {
@@ -74,6 +69,7 @@ export async function deleteNoteById(noteId: string) {
 
     if (isSuccess(res)) {
       return {
+        editingNote: res.data.notes[0],
         note: res.data.notes[0],
         notes: res.data.notes,
       };
@@ -98,31 +94,22 @@ export async function getNotes(cookie?: string) {
   }
 }
 
-export const createNote =
-  (data: RequestData) =>
-  async (dispatch: Dis<CreateNote>): Promise<boolean | string> => {
-    dispatch({ type: "SET_NOTE_LOADING", loading: true });
+export async function createNote(data: RequestData) {
+  try {
+    const res = await handleRequest("/notes", "POST", data);
 
-    try {
-      const res = await handleRequest("/notes", "POST", data);
-
-      if (isSuccess(res)) {
-        dispatch({
-          type: "CREATE_NOTE",
-          notes: res.data.notes,
-          note: res.data.note,
-        });
-
-        return res.data.note?._id;
-      }
-
-      toast.error(res.data?.error ?? NO_ERROR);
-      dispatch({ type: "SET_NOTE_LOADING", loading: false });
-
-      return false;
-    } catch (e) {
-      toast.error(getErrorFromResponse(e));
-      dispatch({ type: "SET_NOTE_LOADING", loading: false });
-      return false;
+    if (isSuccess(res)) {
+      return {
+        notes: res.data.notes,
+        note: res.data.note,
+        noteId: res.data.note?._id,
+      };
     }
-  };
+
+    toast.error(res.data?.error ?? NO_ERROR);
+    return null;
+  } catch (e) {
+    toast.error(getErrorFromResponse(e));
+    return null;
+  }
+}

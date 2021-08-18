@@ -15,7 +15,7 @@ import OptionsIcon from "@icons/OptionsIcon";
 import { closeModal, openModal, openSidebar } from "@lib/utils";
 import SelectCategory from "@components/SelectCategory";
 import RightSidebar from "./RightSidebar";
-import { deleteNoteById } from "@actions/note";
+import { deleteNoteById, updateNoteById } from "@actions/note";
 import { AlertModal } from "@components/modals/AlertModal";
 import { ModalIds } from "@lib/constants";
 import { useStore } from "store/StoreProvider";
@@ -23,8 +23,16 @@ import { useStore } from "store/StoreProvider";
 const Navbar = () => {
   const store = useStore();
 
-  function handleEdit() {
+  async function handleEdit() {
+    if (!store.note || !store.editingNote) return;
+
+    const newEditing = !store.editing;
     store.setEditing(!store.editing);
+
+    if (newEditing === false) {
+      const data = await updateNoteById(store.note._id, { ...store.editingNote });
+      store.hydrate(data);
+    }
   }
 
   async function handleDelete() {

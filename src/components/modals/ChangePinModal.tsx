@@ -1,5 +1,4 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import Modal from "@components/modal/Modal";
 import useModalEvent from "@hooks/useModalEvent";
 import { closeModal } from "@lib/utils";
@@ -7,12 +6,9 @@ import { ModalIds } from "@lib/constants";
 import { FormGroup, FormInput, FormLabel, SubmitBtn } from "@styles/Auth";
 import Loader from "@components/loader/Loader";
 import { updatePinCode } from "@actions/auth";
+import { toast } from "react-toastify";
 
-interface Props {
-  updatePinCode: (pin: string) => Promise<boolean>;
-}
-
-const ChangePinModal: React.FC<Props> = ({ updatePinCode }) => {
+const ChangePinModal = () => {
   const [pin, setPin] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const inputRef = useModalEvent<HTMLInputElement>(ModalIds.ChangePin);
@@ -21,11 +17,10 @@ const ChangePinModal: React.FC<Props> = ({ updatePinCode }) => {
     e.preventDefault();
     setLoading(true);
 
-    const success = await updatePinCode(pin.slice(0, 8));
+    await updatePinCode(pin.slice(0, 8));
 
-    if (success) {
-      closeModal(ModalIds.ChangePin);
-    }
+    closeModal(ModalIds.ChangePin);
+    toast.success("Successfully changed PIN code.");
 
     setLoading(false);
   }
@@ -56,4 +51,4 @@ const ChangePinModal: React.FC<Props> = ({ updatePinCode }) => {
   );
 };
 
-export default connect(null, { updatePinCode })(ChangePinModal);
+export default ChangePinModal;

@@ -1,9 +1,8 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
 import { FormGroup, FormLabel, FormInput, SubmitBtn } from "@styles/Auth";
 import { closeModal, closeSidebar } from "@lib/utils";
-import State from "types/State";
 import Loader from "@components/loader/Loader";
 import { createCategory } from "@actions/categories";
 import useModalEvent from "@hooks/useModalEvent";
@@ -59,8 +58,4 @@ const CreateCategoryModal = () => {
   );
 };
 
-const mapToProps = (state: State) => ({
-  loading: state.categories.loading,
-});
-
-export default connect(mapToProps, { createCategory })(CreateCategoryModal);
+export default observer(CreateCategoryModal);

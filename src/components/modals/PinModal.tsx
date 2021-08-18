@@ -1,37 +1,30 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
 import useModalEvent from "@hooks/useModalEvent";
 import { closeModal } from "@lib/utils";
 import { ModalIds } from "@lib/constants";
 import { FormGroup, FormInput, FormLabel, SubmitBtn } from "@styles/Auth";
 import { getNoteById } from "@actions/note";
-import State from "types/State";
 import Loader from "@components/loader/Loader";
+import { useStore } from "store/StoreProvider";
 
-interface Props {
-  tempId: string | null;
-  getNoteById: (
-    noteId: string,
-    share: boolean,
-    cookie?: string,
-    pin?: string,
-  ) => Promise<boolean | undefined>;
-}
+const EnterPinModal = () => {
+  const store = useStore();
 
-const EnterPinModal: React.FC<Props> = ({ tempId, getNoteById }) => {
   const [pin, setPin] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const inputRef = useModalEvent<HTMLInputElement>(ModalIds.PinRequired);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!tempId) return;
+    if (!store.note?._id) return;
     setLoading(true);
 
-    const success = await getNoteById(tempId, false, undefined, pin);
+    const data = await getNoteById(store.note._id, undefined, pin);
 
-    if (success) {
+    if (data) {
+      store.hydrate(data);
       closeModal(ModalIds.PinRequired);
     }
 
@@ -64,8 +57,4 @@ const EnterPinModal: React.FC<Props> = ({ tempId, getNoteById }) => {
   );
 };
 
-const mapStateToProps = (state: State) => ({
-  tempId: state.notes.tempNoteId,
-});
-
-export default connect(mapStateToProps, { getNoteById })(EnterPinModal);
+export default observer(EnterPinModal);

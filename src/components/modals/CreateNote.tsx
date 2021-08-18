@@ -1,13 +1,10 @@
 import * as React from "react";
 import { useRouter } from "next/router";
+import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
 import { FormGroup, FormLabel, FormInput, SubmitBtn, FormSmall } from "@styles/Auth";
 import { TextArea, Select } from "@styles/Global";
-import { connect } from "react-redux";
-import State from "types/State";
-import Category from "types/Category";
 import { closeModal, closeSidebar, isTrue } from "@lib/utils";
-import { RequestData } from "@lib/fetch";
 import { createNote } from "@actions/note";
 import Loader from "@components/loader/Loader";
 import SelectCategory from "@components/SelectCategory";
@@ -15,17 +12,12 @@ import useModalEvent from "@hooks/useModalEvent";
 import { ModalIds } from "@lib/constants";
 import { useStore } from "store/StoreProvider";
 
-interface Props {
-  loading: boolean;
-  categories: Category[];
-  createNote: (data: RequestData) => Promise<boolean | string>;
-}
-
-const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) => {
+const CreateNoteModal = () => {
   const router = useRouter();
   const store = useStore();
   const inputRef = useModalEvent<HTMLInputElement>(ModalIds.CreateNoteModal);
 
+  const [loading, setLoading] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
   const [categoryId, setCategoryId] = React.useState("no_category");
@@ -34,6 +26,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
 
     const data = {
       title,
@@ -46,6 +39,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
 
     if (createdData) {
       store.hydrate(createdData);
+      store.setEditingNote(createdData.note);
 
       closeSidebar("sidebar");
       setTitle("");
@@ -62,6 +56,8 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
         },
       });
     }
+
+    setLoading(false);
   }
 
   return (
@@ -100,7 +96,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
             id="category"
             onChange={(e) => setCategoryId(e.target.value)}
             value={categoryId}
-            categories={categories}
+            categories={store.categories}
           />
         </FormGroup>
         <FormGroup>
@@ -143,9 +139,4 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
   );
 };
 
-const mapToProps = (state: State) => ({
-  categories: state.categories.categories,
-  loading: state.notes.loading,
-});
-
-export default connect(mapToProps, { createNote })(CreateNoteModal);
+export default observer(CreateNoteModal);
