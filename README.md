@@ -52,14 +52,15 @@ Simple notes app to keep track of important things
 
 ## What I learned
 
+- Usage of MobX in Next.js
 - Better understanding of React functional components
 - Better understanding of react hooks
 - Authentication in react
 - React portals
 - convert text to markdown using [marked](https://www.npmjs.com/package/marked)
 - Use of React portals
-- Server Side rendering using next.js
-- Static Site rendering using next.js
+- Server Side rendering using Next.js
+- Static Site rendering using Next.js
 
 ## Supporting notey.app
 
