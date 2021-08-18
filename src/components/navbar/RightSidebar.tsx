@@ -2,7 +2,7 @@ import * as React from "react";
 import { observer } from "mobx-react-lite";
 import CloseIcon from "@components/icons/CloseIcon";
 import SelectCategory from "@components/SelectCategory";
-import { closeSidebar, openModal } from "@lib/utils";
+import { closeSidebar, openModal } from "lib/utils";
 import { Button, Column, SrOnly } from "@styles/Global";
 import {
   RightSidebarActive,
@@ -10,7 +10,7 @@ import {
   RightSidebarContent,
   CloseRightSidebar,
 } from "./styles";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
 import { useStore } from "store/StoreProvider";
 
 interface Props {

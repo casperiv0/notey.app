@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import { NO_ERROR } from "@lib/constants";
-import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "@lib/fetch";
+import { NO_ERROR } from "lib/constants";
+import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "lib/fetch";
 
 export async function getShareById(noteId: string, cookie?: string) {
   try {
@@ -55,6 +55,7 @@ export async function updateNoteById(noteId: string, data: RequestData) {
       return {
         note: res.data.note,
         notes: res.data.notes,
+        editingNote: res.data.note,
       };
     }
   } catch (e) {

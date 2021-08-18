@@ -1,7 +1,7 @@
-import { ModalIds } from "@lib/constants";
-import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "@lib/fetch";
-import { closeModal } from "@lib/utils";
 import { toast } from "react-toastify";
+import { ModalIds } from "lib/constants";
+import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "lib/fetch";
+import { closeModal } from "lib/utils";
 
 export async function getCategories(cookie?: string) {
   try {

@@ -12,14 +12,14 @@ import {
   UseMiddleware,
 } from "@storyofams/next-api-decorators";
 import { validateSchema } from "@casper124578/utils";
-import "@lib/database";
-import NoteModel, { NoteDoc } from "@models/Note.model";
+import "lib/database";
+import NoteModel, { NoteDoc } from "models/Note.model";
 import { IRequest } from "types/IRequest";
-import CategoryModel, { createAndUpdateCategoryValidation } from "@models/Category.model";
-import { isTrue, parseLockedNotes } from "@lib/utils";
+import CategoryModel, { createAndUpdateCategoryValidation } from "models/Category.model";
+import { isTrue, parseLockedNotes } from "lib/utils";
 import { ObjectId } from "mongoose";
-import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
+import { ErrorMessages } from "lib/errors";
+import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "lib/middlewares";
 
 @UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class CategoriesApiManager {

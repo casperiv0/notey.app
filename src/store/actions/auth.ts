@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "@lib/fetch";
+import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "lib/fetch";
 
 export async function authenticate(data: RequestData, login: boolean) {
   try {

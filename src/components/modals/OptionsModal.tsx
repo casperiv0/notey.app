@@ -1,5 +1,5 @@
 import * as React from "react";
-import { logout, deleteAccount } from "@actions/auth";
+import { logout, deleteAccount } from "actions/auth";
 import Modal from "@components/modal/Modal";
 import { Divider, Column, ReportBtn, Button } from "@styles/Global";
 import {
@@ -10,8 +10,8 @@ import {
 } from "../modal/styles";
 import useModalEvent from "@hooks/useModalEvent";
 import { AlertModal } from "./AlertModal";
-import { closeModal, openModal } from "@lib/utils";
-import { ModalIds } from "@lib/constants";
+import { closeModal, openModal } from "lib/utils";
+import { ModalIds } from "lib/constants";
 import { useStore } from "store/StoreProvider";
 
 const OptionsModal = () => {

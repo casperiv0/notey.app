@@ -2,10 +2,10 @@ import * as React from "react";
 import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
 import useModalEvent from "@hooks/useModalEvent";
-import { closeModal } from "@lib/utils";
-import { ModalIds } from "@lib/constants";
+import { closeModal } from "lib/utils";
+import { ModalIds } from "lib/constants";
 import { FormGroup, FormInput, FormLabel, SubmitBtn } from "@styles/Auth";
-import { getNoteById } from "@actions/note";
+import { getNoteById } from "actions/note";
 import Loader from "@components/loader/Loader";
 import { useStore } from "store/StoreProvider";
 

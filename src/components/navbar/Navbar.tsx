@@ -12,12 +12,12 @@ import {
 } from "./styles";
 import MenuIcon from "@icons/MenuIcon";
 import OptionsIcon from "@icons/OptionsIcon";
-import { closeModal, openModal, openSidebar } from "@lib/utils";
+import { closeModal, openModal, openSidebar } from "lib/utils";
 import SelectCategory from "@components/SelectCategory";
 import RightSidebar from "./RightSidebar";
-import { deleteNoteById, updateNoteById } from "@actions/note";
+import { deleteNoteById, updateNoteById } from "actions/note";
 import { AlertModal } from "@components/modals/AlertModal";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
 import { useStore } from "store/StoreProvider";
 
 const Navbar = () => {

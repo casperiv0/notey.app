@@ -1,6 +1,6 @@
 import { Center } from "./styles";
 import PulseLoader from "react-spinners/PulseLoader";
-import { NoteyColors } from "@lib/constants";
+import { NoteyColors } from "lib/constants";
 
 interface Props {
   fullSize?: boolean;

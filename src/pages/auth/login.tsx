@@ -14,7 +14,7 @@ import {
 } from "@styles/Auth";
 import Loader from "@components/loader/Loader";
 import Seo from "@components/Seo";
-import { authenticate } from "@actions/auth";
+import { authenticate } from "actions/auth";
 
 export default function LoginPage() {
   const router = useRouter();

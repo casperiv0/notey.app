@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { verifyAuth } from "@actions/auth";
+import { verifyAuth } from "actions/auth";
 import { observer } from "mobx-react-lite";
 import { GetServerSideProps } from "next";
 import {

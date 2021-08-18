@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { NoteyColors, Styles } from "@lib/constants";
+import { NoteyColors, Styles } from "lib/constants";
 import { DEFAULT_BTN_STYLES, DEFAULT_INPUT_STYLES } from "./Global";
 
 export const AuthContainer = styled.div`

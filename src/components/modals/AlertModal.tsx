@@ -2,7 +2,7 @@ import * as React from "react";
 import Modal from "@components/modal/Modal";
 import { AlertDescription, AlertActions } from "@components/modal/styles";
 import { Button } from "@styles/Global";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
 import useModalEvent from "@hooks/useModalEvent";
 
 interface Props {

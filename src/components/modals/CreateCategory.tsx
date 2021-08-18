@@ -2,11 +2,11 @@ import * as React from "react";
 import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
 import { FormGroup, FormLabel, FormInput, SubmitBtn } from "@styles/Auth";
-import { closeModal, closeSidebar } from "@lib/utils";
+import { closeModal, closeSidebar } from "lib/utils";
 import Loader from "@components/loader/Loader";
-import { createCategory } from "@actions/categories";
+import { createCategory } from "actions/categories";
 import useModalEvent from "@hooks/useModalEvent";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
 import { useStore } from "store/StoreProvider";
 
 const CreateCategoryModal = () => {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NoteyColors } from "@lib/constants";
+import { NoteyColors } from "lib/constants";
 
 export const NotFoundContainer = styled.div`
   display: flex;

@@ -1,13 +1,13 @@
 import * as React from "react";
 import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
-import { ModalIds } from "@lib/constants";
-import { closeModal, openModal } from "@lib/utils";
+import { ModalIds } from "lib/constants";
+import { closeModal, openModal } from "lib/utils";
 import { FormGroup, FormInput, FormLabel } from "@styles/Auth";
 import { Button, Row } from "@styles/Global";
 import Category from "types/Category";
 import { AlertModal } from "./AlertModal";
-import { deleteCategory, updateCategoryById } from "@actions/categories";
+import { deleteCategory, updateCategoryById } from "actions/categories";
 import useModalEvent from "@hooks/useModalEvent";
 import { useStore } from "store/StoreProvider";
 

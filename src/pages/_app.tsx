@@ -12,8 +12,8 @@ import { useNetworkStatus } from "@casper124578/useful/hooks/useNetworkStatus";
 import UserOfflineError from "@components/UserOfflineError/UserOfflineError";
 import "@styles/fonts.css";
 import { AlertModal, ModalAction } from "@components/modals/AlertModal";
-import { ModalIds } from "@lib/constants";
-import { closeModal } from "@lib/utils";
+import { ModalIds } from "lib/constants";
+import { closeModal } from "lib/utils";
 import { StoreProvider } from "store/StoreProvider";
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {

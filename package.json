@@ -1,10 +1,8 @@
 {
   "name": "notey.app",
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "lint:check": "eslint . --ext .js,.jsx,.json,.ts,.tsx",
-    "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\" --ignore-path .gitignore",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,css,json}\" --ignore-path .gitignore",
+    "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\"",
     "dev": "next dev -p 5011",
     "start": "next start -p 5011",

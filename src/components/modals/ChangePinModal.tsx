@@ -1,11 +1,11 @@
 import * as React from "react";
 import Modal from "@components/modal/Modal";
 import useModalEvent from "@hooks/useModalEvent";
-import { closeModal } from "@lib/utils";
-import { ModalIds } from "@lib/constants";
+import { closeModal } from "lib/utils";
+import { ModalIds } from "lib/constants";
 import { FormGroup, FormInput, FormLabel, SubmitBtn } from "@styles/Auth";
 import Loader from "@components/loader/Loader";
-import { updatePinCode } from "@actions/auth";
+import { updatePinCode } from "actions/auth";
 import { toast } from "react-toastify";
 
 const ChangePinModal = () => {

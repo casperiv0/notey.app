@@ -1,4 +1,4 @@
-import { NoteyColors } from "@lib/constants";
+import { NoteyColors } from "lib/constants";
 import styled, { css } from "styled-components";
 
 export const Center = styled.div<{ isCenter?: boolean; fullSize?: boolean }>`

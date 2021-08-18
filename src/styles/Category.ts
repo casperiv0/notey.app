@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Size, NoteyColors } from "@lib/constants";
+import { Size, NoteyColors } from "lib/constants";
 import { DEFAULT_INPUT_STYLES } from "./Global";
 
 export const CategoryDiv = styled.div`

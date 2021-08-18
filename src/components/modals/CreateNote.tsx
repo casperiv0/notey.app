@@ -4,12 +4,12 @@ import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
 import { FormGroup, FormLabel, FormInput, SubmitBtn, FormSmall } from "@styles/Auth";
 import { TextArea, Select } from "@styles/Global";
-import { closeModal, closeSidebar, isTrue } from "@lib/utils";
-import { createNote } from "@actions/note";
+import { closeModal, closeSidebar, isTrue } from "lib/utils";
+import { createNote } from "actions/note";
 import Loader from "@components/loader/Loader";
 import SelectCategory from "@components/SelectCategory";
 import useModalEvent from "@hooks/useModalEvent";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
 import { useStore } from "store/StoreProvider";
 
 const CreateNoteModal = () => {

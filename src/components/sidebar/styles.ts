@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NoteyColors, Size, Styles } from "@lib/constants";
+import { NoteyColors, Size, Styles } from "lib/constants";
 
 export const SidebarContainer = styled.div`
   grid-area: aside;

@@ -14,14 +14,14 @@ import { compareSync, hashSync } from "bcryptjs";
 import { validateSchema } from "@casper124578/utils";
 import useToken from "@hooks/useToken";
 import UserModel, { baseSchema, registerSchema } from "src/models/User.model";
-import { Cookie } from "@lib/constants";
+import { Cookie } from "lib/constants";
 import useCookie from "src/hooks/useCookie";
-import "@lib/database";
+import "lib/database";
 import useMarkdown from "@hooks/useMarkdown";
-import NoteModel from "@models/Note.model";
-import CategoryModel from "@models/Category.model";
-import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
+import NoteModel from "models/Note.model";
+import CategoryModel from "models/Category.model";
+import { ErrorMessages } from "lib/errors";
+import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "lib/middlewares";
 
 @UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class AuthenticationApiManager {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 import Note from "types/Note";
-import { closeModal, closeSidebar, foldCategory, openModal } from "@lib/utils";
+import { closeModal, closeSidebar, foldCategory, openModal } from "lib/utils";
 import {
   SidebarActive,
   SidebarStyle,
@@ -23,11 +23,11 @@ import {
   CategoryTitleContainer,
 } from "../../styles/Category";
 import { AlertModal } from "@components/modals/AlertModal";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
 import EditCategoryModal from "@components/modals/EditCategory";
-import { updateCategoryById } from "@actions/categories";
+import { updateCategoryById } from "actions/categories";
 import ArrowIcon from "@components/icons/ArrowIcon";
-import { getNoteById } from "@actions/note";
+import { getNoteById } from "actions/note";
 import { useStore } from "store/StoreProvider";
 import { observer } from "mobx-react-lite";
 
