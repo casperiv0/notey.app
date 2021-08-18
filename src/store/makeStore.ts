@@ -1,4 +1,7 @@
+import { enableStaticRendering } from "mobx-react-lite";
 import { AppStore } from "./AppStore";
+
+enableStaticRendering(typeof window === "undefined");
 
 let store;
 

@@ -63,7 +63,9 @@ const Sidebar = () => {
 
     store.setEditing(false);
 
-    await getNoteById(id);
+    // prefetch the note
+    const data = await getNoteById(id);
+    store.hydrate(data);
 
     router.replace({
       query: {

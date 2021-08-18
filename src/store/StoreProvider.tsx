@@ -10,7 +10,7 @@ interface StoreProps {
 }
 
 export const StoreProvider = ({ initState, children }: StoreProps) => {
-  const store = makeStore(initState);
+  const store = React.useMemo(() => makeStore(initState), [initState]);
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 };
