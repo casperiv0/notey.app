@@ -125,7 +125,11 @@ const Navbar = () => {
           </NavLinks>
         </NavbarStyle>
 
-        <RightSidebar locked={store.note?.locked ?? false} pinRequired={store.pinRequired} />
+        <RightSidebar
+          onHandleEdit={handleEdit}
+          locked={store.note?.locked ?? false}
+          pinRequired={store.pinRequired}
+        />
       </NavbarContainer>
 
       <AlertModal

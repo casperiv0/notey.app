@@ -16,14 +16,11 @@ import { useStore } from "store/StoreProvider";
 interface Props {
   locked: boolean;
   pinRequired: boolean;
+  onHandleEdit: () => Promise<void>;
 }
 
-const RightSidebar: React.FC<Props> = ({ locked, pinRequired }) => {
+const RightSidebar: React.FC<Props> = ({ locked, pinRequired, onHandleEdit }) => {
   const store = useStore();
-
-  const handleEdit = () => {
-    store.setEditing(!store.editing);
-  };
 
   return (
     <>
@@ -41,7 +38,7 @@ const RightSidebar: React.FC<Props> = ({ locked, pinRequired }) => {
               <Button onClick={() => openModal(ModalIds.PinRequired)}>Unlock</Button>
             ) : (
               <>
-                <Button style={{ marginBottom: "10px" }} onClick={handleEdit}>
+                <Button style={{ marginBottom: "10px" }} onClick={onHandleEdit}>
                   {store.editing ? "Save" : "Edit"}
                 </Button>
 
