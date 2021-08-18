@@ -1,5 +1,5 @@
 import * as React from "react";
-import Note from "types/Note";
+import { Note } from "types/Note";
 import { NoteStyle, PreviewStyle } from "./styles";
 
 interface Props {

@@ -5,7 +5,7 @@ import { ModalIds } from "lib/constants";
 import { closeModal, openModal } from "lib/utils";
 import { FormGroup, FormInput, FormLabel } from "@styles/Auth";
 import { Button, Row } from "@styles/Global";
-import Category from "types/Category";
+import { Category } from "types/Category";
 import { AlertModal } from "./AlertModal";
 import { deleteCategory, updateCategoryById } from "actions/categories";
 import useModalEvent from "@hooks/useModalEvent";
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const EditCategoryModal = ({ category }: Props) => {
-  const [name, setName] = React.useState(category?.name ?? "");
+  const [name, setName] = React.useState("");
 
   const store = useStore();
   const ref = useModalEvent<HTMLInputElement>(ModalIds.EditCategory);
@@ -26,11 +26,14 @@ const EditCategoryModal = ({ category }: Props) => {
   );
 
   React.useEffect(() => {
-    setName(category?.name ?? "");
-  }, [category?.name]);
+    if (category) {
+      setName(category?.name);
+    }
+  }, [category]);
 
   async function handleDeleteCategory() {
-    if (!category?._id) return;
+    if (!category) return;
+
     const data = await deleteCategory(category._id);
 
     if (data) {
@@ -47,8 +50,7 @@ const EditCategoryModal = ({ category }: Props) => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isDisabled) return;
-    if (!category?._id) return;
+    if (isDisabled || !category) return;
 
     const data = await updateCategoryById(category._id, {
       name,

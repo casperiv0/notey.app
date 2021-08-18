@@ -50,8 +50,11 @@ const Navbar = () => {
       <NavbarContainer>
         <NavbarStyle>
           <NavTitle>
-            <OpenSidebar title="Open sidebar" onClick={() => openSidebar("sidebar")}>
-              <SrOnly>Menu</SrOnly>
+            <OpenSidebar
+              aria-label="open sidebar"
+              title="Open sidebar"
+              onClick={() => openSidebar("sidebar")}
+            >
               <MenuIcon />
             </OpenSidebar>
             <>
@@ -79,8 +82,11 @@ const Navbar = () => {
           <NavLinks>
             {store.note?._id ? (
               <Row>
-                <OpenRightSidebar title="Open Options" onClick={() => openSidebar("right-sidebar")}>
-                  <SrOnly>Options</SrOnly>
+                <OpenRightSidebar
+                  aria-label="open options"
+                  title="Open Options"
+                  onClick={() => openSidebar("right-sidebar")}
+                >
                   <OptionsIcon />
                 </OpenRightSidebar>
                 <Row>

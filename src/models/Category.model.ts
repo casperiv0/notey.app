@@ -1,6 +1,6 @@
-import { Schema, model, Document, models } from "mongoose";
 import * as yup from "yup";
-import Category from "types/Category";
+import { Schema, model, Document, models } from "mongoose";
+import { Category } from "types/Category";
 
 const categorySchema = new Schema({
   user_id: {

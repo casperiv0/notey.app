@@ -1,4 +1,4 @@
-import Note from "types/Note";
+import { Note } from "types/Note";
 import { LOCKED_NOTE_MSG, ModalIds } from "./constants";
 
 export const isTrue = (v: string): boolean => `${v}` === "true";

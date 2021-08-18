@@ -1,4 +1,4 @@
-interface Note {
+export interface Note {
   _id: string;
   user_id: string;
   category_id: string;
@@ -9,5 +9,3 @@ interface Note {
   shared: boolean;
   locked: boolean;
 }
-
-export default Note;

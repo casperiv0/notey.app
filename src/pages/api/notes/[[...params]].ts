@@ -107,7 +107,7 @@ class NotesApiManager {
     if (!isValidObjectId(id)) {
       const [note]: NoteDoc[] | undefined = await this.returnNoteIfNotFound(userId);
 
-      if (note.locked) {
+      if (note?.locked) {
         return {
           status: "error",
           pin_required: true,

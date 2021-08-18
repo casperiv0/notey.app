@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { CloseIcon } from "@components/icons/CloseIcon";
 import SelectCategory from "@components/SelectCategory";
 import { closeSidebar, openModal } from "lib/utils";
-import { Button, Column, SrOnly } from "@styles/Global";
+import { Button, Column } from "@styles/Global";
 import {
   RightSidebarActive,
   RightSidebarStyle,
@@ -29,8 +29,11 @@ const RightSidebar: React.FC<Props> = ({ locked, pinRequired, onHandleEdit }) =>
       <RightSidebarStyle id="right-sidebar">
         <RightSidebarContent>
           <Column>
-            <CloseRightSidebar onClick={() => closeSidebar("right-sidebar")} title="Close Options">
-              <SrOnly>Close Options</SrOnly>
+            <CloseRightSidebar
+              aria-label="close options"
+              onClick={() => closeSidebar("right-sidebar")}
+              title="Close Options"
+            >
               <CloseIcon />
             </CloseRightSidebar>
 

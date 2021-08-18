@@ -1,6 +1,6 @@
-import { Schema, model, Document, models } from "mongoose";
 import * as yup from "yup";
-import Note from "types/Note";
+import { Schema, model, Document, models } from "mongoose";
+import { Note } from "types/Note";
 
 const noteSchema = new Schema({
   user_id: {

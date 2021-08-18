@@ -31,7 +31,7 @@ const ManageNoteModal = () => {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!store.note?._id) return;
+    if (!store.note) return;
 
     const data = await updateNoteById(store.note._id, {
       ...store.note,
@@ -50,6 +50,10 @@ const ManageNoteModal = () => {
     if (store.note?.shared) {
       router.push(`/share/${store.note._id}`);
     }
+  }
+
+  if (!store.note) {
+    return null;
   }
 
   return (
@@ -77,7 +81,7 @@ const ManageNoteModal = () => {
             <option value="false">No</option>
           </Select>
           <FormSmall style={{ marginTop: "0.5rem" }}>
-            {store.note?.shared ? (
+            {store.note.shared ? (
               <h3>This note is able to be seen by others</h3>
             ) : (
               <h3>
@@ -98,7 +102,7 @@ const ManageNoteModal = () => {
             <option value="false">No</option>
           </Select>
           <FormSmall style={{ marginTop: "0.5rem" }}>
-            {store.note?.locked ? (
+            {store.note.locked ? (
               <h3>This note is locked</h3>
             ) : (
               <h3>

@@ -18,7 +18,7 @@ const EnterPinModal = () => {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!store.note?._id) return;
+    if (!store.note) return;
     setLoading(true);
 
     const data = await getNoteById(store.note._id, undefined, pin);

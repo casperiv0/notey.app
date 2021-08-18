@@ -1,6 +1,6 @@
-import { Schema, model, Document, models } from "mongoose";
-import User from "types/User";
 import * as yup from "yup";
+import { Schema, model, Document, models } from "mongoose";
+import { User } from "types/User";
 
 const userSchema = new Schema({
   username: {

@@ -18,12 +18,12 @@ module.exports = withPWA({
   async redirects() {
     return [
       {
-        source: "/signup",
+        source: "/(signup|register)",
         destination: "/auth/register",
         permanent: true,
       },
       {
-        source: "/signin",
+        source: "/(signin|login)",
         destination: "/auth/login",
         permanent: true,
       },

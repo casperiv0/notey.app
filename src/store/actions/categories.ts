@@ -14,6 +14,8 @@ export async function getCategories(cookie?: string) {
         categories: res.data.categories,
       };
     }
+
+    return null;
   } catch (e) {
     return { error: getErrorFromResponse(e) };
   }

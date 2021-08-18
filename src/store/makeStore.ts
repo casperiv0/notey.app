@@ -3,7 +3,7 @@ import { AppStore } from "./AppStore";
 
 enableStaticRendering(typeof window === "undefined");
 
-let store;
+let store: AppStore;
 
 export function makeStore(initData: Record<string, unknown> | null = null) {
   const _store = store ?? new AppStore();

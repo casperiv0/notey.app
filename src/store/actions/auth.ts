@@ -32,7 +32,7 @@ export async function verifyAuth(cookie?: string) {
       return { user: res.data.user, isAuth: !!res.data.user };
     }
   } catch (e) {
-    return { error: e.message };
+    return { error: getErrorFromResponse(e) };
   }
 }
 

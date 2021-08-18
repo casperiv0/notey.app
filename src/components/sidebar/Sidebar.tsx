@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react-lite";
-import Note from "types/Note";
+import { Note } from "types/Note";
 import { closeModal, closeSidebar, foldCategory, openModal } from "lib/utils";
 import {
   SidebarActive,
@@ -12,12 +12,12 @@ import {
   CloseSidebarBtn,
   SidebarFooter,
 } from "./styles";
-import { SrOnly, Divider } from "@styles/Global";
+import { Divider } from "@styles/Global";
 import SidebarSearch from "./SidebarSearch";
 import { CloseIcon } from "@icons/CloseIcon";
 import { ArrowIcon } from "@components/icons/ArrowIcon";
 import { EditIcon } from "@icons/EditIcon";
-import Category from "types/Category";
+import { Category } from "types/Category";
 import {
   CategoryDiv,
   CategoryTitle,
@@ -114,8 +114,7 @@ const Sidebar = () => {
       <SidebarStyle id="sidebar">
         <SidebarHeader>
           <SidebarSearch filterNotes={filterNotes} />
-          <CloseSidebarBtn onClick={() => closeSidebar("sidebar")}>
-            <SrOnly>Close Menu</SrOnly>
+          <CloseSidebarBtn aria-label="close menu" onClick={() => closeSidebar("sidebar")}>
             <CloseIcon />
           </CloseSidebarBtn>
         </SidebarHeader>
@@ -150,8 +149,7 @@ const Sidebar = () => {
 
                       {cat._id !== "no_category" ? (
                         <div>
-                          <EditCategory onClick={handleEditCategory(cat)}>
-                            <SrOnly>Edit</SrOnly>
+                          <EditCategory aria-label="edit" onClick={handleEditCategory(cat)}>
                             <EditIcon />
                           </EditCategory>
                         </div>

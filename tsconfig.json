@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "rootDir": "./",
-    "outDir": "./build",
+    "target": "ESNext",
+    "module": "ESNext",
+
+    "strict": true /* Enable all strict type-checking options. */,
+    "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
+    "strictNullChecks": true /* Enable strict null checks. */,
+    "strictPropertyInitialization": true /* Enable strict checking of property initialization in classes. */,
+    "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noUnusedParameters": true /* Report errors on unused parameters. */,
+    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+
     "esModuleInterop": true,
-    "strict": true,
     "removeComments": true,
-    "noUnusedLocals": true,
     "skipLibCheck": true,
-    "noImplicitAny": false,
     "baseUrl": ".",
     "jsx": "preserve",
     "experimentalDecorators": true,
@@ -30,10 +36,7 @@
     "noEmit": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "strictBindCallApply": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true
+    "isolatedModules": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "docs"]

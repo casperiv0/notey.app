@@ -1,7 +1,7 @@
 import { action, makeAutoObservable } from "mobx";
-import Category from "types/Category";
-import Note from "types/Note";
-import User from "types/User";
+import { Category } from "types/Category";
+import { Note } from "types/Note";
+import { User } from "types/User";
 
 export class AppStore {
   constructor() {

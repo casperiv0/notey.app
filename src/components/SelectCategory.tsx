@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SelectCategoryStyle } from "@styles/Category";
-import Category from "types/Category";
+import { Category } from "types/Category";
 
 interface Props {
   id?: string;

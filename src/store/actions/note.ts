@@ -11,8 +11,10 @@ export async function getShareById(noteId: string, cookie?: string) {
     if (isSuccess(res)) {
       return { note: res.data.note };
     }
+
+    return null;
   } catch (e) {
-    return { error: e.message };
+    return { error: getErrorFromResponse(e) };
   }
 }
 
@@ -40,7 +42,7 @@ export async function getNoteById(noteId: string, cookie?: string, pin?: string)
       };
     }
 
-    return {};
+    return null;
   } catch (e) {
     const error = getErrorFromResponse(e);
     return { error };
@@ -58,6 +60,8 @@ export async function updateNoteById(noteId: string, data: RequestData) {
         editingNote: res.data.note,
       };
     }
+
+    return null;
   } catch (e) {
     toast.error(getErrorFromResponse(e));
     return null;
@@ -75,8 +79,11 @@ export async function deleteNoteById(noteId: string) {
         notes: res.data.notes,
       };
     }
+
+    return null;
   } catch (e) {
     toast.error(getErrorFromResponse(e));
+    return null;
   }
 }
 
@@ -89,6 +96,8 @@ export async function getNotes(cookie?: string) {
         notes: res.data.notes,
       };
     }
+
+    return null;
   } catch (e) {
     toast.error(getErrorFromResponse(e));
     return { error: getErrorFromResponse(e) };
