@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NoteyColors, Size } from "@lib/constants";
+import { NoteyColors, Size } from "lib/constants";
 
 export const NavbarContainer = styled.div`
   grid-area: nav;

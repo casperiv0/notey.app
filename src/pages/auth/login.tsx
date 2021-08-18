@@ -1,9 +1,6 @@
-import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
-import { connect } from "react-redux";
-import { authenticate } from "@actions/auth";
 import {
   AuthContainer,
   AuthForm,
@@ -15,19 +12,15 @@ import {
   FormSmall,
   FormCheckbox,
 } from "@styles/Auth";
-import { RequestData } from "@lib/fetch";
-import State from "types/State";
 import Loader from "@components/loader/Loader";
 import Seo from "@components/Seo";
+import { authenticate } from "actions/auth";
 
-interface Props {
-  authenticate: (data: RequestData, login: boolean) => Promise<boolean>;
-  loading: boolean;
-}
-
-const LoginPage: NextPage<Props> = ({ loading, authenticate }) => {
+export default function LoginPage() {
   const router = useRouter();
   const ref = React.useRef<HTMLInputElement>(null);
+
+  const [loading, setLoading] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [rememberMe, setRememberMe] = React.useState(false);
@@ -38,6 +31,8 @@ const LoginPage: NextPage<Props> = ({ loading, authenticate }) => {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
+
     router.prefetch("/app");
 
     const data = {
@@ -50,6 +45,8 @@ const LoginPage: NextPage<Props> = ({ loading, authenticate }) => {
     if (success) {
       router.push("/app");
     }
+
+    setLoading(false);
   }
 
   return (
@@ -118,10 +115,4 @@ const LoginPage: NextPage<Props> = ({ loading, authenticate }) => {
       </AuthContainer>
     </>
   );
-};
-
-const mapToProps = (state: State) => ({
-  loading: state.auth.loading,
-});
-
-export default connect(mapToProps, { authenticate })(LoginPage);
+}

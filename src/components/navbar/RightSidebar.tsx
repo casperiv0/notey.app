@@ -1,42 +1,28 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import CloseIcon from "@components/icons/CloseIcon";
+import { observer } from "mobx-react-lite";
+import { CloseIcon } from "@components/icons/CloseIcon";
 import SelectCategory from "@components/SelectCategory";
-import { closeSidebar, openModal } from "@lib/utils";
+import { closeSidebar, openModal } from "lib/utils";
 import { Button, Column, SrOnly } from "@styles/Global";
-import Category from "types/Category";
-import Note from "types/Note";
-import State from "types/State";
 import {
   RightSidebarActive,
   RightSidebarStyle,
   RightSidebarContent,
   CloseRightSidebar,
 } from "./styles";
-import { setEditing, updateEditingNote } from "@actions/note";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
+import { useStore } from "store/StoreProvider";
 
 interface Props {
-  editing: boolean | null;
-  categories: Category[];
-  editingNote: Note | null;
   locked: boolean;
   pinRequired: boolean;
-  updateEditingNote: (data: Partial<Note>) => void;
-  setEditing: (v: boolean) => void;
 }
 
-const RightSidebar: React.FC<Props> = ({
-  editingNote,
-  editing,
-  locked,
-  pinRequired,
-  categories,
-  setEditing,
-  updateEditingNote,
-}) => {
+const RightSidebar: React.FC<Props> = ({ locked, pinRequired }) => {
+  const store = useStore();
+
   const handleEdit = () => {
-    setEditing(!editing);
+    store.setEditing(!store.editing);
   };
 
   return (
@@ -56,7 +42,7 @@ const RightSidebar: React.FC<Props> = ({
             ) : (
               <>
                 <Button style={{ marginBottom: "10px" }} onClick={handleEdit}>
-                  {editing ? "Save" : "Edit"}
+                  {store.editing ? "Save" : "Edit"}
                 </Button>
 
                 <Button
@@ -66,14 +52,14 @@ const RightSidebar: React.FC<Props> = ({
                   Manage
                 </Button>
 
-                {editing ? (
+                {store.editing ? (
                   <div style={{ marginBottom: "10px" }}>
                     <SelectCategory
-                      categories={categories}
-                      value={editingNote?.category_id!}
+                      categories={store.categories}
+                      value={store.editingNote?.category_id!}
                       onChange={(e) =>
-                        updateEditingNote({
-                          ...editingNote,
+                        store.setEditingNote({
+                          ...store.editingNote,
                           category_id: e.target.value,
                         })
                       }
@@ -97,10 +83,4 @@ const RightSidebar: React.FC<Props> = ({
   );
 };
 
-const mapToProps = (state: State) => ({
-  categories: state.categories.categories,
-  editing: state.notes.editing,
-  editingNote: state.notes.editingNote,
-});
-
-export default connect(mapToProps, { setEditing, updateEditingNote })(RightSidebar);
+export default observer(RightSidebar);

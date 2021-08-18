@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Styles, NoteyColors } from "@lib/constants";
+import { Styles, NoteyColors } from "lib/constants";
 
 export const ShareStyle = styled.div`
   padding: 1rem;

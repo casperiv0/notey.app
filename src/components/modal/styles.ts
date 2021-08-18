@@ -1,4 +1,4 @@
-import { NoteyColors } from "@lib/constants";
+import { NoteyColors } from "lib/constants";
 import styled, { keyframes } from "styled-components";
 
 const openAni = keyframes`

@@ -1,9 +1,8 @@
-import { NextPage } from "next";
 import Link from "next/link";
-import { NotFoundContainer, NotFoundTitle, NotFoundBtn } from "@styles/404";
 import Head from "next/head";
+import { NotFoundContainer, NotFoundTitle, NotFoundBtn } from "@styles/404";
 
-const NotFound: NextPage = () => {
+export default function NotFound() {
   return (
     <>
       <Head>
@@ -19,6 +18,4 @@ const NotFound: NextPage = () => {
       </NotFoundContainer>
     </>
   );
-};
-
-export default NotFound;
+}

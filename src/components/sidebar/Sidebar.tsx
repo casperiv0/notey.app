@@ -1,9 +1,8 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import { useRouter } from "next/router";
+import { observer } from "mobx-react-lite";
 import Note from "types/Note";
-import State from "types/State";
-import { closeModal, closeSidebar, foldCategory, openModal } from "@lib/utils";
+import { closeModal, closeSidebar, foldCategory, openModal } from "lib/utils";
 import {
   SidebarActive,
   SidebarStyle,
@@ -15,8 +14,9 @@ import {
 } from "./styles";
 import { SrOnly, Divider } from "@styles/Global";
 import SidebarSearch from "./SidebarSearch";
-import CloseIcon from "@icons/CloseIcon";
-import EditIcon from "@icons/EditIcon";
+import { CloseIcon } from "@icons/CloseIcon";
+import { ArrowIcon } from "@components/icons/ArrowIcon";
+import { EditIcon } from "@icons/EditIcon";
 import Category from "types/Category";
 import {
   CategoryDiv,
@@ -24,22 +24,12 @@ import {
   EditCategory,
   CategoryTitleContainer,
 } from "../../styles/Category";
-import AlertModal from "@components/modals/AlertModal";
-import { ModalIds } from "@lib/constants";
+import { AlertModal } from "@components/modals/AlertModal";
+import { ModalIds } from "lib/constants";
 import EditCategoryModal from "@components/modals/EditCategory";
-import { updateCategoryById } from "@actions/categories";
-import { RequestData } from "@lib/fetch";
-import ArrowIcon from "@components/icons/ArrowIcon";
-import { getNoteById } from "@actions/note";
-
-interface Props {
-  notes: Note[];
-  activeNote: Note | null;
-  categories: Category[];
-  editing: boolean | null;
-  updateCategoryById: (id: string, data: RequestData, notify?: boolean) => void;
-  getNoteById: (noteId: string, share: boolean) => Promise<boolean | undefined>;
-}
+import { updateCategoryById } from "actions/categories";
+import { getNoteById } from "actions/note";
+import { useStore } from "store/StoreProvider";
 
 const noCategory: Category = {
   name: "No Category",
@@ -49,25 +39,20 @@ const noCategory: Category = {
   created_at: null,
 };
 
-const Sidebar: React.FC<Props> = ({
-  notes,
-  categories,
-  activeNote,
-  editing,
-  updateCategoryById,
-  getNoteById,
-}) => {
+const Sidebar = () => {
+  const store = useStore();
+
   const [searching, setSearching] = React.useState(false);
-  const [filteredNotes, setFilteredNotes] = React.useState(notes);
+  const [filteredNotes, setFilteredNotes] = React.useState(store.notes);
   const [tempNoteId, setTempNoteId] = React.useState<string | null>(null);
   const [tempCategory, setTempCategory] = React.useState<Category | null>(null);
   const router = useRouter();
 
   React.useEffect(() => {
-    setFilteredNotes(notes);
-  }, [notes]);
+    setFilteredNotes(store.notes);
+  }, [store.notes]);
 
-  const setActiveNote = async (id: string, force = editing) => {
+  const setActiveNote = async (id: string, force = store.editing) => {
     if (force) {
       setTempNoteId(id);
       return openModal(ModalIds.AlertUnsavedChanges);
@@ -75,7 +60,10 @@ const Sidebar: React.FC<Props> = ({
 
     closeModal(ModalIds.AlertUnsavedChanges);
     setTempNoteId(null);
-    await getNoteById(id, false);
+
+    store.setEditing(false);
+
+    await getNoteById(id);
 
     router.replace({
       query: {
@@ -87,13 +75,13 @@ const Sidebar: React.FC<Props> = ({
   const filterNotes = (filter: string) => {
     if (filter === "") {
       setSearching(false);
-      return setFilteredNotes(notes);
+      return setFilteredNotes(store.notes);
     }
 
     setSearching(true);
     setFilteredNotes(
-      notes &&
-        notes.filter((note) => {
+      store.notes &&
+        store.notes.filter((note) => {
           const title = note.title.toLowerCase();
           return title.includes(filter);
         }),
@@ -133,14 +121,14 @@ const Sidebar: React.FC<Props> = ({
         <SidebarBody>
           <>
             <div>
-              {[...categories, noCategory].map((cat, ci) => {
+              {[...store.categories, noCategory].map((cat, ci) => {
                 const category = cat.name;
                 const categoryNotes = filteredNotes?.filter((note) => {
                   return note.category_id === cat._id;
                 });
-                if (searching && categoryNotes.length <= 0) {
+                if (searching && categoryNotes?.length <= 0) {
                   return null;
-                } else if (cat._id === "no_category" && categoryNotes.length <= 0) return null;
+                } else if (cat._id === "no_category" && categoryNotes?.length <= 0) return null;
 
                 return (
                   <CategoryDiv
@@ -171,7 +159,7 @@ const Sidebar: React.FC<Props> = ({
                     <div className="items">
                       {categoryNotes?.map((note) => {
                         if (note.category_id === cat._id) {
-                          const isActiveNote = isActive(activeNote ? activeNote : notes?.[0], note);
+                          const isActiveNote = isActive(store?.note ?? store.notes?.[0], note);
 
                           return (
                             <SidebarNote
@@ -199,7 +187,7 @@ const Sidebar: React.FC<Props> = ({
 
             <SidebarFooter>
               {/* don't show divider when no notes are found */}
-              {notes && !notes[0] ? null : <Divider id="divider" />}
+              {store.notes && !store.notes[0] ? null : <Divider id="divider" />}
 
               <SidebarNote onClick={() => openModal(ModalIds.CreateNoteModal)}>
                 Create new Note
@@ -230,7 +218,9 @@ const Sidebar: React.FC<Props> = ({
           },
           {
             danger: true,
-            onClick: () => setActiveNote(tempNoteId!, false),
+            onClick: () => {
+              setActiveNote(tempNoteId!, false);
+            },
             name: "Continue without saving",
           },
         ]}
@@ -245,11 +235,4 @@ function isActive(activeNote: Note | undefined, note: Note) {
   return activeNote?._id === note?._id;
 }
 
-const mapToProps = (state: State) => ({
-  notes: state.notes.notes,
-  categories: state.categories.categories,
-  activeNote: state.notes.note,
-  editing: state.notes.editing,
-});
-
-export default connect(mapToProps, { updateCategoryById, getNoteById })(Sidebar);
+export default observer(Sidebar);

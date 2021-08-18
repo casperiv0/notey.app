@@ -2,7 +2,7 @@ import * as React from "react";
 import Modal from "@components/modal/Modal";
 import { AlertDescription, AlertActions } from "@components/modal/styles";
 import { Button } from "@styles/Global";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
 import useModalEvent from "@hooks/useModalEvent";
 
 interface Props {
@@ -19,7 +19,7 @@ export interface ModalAction {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const AlertModal = (props: Props) => {
+export const AlertModal = (props: Props) => {
   const ref = useModalEvent<HTMLButtonElement>(props.id);
 
   return (
@@ -46,5 +46,3 @@ const AlertModal = (props: Props) => {
     </Modal>
   );
 };
-
-export default AlertModal;

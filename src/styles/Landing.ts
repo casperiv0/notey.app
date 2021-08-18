@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { NoteyColors, Size } from "@lib/constants";
+import { NoteyColors, Size } from "lib/constants";
 import { DEFAULT_BTN_STYLES } from "./Global";
 
 export const NavbarStyle = styled.nav`

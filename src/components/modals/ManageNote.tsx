@@ -1,52 +1,55 @@
 import * as React from "react";
 import { useRouter } from "next/router";
-import { connect } from "react-redux";
+import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
-import State from "types/State";
 import { FormGroup, FormLabel, FormSmall } from "@styles/Auth";
 import { Select, Button } from "@styles/Global";
-import Note from "types/Note";
-import { updateNoteById } from "@actions/note";
-import { RequestData } from "@lib/fetch";
-import { isTrue } from "@lib/utils";
+import { updateNoteById } from "actions/note";
+import { isTrue } from "lib/utils";
 import useModalEvent from "@hooks/useModalEvent";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
 import SelectCategory from "@components/SelectCategory";
-import Category from "types/Category";
+import { useStore } from "store/StoreProvider";
+import { toast } from "react-toastify";
 
-interface Props {
-  note: Note | null;
-  categories: Category[];
-  updateNoteById: (id: string, data: RequestData) => void;
-}
-
-const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) => {
-  const [categoryId, setCategoryId] = React.useState(`${note?.category_id}`);
-  const [shareable, setShareable] = React.useState(`${note?.shared}`);
-  const [locked, setLocked] = React.useState(`${note?.locked}`);
+const ManageNoteModal = () => {
+  const [categoryId, setCategoryId] = React.useState<string>("");
+  const [shareable, setShareable] = React.useState<boolean>(false);
+  const [locked, setLocked] = React.useState<boolean>(false);
   const inputRef = useModalEvent<HTMLSelectElement>(ModalIds.ManageNoteModal);
+
+  const store = useStore();
   const router = useRouter();
 
   React.useEffect(() => {
-    setShareable(`${note?.shared}`);
-    setLocked(`${note?.locked}`);
-    setCategoryId(`${note?.category_id}`);
-  }, [note]);
+    if (!store.note) return;
 
-  function onSubmit(e: React.FormEvent) {
+    setShareable(store.note.shared);
+    setLocked(store.note.locked);
+    setCategoryId(store.note.category_id);
+  }, [store.note]);
+
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!note?._id) return;
+    if (!store.note?._id) return;
 
-    updateNoteById(note?._id, {
-      ...note,
+    const data = await updateNoteById(store.note._id, {
+      ...store.note,
       category_id: categoryId,
-      shared: isTrue(shareable),
-      locked: isTrue(locked),
+      shared: shareable,
+      locked,
     });
+
+    if (data) {
+      store.hydrate(data);
+      toast.success("Successfully updated note.");
+    }
   }
 
   function openShare() {
-    note?.shared && router.push(`/share/${note?._id}`);
+    if (store.note?.shared) {
+      router.push(`/share/${store.note._id}`);
+    }
   }
 
   return (
@@ -59,7 +62,7 @@ const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) 
             id="edit_category"
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            categories={categories}
+            categories={store.categories}
           />
         </FormGroup>
         <FormGroup>
@@ -68,13 +71,13 @@ const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) 
             name="Shareable"
             id="shareable"
             value={`${shareable}`}
-            onChange={(e) => setShareable(e.target.value)}
+            onChange={(e) => setShareable(isTrue(e.target.value))}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </Select>
           <FormSmall style={{ marginTop: "0.5rem" }}>
-            {note?.shared ? (
+            {store.note?.shared ? (
               <h3>This note is able to be seen by others</h3>
             ) : (
               <h3>
@@ -89,13 +92,13 @@ const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) 
             name="Locked"
             id="locked"
             value={`${locked}`}
-            onChange={(e) => setLocked(e.target.value)}
+            onChange={(e) => setLocked(isTrue(e.target.value))}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </Select>
           <FormSmall style={{ marginTop: "0.5rem" }}>
-            {note?.locked ? (
+            {store.note?.locked ? (
               <h3>This note is locked</h3>
             ) : (
               <h3>
@@ -105,7 +108,7 @@ const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) 
           </FormSmall>
         </FormGroup>
         <FormGroup>
-          {note?.shared ? (
+          {store.note?.shared ? (
             <Button onClick={openShare} style={{ marginBottom: "10px" }} type="button">
               Open Share
             </Button>
@@ -117,9 +120,4 @@ const ManageNoteModal: React.FC<Props> = ({ note, categories, updateNoteById }) 
   );
 };
 
-const mapToProps = (state: State) => ({
-  note: state.notes.note,
-  categories: state.categories.categories,
-});
-
-export default connect(mapToProps, { updateNoteById })(ManageNoteModal);
+export default observer(ManageNoteModal);

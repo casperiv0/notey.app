@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { NoteyColors, Size } from "@lib/constants";
+import { NoteyColors, Size } from "lib/constants";
 
 export const NoteStyle = styled.div<{ editing: boolean }>`
   width: 100%;

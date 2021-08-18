@@ -1,9 +1,8 @@
-import { NextPage } from "next";
 import Link from "next/link";
 import Head from "next/head";
 import { NotFoundContainer, NotFoundTitle, NotFoundBtn } from "@styles/404";
 
-const Custom500: NextPage = () => {
+export default function Custom500() {
   return (
     <>
       <Head>
@@ -19,6 +18,4 @@ const Custom500: NextPage = () => {
       </NotFoundContainer>
     </>
   );
-};
-
-export default Custom500;
+}

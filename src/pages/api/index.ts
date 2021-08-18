@@ -1,5 +1,5 @@
 import { createHandler, Get, UseMiddleware } from "@storyofams/next-api-decorators";
-import { CookieParser, Cors, Helmet, RateLimit } from "@lib/middlewares";
+import { CookieParser, Cors, Helmet, RateLimit } from "lib/middlewares";
 
 @UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
 class ApiManager {

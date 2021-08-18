@@ -1,5 +1,5 @@
-import { NoteyColors, Size, Styles } from "@lib/constants";
 import styled, { css } from "styled-components";
+import { NoteyColors, Size, Styles } from "lib/constants";
 
 export const DEFAULT_INPUT_STYLES = css`
   padding: 0.4rem;

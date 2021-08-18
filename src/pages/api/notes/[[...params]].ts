@@ -12,18 +12,18 @@ import {
   Query,
   UseMiddleware,
 } from "@storyofams/next-api-decorators";
-import "@lib/database";
+import "lib/database";
 import { validateSchema } from "@casper124578/utils";
-import NoteModel, { NoteDoc, createOrUpdateNoteSchema } from "@models/Note.model";
+import NoteModel, { NoteDoc, createOrUpdateNoteSchema } from "models/Note.model";
 import { IRequest } from "types/IRequest";
-import { isTrue, parseLockedNotes } from "@lib/utils";
+import { isTrue, parseLockedNotes } from "lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
 import useMarkdown from "@hooks/useMarkdown";
-import { ErrorMessages } from "@lib/errors";
-import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "@lib/middlewares";
-import UserModel from "@models/User.model";
+import { ErrorMessages } from "lib/errors";
+import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "lib/middlewares";
+import UserModel from "models/User.model";
 import { compareSync } from "bcryptjs";
-import { LOCKED_NOTE_MSG } from "@lib/constants";
+import { LOCKED_NOTE_MSG } from "lib/constants";
 
 function returnLockedNote(note: NoteDoc) {
   return {

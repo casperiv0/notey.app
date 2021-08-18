@@ -7,13 +7,8 @@
   "extends": [
     "@casper124578/eslint-config",
     "@casper124578/eslint-config-react",
-    "@casper124578/eslint-config-next",
-    "prettier"
+    "@casper124578/eslint-config-next"
   ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2021,
@@ -22,22 +17,12 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint", "prettier"],
-  "rules": {
-    "prettier/prettier": [
-      "warn",
-      {
-        "endOfLine": "auto"
-      }
-    ]
-  },
   "overrides": [
     {
       "files": ["./src/pages/api/**/**.ts"],
       "rules": {
         "react-hooks/rules-of-hooks": "off",
-        "react-hooks/exhaustive-deps": "off",
-        "no-unused-vars": "error"
+        "react-hooks/exhaustive-deps": "off"
       }
     }
   ]

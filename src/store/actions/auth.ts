@@ -1,116 +1,89 @@
 import { toast } from "react-toastify";
-import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "@lib/fetch";
-import { Dis, Authenticate, UpdatePinCode } from "../types";
+import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "lib/fetch";
 
-export const authenticate =
-  (data: RequestData, login: boolean) =>
-  async (dispatch: Dis<Authenticate>): Promise<boolean> => {
-    dispatch({ type: "SET_AUTH_LOADING", loading: true });
+export async function authenticate(data: RequestData, login: boolean) {
+  try {
+    const res = await handleRequest(`/auth/${login ? "login" : "register"}`, "POST", data);
 
-    try {
-      const res = await handleRequest(`/auth/${login ? "login" : "register"}`, "POST", data);
-
-      if (isSuccess(res)) {
-        dispatch({
-          type: "AUTHENTICATE",
-          user: res.data.user,
-          isAuth: true,
-        });
-
-        return true;
-      }
-
-      toast.error(res.data.error);
-      return false;
-    } catch (e) {
-      console.error(e);
-
-      toast.error(getErrorFromResponse(e));
-      dispatch({ type: "SET_AUTH_LOADING", loading: false });
-      return false;
+    if (isSuccess(res)) {
+      return {
+        user: res.data.user,
+        isAuth: true,
+      };
     }
-  };
 
-export const checkAuth = (cookie?: string) => async (dispatch: Dis<Authenticate>) => {
+    toast.error(res.data.error);
+    return null;
+  } catch (e) {
+    console.error(e);
+
+    toast.error(getErrorFromResponse(e));
+    return null;
+  }
+}
+
+export async function verifyAuth(cookie?: string) {
   try {
     const res = await handleRequest("/auth/me", "POST", {
       cookie,
     });
 
     if (isSuccess(res)) {
-      dispatch({
-        type: "AUTHENTICATE",
-        isAuth: true,
-        user: res.data.user,
-      });
+      return { user: res.data.user, isAuth: !!res.data.user };
     }
   } catch (e) {
-    dispatch({ type: "SET_AUTH_LOADING", loading: false });
+    return { error: e.message };
+  }
+}
+
+export async function logout() {
+  try {
+    const res = await handleRequest("/auth/logout", "POST");
+
+    if (isSuccess(res)) {
+      return {
+        user: null,
+        isAuth: false,
+      };
+    }
+
+    return { error: res.data.error };
+  } catch (e) {
+    return { error: getErrorFromResponse(e) };
+  }
+}
+
+export async function deleteAccount() {
+  try {
+    const res = await handleRequest("/auth/me", "DELETE");
+
+    if (isSuccess(res)) {
+      return {
+        user: null,
+        isAuth: false,
+      };
+    }
+
+    toast.error(res.data.error);
+    return null;
+  } catch (e) {
+    toast.error(getErrorFromResponse(e));
     return null;
   }
-};
+}
 
-export const logout =
-  () =>
-  async (dispatch: Dis<Authenticate>): Promise<void> => {
-    try {
-      const res = await handleRequest("/auth/logout", "POST");
+export async function updatePinCode(pin: string) {
+  try {
+    const res = await handleRequest("/auth/me/pin", "PUT", { pin });
 
-      if (isSuccess(res)) {
-        dispatch({
-          type: "AUTHENTICATE",
-          user: null,
-          isAuth: false,
-        });
-      } else {
-        toast.error(res.data.error);
-      }
-    } catch (e) {
-      toast.error(getErrorFromResponse(e));
-      dispatch({ type: "SET_AUTH_LOADING", loading: false });
+    if (isSuccess(res)) {
+      return null;
     }
-  };
 
-export const deleteAccount =
-  () =>
-  async (dispatch: Dis<Authenticate>): Promise<void> => {
-    try {
-      const res = await handleRequest("/auth/me", "DELETE");
-
-      if (isSuccess(res)) {
-        dispatch({
-          type: "AUTHENTICATE",
-          user: null,
-          isAuth: false,
-        });
-      } else {
-        toast.error(res.data.error);
-      }
-    } catch (e) {
-      toast.error(getErrorFromResponse(e));
-      dispatch({ type: "SET_AUTH_LOADING", loading: false });
-    }
-  };
-
-export const updatePinCode =
-  (pin: string) =>
-  async (dispatch: Dis<UpdatePinCode>): Promise<boolean> => {
-    try {
-      const res = await handleRequest("/auth/me/pin", "PUT", { pin });
-
-      if (isSuccess(res)) {
-        dispatch({
-          type: "UPDATE_PIN_CODE",
-        });
-
-        return true;
-      }
-
-      toast.error(res.data.error);
-      return false;
-    } catch (e) {
-      toast.error(getErrorFromResponse(e));
-      dispatch({ type: "SET_AUTH_LOADING", loading: false });
-      return false;
-    }
-  };
+    toast.error(res.data.error);
+    return null;
+  } catch (e) {
+    toast.error(getErrorFromResponse(e));
+    return null;
+  }
+}

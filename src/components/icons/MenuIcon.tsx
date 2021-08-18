@@ -1,12 +1,14 @@
-const MenuIcon: React.FC = () => {
+import { IconProps } from ".";
+
+export const MenuIcon = (props: IconProps) => {
   return (
     <svg
       width="1em"
       height="1em"
       viewBox="0 0 16 16"
-      className="bi bi-list"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fillRule="evenodd"
@@ -15,5 +17,3 @@ const MenuIcon: React.FC = () => {
     </svg>
   );
 };
-
-export default MenuIcon;

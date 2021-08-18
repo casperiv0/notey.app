@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SearchForm, SearchInput, SearchIconContainer, SearchContainer } from "./styles";
-import SearchIcon from "@icons/SearchIcon";
+import { SearchIcon } from "@icons/SearchIcon";
 import { SrOnly } from "@styles/Global";
 
 const SidebarSearch = ({ filterNotes }) => {
@@ -20,7 +20,7 @@ const SidebarSearch = ({ filterNotes }) => {
 
   return (
     <SearchForm onSubmit={onSubmit}>
-      <SearchContainer>
+      <SearchContainer aria-label="Search">
         <SrOnly htmlFor="query">Search query</SrOnly>
         <SearchIconContainer onClick={() => ref.current?.focus()}>
           <SearchIcon />

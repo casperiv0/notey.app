@@ -1,72 +1,64 @@
 import * as React from "react";
 import { useRouter } from "next/router";
+import { observer } from "mobx-react-lite";
 import Modal from "@components/modal/Modal";
 import { FormGroup, FormLabel, FormInput, SubmitBtn, FormSmall } from "@styles/Auth";
 import { TextArea, Select } from "@styles/Global";
-import { connect } from "react-redux";
-import State from "types/State";
-import Category from "types/Category";
-import { closeModal, closeSidebar, isTrue } from "@lib/utils";
-import { RequestData } from "@lib/fetch";
-import { createNote } from "@actions/note";
+import { closeModal, closeSidebar, isTrue } from "lib/utils";
+import { createNote } from "actions/note";
 import Loader from "@components/loader/Loader";
 import SelectCategory from "@components/SelectCategory";
 import useModalEvent from "@hooks/useModalEvent";
-import { ModalIds } from "@lib/constants";
+import { ModalIds } from "lib/constants";
+import { useStore } from "store/StoreProvider";
 
-interface Props {
-  loading: boolean;
-  categories: Category[];
-  createNote: (data: RequestData) => Promise<boolean | string>;
-}
-
-const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) => {
+const CreateNoteModal = () => {
   const router = useRouter();
+  const store = useStore();
+  const inputRef = useModalEvent<HTMLInputElement>(ModalIds.CreateNoteModal);
+
+  const [loading, setLoading] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
   const [categoryId, setCategoryId] = React.useState("no_category");
-  const [canClose, setCanClose] = React.useState(false);
-  const [shareable, setShareable] = React.useState("false");
-  const [locked, setLocked] = React.useState("false");
-  const inputRef = useModalEvent<HTMLInputElement>(ModalIds.CreateNoteModal);
+  const [shareable, setShareable] = React.useState(false);
+  const [locked, setLocked] = React.useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
 
     const data = {
       title,
       body,
       category_id: categoryId,
-      shareable: isTrue(shareable),
-      locked: isTrue(locked),
+      shareable,
+      locked,
     };
-    const created = await createNote(data);
+    const createdData = await createNote(data);
 
-    if (created === false) {
-      setCanClose(false);
-    } else {
-      setCanClose(true);
-      router.push({
-        href: "/app",
-        query: {
-          noteId: created,
-        },
-      });
-    }
-  }
+    if (createdData) {
+      store.hydrate(createdData);
+      store.setEditingNote(createdData.note);
 
-  React.useEffect(() => {
-    if (canClose) {
       closeSidebar("sidebar");
       setTitle("");
       setBody("");
       setCategoryId("no_category");
-      setShareable("false");
-      setLocked("false");
+      setShareable(false);
+      setLocked(false);
       closeModal(ModalIds.CreateNoteModal);
-      setCanClose(false);
+
+      router.push({
+        href: "/app",
+        query: {
+          noteId: createdData.noteId,
+        },
+      });
     }
-  }, [canClose]);
+
+    setLoading(false);
+  }
 
   return (
     <Modal style={{ zIndex: 29 }} title="Create new title" id={ModalIds.CreateNoteModal}>
@@ -104,7 +96,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
             id="category"
             onChange={(e) => setCategoryId(e.target.value)}
             value={categoryId}
-            categories={categories}
+            categories={store.categories}
           />
         </FormGroup>
         <FormGroup>
@@ -115,7 +107,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
             name="Shareable"
             id="create_shareable"
             value={`${shareable}`}
-            onChange={(e) => setShareable(e.target.value)}
+            onChange={(e) => setShareable(isTrue(e.target.value))}
           >
             <option value={"true"}>Yes</option>
             <option value={"false"}>No</option>
@@ -127,7 +119,7 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
             name="Locked"
             id="create_locked"
             value={`${locked}`}
-            onChange={(e) => setLocked(e.target.value)}
+            onChange={(e) => setLocked(isTrue(e.target.value))}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -147,9 +139,4 @@ const CreateNoteModal: React.FC<Props> = ({ categories, loading, createNote }) =
   );
 };
 
-const mapToProps = (state: State) => ({
-  categories: state.categories.categories,
-  loading: state.notes.loading,
-});
-
-export default connect(mapToProps, { createNote })(CreateNoteModal);
+export default observer(CreateNoteModal);
