@@ -1,13 +1,13 @@
 {
   "name": "notey.app",
+  "license": "MIT",
   "scripts": {
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,css,json}\" --ignore-path .gitignore",
-    "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
-    "prettier:check": "prettier --check \"src/**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\"",
     "dev": "next dev -p 5011",
     "start": "next start -p 5011",
     "build": "next build && next-sitemap",
-    "build:tsc": "tsc --noEmit"
+    "test-tsc": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,css,json}\" --ignore-path .gitignore",
+    "lint": "eslint . --ext .ts,.js,.tsx,.jsx"
   },
   "dependencies": {
     "@casper124578/useful": "^1.0.0",
