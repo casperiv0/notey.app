@@ -12,12 +12,10 @@ import {
 import { NextApiRequest, NextApiResponse } from "next";
 import { compareSync, hashSync } from "bcryptjs";
 import { validateSchema } from "@casper124578/utils";
-import useToken from "@hooks/useToken";
+import { signToken, setCookie, sanitizeUserMarkdown } from "lib/server";
 import UserModel, { baseSchema, registerSchema } from "src/models/User.model";
 import { Cookie } from "lib/constants";
-import useCookie from "src/hooks/useCookie";
 import "lib/database";
-import useMarkdown from "@hooks/useMarkdown";
 import NoteModel from "models/Note.model";
 import CategoryModel from "models/Category.model";
 import { ErrorMessages } from "lib/errors";
@@ -47,8 +45,8 @@ class AuthenticationApiManager {
       throw new BadRequestException(ErrorMessages.PW_INCORRECT);
     }
 
-    const token = useToken(user._id, expires / 1000);
-    useCookie({ res, name: "notey-session", value: token, expires });
+    const token = signToken(user._id, expires / 1000);
+    setCookie({ res, name: "notey-session", value: token, expires });
 
     return res.json({
       user: {
@@ -92,14 +90,14 @@ class AuthenticationApiManager {
       category_id: "no_category",
       title: "Note #1",
       body: welcomeBody,
-      markdown: useMarkdown(welcomeBody),
+      markdown: sanitizeUserMarkdown(welcomeBody),
     });
 
     await newUser.save();
     await firstNote.save();
 
-    const token = useToken(newUser._id, 3600000);
-    useCookie({ res, name: "notey-session", value: token, expires: Cookie.Expires });
+    const token = signToken(newUser._id, 3600000);
+    setCookie({ res, name: "notey-session", value: token, expires: Cookie.Expires });
 
     return res.json({
       user: {
@@ -112,7 +110,7 @@ class AuthenticationApiManager {
 
   @Post("/logout")
   async logout(@Res() res: NextApiResponse) {
-    useCookie({ res, name: "notey-session", value: "", expires: 0 });
+    setCookie({ res, name: "notey-session", value: "", expires: 0 });
 
     return res.json({
       user: null,
@@ -147,7 +145,7 @@ class AuthenticationApiManager {
     await CategoryModel.deleteMany({ user_id: user._id });
     await UserModel.findByIdAndDelete(user._id);
 
-    useCookie({ res, name: "notey-session", value: "", expires: 0 });
+    setCookie({ res, name: "notey-session", value: "", expires: 0 });
 
     return { user: null, status: "success" };
   }

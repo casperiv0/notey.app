@@ -8,7 +8,7 @@ interface CookieOptions {
   expires: number;
 }
 
-export default function useCookie(opts: CookieOptions) {
+export function setCookie(opts: CookieOptions) {
   const stringValue =
     typeof opts.value === "object" ? `j:${JSON.stringify(opts.value)}` : String(opts.value);
 

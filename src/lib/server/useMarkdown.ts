@@ -7,9 +7,9 @@ const window = new JSDOM("<!DOCTYPE html>").window as unknown as Window;
 const dompurify = createDompurify(window);
 
 /**
+ * sanitize the user markdown and covert to html
  * @param {string} body
- * @returns {string} Sanitized body and converted to markdown
  */
-export default function (body: string): string {
+export function sanitizeUserMarkdown(body: string): string {
   return dompurify.sanitize(marked(body));
 }

@@ -18,12 +18,12 @@ import NoteModel, { NoteDoc, createOrUpdateNoteSchema } from "models/Note.model"
 import { IRequest } from "types/IRequest";
 import { isTrue, parseLockedNotes } from "lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
-import useMarkdown from "@hooks/useMarkdown";
 import { ErrorMessages } from "lib/errors";
 import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "lib/middlewares";
 import UserModel from "models/User.model";
 import { compareSync } from "bcryptjs";
 import { LOCKED_NOTE_MSG } from "lib/constants";
+import { sanitizeUserMarkdown } from "lib/server";
 
 function returnLockedNote(note: NoteDoc) {
   return {
@@ -81,7 +81,7 @@ class NotesApiManager {
       throw new BadRequestException(error.message, error.errors);
     }
 
-    const markdown = useMarkdown(noteBody);
+    const markdown = sanitizeUserMarkdown(noteBody);
     const newNote: NoteDoc = new NoteModel({
       user_id: userId,
       category_id,
@@ -180,7 +180,7 @@ class NotesApiManager {
     }
 
     const note: NoteDoc = await NoteModel.findById(id);
-    const markdown = useMarkdown(noteBody);
+    const markdown = sanitizeUserMarkdown(noteBody);
 
     if (!note) {
       throw new NotFoundException(ErrorMessages.NOT_FOUND("note"));
