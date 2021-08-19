@@ -38,6 +38,14 @@ export const ModalContainer = styled.div`
   &.active {
     display: flex;
   }
+
+  @media (max-height: 850px) {
+    padding: 1rem;
+
+    overflow-y: auto;
+    align-items: baseline !important;
+    justify-content: center !important;
+  }
 `;
 
 export const ModalStyle = styled.div<{ width?: string }>`
@@ -50,9 +58,7 @@ export const ModalStyle = styled.div<{ width?: string }>`
   overflow: hidden;
 
   & > div {
-    max-height: 800px;
     overflow-y: auto;
-    scrollbar-width: thin;
     padding: 0.8rem 1rem;
   }
 
