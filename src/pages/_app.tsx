@@ -2,7 +2,7 @@ import * as React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 import { AppProps } from "next/app";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { Toaster } from "@casper124578/react-hot-toast";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -27,6 +27,8 @@ const toastStyles: React.CSSProperties = {
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   const networkStatus = useNetworkStatus();
+  const router = useRouter();
+  const position = router.pathname.includes("/auth") ? "top-right" : "bottom-right";
 
   React.useEffect(() => {
     function handleRouteStart() {
@@ -58,7 +60,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
       </Head>
 
       <Toaster
-        position="bottom-right"
+        position={position}
         toastOptions={{
           style: toastStyles,
           error: {

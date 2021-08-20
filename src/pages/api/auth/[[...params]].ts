@@ -83,7 +83,7 @@ class AuthenticationApiManager {
 
     const newUser = new UserModel({ username, password: hash });
     const welcomeBody =
-      "# Welcome to notey.app!\n You can add `?create=note` or `?create=category` to simply create a note or category using the URL\n## Support\nYou can find notey.app on [GitHub](https://github.com/dev-caspertheghost/notey.app)\n\n _feel free to delete this note and get started._";
+      "# Welcome to notey.app!\nFeel free to give Notey.app a [star on GitHub too!](https://github.com/dev-caspertheghost/notey.app) \n## Support\nYou can find notey.app on [GitHub](https://github.com/dev-caspertheghost/notey.app)\n\n _feel free to delete this note to started._";
 
     const firstNote = new NoteModel({
       user_id: newUser._id,
