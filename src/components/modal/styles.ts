@@ -40,7 +40,7 @@ export const ModalContainer = styled.div`
   }
 
   @media (max-height: 850px) {
-    padding: 1rem;
+    padding: 1rem 0;
 
     overflow-y: auto;
     align-items: baseline !important;
@@ -52,7 +52,7 @@ export const ModalStyle = styled.div<{ width?: string }>`
   z-index: 35;
   background: ${NoteyColors.DarkerGray};
   width: ${(props) => props.width ?? "600px"};
-  max-width: 90%;
+  max-width: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
   overflow: hidden;

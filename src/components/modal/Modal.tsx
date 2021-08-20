@@ -2,8 +2,8 @@ import { closeModal } from "lib/utils";
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { usePortal } from "@casper124578/useful/hooks/usePortal";
-import { ModalStyle, ModalHeader, ModalBody, CloseModal, ModalContainer } from "./styles";
 import { useMounted } from "@casper124578/useful/hooks/useMounted";
+import { ModalStyle, ModalHeader, ModalBody, CloseModal, ModalContainer } from "./styles";
 import { ModalIds } from "lib/constants";
 
 interface Props {
