@@ -108,4 +108,8 @@ export const FormSmall = styled.small`
     margin-left: 5px;
     color: ${NoteyColors.Text};
   }
+
+  & h3 {
+    font-weight: normal;
+  }
 `;

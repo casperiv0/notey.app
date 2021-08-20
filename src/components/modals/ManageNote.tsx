@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react-lite";
-import toast from "react-hot-toast";
+import toast from "@casper124578/react-hot-toast";
 import Modal from "@components/modal/Modal";
 import { FormGroup, FormLabel, FormSmall } from "@styles/Auth";
 import { Select, Button } from "@styles/Global";

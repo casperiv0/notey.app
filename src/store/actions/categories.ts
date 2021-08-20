@@ -1,4 +1,4 @@
-import { toast } from "react-hot-toast";
+import { toast } from "@casper124578/react-hot-toast";
 import { ModalIds } from "lib/constants";
 import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "lib/fetch";
 import { closeModal } from "lib/utils";
