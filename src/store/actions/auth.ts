@@ -1,4 +1,4 @@
-import { toast } from "@casper124578/react-hot-toast";
+import { toast } from "react-hot-toast";
 import { getErrorFromResponse, handleRequest, isSuccess, RequestData } from "lib/fetch";
 
 export async function authenticate(data: RequestData, login: boolean) {

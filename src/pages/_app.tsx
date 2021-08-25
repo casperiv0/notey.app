@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { AppProps } from "next/app";
 import Router, { useRouter } from "next/router";
-import { Toaster } from "@casper124578/react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import "@styles/index.css";

@@ -19,7 +19,7 @@ import { deleteNoteById, updateNoteById } from "actions/note";
 import { AlertModal } from "@components/modals/AlertModal";
 import { ModalIds } from "lib/constants";
 import { useStore } from "store/StoreProvider";
-import toast from "@casper124578/react-hot-toast";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const store = useStore();

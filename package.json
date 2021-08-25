@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .ts,.js,.tsx,.jsx"
   },
   "dependencies": {
-    "@casper124578/react-hot-toast": "^2.1.0",
+    "react-hot-toast": "^2.1.1",
     "@casper124578/useful": "^1.0.0",
     "@casper124578/utils": "^1.2.0",
     "axios": "^0.21.1",

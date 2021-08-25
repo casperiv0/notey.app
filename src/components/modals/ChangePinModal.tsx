@@ -1,5 +1,5 @@
 import * as React from "react";
-import toast from "@casper124578/react-hot-toast";
+import toast from "react-hot-toast";
 import Modal from "@components/modal/Modal";
 import useModalEvent from "@hooks/useModalEvent";
 import { closeModal } from "lib/utils";
