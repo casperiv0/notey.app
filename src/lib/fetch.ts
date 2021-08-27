@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import cookie from "cookie";
 import { ModalIds, NO_ERROR, ALLOWED_METHODS } from "./constants";
 import { openModal } from "./utils";
@@ -32,11 +32,21 @@ export const isSuccess = (res: AxiosResponse): boolean => {
   return res.data.status === "success";
 };
 
-export const getErrorFromResponse = (e: any) => {
-  if (e?.message?.toLowerCase?.().includes("failed with status code 429")) {
+export const getErrorFromResponse = (e: unknown) => {
+  const error = e instanceof Error && (e as Error | AxiosError);
+
+  if (!error) {
+    return NO_ERROR;
+  }
+
+  if (error.message?.toLowerCase?.().includes("failed with status code 429")) {
     openModal(ModalIds.AlertTooManyRequests);
     return null;
   }
 
-  return e?.response?.data?.errors?.[0] ?? e?.response?.data?.error ?? NO_ERROR;
+  if ("response" in error) {
+    return error.response?.data.errors?.[0] ?? error?.response?.data?.error ?? NO_ERROR;
+  }
+
+  return error.message ?? NO_ERROR;
 };

@@ -23,10 +23,10 @@
     "helmet": "^4.6.0",
     "jsdom": "^17.0.0",
     "jsonwebtoken": "^8.5.1",
-    "marked": "^3.0.0",
+    "marked": "^3.0.2",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
-    "mongoose": "^5.13.7",
+    "mongoose": "^6.0.2",
     "next": "^11.1.0",
     "next-pwa": "^5.3.1",
     "nprogress": "github:Dev-CasperTheGhost/nprogress",
@@ -35,7 +35,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-spinners": "^0.11.0",
-    "styled-components": "^5.3.0",
+    "styled-components": "^5.3.1",
     "yup": "^0.32.9"
   },
   "devDependencies": {
@@ -52,18 +52,18 @@
     "@types/dompurify": "^2.2.3",
     "@types/express-rate-limit": "^5.1.3",
     "@types/jsdom": "^16.2.13",
-    "@types/jsonwebtoken": "^8.5.4",
-    "@types/marked": "^2.0.4",
-    "@types/node": "^16.6.1",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/marked": "^3.0.0",
+    "@types/node": "^16.7.2",
     "@types/nprogress": "0.2.0",
     "@types/react-dom": "^17.0.9",
-    "@types/styled-components": "^5.1.12",
+    "@types/styled-components": "^5.1.13",
     "babel-plugin-parameter-decorator": "^1.0.16",
     "babel-plugin-styled-components": "^1.13.2",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^7.32.0",
-    "next-sitemap": "^1.6.157",
+    "next-sitemap": "^1.6.164",
     "prettier": "^2.3.2",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.2"
   }
 }
