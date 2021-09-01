@@ -26,7 +26,7 @@
     "marked": "^3.0.2",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
-    "mongoose": "^6.0.2",
+    "mongoose": "^6.0.3",
     "next": "^11.1.0",
     "next-pwa": "^5.3.1",
     "nprogress": "github:Dev-CasperTheGhost/nprogress",
