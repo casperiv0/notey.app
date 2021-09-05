@@ -44,6 +44,8 @@ export async function deleteCategory(id: string) {
     const res = await handleRequest(`/categories/${id}`, "DELETE");
 
     if (isSuccess(res)) {
+      toast.success("Category was successfully deleted.");
+
       return {
         categories: res.data.categories,
         notes: res.data.notes,
@@ -64,7 +66,7 @@ export async function updateCategoryById(id: string, data: RequestData, notify =
 
     if (isSuccess(res)) {
       closeModal(ModalIds.EditCategory);
-      notify && toast.success("Successfully updated category");
+      notify && toast.success("Category was successfully updated.");
 
       return {
         categories: res.data.categories,

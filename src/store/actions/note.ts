@@ -54,6 +54,8 @@ export async function updateNoteById(noteId: string, data: RequestData) {
     const res = await handleRequest(`/notes/${noteId}`, "PUT", data);
 
     if (isSuccess(res)) {
+      toast.success("Note was successfully saved.");
+
       return {
         note: res.data.note,
         notes: res.data.notes,

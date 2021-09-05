@@ -16,10 +16,10 @@ import { closeModal } from "lib/utils";
 import { StoreProvider } from "store/StoreProvider";
 
 const toastStyles: React.CSSProperties = {
-  width: "300px",
+  minWidth: "300px",
   maxWidth: "95%",
-  padding: "1rem 0.8rem",
-  fontSize: "1.1rem",
+  padding: "0.5rem 1rem",
+  fontSize: "1rem",
 
   background: NoteyColors.DarkGray,
   color: NoteyColors.White,
