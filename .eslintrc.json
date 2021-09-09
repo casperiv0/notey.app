@@ -16,14 +16,5 @@
     "ecmaFeatures": {
       "jsx": true
     }
-  },
-  "overrides": [
-    {
-      "files": ["./src/pages/api/**/**.ts"],
-      "rules": {
-        "react-hooks/rules-of-hooks": "off",
-        "react-hooks/exhaustive-deps": "off"
-      }
-    }
-  ]
+  }
 }
