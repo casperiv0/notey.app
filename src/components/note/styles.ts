@@ -3,7 +3,7 @@ import { NoteyColors, Size } from "lib/constants";
 
 export const NoteStyle = styled.div<{ editing: boolean }>`
   width: 100%;
-  height: calc(100% - 60px);
+  height: 100%;
   grid-area: note;
   overflow: hidden;
 
