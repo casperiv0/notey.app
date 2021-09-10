@@ -117,7 +117,7 @@ class NotesApiManager {
 
       return {
         status: "success",
-        note: note ?? {},
+        note: note ?? null,
       };
     }
 
