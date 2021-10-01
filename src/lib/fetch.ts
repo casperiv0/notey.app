@@ -5,7 +5,7 @@ import { openModal } from "./utils";
 
 export type RequestData = Record<string, unknown>;
 
-export const handleRequest = (
+export const handleRequest = <T = any>(
   path: string,
   method: ALLOWED_METHODS,
   data?:
@@ -13,7 +13,7 @@ export const handleRequest = (
     | {
         cookie: string;
       },
-) => {
+): Promise<AxiosResponse<T>> => {
   const parsedCookie = cookie.parse((data?.cookie as string) ?? "")?.["notey-session"];
 
   return axios({
@@ -28,12 +28,12 @@ export const handleRequest = (
   });
 };
 
-export const isSuccess = (res: AxiosResponse): boolean => {
+export const isSuccess = (res: AxiosResponse<any>): boolean => {
   return res.data.status === "success";
 };
 
 export const getErrorFromResponse = (e: unknown) => {
-  const error = e instanceof Error && (e as Error | AxiosError);
+  const error = e instanceof Error && (e as Error | AxiosError<any>);
 
   if (!error) {
     return NO_ERROR;
