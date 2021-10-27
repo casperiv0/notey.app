@@ -22,9 +22,9 @@ const categorySchema = new Schema({
   },
 });
 
-export const createAndUpdateCategoryValidation = {
+export const createAndUpdateCategoryValidation = yup.object({
   name: yup.string().trim().required().max(20),
-};
+});
 
 export type CategoryDoc = Category & Document;
 export default models.Category || model<CategoryDoc>("Category", categorySchema);
