@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
-    "@babel/plugin-proposal-decorators": "^7.15.8",
+    "@babel/plugin-proposal-decorators": "^7.16.0",
     "@casper124578/eslint-config": "^1.0.0",
     "@casper124578/eslint-config-next": "^0.1.1",
     "@casper124578/eslint-config-react": "0.1.2",
