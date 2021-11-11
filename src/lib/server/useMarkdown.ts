@@ -1,4 +1,4 @@
-import marked from "marked";
+import { marked } from "marked";
 import createDompurify from "dompurify";
 import { JSDOM } from "jsdom";
 
