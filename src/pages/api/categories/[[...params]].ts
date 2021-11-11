@@ -19,9 +19,9 @@ import CategoryModel, { createAndUpdateCategoryValidation } from "models/Categor
 import { isTrue, parseLockedNotes } from "lib/utils";
 import { ObjectId } from "mongoose";
 import { ErrorMessages } from "lib/errors";
-import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "lib/middlewares";
+import { AuthGuard, CookieParser, Cors, Helmet, UserId } from "lib/middlewares";
 
-@UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
+@UseMiddleware(Cors, CookieParser, Helmet)
 class CategoriesApiManager {
   private _getUserCategories(userId: ObjectId) {
     return CategoryModel.find({ user_id: userId });

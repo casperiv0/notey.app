@@ -38,13 +38,13 @@ const noteSchema = new Schema({
   },
 });
 
-export const createOrUpdateNoteSchema = yup.object({
+export const createOrUpdateNoteSchema = {
   category_id: yup.string().trim().required(),
   title: yup.string().trim().required().max(40),
   body: yup.string().trim().required(),
   shareable: yup.boolean().notRequired().default(false),
   locked: yup.boolean().notRequired().default(false),
-});
+};
 
 export type NoteDoc = Note & Document;
 export default models.Note || model<NoteDoc>("Note", noteSchema);

@@ -23,14 +23,14 @@ const userSchema = new Schema({
   },
 });
 
-export const baseSchema = yup.object({
+export const baseSchema = {
   username: yup.string().trim().required(),
   password: yup.string().required(),
-});
+};
 
-export const registerSchema = yup.object({
+export const registerSchema = {
   password2: yup.string().required(),
-});
+};
 
 export type UserDoc = User & Document;
 export default models.User || model<UserDoc>("User", userSchema);

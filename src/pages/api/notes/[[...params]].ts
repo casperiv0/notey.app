@@ -19,7 +19,7 @@ import { IRequest } from "types/IRequest";
 import { isTrue, parseLockedNotes } from "lib/utils";
 import { isValidObjectId, ObjectId } from "mongoose";
 import { ErrorMessages } from "lib/errors";
-import { AuthGuard, CookieParser, Cors, Helmet, RateLimit, UserId } from "lib/middlewares";
+import { AuthGuard, CookieParser, Cors, Helmet, UserId } from "lib/middlewares";
 import UserModel from "models/User.model";
 import { compareSync } from "bcryptjs";
 import { LOCKED_NOTE_MSG } from "lib/constants";
@@ -39,7 +39,7 @@ function returnLockedNote(note: NoteDoc) {
   };
 }
 
-@UseMiddleware(Cors, CookieParser, RateLimit, Helmet)
+@UseMiddleware(Cors, CookieParser, Helmet)
 class NotesApiManager {
   private async _getUserNotes(userId: ObjectId): Promise<NoteDoc[]> {
     return NoteModel.find({ user_id: userId });
