@@ -1,6 +1,0 @@
-node_modules
-.next
-.github
-
-public/*.js
-public/*.map

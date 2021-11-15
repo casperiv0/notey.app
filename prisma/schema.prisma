@@ -1,0 +1,40 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id        String     @id @default(cuid())
+    username  String     @unique
+    password  String     @db.Text
+    createdAt DateTime   @default(now())
+    notes     Note[]
+    Category  Category[]
+}
+
+model Note {
+    id            String    @id @default(cuid())
+    user          User      @relation(fields: [userId], references: [id])
+    userId        String
+    category      Category? @relation(fields: [categoryId], references: [id])
+    categoryId    String?
+    title         String    @db.VarChar(40)
+    body          String    @db.Text
+    createdAt     DateTime  @default(now())
+    public        Boolean   @default(false)
+    pinCodeLocked Boolean   @default(false)
+}
+
+model Category {
+    id        String   @id @default(cuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    name      String   @db.VarChar(40)
+    folded    Boolean  @default(false)
+    createdAt DateTime @default(now())
+    notes     Note[]
+}

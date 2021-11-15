@@ -4,11 +4,7 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "@casper124578/eslint-config",
-    "@casper124578/eslint-config-react",
-    "@casper124578/eslint-config-next"
-  ],
+  "extends": ["@casper124578/eslint-config", "@casper124578/eslint-config-react"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2021,

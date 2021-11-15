@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://notey.caspertheghost.me
-
-# Sitemaps
-Sitemap: https://notey.caspertheghost.me/sitemap.xml

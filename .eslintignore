@@ -1,9 +1,0 @@
-node_modules
-.next
-.github
-*.config.js
-
-public/*.js
-public/*.map
-
-next-env.d.ts

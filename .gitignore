@@ -3,7 +3,8 @@ node_modules
 .vscode
 .next
 
-# remove service workers, will be present when running `npm run build`.
-public/*.js
-public/*.map
-public/sitemap.xml
+/build
+/.cache
+/server/build
+/public/build
+/app/styles/tailwind.css
