@@ -20,8 +20,8 @@ export const ListItem = ({ note: { id, body, title } }: Props) => {
         )}
         to={`/app/${id}`}
       >
-        <h2 className="text-lg font-medium">{title}</h2>
-        <p>
+        <h2 className="mb-1 text-xl font-medium">{title}</h2>
+        <p className="text-base">
           {sliced}
           {sliced.length < body.length ? "..." : null}
         </p>
