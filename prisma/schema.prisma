@@ -21,8 +21,10 @@ model User {
 model UserPreferences {
     id String @id @default(uuid())
 
-    // css: true = cursor-pointer, false = cursor-default
+    // true = cursor-pointer, false = cursor-default
     cursorPointers Boolean? @default(false)
+    // true = dark theme, false = light theme
+    darkTheme      Boolean? @default(true)
     users          User[]
 }
 

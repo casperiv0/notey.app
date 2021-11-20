@@ -7,6 +7,7 @@ import { FormField } from "../form/FormField";
 import { Input } from "../form/Input";
 import { Modals } from "~/lib/constants";
 import { useLocation } from "react-router";
+import classNames from "classnames";
 
 export const CategoryForm = () => {
   const { closeModal, getPayload } = useModal();
@@ -30,11 +31,19 @@ export const CategoryForm = () => {
         <Input defaultValue={category?.name} id="name" name="name" />
       </FormField>
 
-      <div className="flex justify-end">
-        <Button type="button" onClick={() => closeModal(Modals.ManageCategory)} variant="cancel">
-          Cancel
-        </Button>
-        <Button type="submit">{category ? "Save Changes" : "Create"}</Button>
+      <div className={classNames("flex", category ? "justify-between" : "justify-end")}>
+        {category ? (
+          <Button type="button" variant="danger">
+            Delete Category
+          </Button>
+        ) : null}
+
+        <div className="flex">
+          <Button type="button" onClick={() => closeModal(Modals.ManageCategory)} variant="cancel">
+            Cancel
+          </Button>
+          <Button type="submit">{category ? "Save Changes" : "Create"}</Button>
+        </div>
       </div>
     </Form>
   );

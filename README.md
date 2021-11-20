@@ -1,5 +1,8 @@
 # Todo
 
+- App
+  - [ ] alert modal
+  - [ ] notes
 - Appearance
   - [ ] dark mode
-  - [ ] prefers pointer/default button
+  - [x] prefers pointer/default button

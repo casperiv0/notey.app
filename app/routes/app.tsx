@@ -45,7 +45,7 @@ export default function App() {
     setUser(user);
   }, [setUser, user]);
 
-  if (!stateUser) {
+  if (!stateUser?.id) {
     return null;
   }
 

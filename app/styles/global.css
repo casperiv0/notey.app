@@ -17,10 +17,23 @@ body {
   color: white;
 }
 
-/* todo add back modal animations */
+.cursors-pointer > * button,
+.cursors-pointer > * a {
+  cursor: pointer;
+}
+
+.cursors-default > * button,
+.cursors-default > * a {
+  cursor: default;
+}
+
+.dropdown-button[aria-expanded="true"] {
+  background: #252525;
+}
+
 .fadeUp {
-  transform-origin: top right;
-  animation: fadeUp 200ms;
+  transform-origin: top left;
+  animation: fadeUp 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modalOpen {
@@ -51,6 +64,7 @@ body {
 
 .switch-component[data-state="checked"] {
   transform: translateX(23px);
+  background: #acacac;
 }
 
 .switch-component[data-state="unchecked"] {

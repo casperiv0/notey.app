@@ -1,3 +1,4 @@
+import { useToggleButton } from "@react-aria/button";
 import { Form } from "remix";
 import { useUser } from "~/lib/auth/auth";
 import { Modals } from "~/lib/constants";
@@ -12,23 +13,20 @@ export const AccountForm = () => {
   const { closeModal } = useModal();
 
   return (
-    <Form method="patch" className="mt-2">
+    <Form action="/api/user" method="patch" className="mt-2">
       <FormField label="Username">
-        <Input defaultValue={user.username} id="name" name="name" />
+        <Input defaultValue={user.username} id="username" name="username" />
       </FormField>
 
       <FormField checkbox label="Show cursor pointers">
-        {/* <Input
-          type="checkbox"
-          defaultValue={user.username}
-          id="show_cursor_pointers"
+        <Switch
+          defaultChecked={user.preferences?.cursorPointers ?? false}
           name="show_cursor_pointers"
-        /> */}
-        <Switch id="show_cursor_pointers" name="show_cursor_pointers" />
+        />
       </FormField>
 
       <FormField checkbox label="Dark theme">
-        <Input type="checkbox" defaultValue={user.username} id="dark_theme" name="dark_theme" />
+        <Switch disabled defaultChecked={user.preferences?.darkTheme ?? true} id="dark_theme" />
       </FormField>
 
       <div className="flex justify-end">

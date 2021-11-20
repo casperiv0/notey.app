@@ -13,5 +13,5 @@ export async function getBodySafe<T extends JsonValue>(request: Request, schema:
     .map(({ path: [path], message }) => `${path}: ${message}`)
     .join("\n");
 
-  return [undefined, message] as [never, string];
+  return [{}, message] as [never, string];
 }

@@ -12,16 +12,17 @@ export const Dropdown = ({ trigger: Trigger, children, extra }: Props) => {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>{Trigger}</DropdownMenu.Trigger>
+      <DropdownMenu.Trigger className="dropdown-button" asChild>
+        {Trigger}
+      </DropdownMenu.Trigger>
 
       <DropdownMenu.Content
+        sideOffset={3}
         style={{ width: maxWidth, maxWidth }}
-        className="p-2 rounded-md rounded-tr-none shadow-md bg-dark-4 fadeUp"
-        align="end"
+        className="p-2 rounded-md shadow-md bg-dark-4 fadeUp"
+        align="start"
       >
         {children}
-
-        <DropdownMenu.Arrow className="fill-current text-dark-4" />
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );
@@ -36,7 +37,7 @@ Dropdown.Item = (props: ButtonProps) => (
     <Button
       variant="dropdown"
       {...(props as any)}
-      className="p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left cursor-default"
+      className="p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left"
     />
   </DropdownMenu.Item>
 );

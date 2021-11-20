@@ -20,6 +20,7 @@ export async function getUserSession(request: Request) {
   const user = userId
     ? prisma.user.findUnique({
         where: { id: userId },
+        include: { preferences: true },
       })
     : null;
 

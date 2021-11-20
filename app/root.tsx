@@ -3,9 +3,11 @@ import { Meta, Links, Scripts, LiveReload, useCatch } from "remix";
 import { Outlet } from "react-router-dom";
 import { SSRProvider } from "@react-aria/ssr";
 import { IdProvider } from "@radix-ui/react-id";
+import classNames from "classnames";
 
 import tailwindStyles from "./styles/tailwind.css";
 import globalStyles from "./styles/global.css";
+import { useUser } from "./lib/auth/auth";
 
 export const links: LinksFunction = () => {
   return [
@@ -25,16 +27,22 @@ export const meta: MetaFunction = () => ({
 });
 
 function Document({ children, title }: { children: React.ReactNode; title?: string }) {
+  const { user } = useUser();
+
   return (
     <html lang="en" dir="ltr">
       <head>
         <meta charSet="utf-8" />
-        <link rel="icon" href="/favicon.png" type="image/png" />
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
       </head>
-      <body>
+      <body
+        className={classNames(
+          user.preferences?.cursorPointers ? "cursors-pointer" : "cursors-default",
+          user.preferences?.darkTheme && "dark",
+        )}
+      >
         <IdProvider>
           <SSRProvider>{children}</SSRProvider>
         </IdProvider>
