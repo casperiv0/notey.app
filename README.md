@@ -1,4 +1,8 @@
-# Todo
+# Notey.app
+
+WIP remix re-write. [Next.js version can be found here](https://github.com/Dev-CasperTheGhost/notey.app/tree/main)
+
+## Todo
 
 - App
   - [ ] alert modal
