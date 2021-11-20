@@ -19,7 +19,7 @@ export const ListItem = ({ note: { id, title } }: Props) => {
         )}
         to={`/app/${id}`}
       >
-        <h2 className="text-xl font-medium">{title}</h2>
+        <h2 className="text-lg">{title}</h2>
       </Link>
     </li>
   );

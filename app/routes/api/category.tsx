@@ -11,7 +11,7 @@ const createSchema = z.object({
   name: z.string().min(2).max(40),
 });
 
-const idSchema = z.object({
+export const idSchema = z.object({
   id: z.string().min(10),
 });
 

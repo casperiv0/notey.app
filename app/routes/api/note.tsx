@@ -6,6 +6,7 @@ import { getBodySafe } from "~/lib/utils/body";
 import { z } from "zod";
 import { badRequest, unauthorized } from "remix-utils";
 import { getUserSession } from "~/lib/auth/session.server";
+import { idSchema } from "./category";
 
 const updateSchema = z.object({
   id: z.string().min(10),
@@ -53,7 +54,17 @@ export const action: ActionFunction = async ({ request }) => {
         },
       });
     },
-    async delete() {},
+    async delete() {
+      const [{ id }, error] = await getBodySafe(request, idSchema);
+
+      if (error) {
+        return badRequest(error);
+      }
+
+      return prisma.note.delete({
+        where: { id },
+      });
+    },
   });
 };
 

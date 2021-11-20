@@ -11,6 +11,19 @@ import { useUser } from "./lib/auth/auth";
 
 export const links: LinksFunction = () => {
   return [
+    {
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      href: "https://notey.caspertheghost.me/icons/apple-touch-icon.png",
+    },
+
+    {
+      rel: "shortcut icon",
+      type: "image/x-icon",
+      href: "https://notey.caspertheghost.me/icons/notey-app-144.png",
+    },
+
+    { rel: "manifest", href: "https://notey.caspertheghost.me/manifest.json" },
     { rel: "stylesheet", href: tailwindStyles },
     { rel: "stylesheet", href: globalStyles },
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -23,7 +36,9 @@ export const links: LinksFunction = () => {
 };
 
 export const meta: MetaFunction = () => ({
-  viewport: "width=device-width",
+  viewport: "width=device-width, initial-scale=1",
+  "google-site-verification": "6LqjGmq_LshCupZ3FdR3meDNGaWcBjRG2snvcRtclSc",
+  "og:image": "https://notey.caspertheghost.me/icons/notey-app-144.png",
 });
 
 function Document({ children, title }: { children: React.ReactNode; title?: string }) {
