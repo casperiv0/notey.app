@@ -32,7 +32,7 @@ export const Modal = ({ id, children, description, title, extra }: Props) => {
         <header className="flex justify-between">
           <Dialog.Title className="mb-1 text-2xl font-semibold">{title}</Dialog.Title>
           <div>
-            <Dialog.Close id={closeId} aria-label="Close modal" asChild>
+            <Dialog.Close className="h-8"  id={closeId} aria-label="Close modal" asChild>
               <Button variant="cancel" className="px-1 rounded-md">
                 <X width={25} height={25} aria-labelledby={closeId} />
               </Button>

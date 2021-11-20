@@ -36,20 +36,18 @@ export const action: ActionFunction = async ({ request }) => {
 
       const darkTheme = dark_theme ? dark_theme === "true" : !user.preferences?.darkTheme;
 
-      await prisma.userPreferences
-        .upsert({
-          where: {
-            id: user.userPreferencesId ?? "not_found",
-          },
-          create: {
-            cursorPointers,
-            users: { connect: { id: user.id } },
-          },
-          update: {
-            cursorPointers,
-          },
-        })
-        .catch(console.error);
+      await prisma.userPreferences.upsert({
+        where: {
+          id: user.userPreferencesId ?? "not_found",
+        },
+        create: {
+          cursorPointers,
+          users: { connect: { id: user.id } },
+        },
+        update: {
+          cursorPointers,
+        },
+      });
 
       return prisma.user.update({
         where: { id: user.id },
