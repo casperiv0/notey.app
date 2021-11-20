@@ -5,7 +5,7 @@ WIP remix re-write. [Next.js version can be found here](https://github.com/Dev-C
 ## Todo
 
 - App
-  - [ ] alert modal
+  - [x] alert modal
   - [ ] notes
 - Appearance
   - [ ] dark mode
