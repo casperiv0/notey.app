@@ -72,7 +72,7 @@ export const action: ActionFunction = async ({ request }) => {
         return notFound("Category not found");
       }
 
-      return !!prisma.category.delete({
+      return prisma.category.delete({
         where: { id },
       });
     },

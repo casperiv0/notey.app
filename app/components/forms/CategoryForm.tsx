@@ -8,9 +8,10 @@ import { Input } from "../form/Input";
 import { Modals } from "~/lib/constants";
 import { useLocation } from "react-router";
 import classNames from "classnames";
+import { AlertModal } from "../modal/AlertModal";
 
 export const CategoryForm = () => {
-  const { closeModal, getPayload } = useModal();
+  const { closeModal, openModal, getPayload } = useModal();
   const data = useTransition();
   const category = getPayload<Category>(Modals.ManageCategory);
   const location = useLocation();
@@ -33,7 +34,11 @@ export const CategoryForm = () => {
 
       <div className={classNames("flex", category ? "justify-between" : "justify-end")}>
         {category ? (
-          <Button type="button" variant="danger">
+          <Button
+            onClick={() => openModal(Modals.AlertDeleteCategory)}
+            type="button"
+            variant="danger"
+          >
             Delete Category
           </Button>
         ) : null}
@@ -45,6 +50,18 @@ export const CategoryForm = () => {
           <Button type="submit">{category ? "Save Changes" : "Create"}</Button>
         </div>
       </div>
+
+      {category ? (
+        <AlertModal
+          dataId={category.id}
+          title={"Delete Category"}
+          id={Modals.AlertDeleteCategory}
+          action="delete-/api/category"
+          description={
+            <>Are you sure you want to delete <span className="font-bold">{category.name}</span>? This action cannot be undone.</>
+          }
+        />
+      ) : null}
     </Form>
   );
 };

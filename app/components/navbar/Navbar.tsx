@@ -1,8 +1,12 @@
+import { Modals } from "~/lib/constants";
 import { useActiveNote } from "~/lib/note";
+import { useModal } from "~/lib/useModal";
 import { Button } from "../Button";
+import { AlertModal } from "../modal/AlertModal";
 
 export const Navbar = () => {
   const { note } = useActiveNote();
+  const { openModal } = useModal();
 
   if (!note) {
     return null;
@@ -16,10 +20,27 @@ export const Navbar = () => {
         </div>
 
         <div>
-          <Button className="mr-2">Edit</Button>
-          <Button variant="danger">Delete</Button>
+          <Button onClick={() => openModal(Modals.CreateNote, note)} className="mr-2">
+            Edit
+          </Button>
+          <Button onClick={() => openModal(Modals.AlertDeleteNote)} variant="danger">
+            Delete
+          </Button>
         </div>
       </nav>
+
+      <AlertModal
+        dataId={note.id}
+        title={"Delete Note"}
+        id={Modals.AlertDeleteNote}
+        action="delete-/api/note"
+        description={
+          <>
+            Are you sure you want to delete <span className="font-bold">{note.title}</span>? This
+            action cannot be undone.
+          </>
+        }
+      />
     </header>
   );
 };

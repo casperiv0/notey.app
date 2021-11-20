@@ -17,7 +17,7 @@ export function useActiveNote() {
 
   React.useEffect(() => {
     setNote(loaderData?.note ?? null);
-  }, [location.pathname]);
+  }, [location.pathname, loaderData?.note]);
 
   return { note };
 }

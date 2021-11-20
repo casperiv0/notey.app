@@ -4,6 +4,7 @@ import { Button, ButtonProps } from "~/components/Button";
 import { X } from "react-bootstrap-icons";
 import { useId } from "react-aria";
 import { useModal } from "~/lib/useModal";
+import classNames from "classnames";
 
 interface Props {
   id: string;
@@ -11,13 +12,14 @@ interface Props {
   children: React.ReactNode;
   title: React.ReactFragment | string;
   description?: React.ReactFragment | string;
-  extra?: { width?: number };
+  extra?: { width?: number; isAlert?: boolean };
 }
 
 export const Modal = ({ id, children, description, title, extra }: Props) => {
   const closeId = useId();
   const { isOpen, closeModal } = useModal();
   const width = extra?.width ?? 500;
+  const isAlert = extra?.isAlert ?? false;
 
   return (
     <Dialog.Root open={isOpen(id)} onOpenChange={(v) => !v && closeModal(id)}>
@@ -39,7 +41,9 @@ export const Modal = ({ id, children, description, title, extra }: Props) => {
         </header>
 
         {description ? (
-          <Dialog.Description className="text-lg text-gray-600">{description}</Dialog.Description>
+          <Dialog.Description className={classNames("text-lg text-gray-400", isAlert && "my-2")}>
+            {description}
+          </Dialog.Description>
         ) : null}
 
         <div>{children}</div>

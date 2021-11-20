@@ -7,11 +7,17 @@ import { FormField } from "../form/FormField";
 import { Input } from "../form/Input";
 import { Modals } from "~/lib/constants";
 import { Select } from "../form/Select";
+import { useLocation } from "react-router";
 
-export const NoteForm = ({ note }: { note?: Note }) => {
+export const NoteForm = () => {
+  const { closeModal, getPayload } = useModal();
+  const note = getPayload<Note>(Modals.CreateNote);
+  const location = useLocation();
+
   const { categories } = useLoaderData<{ categories: Category[] }>();
-  const { closeModal } = useModal();
   const data = useTransition();
+
+  const apiUrl = `/api/note?next=${location.pathname}`;
 
   React.useEffect(() => {
     if (data.state === "loading") {
@@ -20,7 +26,7 @@ export const NoteForm = ({ note }: { note?: Note }) => {
   }, [closeModal, data.state]);
 
   return (
-    <Form action="/api/note" method="post" className="mt-2">
+    <Form action={apiUrl} method={note ? "put" : "patch"} className="mt-2">
       {note ? <Input className="hidden" defaultValue={note.id} id="id" name="id" /> : null}
 
       <FormField label="Name">
@@ -28,7 +34,7 @@ export const NoteForm = ({ note }: { note?: Note }) => {
       </FormField>
 
       <FormField label="Category">
-        <Select defaultValue={note?.categoryId ?? undefined} id="categoryId" name="categoryId">
+        <Select defaultValue={note?.categoryId ?? "null"} id="categoryId" name="categoryId">
           {categories.map((v) => (
             <option key={v.id} value={v.id}>
               {v.name}
