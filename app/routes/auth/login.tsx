@@ -1,4 +1,4 @@
-import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
+import { ActionFunction, LoaderFunction, MetaFunction, useTransition } from "remix";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { z } from "zod";
@@ -53,13 +53,14 @@ export const action: ActionFunction = ({ request }) => {
 
 export default function Login() {
   const { error } = useActionData() ?? {};
+  const { state } = useTransition();
 
   return (
     <main className="flex items-center justify-center min-w-full min-h-screen">
       <Formik onSubmit={() => undefined} initialValues={{ username: "", password: "" }}>
         {({ handleChange, values, errors }) => (
-          <Form method="post" className="flex flex-col p-4 bg-gray-200 rounded-md w-96">
-            <h1 className="mb-5 text-2xl font-semibold">Login to continue</h1>
+          <Form method="post" className="flex flex-col p-4 rounded-md shadow-md bg-dark-1 w-96">
+            <h1 className="mb-5 text-2xl font-semibold text-white">Login to continue</h1>
 
             {error ? (
               <div
@@ -98,7 +99,7 @@ export default function Login() {
               {"Don't have an account? Register here."}
             </Link>
 
-            <Button>Login</Button>
+            <Button loading={state === "submitting"}>Login</Button>
           </Form>
         )}
       </Formik>

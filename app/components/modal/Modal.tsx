@@ -25,17 +25,15 @@ export const Modal = ({ id, children, description, title, extra }: Props) => {
 
       <Dialog.Content
         style={{ width, left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
-        className="bg-white rounded-md shadow-lg fixed max-w-[95%] p-5 modalOpen"
+        className="bg-dark-1 rounded-md shadow-lg fixed max-w-[95%] p-5 modalOpen"
       >
         <header className="flex justify-between">
           <Dialog.Title className="mb-1 text-2xl font-semibold">{title}</Dialog.Title>
           <div>
-            <Dialog.Close
-              className="p-1 rounded-md hover:bg-gray-300"
-              id={closeId}
-              aria-label="Close modal"
-            >
-              <X width={25} height={25} aria-labelledby={closeId} />
+            <Dialog.Close id={closeId} aria-label="Close modal" asChild>
+              <Button variant="cancel" className="px-1 rounded-md">
+                <X width={25} height={25} aria-labelledby={closeId} />
+              </Button>
             </Dialog.Close>
           </div>
         </header>

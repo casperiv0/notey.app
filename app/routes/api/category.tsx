@@ -79,7 +79,14 @@ export const action: ActionFunction = async ({ request }) => {
   });
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  const urlSearch = new URL(request.url).searchParams;
+  const next = urlSearch.get("next");
+
+  if (next) {
+    return redirect(next);
+  }
+
   return redirect("/app");
 };
 

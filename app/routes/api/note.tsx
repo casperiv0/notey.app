@@ -11,10 +11,12 @@ export const action: ActionFunction = async ({ request }) => {
   const categoryId = rawCategoryId && rawCategoryId === "null" ? null : rawCategoryId;
 
   if (id && title) {
-    return prisma.note.update({
+    const note = await prisma.note.update({
       where: { id },
       data: { title, categoryId },
     });
+
+    return redirect(`/app/${note.id}`);
   }
 
   const userId = await prisma.user.findUnique({
@@ -22,7 +24,7 @@ export const action: ActionFunction = async ({ request }) => {
   });
 
   if (title) {
-    return prisma.note.create({
+    const note = await prisma.note.create({
       data: {
         title,
         categoryId,
@@ -30,6 +32,8 @@ export const action: ActionFunction = async ({ request }) => {
         userId: userId?.id!,
       },
     });
+
+    return redirect(`/app/${note.id}`);
   }
 
   return null;

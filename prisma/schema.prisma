@@ -8,12 +8,22 @@ generator client {
 }
 
 model User {
-    id        String     @id @default(cuid())
-    username  String     @unique
-    password  String     @db.Text
-    createdAt DateTime   @default(now())
-    notes     Note[]
-    Category  Category[]
+    id                String           @id @default(cuid())
+    username          String           @unique
+    password          String           @db.Text
+    createdAt         DateTime         @default(now())
+    notes             Note[]
+    Category          Category[]
+    preferences       UserPreferences? @relation(fields: [userPreferencesId], references: [id])
+    userPreferencesId String?
+}
+
+model UserPreferences {
+    id String @id @default(uuid())
+
+    // css: true = cursor-pointer, false = cursor-default
+    cursorPointers Boolean? @default(false)
+    users          User[]
 }
 
 model Note {

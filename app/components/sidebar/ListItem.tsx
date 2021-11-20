@@ -7,24 +7,19 @@ interface Props {
   note: Note;
 }
 
-export const ListItem = ({ note: { id, body, title } }: Props) => {
-  const sliced = "This is a cool note, not all the text fits on this sidebarItem".substr(0, 45);
+export const ListItem = ({ note: { id, title } }: Props) => {
   const { note } = useActiveNote();
 
   return (
     <li role="listitem">
       <Link
         className={classNames(
-          "block p-2 my-1 transition-colors duration-100 rounded-md hover:bg-gray-200",
-          { "bg-gray-200 font-medium": id === note?.id },
+          "block p-1 px-3 my-1.5 transition-colors duration-100 rounded-md hover:bg-dark-3 cursor-default",
+          { "bg-dark-3 font-medium": id === note?.id },
         )}
         to={`/app/${id}`}
       >
-        <h2 className="mb-1 text-xl font-medium">{title}</h2>
-        <p className="text-base">
-          {sliced}
-          {sliced.length < body.length ? "..." : null}
-        </p>
+        <h2 className="text-xl font-medium">{title}</h2>
       </Link>
     </li>
   );

@@ -1,5 +1,5 @@
 import type { Category, Note } from ".prisma/client";
-import { Pencil } from "react-bootstrap-icons";
+import { CaretDownFill, Pencil } from "react-bootstrap-icons";
 import { useId } from "@react-aria/utils";
 import { Button } from "../Button";
 import { ListItem } from "./ListItem";
@@ -12,6 +12,7 @@ interface Props {
 
 export const CategoryItem = ({ category: { id: categoryId, name, notes, ...rest } }: Props) => {
   const id = useId();
+  const foldId = useId();
   const { openModal } = useModal();
 
   function handleClick() {
@@ -19,9 +20,23 @@ export const CategoryItem = ({ category: { id: categoryId, name, notes, ...rest 
   }
 
   return (
-    <li className="my-2" role="listitem">
+    <li className="my-5" role="listitem">
       <header className="flex justify-between">
-        <h1 className="text-lg font-semibold uppercase">{name}</h1>
+        <div className="flex items-center gap-1">
+          <Button
+            type="submit"
+            variant="cancel"
+            className="px-1 mr-0 text-dark-4 hover:text-gray-400"
+            id={foldId}
+            aria-label="Open or close this category"
+          >
+            <CaretDownFill
+              aria-labelledby={foldId}
+              className="mt-1 transition-colors fill-current "
+            />
+          </Button>
+          <h1 className="text-lg font-semibold uppercase select-none">{name}</h1>
+        </div>
 
         {categoryId !== "no_category" ? (
           <Button

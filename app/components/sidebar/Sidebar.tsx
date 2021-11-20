@@ -1,4 +1,4 @@
-import { Category, Note } from ".prisma/client";
+import type { Category, Note } from ".prisma/client";
 import { useId } from "react-aria";
 import { ThreeDots } from "react-bootstrap-icons";
 import { Button } from "~/components/Button";
@@ -7,7 +7,7 @@ import { Modal } from "../modal/Modal";
 import { CategoryItem } from "./Category";
 import { Dropdown } from "~/components/dropdown/Dropdown";
 import { useModal } from "~/lib/useModal";
-import { Form, useLoaderData } from "remix";
+import { useLoaderData } from "remix";
 import { Modals } from "~/lib/constants";
 import { NoteForm } from "../forms/NoteForm";
 import { useUser } from "~/lib/auth/auth";
@@ -25,7 +25,7 @@ export const Sidebar = () => {
   const noCategoryNotes = data?.noCategoryNotes ?? [];
 
   return (
-    <aside className="w-[300px] p-5 bg-gray-100 min-h-screen shadow-sm">
+    <aside className="w-[300px] p-5 bg-dark-1 min-h-screen shadow-sm">
       <header>
         <section className="flex items-center justify-between">
           <h1
@@ -63,14 +63,6 @@ export const Sidebar = () => {
           </Dropdown>
         </section>
 
-        <Modal title={"Create new category"} id={Modals.ManageCategory}>
-          <CategoryForm />
-        </Modal>
-
-        <Modal title={"Create new note"} id={Modals.CreateNote}>
-          <NoteForm />
-        </Modal>
-
         <Modal title={"User Settings"} id={Modals.ManageAccount}>
           <AccountForm />
         </Modal>
@@ -98,6 +90,35 @@ export const Sidebar = () => {
           />
         </ul>
       </section>
+
+      <ManageCategoryModal />
+      <ManageNoteModal />
     </aside>
+  );
+};
+
+const ManageNoteModal = () => {
+  const { getPayload } = useModal();
+
+  const payload = getPayload(Modals.CreateNote);
+  const title = payload ? `Manage ${payload.title}` : "Create new Note";
+
+  return (
+    <Modal title={title} id={Modals.CreateNote}>
+      <NoteForm />
+    </Modal>
+  );
+};
+
+const ManageCategoryModal = () => {
+  const { getPayload } = useModal();
+
+  const payload = getPayload<Category>(Modals.ManageCategory);
+  const title = payload ? `Manage ${payload.name}` : "Create new category";
+
+  return (
+    <Modal title={title} id={Modals.ManageCategory}>
+      <CategoryForm />
+    </Modal>
   );
 };

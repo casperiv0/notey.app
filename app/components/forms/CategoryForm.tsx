@@ -6,11 +6,15 @@ import { Button } from "../Button";
 import { FormField } from "../form/FormField";
 import { Input } from "../form/Input";
 import { Modals } from "~/lib/constants";
+import { useLocation } from "react-router";
 
 export const CategoryForm = () => {
   const { closeModal, getPayload } = useModal();
   const data = useTransition();
   const category = getPayload<Category>(Modals.ManageCategory);
+  const location = useLocation();
+
+  const apiUrl = `/api/category?next=${location.pathname}`;
 
   React.useEffect(() => {
     if (data.state === "loading") {
@@ -19,7 +23,7 @@ export const CategoryForm = () => {
   }, [closeModal, data.state]);
 
   return (
-    <Form action="/api/category" method={category ? "put" : "post"} className="mt-2">
+    <Form action={apiUrl} method={category ? "put" : "post"} className="mt-2">
       {category ? <Input className="hidden" defaultValue={category.id} id="id" name="id" /> : null}
 
       <FormField label="Name">
