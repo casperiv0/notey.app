@@ -1,13 +1,14 @@
 import type { Category, Note } from ".prisma/client";
 import { useId } from "react-aria";
 import { ThreeDots } from "react-bootstrap-icons";
+import { useNavigate } from "react-router";
+import { useLoaderData } from "remix";
 import { Button } from "~/components/Button";
 import { CategoryForm } from "../forms/CategoryForm";
 import { Modal } from "../modal/Modal";
 import { CategoryItem } from "./Category";
 import { Dropdown } from "~/components/dropdown/Dropdown";
 import { useModal } from "~/lib/useModal";
-import { useLoaderData } from "remix";
 import { Modals } from "~/lib/constants";
 import { NoteForm } from "../forms/NoteForm";
 import { useUser } from "~/lib/auth/auth";
@@ -23,6 +24,11 @@ export const Sidebar = () => {
     useLoaderData<{ noCategoryNotes: Note[]; categories: (Category & { notes: Note[] })[] }>();
   const categories = data?.categories ?? [];
   const noCategoryNotes = data?.noCategoryNotes ?? [];
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    navigate("/auth/logout");
+  }
 
   return (
     <aside className="w-[300px] p-5 bg-dark-1 min-h-screen shadow-sm">
@@ -60,7 +66,7 @@ export const Sidebar = () => {
             <Dropdown.Item onClick={() => openModal(Modals.ManageAccount)}>
               Manage Account
             </Dropdown.Item>
-            <Dropdown.Item type="submit" variant="danger">
+            <Dropdown.Item onClick={handleLogout} variant="danger">
               Logout
             </Dropdown.Item>
           </Dropdown>

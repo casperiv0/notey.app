@@ -1,8 +1,8 @@
-import { ActionFunction, LoaderFunction, MetaFunction, useTransition } from "remix";
+import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from "remix";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import { redirect, useActionData, Form } from "remix";
+import { useTransition, redirect, useActionData, Form } from "remix";
 import { badRequest } from "remix-utils";
 import { Input } from "~/components/form/Input";
 import { Button } from "~/components/Button";
@@ -16,10 +16,12 @@ export const meta: MetaFunction = () => ({
   title: "Login - Notey.app",
 });
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const user = await getUserSession(request);
+export const headers: HeadersFunction = () => {
+  const oneMonth = 60 * 60 * 24 * 30;
 
-  return user ? redirect("/app") : null;
+  return {
+    "Cache-Control": `public, max-age=${60 * 10}, s-maxage=${oneMonth}`,
+  };
 };
 
 export const action: ActionFunction = ({ request }) => {
@@ -28,13 +30,17 @@ export const action: ActionFunction = ({ request }) => {
       const [body, error] = await getBodySafe(
         request,
         z.object({
-          username: z.string().min(3).max(255),
+          username: z
+            .string()
+            .min(3)
+            .max(255)
+            .regex(/^([a-z_.\d]+)*[a-z\d]+$/i, "Username cannot contain special characters"),
           password: z.string().min(6).max(255),
         }),
       );
 
       if (error) {
-        return error;
+        return badRequest({ error });
       }
 
       const user = await loginUser(body);
