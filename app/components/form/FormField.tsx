@@ -15,7 +15,7 @@ export const FormField = ({ label, checkbox, errorMessage, children, ...rest }: 
   const element = React.cloneElement(children as React.ReactElement<any>, fieldProps);
 
   return (
-    <div {...rest} className={classNames("flex mb-3", !checkbox && "flex-col")}>
+    <div {...rest} className={classNames("flex mb-3", !checkbox && "flex-col", rest.className)}>
       <label {...labelProps} className={classNames("mb-1", checkbox && "mr-3")}>
         {label}
       </label>

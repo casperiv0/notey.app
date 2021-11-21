@@ -14,6 +14,11 @@ const updateSchema = z.object({
   title: z.string().min(2).max(40),
   categoryId: z.string().optional(),
   body: z.string().optional(),
+  pinCodeLocked: z
+    .string()
+    .regex(/true|false/)
+    .optional()
+    .default("false"),
 });
 
 const createSchema = z.object({
@@ -30,7 +35,11 @@ export const action: ActionFunction = async ({ request }) => {
 
   return handleMethods(request, {
     async put() {
-      const [{ title, id, categoryId, body }, error] = await getBodySafe(request, updateSchema);
+      const [{ title, id, categoryId, body, pinCodeLocked }, error] = await getBodySafe(
+        request,
+        updateSchema,
+      );
+      console.log({ pinCodeLocked });
 
       if (error) {
         return badRequest(error);
@@ -48,7 +57,13 @@ export const action: ActionFunction = async ({ request }) => {
 
       return prisma.note.update({
         where: { id },
-        data: { title, categoryId: parseCategoryId(categoryId), body, markdown },
+        data: {
+          title,
+          categoryId: parseCategoryId(categoryId),
+          body,
+          markdown,
+          pinCodeLocked: pinCodeLocked === "true",
+        },
       });
     },
     async post() {

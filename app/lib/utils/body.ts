@@ -13,5 +13,6 @@ export async function getBodySafe<T extends JsonValue>(request: Request, schema:
     .map(({ path: [path], message }) => `${path}: ${message}`)
     .join("\n");
 
+  // object so it still allows to be destructured
   return [{}, message] as [never, string];
 }

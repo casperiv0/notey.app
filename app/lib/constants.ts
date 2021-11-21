@@ -9,3 +9,6 @@ export const enum Modals {
   AlertDeleteAccount = "ALERT_DELETE_ACCOUNT_MODAL",
   AlertUnsavedChanges = "ALERT_UNSAVED_CHANGES_MODAL",
 }
+
+export const LOCKED_NOTE_MSG =
+  "Note is locked with a PIN code. Please enter your pincode in the popup";

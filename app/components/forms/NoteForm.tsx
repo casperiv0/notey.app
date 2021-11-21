@@ -8,6 +8,7 @@ import { Input } from "../form/Input";
 import { Modals } from "~/lib/constants";
 import { Select } from "../form/Select";
 import { useLocation } from "react-router";
+import { Switch } from "../form/Switch";
 
 export const NoteForm = () => {
   const { closeModal, getPayload } = useModal();
@@ -42,6 +43,14 @@ export const NoteForm = () => {
           ))}
           <option value={"null"}>No Category</option>
         </Select>
+      </FormField>
+
+      <FormField className="mt-5" checkbox label="PIN Code Locked">
+        <Switch
+          defaultChecked={note?.pinCodeLocked ?? false}
+          id="pinCodeLocked"
+          name="pinCodeLocked"
+        />
       </FormField>
 
       <div className="flex justify-end">
