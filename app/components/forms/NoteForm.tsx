@@ -26,7 +26,7 @@ export const NoteForm = () => {
   }, [closeModal, data.state]);
 
   return (
-    <Form action={apiUrl} method={note ? "put" : "patch"} className="mt-2">
+    <Form action={apiUrl} method={note ? "put" : "post"} className="mt-2">
       {note ? <Input className="hidden" defaultValue={note.id} id="id" name="id" /> : null}
 
       <FormField label="Name">

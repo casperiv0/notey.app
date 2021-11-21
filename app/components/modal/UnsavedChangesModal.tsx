@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import { redirect } from "remix";
 import { Button } from "~/components/Button";
 import { Modal } from "~/components/modal/Modal";
 import { Modals } from "~/lib/constants";

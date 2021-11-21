@@ -57,6 +57,26 @@ export const action: ActionFunction = async ({ request }) => {
         data: { name },
       });
     },
+    async patch() {
+      const [{ id }, error] = await getBodySafe(request, idSchema);
+
+      if (error) {
+        return badRequest(error);
+      }
+
+      const category = await prisma.category.findFirst({
+        where: { id, userId: user.id },
+      });
+
+      if (!category) {
+        return notFound("Category not found");
+      }
+
+      return prisma.category.update({
+        where: { id },
+        data: { folded: !category.folded },
+      });
+    },
     async delete() {
       const [{ id }, error] = await getBodySafe(request, idSchema);
 

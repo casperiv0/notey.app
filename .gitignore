@@ -8,4 +8,6 @@ node_modules
 /server/build
 /public/build
 /app/styles/tailwind.css
+
 .data
+docker-compose.yml

@@ -22,7 +22,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       disabled={typeof loading === "boolean" ? loading : props.disabled}
       className={classNames(
         "p-1 px-3 rounded-md transition-colors cursor-default",
-        "disabled:opacity-50",
+        "disabled:opacity-50 disabled:cursor-not-allowed",
         variants[props.variant ?? "default"],
         loading && "flex justify-center items-center gap-2",
         props.className,
