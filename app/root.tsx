@@ -84,9 +84,11 @@ export function CatchBoundary() {
     case 404:
       return (
         <Document title={`${caught.status} ${caught.statusText}`}>
-          <h1>
-            {caught.status} {caught.statusText}
-          </h1>
+          <main className="p-5">
+            <h1>
+              {caught.status} {caught.statusText}
+            </h1>
+          </main>
         </Document>
       );
 

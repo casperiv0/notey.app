@@ -1,17 +1,23 @@
+import { useId } from "react-aria";
+import { ThreeDots } from "react-bootstrap-icons";
 import { useLocation } from "react-router";
 import { useFetcher } from "remix";
 import { Modals } from "~/lib/constants";
 import { useActiveNote } from "~/lib/note";
 import { useModal } from "~/lib/useModal";
 import { Button } from "../Button";
+import { Dropdown } from "../dropdown/Dropdown";
 import { Input } from "../form/Input";
 import { AlertModal } from "../modal/AlertModal";
 
 export const Navbar = () => {
+  const dotsId = useId();
   const { note, editMode, setNote, setEditMode } = useActiveNote();
   const { openModal } = useModal();
-  const fetcher = useFetcher();
   const location = useLocation();
+
+  const fetcher = useFetcher();
+  const cloneFetcher = useFetcher();
 
   const apiUrl = `/api/note?next=${location.pathname}`;
 
@@ -35,6 +41,18 @@ export const Navbar = () => {
     }
   }
 
+  function handleClone() {
+    if (!note) return;
+
+    const fd = new FormData();
+
+    fd.set("title", note.title);
+    fd.set("body", note.body);
+    fd.set("categoryId", note.categoryId ?? "null");
+
+    fetcher.submit(fd, { action: apiUrl, method: "post" });
+  }
+
   if (!note) {
     return null;
   }
@@ -54,17 +72,29 @@ export const Navbar = () => {
           )}
         </div>
 
-        <div>
+        <div className="flex items-center">
           <Button onClick={handleClick} className="mr-2">
             {editMode ? "Save" : "Edit mode"}
           </Button>
-          <Button onClick={() => openModal(Modals.CreateNote, note)} className="mr-2">
-            Manage
-          </Button>
-          <Button onClick={() => openModal(Modals.AlertDeleteNote)} variant="danger">
-            Delete
-          </Button>
+
+          <Dropdown
+            extra={{ maxWidth: 200 }}
+            trigger={
+              <Button className="px-1" variant="dropdown" id={dotsId} aria-label="More Settings">
+                <ThreeDots aria-labelledby={dotsId} />
+              </Button>
+            }
+          >
+            <Dropdown.Item onClick={handleClone}>Clone note</Dropdown.Item>
+
+            <Dropdown.Item onClick={() => openModal(Modals.CreateNote, note)}>Manage</Dropdown.Item>
+            <Dropdown.Item onClick={() => openModal(Modals.AlertDeleteNote)} variant="danger">
+              Delete
+            </Dropdown.Item>
+          </Dropdown>
+
           <fetcher.Form method="put" action={apiUrl} />
+          <cloneFetcher.Form method="post" action={apiUrl} />
         </div>
       </nav>
 

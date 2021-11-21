@@ -4,7 +4,7 @@ import { prisma } from "~/lib/prisma.server";
 import { handleMethods } from "~/lib/utils/handleMethods";
 import { getBodySafe } from "~/lib/utils/body";
 import { z } from "zod";
-import { badRequest, unauthorized } from "remix-utils";
+import { badRequest, unauthorized, notFound } from "remix-utils";
 import { getUserSession } from "~/lib/auth/session.server";
 import { idSchema } from "./category";
 import { sanitizeUserMarkdown } from "~/lib/utils/markdown";
@@ -19,6 +19,7 @@ const updateSchema = z.object({
 const createSchema = z.object({
   title: z.string().min(2).max(40),
   categoryId: z.string().optional(),
+  body: z.string().optional(),
 });
 
 export const action: ActionFunction = async ({ request }) => {
@@ -35,7 +36,15 @@ export const action: ActionFunction = async ({ request }) => {
         return badRequest(error);
       }
 
-      const markdown = sanitizeUserMarkdown(body ?? "");
+      const note = await prisma.note.findUnique({
+        where: { id },
+      });
+
+      if (!note) {
+        return notFound("note not found");
+      }
+
+      const markdown = sanitizeUserMarkdown(body ?? note.body);
 
       return prisma.note.update({
         where: { id },
@@ -43,11 +52,13 @@ export const action: ActionFunction = async ({ request }) => {
       });
     },
     async post() {
-      const [{ title, categoryId }, error] = await getBodySafe(request, createSchema);
+      const [{ title, categoryId, body }, error] = await getBodySafe(request, createSchema);
 
       if (error) {
         return badRequest(error);
       }
+
+      const markdown = sanitizeUserMarkdown(body ?? "");
 
       return prisma.note.create({
         data: {
@@ -55,6 +66,7 @@ export const action: ActionFunction = async ({ request }) => {
           categoryId: parseCategoryId(categoryId),
           body: "Hello world",
           userId: user.id,
+          markdown,
         },
       });
     },
@@ -65,9 +77,11 @@ export const action: ActionFunction = async ({ request }) => {
         return badRequest(error);
       }
 
-      return prisma.note.delete({
+      await prisma.note.delete({
         where: { id },
       });
+
+      return redirect("/app");
     },
   });
 };

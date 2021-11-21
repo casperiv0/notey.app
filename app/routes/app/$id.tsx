@@ -5,6 +5,7 @@ import { prisma } from "~/lib/prisma.server";
 import { Editor } from "~/components/editor/Editor";
 
 import previewStyles from "~/styles/preview-styles.css";
+import { UnsavedChangesModal } from "~/components/modal/UnsavedChangesModal";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: previewStyles }];
 
@@ -40,6 +41,8 @@ export default function App() {
     <div>
       <Navbar />
       <Editor />
+
+      <UnsavedChangesModal />
     </div>
   );
 }
