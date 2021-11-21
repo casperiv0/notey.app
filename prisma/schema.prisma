@@ -36,6 +36,7 @@ model Note {
     categoryId    String?
     title         String    @db.VarChar(40)
     body          String    @db.Text
+    markdown      String?   @db.Text
     createdAt     DateTime  @default(now())
     public        Boolean   @default(false)
     pinCodeLocked Boolean   @default(false)

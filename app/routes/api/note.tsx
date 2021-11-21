@@ -7,11 +7,13 @@ import { z } from "zod";
 import { badRequest, unauthorized } from "remix-utils";
 import { getUserSession } from "~/lib/auth/session.server";
 import { idSchema } from "./category";
+import { sanitizeUserMarkdown } from "~/lib/utils/markdown";
 
 const updateSchema = z.object({
   id: z.string().min(10),
   title: z.string().min(2).max(40),
   categoryId: z.string().optional(),
+  body: z.string().optional(),
 });
 
 const createSchema = z.object({
@@ -27,15 +29,17 @@ export const action: ActionFunction = async ({ request }) => {
 
   return handleMethods(request, {
     async put() {
-      const [{ title, id, categoryId }, error] = await getBodySafe(request, updateSchema);
+      const [{ title, id, categoryId, body }, error] = await getBodySafe(request, updateSchema);
 
       if (error) {
         return badRequest(error);
       }
 
+      const markdown = sanitizeUserMarkdown(body ?? "");
+
       return prisma.note.update({
         where: { id },
-        data: { title, categoryId: parseCategoryId(categoryId) },
+        data: { title, categoryId: parseCategoryId(categoryId), body, markdown },
       });
     },
     async post() {

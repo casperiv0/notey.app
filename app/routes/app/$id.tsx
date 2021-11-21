@@ -1,7 +1,12 @@
 import { redirect } from "remix";
-import type { MetaFunction, LoaderFunction } from "remix";
+import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
 import { Navbar } from "~/components/navbar/Navbar";
 import { prisma } from "~/lib/prisma.server";
+import { Editor } from "~/components/editor/Editor";
+
+import previewStyles from "~/styles/preview-styles.css";
+
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: previewStyles }];
 
 export const meta: MetaFunction = ({ data }) => {
   const note = data?.note;
@@ -34,6 +39,7 @@ export default function App() {
   return (
     <div>
       <Navbar />
+      <Editor />
     </div>
   );
 }
