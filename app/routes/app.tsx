@@ -7,7 +7,8 @@ import { getUserSession } from "~/lib/auth/session.server";
 import { prisma } from "~/lib/prisma.server";
 
 export const meta: MetaFunction = () => ({
-  title: "Notey.app",
+  description: "A simple notes app to keep track of important things.",
+  title: "Notey.app - Keep track of important things",
 });
 
 export const loader: LoaderFunction = async ({ request }) => {
