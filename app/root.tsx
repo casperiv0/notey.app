@@ -1,6 +1,6 @@
 import type { LinksFunction, MetaFunction } from "remix";
 import { Meta, Links, Scripts, LiveReload, useCatch } from "remix";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { SSRProvider } from "@react-aria/ssr";
 import { IdProvider } from "@radix-ui/react-id";
 import classNames from "classnames";
@@ -88,6 +88,8 @@ export function CatchBoundary() {
             <h1>
               {caught.status} {caught.statusText}
             </h1>
+
+            <Link to="/" children={<>Return home</>} />
           </main>
         </Document>
       );

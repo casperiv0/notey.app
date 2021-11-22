@@ -1,6 +1,6 @@
 import type { Category, Note } from ".prisma/client";
 import { CaretDownFill, Pencil } from "react-bootstrap-icons";
-import { useId } from "@react-aria/utils";
+import { useId } from "react-aria";
 import { Button } from "../Button";
 import { ListItem } from "./ListItem";
 import { useModal } from "~/lib/useModal";
