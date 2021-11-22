@@ -56,7 +56,7 @@ export const Sidebar = () => {
             <Dropdown.Item onClick={() => openModal(Modals.ManageCategory)}>
               Create new category
             </Dropdown.Item>
-            <Dropdown.Item disabled onClick={() => openModal(Modals.Credits)}>
+            <Dropdown.Item  onClick={() => openModal(Modals.Credits)}>
               Credits
             </Dropdown.Item>
 

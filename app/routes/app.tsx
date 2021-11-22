@@ -2,6 +2,7 @@ import * as React from "react";
 import type { MetaFunction, LoaderFunction } from "remix";
 import { Outlet, useLoaderData, redirect } from "remix";
 import { Layout } from "~/components/Layout";
+import { CreditsModal } from "~/components/modal/CreditsModal";
 import { useUser } from "~/lib/auth/auth";
 import { getUserSession } from "~/lib/auth/session.server";
 import { prisma } from "~/lib/prisma.server";
@@ -53,6 +54,8 @@ export default function App() {
   return (
     <Layout>
       <Outlet />
+
+      <CreditsModal />
     </Layout>
   );
 }

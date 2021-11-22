@@ -2,7 +2,7 @@
   "private": true,
   "name": "remix-app-template",
   "description": "",
-  "license": "",
+  "license": "MIT",
   "scripts": {
     "clean": "rimraf ./node_modules/.cache ./server/dist ./build ./public/build",
     "prebuild": "npm run clean && echo All clean ✨",

@@ -12,7 +12,7 @@ interface Props {
   children: React.ReactNode;
   title: React.ReactFragment | string;
   description?: React.ReactFragment | string;
-  extra?: { width?: number; isAlert?: boolean };
+  extra?: { width?: number; isAlert?: boolean; forceOpen?: boolean };
 }
 
 export const Modal = ({ id, children, description, title, extra }: Props) => {
@@ -20,9 +20,10 @@ export const Modal = ({ id, children, description, title, extra }: Props) => {
   const { isOpen, closeModal } = useModal();
   const width = extra?.width ?? 500;
   const isAlert = extra?.isAlert ?? false;
+  const isModalOpen = typeof extra?.forceOpen !== "undefined" ? extra.forceOpen : isOpen(id);
 
   return (
-    <Dialog.Root open={isOpen(id)} onOpenChange={(v) => !v && closeModal(id)}>
+    <Dialog.Root open={isModalOpen} onOpenChange={(v) => !v && closeModal(id)}>
       <Dialog.Overlay className="fixed inset-0 bg-black/20" />
 
       <Dialog.Content
@@ -32,7 +33,7 @@ export const Modal = ({ id, children, description, title, extra }: Props) => {
         <header className="flex justify-between">
           <Dialog.Title className="mb-1 text-2xl font-semibold">{title}</Dialog.Title>
           <div>
-            <Dialog.Close className="h-8"  id={closeId} aria-label="Close modal" asChild>
+            <Dialog.Close className="h-8" id={closeId} aria-label="Close modal" asChild>
               <Button variant="cancel" className="px-1 rounded-md">
                 <X width={25} height={25} aria-labelledby={closeId} />
               </Button>
