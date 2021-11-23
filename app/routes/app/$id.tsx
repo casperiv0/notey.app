@@ -47,3 +47,7 @@ export default function App() {
     </div>
   );
 }
+
+export function CatchBoundary() {
+  return <div>oh no!</div>;
+}
