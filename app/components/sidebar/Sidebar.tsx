@@ -76,10 +76,6 @@ export const Sidebar = () => {
       </header>
 
       <section className="mt-5">
-        <FormField label="Search">
-          <Input placeholder="Search notes.." type="search" />
-        </FormField>
-
         {categories.length <= 0 && noCategoryNotes.length <= 0 ? (
           <p className="text-gray-400">You do not have any notes yet.</p>
         ) : (

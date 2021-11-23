@@ -9,7 +9,7 @@ export type ButtonProps = JSX.IntrinsicElements["button"] & {
 
 const variants = {
   default: "bg-dark-3 hover:bg-dark-4",
-  danger: "bg-red-500/80 hover:bg-red-600 text-black",
+  danger: "bg-red-500 hover:bg-red-600 text-black",
   icon: "bg-transparent hover:bg-dark-4",
   dropdown: "bg-transparent hover:bg-dark-3",
   cancel: "bg-transparent hover:bg-dark-2 mr-1",
