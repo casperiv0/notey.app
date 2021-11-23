@@ -4,8 +4,9 @@ import { prisma } from "~/lib/prisma.server";
 import { z } from "zod";
 import { getBodySafe } from "~/lib/utils/body";
 import { badRequest, notFound, unauthorized } from "remix-utils";
-import { getUserSession } from "~/lib/auth/session.server";
+import { getUserSession, logout } from "~/lib/auth/session.server";
 import { handleMethods } from "~/lib/utils/handleMethods";
+import { idSchema } from "./category";
 
 const userSchema = z.object({
   username: z.string().min(2).max(40),
@@ -20,6 +21,31 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   return handleMethods(request, {
+    async delete() {
+      const [{ id }, error] = await getBodySafe(request, idSchema);
+
+      if (error) {
+        return badRequest(error);
+      }
+
+      if (id !== user.id) {
+        return badRequest("Invalid user id");
+      }
+
+      if (user.userPreferencesId) {
+        await prisma.userPreferences.delete({
+          where: { id: user.userPreferencesId },
+        });
+      }
+
+      await prisma.user.delete({
+        where: { id },
+      });
+
+      const headers = await logout();
+
+      return new Response(null, { headers });
+    },
     async patch() {
       const [{ username, show_cursor_pointers, dark_theme }, error] = await getBodySafe(
         request,

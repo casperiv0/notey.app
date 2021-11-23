@@ -30,7 +30,7 @@ model UserPreferences {
 
 model Note {
     id            String    @id @default(cuid())
-    user          User      @relation(fields: [userId], references: [id])
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId        String
     category      Category? @relation(fields: [categoryId], references: [id])
     categoryId    String?
@@ -44,7 +44,7 @@ model Note {
 
 model Category {
     id        String   @id @default(cuid())
-    user      User     @relation(fields: [userId], references: [id])
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
     name      String   @db.VarChar(40)
     folded    Boolean  @default(false)

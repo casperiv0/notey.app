@@ -19,6 +19,7 @@ export const Editor = () => {
       className="w-full px-4 py-2 bg-dark focus:outline-none"
       value={note.body}
       onChange={(e) => setNote({ ...note, body: e.target.value })}
+      placeholder="Start typing.."
     />
   ) : (
     <div
