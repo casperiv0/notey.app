@@ -73,8 +73,8 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center">
-          <Button onClick={handleClick} className="mr-2">
-            {editMode ? "Save" : "Edit mode"}
+          <Button loading={fetcher.state !== "idle"} onClick={handleClick} className="mr-2">
+            {fetcher.state !== "idle" ? "Saving.." : editMode ? "Save" : "Edit mode"}
           </Button>
 
           <Dropdown

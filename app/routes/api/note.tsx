@@ -75,15 +75,17 @@ export const action: ActionFunction = async ({ request }) => {
 
       const markdown = sanitizeUserMarkdown(body ?? "");
 
-      return prisma.note.create({
+      const note = await prisma.note.create({
         data: {
           title,
           categoryId: parseCategoryId(categoryId),
-          body: "Hello world",
+          body: "",
           userId: user.id,
           markdown,
         },
       });
+
+      return redirect(`/app/${note.id}`);
     },
     async delete() {
       const [{ id }, error] = await getBodySafe(request, idSchema);

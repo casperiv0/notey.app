@@ -25,7 +25,7 @@ export const AlertModal = (props: Props) => {
   const fullAction = `${action}?next=${next}`;
 
   React.useEffect(() => {
-    if (state === "submitting") {
+    if (state === "loading") {
       closeModal(props.id);
     }
   }, [state, props.id]);
@@ -39,8 +39,8 @@ export const AlertModal = (props: Props) => {
           <Button type="button" onClick={() => closeModal(props.id)} variant="cancel">
             Cancel
           </Button>
-          <Button variant="danger" type="submit">
-            Delete
+          <Button loading={state !== "idle"} variant="danger" type="submit">
+            {state !== "idle" ? "Deleting.." : "Delete"}
           </Button>
         </div>
       </Form>

@@ -29,7 +29,7 @@ export const CategoryForm = () => {
       {category ? <Input className="hidden" defaultValue={category.id} id="id" name="id" /> : null}
 
       <FormField label="Name">
-        <Input defaultValue={category?.name} id="name" name="name" />
+        <Input required defaultValue={category?.name} id="name" name="name" />
       </FormField>
 
       <div className={classNames("flex", category ? "justify-between" : "justify-end")}>

@@ -22,7 +22,7 @@ export const Editor = () => {
     />
   ) : (
     <div
-      style={{ height: "calc(100vh - 3.55rem)" }}
+      style={{ height: "calc(100vh - 3.55rem)", overflowY: "auto" }}
       className="w-full px-4 py-2 text-lg bg-dark preview-styles"
       id="note-preview-area"
       dangerouslySetInnerHTML={{ __html: note?.markdown as string }}

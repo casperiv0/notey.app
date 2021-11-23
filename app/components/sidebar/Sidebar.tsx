@@ -56,9 +56,7 @@ export const Sidebar = () => {
             <Dropdown.Item onClick={() => openModal(Modals.ManageCategory)}>
               Create new category
             </Dropdown.Item>
-            <Dropdown.Item  onClick={() => openModal(Modals.Credits)}>
-              Credits
-            </Dropdown.Item>
+            <Dropdown.Item onClick={() => openModal(Modals.Credits)}>Credits</Dropdown.Item>
 
             <Dropdown.Separator />
 
@@ -82,22 +80,26 @@ export const Sidebar = () => {
           <Input placeholder="Search notes.." type="search" />
         </FormField>
 
-        <ul role="list">
-          {categories.map((category) => {
-            return <CategoryItem key={category.id} category={category} />;
-          })}
+        {categories.length <= 0 && noCategoryNotes.length <= 0 ? (
+          <p className="text-gray-400">You do not have any notes yet.</p>
+        ) : (
+          <ul role="list">
+            {categories.map((category) => {
+              return <CategoryItem key={category.id} category={category} />;
+            })}
 
-          <CategoryItem
-            category={{
-              userId: "null",
-              id: "no_category",
-              name: "No category",
-              notes: noCategoryNotes,
-              createdAt: new Date(""),
-              folded: false,
-            }}
-          />
-        </ul>
+            <CategoryItem
+              category={{
+                userId: "null",
+                id: "no_category",
+                name: "No category",
+                notes: noCategoryNotes,
+                createdAt: new Date(""),
+                folded: false,
+              }}
+            />
+          </ul>
+        )}
       </section>
 
       <ManageCategoryModal />

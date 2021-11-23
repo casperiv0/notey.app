@@ -16,7 +16,7 @@ export const AccountForm = () => {
   return (
     <Form action="/api/user" method="patch" className="mt-2">
       <FormField label="Username">
-        <Input defaultValue={user.username} id="username" name="username" />
+        <Input required defaultValue={user.username} id="username" name="username" />
       </FormField>
 
       <FormField checkbox label="Show cursor pointers">

@@ -27,15 +27,20 @@ export const NoteForm = () => {
   }, [closeModal, data.state]);
 
   return (
-    <Form action={apiUrl} method={note ? "put" : "post"} className="mt-2">
+    <Form action={note ? apiUrl : "/api/note"} method={note ? "put" : "post"} className="mt-2">
       {note ? <Input className="hidden" defaultValue={note.id} id="id" name="id" /> : null}
 
       <FormField label="Name">
-        <Input defaultValue={note?.title} id="title" name="title" />
+        <Input required defaultValue={note?.title} id="title" name="title" />
       </FormField>
 
       <FormField label="Category">
-        <Select defaultValue={note?.categoryId ?? "null"} id="categoryId" name="categoryId">
+        <Select
+          required
+          defaultValue={note?.categoryId ?? "null"}
+          id="categoryId"
+          name="categoryId"
+        >
           {categories.map((v) => (
             <option key={v.id} value={v.id}>
               {v.name}
@@ -57,7 +62,9 @@ export const NoteForm = () => {
         <Button type="button" onClick={() => closeModal(Modals.CreateNote)} variant="cancel">
           Cancel
         </Button>
-        <Button type="submit">{note ? "Save Changes" : "Create"}</Button>
+        <Button loading={data.state !== "idle"} type="submit">
+          {note ? "Save Changes" : "Create"}
+        </Button>
       </div>
     </Form>
   );
