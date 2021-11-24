@@ -5,7 +5,7 @@ node_modules
 
 /build
 /.cache
-/server/build
+/api/build
 /public/build
 /app/styles/tailwind.css
 

@@ -1,13 +1,16 @@
+import * as React from "react";
 import type { LinksFunction, MetaFunction } from "remix";
-import { Meta, Links, Scripts, LiveReload, useCatch } from "remix";
+import { useTransition, Meta, Links, Scripts, LiveReload, useCatch } from "remix";
 import { Link, Outlet } from "react-router-dom";
 import { SSRProvider } from "@react-aria/ssr";
 import { IdProvider } from "@radix-ui/react-id";
+import NProgress from "nprogress";
 import classNames from "classnames";
+import { useUser } from "./lib/auth/auth";
 
 import tailwindStyles from "./styles/tailwind.css";
 import globalStyles from "./styles/global.css";
-import { useUser } from "./lib/auth/auth";
+import nProgressStyles from "./styles/nprogress.css";
 
 export const links: LinksFunction = () => {
   return [
@@ -32,6 +35,7 @@ export const links: LinksFunction = () => {
       rel: "stylesheet",
       href: "https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap",
     },
+    { rel: "stylesheet", href: nProgressStyles },
   ];
 };
 
@@ -43,6 +47,15 @@ export const meta: MetaFunction = () => ({
 
 function Document({ children, title }: { children: React.ReactNode; title?: string }) {
   const { user } = useUser();
+
+  const transition = useTransition();
+  React.useEffect(() => {
+    // when the state is idle then we can to complete the progress bar
+    if (transition.state === "idle") NProgress.done();
+    // and when it's something else it means it's either submitting a form or
+    // waiting for the loaders of the next location so we start it
+    else NProgress.start();
+  }, [transition.state]);
 
   return (
     <html lang="en" dir="ltr">

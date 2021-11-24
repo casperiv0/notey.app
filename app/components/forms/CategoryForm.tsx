@@ -15,6 +15,7 @@ export const CategoryForm = () => {
   const data = useTransition();
   const category = getPayload<Category>(Modals.ManageCategory);
   const location = useLocation();
+  const { state } = useTransition();
 
   const apiUrl = `/api/category?next=${location.pathname}`;
 
@@ -47,7 +48,9 @@ export const CategoryForm = () => {
           <Button type="button" onClick={() => closeModal(Modals.ManageCategory)} variant="cancel">
             Cancel
           </Button>
-          <Button type="submit">{category ? "Save Changes" : "Create"}</Button>
+          <Button loading={state !== "idle"} type="submit">
+            {category ? "Save Changes" : "Create"}
+          </Button>
         </div>
       </div>
 

@@ -6,6 +6,7 @@
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "target": "ES2019",
+    "module": "ESNext",
     "strict": true,
     "paths": {
       "~/*": ["./app/*"]
