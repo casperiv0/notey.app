@@ -56,11 +56,8 @@ export const action: ActionFunction = async ({ request }) => {
         return badRequest(error);
       }
 
-      const cursorPointers = show_cursor_pointers
-        ? show_cursor_pointers === "true"
-        : !user.preferences?.cursorPointers;
-
-      const darkTheme = dark_theme ? dark_theme === "true" : !user.preferences?.darkTheme;
+      const cursorPointers = typeof show_cursor_pointers !== "undefined";
+      const darkTheme = typeof dark_theme !== "undefined";
 
       await prisma.userPreferences.upsert({
         where: {

@@ -1,4 +1,6 @@
-import { Form } from "remix";
+import * as React from "react";
+import { Form, useTransition } from "remix";
+import { useLocation } from "react-router";
 import { useUser } from "~/lib/auth/auth";
 import { Modals } from "~/lib/constants";
 import { useModal } from "~/lib/useModal";
@@ -7,13 +9,24 @@ import { FormField } from "../form/FormField";
 import { Input } from "../form/Input";
 import { Switch } from "../form/Switch";
 import { AlertModal } from "../modal/AlertModal";
+import { Modal } from "../modal/Modal";
 
 export const AccountForm = () => {
   const { user } = useUser();
   const { closeModal, openModal } = useModal();
+  const { pathname } = useLocation();
+  const { state } = useTransition();
+
+  const apiUrl = `/api/user?next=${pathname}`;
+
+  React.useEffect(() => {
+    if (state === "loading") {
+      closeModal(Modals.ManageAccount);
+    }
+  }, [closeModal, state]);
 
   return (
-    <Form action="/api/user" method="patch" className="mt-2">
+    <Form action={apiUrl} method="patch" className="mt-2">
       <FormField label="Username">
         <Input required defaultValue={user.username} id="username" name="username" />
       </FormField>
@@ -35,10 +48,12 @@ export const AccountForm = () => {
         </Button>
 
         <div className="flex">
-          <Button type="button" onClick={() => closeModal(Modals.ManageAccount)} variant="cancel">
+          <Modal.Close type="button" variant="cancel">
             Cancel
+          </Modal.Close>
+          <Button loading={state !== "idle"} type="submit">
+            Save Changes
           </Button>
-          <Button type="submit">Save Changes</Button>
         </div>
       </div>
 
