@@ -51,7 +51,7 @@ export default function Index() {
         </nav>
 
         <div
-          style={{ minHeight: "calc(100vh - 5rem - 7.5rem)" }}
+          style={{ minHeight: "calc(100vh - 5rem - 9.5rem)" }}
           className="flex flex-col w-full mt-10 md:justify-between md:flex-row md:items-center md:gap-2"
           id="hero"
         >
@@ -79,7 +79,7 @@ export default function Index() {
           </div>
         </div>
 
-        <footer className="flex items-center justify-between h-24 text-lg">
+        <footer className="flex items-center justify-between h-32 text-lg">
           <p>
             Created by{" "}
             <a href="https://caspertheghost.me" className="underline">
