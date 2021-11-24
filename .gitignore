@@ -11,3 +11,4 @@ node_modules
 
 .data
 docker-compose.yml
+.vercel
