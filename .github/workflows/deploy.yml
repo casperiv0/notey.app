@@ -11,18 +11,9 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Install and cache dependencies
-        uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Build Remix App
         run: |
-          npm ci
-          npx remix setup node
+          npm install
           npm run build
 
       - name: Deploy Preview
