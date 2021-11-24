@@ -1,6 +1,8 @@
+import * as React from "react";
 import { Link } from "react-router-dom";
 import { MetaFunction, LoaderFunction, useLoaderData } from "remix";
 import { ShowCase } from "~/components/Showcase";
+import { useUser } from "~/lib/auth/auth";
 import { getUserSession } from "~/lib/auth/session.server";
 
 export const meta: MetaFunction = () => ({
@@ -16,10 +18,15 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Index() {
   const user = useLoaderData();
+  const { setUser } = useUser();
+
+  React.useEffect(() => {
+    setUser(user ?? { preferences: {} });
+  }, [setUser, user]);
 
   return (
     <main className="flex items-center justify-center px-5 lg:px-0">
-      <div className="flex flex-col w-full max-w-5xl bg-dark">
+      <div id="content" className="flex flex-col w-full max-w-5xl bg-dark">
         <nav className="flex items-center justify-between h-16">
           <h1 className="text-2xl font-bold md:text-3xl">Notey.app</h1>
 
@@ -32,7 +39,7 @@ export default function Index() {
               </>
             ) : (
               <>
-                <Link className="cursor-pointer hover:underline" to="/auth/login">
+                <Link className="hover:underline" to="/auth/login">
                   Login
                 </Link>
                 <Link className="link" to="/auth/login">
@@ -44,6 +51,7 @@ export default function Index() {
         </nav>
 
         <div
+          style={{ minHeight: "calc(100vh - 5rem - 7.5rem)" }}
           className="flex flex-col w-full mt-10 md:justify-between md:flex-row md:items-center md:gap-2"
           id="hero"
         >
@@ -70,6 +78,47 @@ export default function Index() {
             <ShowCase className="w-full" />
           </div>
         </div>
+
+        <footer className="flex items-center justify-between h-24 text-lg">
+          <p>
+            Created by{" "}
+            <a href="https://caspertheghost.me" className="underline">
+              CasperTheGhost
+            </a>{" "}
+            with{" "}
+            <a href="https://remix.run" className="underline">
+              Remix.run
+            </a>
+          </p>
+
+          <ul>
+            {user ? (
+              <li>
+                <Link className="underline" to="/app">
+                  Open App
+                </Link>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link className="underline" to="/auth/login">
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link className="underline" to="/auth/register">
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
+            <li>
+              <a href="https://github.com/dev-caspertheghost/notey.app" className="underline ">
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </footer>
       </div>
     </main>
   );

@@ -47,8 +47,8 @@ export const meta: MetaFunction = () => ({
 
 function Document({ children, title }: { children: React.ReactNode; title?: string }) {
   const { user } = useUser();
-
   const transition = useTransition();
+
   React.useEffect(() => {
     // when the state is idle then we can to complete the progress bar
     if (transition.state === "idle") NProgress.done();
@@ -67,7 +67,7 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
       </head>
       <body
         className={classNames(
-          user.preferences?.cursorPointers ? "cursors-pointer" : "cursors-default",
+          !user.id || user.preferences?.cursorPointers ? "cursors-pointer" : "cursors-default",
           user.preferences?.darkTheme && "dark",
         )}
       >
