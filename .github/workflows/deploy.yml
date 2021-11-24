@@ -22,6 +22,7 @@ jobs:
       - name: Build Remix App
         run: |
           npm ci
+          npx remix setup node
           npm run build
 
       - name: Deploy Preview
