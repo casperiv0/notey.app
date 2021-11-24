@@ -55,7 +55,12 @@ export const NoteForm = () => {
           defaultChecked={note?.pinCodeLocked ?? false}
           id="pinCodeLocked"
           name="pinCodeLocked"
+          disabled
         />
+      </FormField>
+
+      <FormField className="mt-5" checkbox label="Public">
+        <Switch defaultChecked={note?.public ?? false} id="isPublic" name="isPublic" />
       </FormField>
 
       <div className="flex justify-end">

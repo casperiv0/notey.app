@@ -9,16 +9,19 @@ import { getUserSession } from "~/lib/auth/session.server";
 import { idSchema } from "./category";
 import { sanitizeUserMarkdown } from "~/lib/utils/markdown";
 
+const booleanLike = z
+  .string()
+  .regex(/true|false/)
+  .optional()
+  .default("false");
+
 const updateSchema = z.object({
   id: z.string().min(10),
   title: z.string().min(2).max(40),
   categoryId: z.string().optional(),
   body: z.string().optional(),
-  pinCodeLocked: z
-    .string()
-    .regex(/true|false/)
-    .optional()
-    .default("false"),
+  isPublic: booleanLike,
+  pinCodeLocked: booleanLike,
 });
 
 const createSchema = z.object({
@@ -35,11 +38,10 @@ export const action: ActionFunction = async ({ request }) => {
 
   return handleMethods(request, {
     async put() {
-      const [{ title, id, categoryId, body, pinCodeLocked }, error] = await getBodySafe(
+      const [{ title, id, categoryId, body, pinCodeLocked, isPublic }, error] = await getBodySafe(
         request,
         updateSchema,
       );
-      console.log({ pinCodeLocked });
 
       if (error) {
         return badRequest(error);
@@ -63,6 +65,7 @@ export const action: ActionFunction = async ({ request }) => {
           body,
           markdown,
           pinCodeLocked: pinCodeLocked === "true",
+          public: isPublic === "true",
         },
       });
     },

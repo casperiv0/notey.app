@@ -31,6 +31,7 @@ export const Navbar = () => {
       fd.set("id", note.id);
       fd.set("body", note.body);
       fd.set("categoryId", note.categoryId ?? "null");
+      fd.set("isPublic", String(note.public ?? false));
 
       // update
       fetcher.submit(fd, { action: apiUrl, method: "put" });
@@ -49,6 +50,7 @@ export const Navbar = () => {
     fd.set("title", note.title);
     fd.set("body", note.body);
     fd.set("categoryId", note.categoryId ?? "null");
+    fd.set("isPublic", String(note.public ?? false));
 
     fetcher.submit(fd, { action: apiUrl, method: "post" });
   }
