@@ -12,7 +12,6 @@
     "dev:remix": "remix dev",
     "dev": "concurrently \"npm run watch:css\" \"npm run dev:remix\"",
     "watch": "concurrently \"npm run watch:css\" \"remix watch\"",
-    "vercel:dev": "concurrently \"npm run watch\" \"npx vercel dev\"",
     "test-tsc": "tsc --noEmit",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,css,json}\" --ignore-path .gitignore",
     "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
@@ -29,11 +28,9 @@
     "@react-aria/ssr": "^3.1.0",
     "@remix-run/react": "^1.0.4",
     "@remix-run/serve": "^1.0.4",
-    "@remix-run/vercel": "^1.0.4",
     "bcrypt": "^5.0.1",
     "classnames": "^2.3.1",
     "dompurify": "^2.3.3",
-    "formik": "^2.2.9",
     "jsdom": "^18.1.1",
     "jsonwebtoken": "^8.5.1",
     "marked": "^4.0.4",
@@ -61,7 +58,6 @@
     "@types/marked": "^4.0.1",
     "@types/react": "^17.0.36",
     "@types/react-dom": "^17.0.11",
-    "@vercel/node": "^1.12.1",
     "autoprefixer": "^10.4.0",
     "concurrently": "^6.4.0",
     "eslint": "^8.3.0",
@@ -73,8 +69,7 @@
     "postcss-cli": "^9.0.2",
     "tailwindcss": "^2.2.19",
     "type-fest": "^2.6.0",
-    "typescript": "^4.5.2",
-    "vercel": "^23.1.2"
+    "typescript": "^4.5.2"
   },
   "engines": {
     "node": ">=14"
