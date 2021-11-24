@@ -89,7 +89,9 @@ export function CatchBoundary() {
               {caught.status} {caught.statusText}
             </h1>
 
-            <Link to="/" children={<>Return home</>} />
+            <Link className="underline" to="/app">
+              Return to app
+            </Link>
           </main>
         </Document>
       );

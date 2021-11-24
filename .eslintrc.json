@@ -12,5 +12,9 @@
     "ecmaFeatures": {
       "jsx": true
     }
+  },
+  "rules": {
+    "no-duplicate-imports": "off",
+    "@typescript-eslint/ban-types": "off"
   }
 }

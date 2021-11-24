@@ -28,7 +28,7 @@ export const AlertModal = (props: Props) => {
     if (state === "loading") {
       closeModal(props.id);
     }
-  }, [state, props.id]);
+  }, [state, props.id, closeModal]);
 
   return (
     <Modal {...props} extra={{ isAlert: true, width: 520 }}>

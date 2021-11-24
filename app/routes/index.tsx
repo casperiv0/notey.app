@@ -7,7 +7,7 @@ export const meta: MetaFunction = () => ({
   title: "Notey.app - Keep track of important things",
 });
 
-export let loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUserSession(request);
 
   return user;
@@ -45,7 +45,9 @@ export default function Index() {
         <section className="flex flex-col w-full mt-10 md:flex-row" id="hero">
           <div className="md:w-1/2">
             <h1 className="text-2xl font-semibold md:text-4xl">Keep track of important things</h1>
-            <h3 className="my-2 mb-5 text-2xl font-normal text-gray-400">Notes app to keep track of the most important things securely and easily.</h3>
+            <h3 className="my-2 mb-5 text-2xl font-normal text-gray-400">
+              Notes app to keep track of the most important things securely and easily.
+            </h3>
 
             {user ? (
               <Link className="text-lg link" to="/app">

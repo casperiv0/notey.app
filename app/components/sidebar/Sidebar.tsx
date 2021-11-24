@@ -14,12 +14,13 @@ import { NoteForm } from "../forms/NoteForm";
 import { useUser } from "~/lib/auth/auth";
 import { AccountForm } from "../forms/AccountForm";
 
+type LoaderData = { noCategoryNotes: Note[]; categories: (Category & { notes: Note[] })[] };
+
 export const Sidebar = () => {
   const { user } = useUser();
   const { openModal } = useModal();
   const dotsId = useId();
-  const data =
-    useLoaderData<{ noCategoryNotes: Note[]; categories: (Category & { notes: Note[] })[] }>();
+  const data = useLoaderData<LoaderData>();
   const categories = data?.categories ?? [];
   const noCategoryNotes = data?.noCategoryNotes ?? [];
   const navigate = useNavigate();

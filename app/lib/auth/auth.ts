@@ -1,10 +1,12 @@
 import { User, UserPreferences } from ".prisma/client";
 import create from "zustand";
 
-export const useUser = create<{
+interface UserStore {
   user: User & { preferences?: UserPreferences };
   setUser: (user: User) => void;
-}>((set) => ({
+}
+
+export const useUser = create<UserStore>((set) => ({
   user: { preferences: {} } as User & { preferences?: UserPreferences },
   setUser: (user) => set({ user }),
 }));

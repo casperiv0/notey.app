@@ -3,7 +3,7 @@ import { prisma } from "../prisma.server";
 
 export async function loginUser({ username, password }: { username: string; password: string }) {
   const user = await prisma.user.findUnique({
-    where: { username: username },
+    where: { username },
   });
 
   if (!user) {
@@ -18,7 +18,7 @@ export async function loginUser({ username, password }: { username: string; pass
 
 export async function registerUser({ username, password }: { username: string; password: string }) {
   const user = await prisma.user.findUnique({
-    where: { username: username },
+    where: { username },
   });
 
   if (user) {

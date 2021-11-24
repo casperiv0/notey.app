@@ -1,14 +1,14 @@
-name: Check typescript build
+name: Check prettier & ESLint
 
 on: [push, pull_request]
 
 jobs:
-  tsc-build:
+  ESLint:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -21,5 +21,5 @@ jobs:
         run: npm install
       - name: Setup Remix
         run: npx remix setup node
-      - name: Run tsc
-        run: npm run test-tsc
+      - name: Run lint
+        run: npm run lint

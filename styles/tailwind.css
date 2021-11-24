@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-  .link {
-    @apply p-1 px-3 transition-colors rounded-md cursor-default disabled:opacity-50 disabled:cursor-not-allowed bg-dark-3 hover:bg-dark-4;
+.link {
+  @apply p-1 px-3 transition-colors rounded-md cursor-default disabled:opacity-50 disabled:cursor-not-allowed bg-dark-3 hover:bg-dark-4;
 }

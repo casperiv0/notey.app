@@ -5,7 +5,7 @@ export async function handleMethods(request: Request, handlers: Partial<Record<M
   const method = request.method.toLowerCase() as Method;
   const handler = handlers[method] ?? methodNotAllowed;
 
-  return await handler();
+  return handler();
 }
 
 async function methodNotAllowed() {

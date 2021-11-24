@@ -29,6 +29,7 @@ export function useActiveNote() {
   React.useEffect(() => {
     setNote(loaderData?.note ?? null);
     setEditMode(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, loaderData?.note]);
 
   return { note, editMode, setNote, setEditMode };

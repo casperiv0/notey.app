@@ -58,7 +58,10 @@ export const CategoryForm = () => {
           id={Modals.AlertDeleteCategory}
           action="delete-/api/category"
           description={
-            <>Are you sure you want to delete <span className="font-bold">{category.name}</span>? This action cannot be undone.</>
+            <>
+              Are you sure you want to delete <span className="font-bold">{category.name}</span>?
+              This action cannot be undone.
+            </>
           }
         />
       ) : null}
