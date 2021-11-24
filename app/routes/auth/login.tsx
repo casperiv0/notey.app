@@ -1,5 +1,4 @@
-import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from "remix";
-import { Formik } from "formik";
+import type { ActionFunction, HeadersFunction, MetaFunction } from "remix";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { useTransition, redirect, useActionData, Form } from "remix";
@@ -10,7 +9,7 @@ import { FormField } from "~/components/form/FormField";
 import { handleMethods } from "~/lib/utils/handleMethods";
 import { loginUser } from "~/lib/auth/auth.server";
 import { getBodySafe } from "~/lib/utils/body";
-import { createSession, getUserSession } from "~/lib/auth/session.server";
+import { createSession } from "~/lib/auth/session.server";
 
 export const meta: MetaFunction = () => ({
   title: "Login - Notey.app",
@@ -63,52 +62,32 @@ export default function Login() {
 
   return (
     <main className="flex items-center justify-center min-w-full min-h-screen">
-      <Formik onSubmit={() => undefined} initialValues={{ username: "", password: "" }}>
-        {({ handleChange, values, errors }) => (
-          <Form method="post" className="flex flex-col p-4 rounded-md shadow-md bg-dark-1 w-96">
-            <h1 className="mb-5 text-2xl font-semibold text-white">Login to continue</h1>
+      <Form method="post" className="flex flex-col p-4 rounded-md shadow-md bg-dark-1 w-96">
+        <h1 className="mb-5 text-2xl font-semibold text-white">Login to continue</h1>
 
-            {error ? (
-              <div
-                className="p-1.5 px-2 mb-3 font-medium text-black bg-red-500 rounded-md shadow-md"
-                role="alert"
-              >
-                <p>{error}</p>
-              </div>
-            ) : null}
+        {error ? (
+          <div
+            className="p-1.5 px-2 mb-3 font-medium text-black bg-red-500 rounded-md shadow-md"
+            role="alert"
+          >
+            <p>{error}</p>
+          </div>
+        ) : null}
 
-            <FormField label="Username">
-              <Input
-                autoFocus
-                autoComplete="username"
-                value={values.username}
-                onChange={handleChange}
-                name="username"
-                id="username"
-                required
-              />
-            </FormField>
+        <FormField label="Username">
+          <Input autoFocus autoComplete="username" name="username" id="username" required />
+        </FormField>
 
-            <FormField label="Password">
-              <Input
-                autoComplete="password"
-                value={values.password}
-                onChange={handleChange}
-                name="password"
-                id="password"
-                type="password"
-                required
-              />
-            </FormField>
+        <FormField label="Password">
+          <Input autoComplete="password" name="password" id="password" type="password" required />
+        </FormField>
 
-            <Link className="mb-3 underline" to="/auth/register">
-              {"Don't have an account? Register here."}
-            </Link>
+        <Link className="mb-3 underline" to="/auth/register">
+          {"Don't have an account? Register here."}
+        </Link>
 
-            <Button loading={state === "submitting"}>Login</Button>
-          </Form>
-        )}
-      </Formik>
+        <Button loading={state === "submitting"}>Login</Button>
+      </Form>
     </main>
   );
 }

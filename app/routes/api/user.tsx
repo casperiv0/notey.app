@@ -3,7 +3,7 @@ import type { LoaderFunction, ActionFunction } from "remix";
 import { prisma } from "~/lib/prisma.server";
 import { z } from "zod";
 import { getBodySafe } from "~/lib/utils/body";
-import { badRequest, notFound, unauthorized } from "remix-utils";
+import { badRequest, unauthorized } from "remix-utils";
 import { getUserSession, logout } from "~/lib/auth/session.server";
 import { handleMethods } from "~/lib/utils/handleMethods";
 import { idSchema } from "./category";
@@ -68,10 +68,12 @@ export const action: ActionFunction = async ({ request }) => {
         },
         create: {
           cursorPointers,
+          darkTheme,
           users: { connect: { id: user.id } },
         },
         update: {
           cursorPointers,
+          darkTheme,
         },
       });
 

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { MetaFunction, LoaderFunction, useLoaderData } from "remix";
-import { useUser } from "~/lib/auth/auth";
 import { getUserSession } from "~/lib/auth/session.server";
 
 export const meta: MetaFunction = () => ({

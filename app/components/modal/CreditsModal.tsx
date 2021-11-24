@@ -1,4 +1,3 @@
-import { Link } from "remix";
 import { Modals } from "~/lib/constants";
 import { Modal } from "./Modal";
 

@@ -11,6 +11,23 @@
       "~/*": ["./app/*"]
     },
 
+    "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
+    "strictNullChecks": true /* Enable strict null checks. */,
+    "strictPropertyInitialization": true /* Enable strict checking of property initialization in classes. */,
+    "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noUnusedParameters": true /* Report errors on unused parameters. */,
+    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
     // Remix takes care of building everything in `remix build`.
     "noEmit": true
   }

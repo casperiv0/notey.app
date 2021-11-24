@@ -1,5 +1,4 @@
-import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from "remix";
-import { Formik } from "formik";
+import type { ActionFunction, HeadersFunction,  MetaFunction } from "remix";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { useTransition, redirect, useActionData, Form } from "remix";

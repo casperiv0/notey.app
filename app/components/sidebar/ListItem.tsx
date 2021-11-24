@@ -1,7 +1,6 @@
 import type * as React from "react";
 import type { Note } from ".prisma/client";
 import classNames from "classnames";
-import { useLocation } from "react-router";
 import { Link } from "remix";
 import { useActiveNote } from "~/lib/note";
 import { useModal } from "~/lib/useModal";
@@ -14,7 +13,6 @@ interface Props {
 export const ListItem = ({ note: { id, title } }: Props) => {
   const { note, editMode } = useActiveNote();
   const { openModal } = useModal();
-  const loc = useLocation();
 
   function handleClick(e: React.MouseEvent) {
     if (editMode === true) {

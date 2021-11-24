@@ -12,8 +12,6 @@ import { useModal } from "~/lib/useModal";
 import { Modals } from "~/lib/constants";
 import { NoteForm } from "../forms/NoteForm";
 import { useUser } from "~/lib/auth/auth";
-import { FormField } from "../form/FormField";
-import { Input } from "../form/Input";
 import { AccountForm } from "../forms/AccountForm";
 
 export const Sidebar = () => {
