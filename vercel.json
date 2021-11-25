@@ -1,8 +1,0 @@
-{
-  "build": {
-    "env": {
-      "ENABLE_FILE_SYSTEM_API": "1",
-      "VERCEL_BUILD_CLI_PACKAGE": "vercel@canary"
-    }
-  }
-}
