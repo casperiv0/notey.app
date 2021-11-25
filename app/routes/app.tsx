@@ -1,5 +1,6 @@
 import * as React from "react";
 import type { MetaFunction, LoaderFunction } from "remix";
+import type { Note } from ".prisma/client";
 import { Outlet, useLoaderData, redirect } from "remix";
 import { Layout } from "~/components/Layout";
 import { CreditsModal } from "~/components/modal/CreditsModal";
@@ -36,6 +37,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     }),
   ]);
 
+  const [firstNote] = getNotesFromCategories([...categories, { notes: noCategoryNotes }]);
+  const url = new URL(request.url);
+
+  if (firstNote && url.pathname === "/app") {
+    return redirect(`/app/${firstNote.id}`);
+  }
+
   return { user, categories, noCategoryNotes };
 };
 
@@ -58,4 +66,8 @@ export default function App() {
       <CreditsModal />
     </Layout>
   );
+}
+
+function getNotesFromCategories(categories: { notes: Note[] }[]) {
+  return categories.reduce((ac, cv) => [...ac, ...cv.notes], [] as Note[]);
 }
