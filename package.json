@@ -10,7 +10,6 @@
     "build:css": "postcss styles --base styles --dir app/styles --env production",
     "build": "npm run build:css && remix build",
     "dev:remix": "remix dev",
-    "vercel:dev": "concurrently \"npm run dev\" \"npx vercel dev\"",
     "dev": "concurrently \"npm run watch:css\" \"npm run dev:remix\"",
     "watch": "concurrently \"npm run watch:css\" \"remix watch\"",
     "test-tsc": "tsc --noEmit",
@@ -73,8 +72,7 @@
     "postcss-cli": "^9.0.2",
     "tailwindcss": "^2.2.19",
     "type-fest": "^2.6.0",
-    "typescript": "^4.5.2",
-    "vercel": "^23.1.2"
+    "typescript": "^4.5.2"
   },
   "engines": {
     "node": ">=14"
