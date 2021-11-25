@@ -80,6 +80,7 @@ export const Navbar = () => {
           </Button>
 
           <Dropdown
+            sideOffset={10}
             extra={{ maxWidth: 200 }}
             trigger={
               <Button className="px-1" variant="dropdown" id={dotsId} aria-label="More Settings">

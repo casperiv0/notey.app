@@ -9,7 +9,7 @@ import { getUserSession } from "~/lib/auth/session.server";
 import { idSchema } from "./category";
 import { sanitizeUserMarkdown } from "~/lib/utils/markdown";
 
-const booleanLike = z
+export const booleanLike = z
   .string()
   .regex(/true|false/)
   .optional()

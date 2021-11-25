@@ -1,13 +1,13 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Button, ButtonProps } from "~/components/Button";
 
-interface Props {
+interface Props extends DropdownMenu.MenuContentProps {
   trigger: any;
   children: React.ReactNode;
   extra?: { maxWidth?: number };
 }
 
-export const Dropdown = ({ trigger: Trigger, children, extra }: Props) => {
+export const Dropdown = ({ trigger: Trigger, children, extra, ...rest }: Props) => {
   const maxWidth = extra?.maxWidth ?? 300;
 
   return (
@@ -21,6 +21,7 @@ export const Dropdown = ({ trigger: Trigger, children, extra }: Props) => {
         style={{ width: maxWidth, maxWidth }}
         className="p-2 rounded-md shadow-md bg-dark-4 fadeUp"
         align="start"
+        {...rest}
       >
         {children}
       </DropdownMenu.Content>

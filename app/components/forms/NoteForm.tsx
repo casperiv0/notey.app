@@ -63,6 +63,19 @@ export const NoteForm = () => {
         <Switch defaultChecked={note?.public ?? false} id="isPublic" name="isPublic" />
       </FormField>
 
+      {note && note.public ? (
+        <small className="text-base">
+          <a
+            rel="noreferrer noopener"
+            target="_blank"
+            className="underline"
+            href={`https://notey.caspertheghost.me/share/${note.id}`}
+          >
+            Note is publicly available here
+          </a>
+        </small>
+      ) : null}
+
       <div className="flex justify-end">
         <Button type="button" onClick={() => closeModal(Modals.CreateNote)} variant="cancel">
           Cancel
