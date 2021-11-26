@@ -53,7 +53,7 @@
     "@casper124578/eslint-config": "^2.1.0",
     "@casper124578/eslint-config-react": "^2.1.0",
     "@remix-run/dev": "^1.0.5",
-    "@remix-run/server-runtime": "^1.0.5",
+    "@remix-run/server-runtime": "^1.0.6",
     "@types/bcrypt": "^5.0.0",
     "@types/dompurify": "^2.3.1",
     "@types/jsdom": "^16.2.13",
