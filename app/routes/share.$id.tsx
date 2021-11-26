@@ -1,4 +1,4 @@
-import { Link, redirect, useLoaderData } from "remix";
+import { Link, useLoaderData } from "remix";
 import type { Note, User } from ".prisma/client";
 import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
 import { prisma } from "~/lib/prisma.server";
@@ -28,17 +28,13 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       })
     : null;
 
-  if (!note) {
-    return redirect("/app");
-  }
-
   const user = await getUserSession(request);
 
   return { note, user };
 };
 
 export default function SharedNote() {
-  const { user, note } = useLoaderData<{ note: Note; user: User | null }>();
+  const { user, note } = useLoaderData<{ note: Note | null; user: User | null }>();
 
   return (
     <main>
@@ -69,12 +65,16 @@ export default function SharedNote() {
         </div>
       </header>
 
-      <div
-        style={{ maxHeight: "calc(100vh - 3.55rem)", overflowY: "auto" }}
-        className="w-full px-4 py-2 text-lg bg-dark preview-styles"
-        id="note-preview-area"
-        dangerouslySetInnerHTML={{ __html: note?.markdown as string }}
-      />
+      {note ? (
+        <div
+          style={{ maxHeight: "calc(100vh - 3.55rem)", overflowY: "auto" }}
+          className="w-full px-4 py-2 text-lg bg-dark preview-styles"
+          id="note-preview-area"
+          dangerouslySetInnerHTML={{ __html: note?.markdown as string }}
+        />
+      ) : (
+        <p className="mt-10 text-lg font-medium text-center">Shared note not found.</p>
+      )}
     </main>
   );
 }

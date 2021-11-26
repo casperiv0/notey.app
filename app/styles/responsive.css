@@ -1,0 +1,33 @@
+.responsive-layout {
+  grid-template-columns: 300px auto;
+}
+
+@media (max-width: 768px) {
+  .responsive-sidebar {
+    --width: 300px;
+
+    z-index: 99;
+    position: fixed;
+    left: -305px;
+
+    width: 300px;
+    transition: left 0.3s;
+  }
+
+  .responsive-sidebar.active {
+    left: 0;
+    z-index: 9998;
+  }
+
+  .responsive-layout {
+    grid-template-columns: 100%;
+  }
+
+  .sidebar-clickable.active {
+    display: block;
+    z-index: 1;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

@@ -1,10 +1,11 @@
 import { useId } from "react-aria";
-import { ThreeDots } from "react-bootstrap-icons";
+import { List, ThreeDots } from "react-bootstrap-icons";
 import { useLocation } from "react-router";
 import { useFetcher } from "remix";
 import { Modals } from "~/lib/constants";
 import { useActiveNote } from "~/lib/note";
 import { useModal } from "~/lib/useModal";
+import { toggleSidebar } from "~/lib/utils/client.client";
 import { Button } from "../Button";
 import { Dropdown } from "../dropdown/Dropdown";
 import { Input } from "../form/Input";
@@ -12,6 +13,8 @@ import { AlertModal } from "../modal/AlertModal";
 
 export const Navbar = () => {
   const dotsId = useId();
+  const listId = useId();
+
   const { note, editMode, setNote, setEditMode } = useActiveNote();
   const { openModal } = useModal();
   const location = useLocation();
@@ -62,7 +65,17 @@ export const Navbar = () => {
   return (
     <header className="relative w-full h-14">
       <nav className="absolute top-0 left-0 flex items-center justify-between w-full p-4 h-14 border-b-[1.5px] border-dark-5">
-        <div>
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={() => toggleSidebar()}
+            variant="icon"
+            id={listId}
+            aria-label="Open Menu"
+            className="inline-block px-1 md:hidden"
+          >
+            <List width={20} height={20} aria-labelledby={listId} />
+          </Button>
+
           {editMode ? (
             <Input
               onBlur={(e) => setNote({ ...note, title: e.target.value })}

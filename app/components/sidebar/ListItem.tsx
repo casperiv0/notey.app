@@ -5,6 +5,7 @@ import { Link } from "remix";
 import { useActiveNote } from "~/lib/note";
 import { useModal } from "~/lib/useModal";
 import { Modals } from "~/lib/constants";
+import { toggleSidebar } from "~/lib/utils/client.client";
 
 interface Props {
   note: Note;
@@ -19,6 +20,8 @@ export const ListItem = ({ note: { id, title } }: Props) => {
       e.preventDefault();
       openModal(Modals.AlertUnsavedChanges, `/app/${id}`);
     }
+
+    toggleSidebar(false);
   }
 
   return (
