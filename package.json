@@ -15,7 +15,7 @@
     "test-tsc": "tsc --noEmit",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,css,json}\" --ignore-path .gitignore",
     "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
-    "start": "npx prisma migrate deploy && remix-serve build",
+    "start": "npx prisma migrate deploy && remix-serve api/build",
     "postinstall": "npx remix setup node"
   },
   "dependencies": {
@@ -49,8 +49,8 @@
     "zustand": "^3.6.5"
   },
   "devDependencies": {
-    "@casper124578/eslint-config": "^2.0.0-beta",
-    "@casper124578/eslint-config-react": "^2.0.0-beta",
+    "@casper124578/eslint-config": "^2.1.0",
+    "@casper124578/eslint-config-react": "^2.1.0",
     "@remix-run/dev": "^1.0.5",
     "@remix-run/server-runtime": "^1.0.5",
     "@types/bcrypt": "^5.0.0",
