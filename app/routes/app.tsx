@@ -61,9 +61,7 @@ export default function App() {
 
   return (
     <Layout>
-      <div className="responsive-app">
-        <Outlet />
-      </div>
+      <Outlet />
 
       <CreditsModal />
     </Layout>
