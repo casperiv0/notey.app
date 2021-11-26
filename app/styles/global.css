@@ -40,6 +40,11 @@ body {
   animation: modalOpen 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.tooltipOpen {
+  transform-origin: top center;
+  animation: tooltipOpen 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @keyframes fadeUp {
   0% {
     opacity: 0;
@@ -59,6 +64,17 @@ body {
   to {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes tooltipOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
