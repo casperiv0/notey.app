@@ -10,6 +10,7 @@ import { Input } from "../form/Input";
 import { Switch } from "../form/Switch";
 import { AlertModal } from "../modal/AlertModal";
 import { Modal } from "../modal/Modal";
+import { Tooltip } from "../Tooltip";
 
 export const AccountForm = () => {
   const { user } = useUser();
@@ -39,7 +40,13 @@ export const AccountForm = () => {
       </FormField>
 
       <FormField checkbox label="Dark theme">
-        <Switch disabled defaultChecked={user.preferences?.darkTheme ?? true} id="dark_theme" />
+        <Tooltip
+          trigger={
+            <Switch disabled defaultChecked={user.preferences?.darkTheme ?? true} id="dark_theme" />
+          }
+        >
+          Light theme coming soon!
+        </Tooltip>
       </FormField>
 
       <div className="flex justify-between mt-8">

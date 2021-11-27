@@ -33,7 +33,7 @@ export async function logout() {
   };
 }
 
-export async function createSession(user: User) {
+export async function createSession(user: Pick<User, "id">) {
   const jwtToken = signToken(user.id);
 
   return {

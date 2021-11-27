@@ -10,12 +10,26 @@ generator client {
 model User {
     id                String           @id @default(cuid())
     username          String           @unique
-    password          String           @db.Text
     createdAt         DateTime         @default(now())
     notes             Note[]
     Category          Category[]
     preferences       UserPreferences? @relation(fields: [userPreferencesId], references: [id])
     userPreferencesId String?
+
+    pinCodeHash   Hashed? @relation("pinCodeHash", fields: [pinCodeHashId], references: [id])
+    pinCodeHashId String?
+
+    passwordHash   Hashed @relation("passwordHash", fields: [passwordHashId], references: [id])
+    passwordHashId String
+
+}
+
+model Hashed {
+    id   String @id @default(cuid())
+    hash String
+
+    pinCodes  User[] @relation("pinCodeHash")
+    passwords User[] @relation("passwordHash")
 }
 
 model UserPreferences {

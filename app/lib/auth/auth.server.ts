@@ -1,19 +1,21 @@
 import { compareSync, genSaltSync, hashSync } from "bcrypt";
 import { prisma } from "../prisma.server";
+import { exclude } from "../utils/common";
 
 export async function loginUser({ username, password }: { username: string; password: string }) {
   const user = await prisma.user.findUnique({
     where: { username },
+    include: { passwordHash: true },
   });
 
   if (!user) {
     return null;
   }
 
-  const isPasswordCorrect = compareSync(password, user.password);
+  const isPasswordCorrect = compareSync(password, user.passwordHash.hash);
   if (!isPasswordCorrect) return null;
 
-  return user;
+  return exclude(user, ["passwordHash", "passwordHashId"]);
 }
 
 export async function registerUser({ username, password }: { username: string; password: string }) {
@@ -28,7 +30,9 @@ export async function registerUser({ username, password }: { username: string; p
   const createdUser = await prisma.user.create({
     data: {
       username,
-      password: hashSync(password, genSaltSync()),
+      passwordHash: {
+        create: { hash: hashSync(password, genSaltSync()) },
+      },
       preferences: {
         create: {
           cursorPointers: false,
