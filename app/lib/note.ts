@@ -4,9 +4,11 @@ import { useLocation } from "react-router";
 import { useLoaderData } from "remix";
 import create from "zustand";
 
+type PossiblyLockedNote = Note & { isLocked?: boolean };
+
 interface NoteStore {
-  note: Note | null;
-  setNote: (n: Note | null) => void;
+  note: PossiblyLockedNote | null;
+  setNote: (n: PossiblyLockedNote | null) => void;
 
   editMode: boolean;
   setEditMode: (v: boolean) => void;

@@ -1,4 +1,6 @@
+import type { Hashed } from ".prisma/client";
 import { compareSync, genSaltSync, hashSync } from "bcrypt";
+import { badRequest } from "remix-utils";
 import { prisma } from "../prisma.server";
 import { exclude } from "../utils/common";
 
@@ -43,4 +45,18 @@ export async function registerUser({ username, password }: { username: string; p
   });
 
   return createdUser;
+}
+
+export async function validatePinCode(pin_code: string, user: any) {
+  const pinCodeHash = user.pinCodeHash as Hashed | null;
+
+  if (!pinCodeHash) return null;
+
+  const isPinCodeCorrect = compareSync(pin_code, pinCodeHash.hash);
+
+  if (!isPinCodeCorrect) {
+    return badRequest({ error: "incorrect pin-code" });
+  }
+
+  return null;
 }

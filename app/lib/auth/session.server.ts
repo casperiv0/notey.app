@@ -1,6 +1,6 @@
 import { createCookie } from "remix";
 import { sign, verify } from "jsonwebtoken";
-import { User } from ".prisma/client";
+import type { Prisma, User } from ".prisma/client";
 import { prisma } from "../prisma.server";
 
 const SESSION_MAX_AGE = 60 * 60 * 1000 * 24 * 7; // 1week
@@ -12,7 +12,7 @@ const session = createCookie(SESSION_NAME, {
   sameSite: "lax",
 });
 
-export async function getUserSession(request: Request) {
+export async function getUserSession(request: Request, extraInclude: Prisma.UserInclude = {}) {
   const header = request.headers.get("cookie") ?? "";
   const token = await session.parse(header);
 
@@ -20,7 +20,7 @@ export async function getUserSession(request: Request) {
   const user = userId
     ? prisma.user.findUnique({
         where: { id: userId },
-        include: { preferences: true },
+        include: { preferences: true, ...extraInclude },
       })
     : null;
 

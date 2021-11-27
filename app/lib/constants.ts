@@ -3,6 +3,7 @@ export const enum Modals {
   ManageCategory = "MANAGE_CATEGORY_MODAL",
   ManageAccount = "MANAGE_ACCOUNT_MODAL",
   Credits = "CREDITS_MODAL",
+  UnLock_LockedNote = "UNLOCK_LOCKED_NOTE",
 
   AlertDeleteCategory = "ALERT_DELETE_CATEGORY_MODAL",
   AlertDeleteNote = "ALERT_DELETE_NOTE_MODAL",

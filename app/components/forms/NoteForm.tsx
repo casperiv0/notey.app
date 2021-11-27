@@ -58,7 +58,7 @@ export const NoteForm = () => {
               defaultChecked={note?.pinCodeLocked ?? false}
               id="pinCodeLocked"
               name="pinCodeLocked"
-              disabled
+              // disabled
             />
           }
         >

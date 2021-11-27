@@ -10,6 +10,7 @@ import { Button } from "../Button";
 import { Dropdown } from "../dropdown/Dropdown";
 import { Input } from "../form/Input";
 import { AlertModal } from "../modal/AlertModal";
+import { UnlockLockedNoteModal } from "../modal/UnlockLockedNoteModal";
 
 export const Navbar = () => {
   const dotsId = useId();
@@ -76,7 +77,7 @@ export const Navbar = () => {
             <List width={20} height={20} aria-labelledby={listId} />
           </Button>
 
-          {editMode ? (
+          {editMode && !note.isLocked ? (
             <Input
               onBlur={(e) => setNote({ ...note, title: e.target.value })}
               className="p-0 px-1 text-xl font-semibold border-transparent bg-dark focus:border-transparent"
@@ -87,31 +88,47 @@ export const Navbar = () => {
           )}
         </div>
 
-        <div className="flex items-center">
-          <Button loading={fetcher.state !== "idle"} onClick={handleClick} className="mr-2">
-            {fetcher.state !== "idle" ? "Saving.." : editMode ? "Save" : "Edit mode"}
-          </Button>
+        {note.isLocked ? (
+          <div>
+            <Button
+              onClick={() => {
+                openModal(Modals.UnLock_LockedNote, note.id);
+              }}
+            >
+              Unlock
+            </Button>
 
-          <Dropdown
-            sideOffset={10}
-            extra={{ maxWidth: 200 }}
-            trigger={
-              <Button className="px-1" variant="dropdown" id={dotsId} aria-label="More Settings">
-                <ThreeDots aria-labelledby={dotsId} />
-              </Button>
-            }
-          >
-            <Dropdown.Item onClick={handleClone}>Clone note</Dropdown.Item>
+            <UnlockLockedNoteModal />
+          </div>
+        ) : (
+          <div className="flex items-center">
+            <Button loading={fetcher.state !== "idle"} onClick={handleClick} className="mr-2">
+              {fetcher.state !== "idle" ? "Saving.." : editMode ? "Save" : "Edit mode"}
+            </Button>
 
-            <Dropdown.Item onClick={() => openModal(Modals.CreateNote, note)}>Manage</Dropdown.Item>
-            <Dropdown.Item onClick={() => openModal(Modals.AlertDeleteNote)} variant="danger">
-              Delete
-            </Dropdown.Item>
-          </Dropdown>
+            <Dropdown
+              sideOffset={10}
+              extra={{ maxWidth: 200 }}
+              trigger={
+                <Button className="px-1" variant="dropdown" id={dotsId} aria-label="More Settings">
+                  <ThreeDots aria-labelledby={dotsId} />
+                </Button>
+              }
+            >
+              <Dropdown.Item onClick={handleClone}>Clone note</Dropdown.Item>
 
-          <fetcher.Form method="put" action={apiUrl} />
-          <cloneFetcher.Form method="post" action={apiUrl} />
-        </div>
+              <Dropdown.Item onClick={() => openModal(Modals.CreateNote, note)}>
+                Manage
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => openModal(Modals.AlertDeleteNote)} variant="danger">
+                Delete
+              </Dropdown.Item>
+            </Dropdown>
+
+            <fetcher.Form method="put" action={apiUrl} />
+            <cloneFetcher.Form method="post" action={apiUrl} />
+          </div>
+        )}
       </nav>
 
       <AlertModal
