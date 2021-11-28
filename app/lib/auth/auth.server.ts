@@ -44,3 +44,11 @@ export async function registerUser({ username, password }: { username: string; p
 
   return createdUser;
 }
+
+export function validateUserPassword(password: string, encrypted: string) {
+  return compareSync(password, encrypted);
+}
+
+export function hashPassword(password: string) {
+  return hashSync(password, genSaltSync());
+}

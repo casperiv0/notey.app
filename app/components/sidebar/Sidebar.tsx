@@ -79,10 +79,12 @@ export const Sidebar = () => {
               <X width={25} height={25} aria-labelledby={closeId} />
             </Button>
           </section>
-          <Modal title={"User Settings"} id={Modals.ManageAccount}>
+
+          <Modal extra={{ width: 600 }} title={"User Settings"} id={Modals.ManageAccount}>
             <AccountForm />
           </Modal>
         </header>
+
         <section className="mt-5">
           {categories.length <= 0 && noCategoryNotes.length <= 0 ? (
             <p className="text-gray-400">You do not have any notes yet.</p>

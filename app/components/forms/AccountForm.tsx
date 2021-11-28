@@ -11,6 +11,7 @@ import { Switch } from "../form/Switch";
 import { AlertModal } from "../modal/AlertModal";
 import { Modal } from "../modal/Modal";
 import { Tooltip } from "../Tooltip";
+import { PasswordForm } from "./PasswordForm";
 
 export const AccountForm = () => {
   const { user } = useUser();
@@ -50,9 +51,19 @@ export const AccountForm = () => {
       </FormField>
 
       <div className="flex justify-between mt-8">
-        <Button type="button" onClick={() => openModal(Modals.AlertDeleteAccount)} variant="danger">
-          Delete account
-        </Button>
+        <div className="flex space-x-2">
+          <Button
+            type="button"
+            onClick={() => openModal(Modals.AlertDeleteAccount)}
+            variant="danger"
+          >
+            Delete account
+          </Button>
+
+          <Button type="button" onClick={() => openModal(Modals.ManagePassword)} variant="danger">
+            Change Password
+          </Button>
+        </div>
 
         <div className="flex">
           <Modal.Close type="button" variant="cancel">
@@ -76,6 +87,10 @@ export const AccountForm = () => {
           </>
         }
       />
+
+      <Modal title="Manage Passwords" id={Modals.ManagePassword}>
+        <PasswordForm />
+      </Modal>
     </Form>
   );
 };
