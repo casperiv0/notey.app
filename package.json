@@ -14,9 +14,11 @@
     "watch": "concurrently \"npm run watch:css\" \"remix watch\"",
     "test-tsc": "tsc --noEmit",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,css,json}\" --ignore-path .gitignore",
+    "format:quick": "",
     "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
     "start": "npx prisma migrate deploy && remix-serve api/build",
-    "postinstall": "npx remix setup node"
+    "postinstall": "npx remix setup node",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@prisma/client": "^3.5.0",
@@ -69,8 +71,10 @@
     "eslint-plugin-promise": "^5.1.1",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.4",
     "postcss": "^8.4.1",
     "postcss-cli": "^9.0.2",
+    "pretty-quick": "^3.1.2",
     "tailwindcss": "^2.2.19",
     "type-fest": "^2.6.0",
     "typescript": "^4.5.2"
