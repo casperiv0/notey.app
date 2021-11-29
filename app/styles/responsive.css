@@ -11,6 +11,7 @@
     left: -305px;
 
     width: 300px;
+    max-width: 99%;
     transition: left 0.3s;
   }
 

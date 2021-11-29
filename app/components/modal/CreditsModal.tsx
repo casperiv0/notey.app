@@ -16,7 +16,7 @@ export const CreditsModal = () => {
   return (
     <Modal title="Credits" id={Modals.Credits}>
       <div className="w-full mt-5">
-        <div className="flex flex-col space-y-1 ">
+        <div className="flex flex-col space-y-1">
           <Link className="w-full link" href={BUG_REPORT_URL}>
             Report a bug
           </Link>
