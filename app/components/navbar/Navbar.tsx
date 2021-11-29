@@ -104,6 +104,9 @@ export const Navbar = () => {
             <Dropdown.Item onClick={handleClone}>Clone note</Dropdown.Item>
 
             <Dropdown.Item onClick={() => openModal(Modals.CreateNote, note)}>Manage</Dropdown.Item>
+            {note.public ? (
+              <Dropdown.LinkItem to={`/share/${note.id}`}>Open public view</Dropdown.LinkItem>
+            ) : null}
             <Dropdown.Item onClick={() => openModal(Modals.AlertDeleteNote)} variant="danger">
               Delete
             </Dropdown.Item>

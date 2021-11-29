@@ -36,12 +36,14 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function SharedNote() {
   const { user, note } = useLoaderData<{ note: Note | null; user: User | null }>();
 
+  const appLink = user?.id === note?.userId && user && note ? `/app/${note.id}` : "/app";
+
   return (
     <main>
       <header className="border-b-[1.5px] border-dark-4 p-3 sticky top-0 flex items-center justify-between">
         <div className="space-x-2">
           {user ? (
-            <Link to="/app" className="link">
+            <Link to={appLink} className="link">
               Return to app
             </Link>
           ) : (

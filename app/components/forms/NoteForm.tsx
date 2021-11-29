@@ -67,7 +67,11 @@ export const NoteForm = () => {
       </FormField>
 
       <FormField className="mt-5" checkbox label="Public">
-        <Switch defaultChecked={note?.public ?? false} id="isPublic" name="isPublic" />
+        <Tooltip
+          trigger={<Switch defaultChecked={note?.public ?? false} id="isPublic" name="isPublic" />}
+        >
+          When this note is set to public, it can be viewed by anyone with a link.
+        </Tooltip>
       </FormField>
 
       {note && note.public ? (

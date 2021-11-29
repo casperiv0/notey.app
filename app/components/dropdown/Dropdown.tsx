@@ -1,4 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { Link, LinkProps } from "remix";
 import { Button, ButtonProps } from "~/components/Button";
 
 interface Props extends DropdownMenu.MenuContentProps {
@@ -32,6 +33,14 @@ export const Dropdown = ({ trigger: Trigger, children, extra, ...rest }: Props) 
 Dropdown.Separator = (props: any) => <DropdownMenu.Separator {...props} className="my-1" />;
 Dropdown.Label = (props: any) => (
   <DropdownMenu.Label {...props} className="mb-1 text-base font-medium uppercase" />
+);
+Dropdown.LinkItem = (props: LinkProps) => (
+  <DropdownMenu.Item asChild>
+    <Link
+      {...props}
+      className="block p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left bg-transparent hover:bg-dark-3"
+    />
+  </DropdownMenu.Item>
 );
 Dropdown.Item = (props: ButtonProps) => (
   <DropdownMenu.Item asChild>
