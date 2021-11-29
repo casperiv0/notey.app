@@ -94,20 +94,28 @@ export const Navbar = () => {
 
           <Dropdown
             sideOffset={10}
-            extra={{ maxWidth: 200 }}
+            extra={{ maxWidth: 220 }}
             trigger={
               <Button className="px-1" variant="dropdown" id={dotsId} aria-label="More Settings">
                 <ThreeDots aria-labelledby={dotsId} />
               </Button>
             }
           >
-            <Dropdown.Item onClick={handleClone}>Clone note</Dropdown.Item>
+            <Dropdown.Item command="shift+c" onClick={handleClone}>
+              Clone note
+            </Dropdown.Item>
 
-            <Dropdown.Item onClick={() => openModal(Modals.CreateNote, note)}>Manage</Dropdown.Item>
+            <Dropdown.Item command="shift+m" onClick={() => openModal(Modals.CreateNote, note)}>
+              Manage
+            </Dropdown.Item>
             {note.public ? (
               <Dropdown.LinkItem to={`/share/${note.id}`}>Open public view</Dropdown.LinkItem>
             ) : null}
-            <Dropdown.Item onClick={() => openModal(Modals.AlertDeleteNote)} variant="danger">
+            <Dropdown.Item
+              command="shift+alt+d"
+              onClick={() => openModal(Modals.AlertDeleteNote)}
+              variant="danger"
+            >
               Delete
             </Dropdown.Item>
           </Dropdown>

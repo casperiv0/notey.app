@@ -1,7 +1,7 @@
 import { Note } from ".prisma/client";
 import React from "react";
 import { useLocation } from "react-router";
-import { useLoaderData } from "remix";
+import { useFetcher, useLoaderData } from "remix";
 import create from "zustand";
 
 interface NoteStore {
@@ -33,4 +33,27 @@ export function useActiveNote() {
   }, [location.pathname, loaderData?.note]);
 
   return { note, editMode, setNote, setEditMode };
+}
+
+export function useCloneNote() {
+  const { note } = useActiveNote();
+  const cloneFetcher = useFetcher();
+  const { pathname } = useLocation();
+
+  const apiUrl = `/api/note?next=${pathname}`;
+
+  function handleClone() {
+    if (!note) return;
+
+    const fd = new FormData();
+
+    fd.set("title", note.title);
+    fd.set("body", note.body);
+    fd.set("categoryId", note.categoryId ?? "null");
+    fd.set("isPublic", String(note.public ?? false));
+
+    cloneFetcher.submit(fd, { action: apiUrl, method: "post" });
+  }
+
+  return { handleClone };
 }

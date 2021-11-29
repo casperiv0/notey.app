@@ -7,6 +7,7 @@ import { Editor } from "~/components/editor/Editor";
 import previewStyles from "~/styles/preview-styles.css";
 import { UnsavedChangesModal } from "~/components/modal/UnsavedChangesModal";
 import { withLockedNotes } from "~/lib/utils/note.server";
+import { useShortcuts } from "~/lib/useShortcuts";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: previewStyles }];
 
@@ -38,6 +39,8 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 export default function App() {
+  useShortcuts();
+
   return (
     <div>
       <Navbar />

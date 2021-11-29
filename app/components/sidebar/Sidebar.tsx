@@ -45,7 +45,7 @@ export const Sidebar = () => {
               Welcome back<span className="hidden md:inline">, {user.username}</span>!
             </h1>
             <Dropdown
-              extra={{ maxWidth: 200 }}
+              extra={{ maxWidth: 250 }}
               trigger={
                 <Button className="px-1" variant="icon" id={dotsId} aria-label="More Settings">
                   <ThreeDots width={20} height={20} aria-labelledby={dotsId} />
@@ -53,16 +53,16 @@ export const Sidebar = () => {
               }
             >
               <Dropdown.Label>App</Dropdown.Label>
-              <Dropdown.Item onClick={() => openModal(Modals.CreateNote)}>
+              <Dropdown.Item command="shift+n" onClick={() => openModal(Modals.CreateNote)}>
                 Create new note
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => openModal(Modals.ManageCategory)}>
+              <Dropdown.Item command="shift+alt+n" onClick={() => openModal(Modals.ManageCategory)}>
                 Create new category
               </Dropdown.Item>
               <Dropdown.Item onClick={() => openModal(Modals.Credits)}>Credits</Dropdown.Item>
               <Dropdown.Separator />
               <Dropdown.Label>Account</Dropdown.Label>
-              <Dropdown.Item onClick={() => openModal(Modals.ManageAccount)}>
+              <Dropdown.Item command="shift+a" onClick={() => openModal(Modals.ManageAccount)}>
                 Manage Account
               </Dropdown.Item>
               <Dropdown.Item onClick={handleLogout} variant="danger">
@@ -93,16 +93,19 @@ export const Sidebar = () => {
               {categories.map((category) => {
                 return <CategoryItem key={category.id} category={category} />;
               })}
-              <CategoryItem
-                category={{
-                  userId: "null",
-                  id: "no_category",
-                  name: "No category",
-                  notes: noCategoryNotes,
-                  createdAt: new Date(""),
-                  folded: false,
-                }}
-              />
+
+              {noCategoryNotes.length <= 0 ? null : (
+                <CategoryItem
+                  category={{
+                    userId: "null",
+                    id: "no_category",
+                    name: "No category",
+                    notes: noCategoryNotes,
+                    createdAt: new Date(""),
+                    folded: false,
+                  }}
+                />
+              )}
             </ul>
           )}
         </section>

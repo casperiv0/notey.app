@@ -1,4 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import classNames from "classnames";
 import { Link, LinkProps } from "remix";
 import { Button, ButtonProps } from "~/components/Button";
 
@@ -42,12 +43,28 @@ Dropdown.LinkItem = (props: LinkProps) => (
     />
   </DropdownMenu.Item>
 );
-Dropdown.Item = (props: ButtonProps) => (
+Dropdown.Item = ({ children, command, ...rest }: ButtonProps & { command?: string }) => (
   <DropdownMenu.Item asChild>
     <Button
       variant="dropdown"
-      {...(props as any)}
-      className="p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left"
-    />
+      {...(rest as any)}
+      className={classNames("p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left", {
+        "flex items-center justify-between": !!command,
+      })}
+    >
+      {children}
+
+      {command ? (
+        <span
+          role=""
+          className={classNames(
+            "p-0.5 px-1.5 rounded-md text-sm",
+            rest.variant === "danger" ? "bg-red-800 text-white" : "bg-dark-5",
+          )}
+        >
+          {command}
+        </span>
+      ) : null}
+    </Button>
   </DropdownMenu.Item>
 );
