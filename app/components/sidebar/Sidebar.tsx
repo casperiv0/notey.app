@@ -64,12 +64,15 @@ export const Sidebar = () => {
                 Create new category
               </Dropdown.Item>
               <Dropdown.Item onClick={() => openModal(Modals.Credits)}>Credits</Dropdown.Item>
+              <Dropdown.Item command="shift+k" onClick={() => openModal(Modals.KeyboardShortcuts)}>
+                Keyboard shortcuts
+              </Dropdown.Item>
               <Dropdown.Separator />
               <Dropdown.Label>Account</Dropdown.Label>
               <Dropdown.Item command="shift+a" onClick={() => openModal(Modals.ManageAccount)}>
                 Manage Account
               </Dropdown.Item>
-              <Dropdown.Item onClick={handleLogout} variant="danger">
+              <Dropdown.Item command="shift+alt+l" onClick={handleLogout} variant="danger">
                 Logout
               </Dropdown.Item>
             </Dropdown>

@@ -41,7 +41,11 @@ export function useShortcuts() {
     [note],
   );
 
+  useHotkeys("shift+k", () => openModal(Modals.KeyboardShortcuts));
   useHotkeys("shift+a", () => openModal(Modals.ManageAccount));
+  useHotkeys("shift+alt+l", () => {
+    window.location.href = "/auth/logout";
+  });
 
   // dummy function because the app breaks if no object gets returned
   function shortcuts() {
@@ -52,7 +56,6 @@ export function useShortcuts() {
 }
 
 export function useSidebarShortcuts(notes: Note[]) {
-  console.log(notes);
   const { note } = useActiveNote();
   const navigate = useNavigate();
 

@@ -7,6 +7,7 @@ import { CreditsModal } from "~/components/modal/CreditsModal";
 import { useUser } from "~/lib/auth/auth";
 import { getUserSession } from "~/lib/auth/session.server";
 import { prisma } from "~/lib/prisma.server";
+import { KeyboardShortcutsModal } from "~/components/modal/KeyboardShortcuts";
 
 export const meta: MetaFunction = () => ({
   description: "A simple notes app to keep track of important things.",
@@ -64,6 +65,7 @@ export default function App() {
       <Outlet />
 
       <CreditsModal />
+      <KeyboardShortcutsModal />
     </Layout>
   );
 }

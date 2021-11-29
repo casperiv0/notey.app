@@ -4,6 +4,7 @@ export const enum Modals {
   ManageAccount = "MANAGE_ACCOUNT_MODAL",
   Credits = "CREDITS_MODAL",
   ManagePassword = "MANAGE_PASSWORD_MODAL",
+  KeyboardShortcuts = "KEYBOARD_SHORTCUTS_MODAL",
 
   AlertDeleteCategory = "ALERT_DELETE_CATEGORY_MODAL",
   AlertDeleteNote = "ALERT_DELETE_NOTE_MODAL",
