@@ -68,6 +68,6 @@ export default function App() {
   );
 }
 
-function getNotesFromCategories(categories: { notes: Note[] }[]) {
+export function getNotesFromCategories(categories: { notes: Note[] }[]) {
   return categories.reduce((ac, cv) => [...ac, ...cv.notes], [] as Note[]);
 }

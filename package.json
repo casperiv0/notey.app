@@ -4,7 +4,7 @@
   "description": "",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf ./node_modules/.cache ./server/dist ./build ./public/build",
+    "clean": "rimraf ./node_modules/.cache ./.cache ./server/dist ./build ./public/build",
     "prebuild": "npm run clean && echo All clean ✨",
     "watch:css": "postcss styles --base styles --dir app/styles -w",
     "build:css": "postcss styles --base styles --dir app/styles --env production",

@@ -14,6 +14,8 @@ import { NoteForm } from "../forms/NoteForm";
 import { useUser } from "~/lib/auth/auth";
 import { AccountForm } from "../forms/AccountForm";
 import { toggleSidebar } from "~/lib/utils/client.client";
+import { useSidebarShortcuts } from "~/lib/useShortcuts";
+import { getNotesFromCategories } from "~/routes/app";
 
 type LoaderData = { noCategoryNotes: Note[]; categories: (Category & { notes: Note[] })[] };
 
@@ -28,6 +30,8 @@ export const Sidebar = () => {
   const categories = data?.categories ?? [];
   const noCategoryNotes = data?.noCategoryNotes ?? [];
   const navigate = useNavigate();
+
+  useSidebarShortcuts(getNotesFromCategories([...categories, { notes: noCategoryNotes }]));
 
   function handleLogout() {
     navigate("/auth/logout");
