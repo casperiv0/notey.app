@@ -12,8 +12,13 @@ import { Dropdown } from "../dropdown/Dropdown";
 import { Input } from "../form/Input";
 import { AlertModal } from "../modal/AlertModal";
 
+interface PrevData {
+  body: string;
+  title: string;
+}
+
 export const Navbar = () => {
-  const [previousBody, setPrevBody] = React.useState<string | null>(null);
+  const [prevData, setPrevData] = React.useState<PrevData | null>(null);
 
   const dotsId = useId();
   const listId = useId();
@@ -29,15 +34,16 @@ export const Navbar = () => {
   const apiUrl = `/api/note?next=${location.pathname}`;
 
   function handleCancel() {
-    if (!note || !previousBody) return;
+    if (!note || !prevData) return;
 
     setNote({
       ...note,
-      body: previousBody,
+      body: prevData.body,
+      title: prevData.title,
     });
 
     setEditMode(false);
-    setPrevBody(null);
+    setPrevData(null);
   }
 
   function handleClick() {
@@ -62,10 +68,10 @@ export const Navbar = () => {
   }
 
   React.useEffect(() => {
-    if (note && previousBody === null) {
-      setPrevBody(note.body);
+    if (note && prevData === null) {
+      setPrevData({ body: note.body, title: note.title });
     }
-  }, [note, previousBody]);
+  }, [note, prevData]);
 
   if (!note) {
     return null;
