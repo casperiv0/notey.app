@@ -70,6 +70,8 @@ export const action: ActionFunction = async ({ request }) => {
       });
     },
     async post() {
+      const url = new URL(request.url);
+      const isClone = Boolean(url.searchParams.get("is-clone"));
       const [{ title, categoryId, body }, error] = await getBodySafe(request, createSchema);
 
       if (error) {
@@ -77,12 +79,23 @@ export const action: ActionFunction = async ({ request }) => {
       }
 
       const markdown = sanitizeUserMarkdown(body ?? "");
+      let newTitle = title;
+
+      if (isClone) {
+        const count = await prisma.note.count({
+          where: { title },
+        });
+
+        if (count > 0) {
+          newTitle = `${title} ${count + 1}`;
+        }
+      }
 
       const note = await prisma.note.create({
         data: {
-          title,
+          title: newTitle,
           categoryId: parseCategoryId(categoryId),
-          body: "",
+          body: body ?? "",
           userId: user.id,
           markdown,
         },

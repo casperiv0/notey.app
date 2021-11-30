@@ -1,4 +1,4 @@
-import { useHotkeys } from "react-hotkeys-hook";
+import { useHotkeys, Options } from "react-hotkeys-hook";
 import { Modals } from "./constants";
 import { useActiveNote } from "./note";
 import { useModal } from "./useModal";
@@ -6,22 +6,24 @@ import { useCloneNote } from "./note";
 import { Note } from ".prisma/client";
 import { useNavigate } from "react-router";
 
+const OPTIONS: Options = {
+  enableOnTags: ["INPUT", "SELECT", "TEXTAREA"],
+};
+
 export function useShortcuts() {
   const { openModal } = useModal();
   const { note } = useActiveNote();
   const { handleClone } = useCloneNote();
 
-  useHotkeys("shift+n", () => openModal(Modals.CreateNote));
-  useHotkeys("shift+alt+n", (e) => {
-    e.preventDefault();
-    openModal(Modals.ManageCategory);
-  });
+  useHotkeys("shift+n", () => openModal(Modals.CreateNote), OPTIONS);
+  useHotkeys("shift+alt+n", () => openModal(Modals.ManageCategory), OPTIONS);
 
   useHotkeys(
     "shift+m",
     () => {
       openModal(Modals.CreateNote, note);
     },
+    OPTIONS,
     [note],
   );
 
@@ -30,6 +32,7 @@ export function useShortcuts() {
     () => {
       handleClone();
     },
+    OPTIONS,
     [note],
   );
 
@@ -38,14 +41,19 @@ export function useShortcuts() {
     () => {
       openModal(Modals.AlertDeleteNote, note);
     },
+    OPTIONS,
     [note],
   );
 
-  useHotkeys("shift+k", () => openModal(Modals.KeyboardShortcuts));
-  useHotkeys("shift+a", () => openModal(Modals.ManageAccount));
-  useHotkeys("shift+alt+l", () => {
-    window.location.href = "/auth/logout";
-  });
+  useHotkeys("shift+k", () => openModal(Modals.KeyboardShortcuts), OPTIONS);
+  useHotkeys("shift+a", () => openModal(Modals.ManageAccount), OPTIONS);
+  useHotkeys(
+    "shift+alt+l",
+    () => {
+      window.location.href = "/auth/logout";
+    },
+    OPTIONS,
+  );
 
   // dummy function because the app breaks if no object gets returned
   function shortcuts() {
@@ -56,7 +64,8 @@ export function useShortcuts() {
 }
 
 export function useSidebarShortcuts(notes: Note[]) {
-  const { note } = useActiveNote();
+  const { note, editMode } = useActiveNote();
+  const { openModal } = useModal();
   const navigate = useNavigate();
 
   useHotkeys(
@@ -68,13 +77,26 @@ export function useSidebarShortcuts(notes: Note[]) {
 
       if (currentIndex <= 0) {
         const lastNote = notes[notes.length - 1];
-        navigate(`/app/${lastNote.id}`);
+        const href = `/app/${lastNote.id}`;
+
+        if (editMode === true) {
+          return openModal(Modals.AlertUnsavedChanges, href);
+        }
+
+        navigate(href);
       } else {
         const newNote = notes[currentIndex - 1];
-        navigate(`/app/${newNote.id}`);
+        const href = `/app/${newNote.id}`;
+
+        if (editMode === true) {
+          return openModal(Modals.AlertUnsavedChanges, href);
+        }
+
+        navigate(href);
       }
     },
-    [notes, note],
+    OPTIONS,
+    [notes, note, editMode],
   );
 
   useHotkeys(
@@ -86,13 +108,26 @@ export function useSidebarShortcuts(notes: Note[]) {
 
       if (currentIndex >= notes.length - 1) {
         const [lastNote] = notes;
-        navigate(`/app/${lastNote.id}`);
+        const href = `/app/${lastNote.id}`;
+
+        if (editMode === true) {
+          return openModal(Modals.AlertUnsavedChanges, href);
+        }
+
+        navigate(href);
       } else {
         const newNote = notes[currentIndex + 1];
-        navigate(`/app/${newNote.id}`);
+        const href = `/app/${newNote.id}`;
+
+        if (editMode === true) {
+          return openModal(Modals.AlertUnsavedChanges, href);
+        }
+
+        navigate(href);
       }
     },
-    [notes, note],
+    OPTIONS,
+    [notes, note, editMode],
   );
 
   // dummy function because the app breaks if no object gets returned

@@ -38,9 +38,8 @@ export function useActiveNote() {
 export function useCloneNote() {
   const { note } = useActiveNote();
   const cloneFetcher = useFetcher();
-  const { pathname } = useLocation();
 
-  const apiUrl = `/api/note?next=${pathname}`;
+  const apiUrl = "/api/note?is-clone=true";
 
   function handleClone() {
     if (!note) return;
