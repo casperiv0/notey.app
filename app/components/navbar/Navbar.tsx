@@ -1,9 +1,10 @@
+import * as React from "react";
 import { useId } from "react-aria";
 import { List, ThreeDots } from "react-bootstrap-icons";
 import { useLocation } from "react-router";
 import { useFetcher } from "remix";
 import { Modals } from "~/lib/constants";
-import { useActiveNote } from "~/lib/note";
+import { useActiveNote, useCloneNote } from "~/lib/note";
 import { useModal } from "~/lib/useModal";
 import { toggleSidebar } from "~/lib/utils/client.client";
 import { Button } from "../Button";
@@ -12,17 +13,32 @@ import { Input } from "../form/Input";
 import { AlertModal } from "../modal/AlertModal";
 
 export const Navbar = () => {
+  const [previousBody, setPrevBody] = React.useState<string | null>(null);
+
   const dotsId = useId();
   const listId = useId();
 
   const { note, editMode, setNote, setEditMode } = useActiveNote();
   const { openModal } = useModal();
   const location = useLocation();
+  const { handleClone } = useCloneNote();
 
   const fetcher = useFetcher();
   const cloneFetcher = useFetcher();
 
   const apiUrl = `/api/note?next=${location.pathname}`;
+
+  function handleCancel() {
+    if (!note || !previousBody) return;
+
+    setNote({
+      ...note,
+      body: previousBody,
+    });
+
+    setEditMode(false);
+    setPrevBody(null);
+  }
 
   function handleClick() {
     if (!note) return;
@@ -45,18 +61,11 @@ export const Navbar = () => {
     }
   }
 
-  function handleClone() {
-    if (!note) return;
-
-    const fd = new FormData();
-
-    fd.set("title", note.title);
-    fd.set("body", note.body);
-    fd.set("categoryId", note.categoryId ?? "null");
-    fd.set("isPublic", String(note.public ?? false));
-
-    fetcher.submit(fd, { action: apiUrl, method: "post" });
-  }
+  React.useEffect(() => {
+    if (note && previousBody === null) {
+      setPrevBody(note.body);
+    }
+  }, [note, previousBody]);
 
   if (!note) {
     return null;
@@ -88,6 +97,12 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center">
+          {editMode ? (
+            <Button variant="cancel" onClick={handleCancel} className="mr-2">
+              Cancel
+            </Button>
+          ) : null}
+
           <Button loading={fetcher.state !== "idle"} onClick={handleClick} className="mr-2">
             {fetcher.state !== "idle" ? "Saving.." : editMode ? "Save" : "Edit mode"}
           </Button>
