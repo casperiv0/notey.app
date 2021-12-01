@@ -115,7 +115,7 @@ export const Navbar = () => {
 
           <Dropdown
             sideOffset={10}
-            extra={{ maxWidth: 220 }}
+            extra={{ maxWidth: 240 }}
             trigger={
               <Button className="px-1" variant="dropdown" id={dotsId} aria-label="More Settings">
                 <ThreeDots aria-labelledby={dotsId} />
@@ -130,7 +130,9 @@ export const Navbar = () => {
               Manage
             </Dropdown.Item>
             {note.public ? (
-              <Dropdown.LinkItem to={`/share/${note.id}`}>Open public view</Dropdown.LinkItem>
+              <Dropdown.LinkItem command="shift+alt+o" to={`/share/${note.id}`}>
+                Open public view
+              </Dropdown.LinkItem>
             ) : null}
             <Dropdown.Item
               command="shift+alt+d"

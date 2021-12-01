@@ -35,12 +35,25 @@ Dropdown.Separator = (props: any) => <DropdownMenu.Separator {...props} classNam
 Dropdown.Label = (props: any) => (
   <DropdownMenu.Label {...props} className="mb-1 text-base font-medium uppercase" />
 );
-Dropdown.LinkItem = (props: LinkProps) => (
+Dropdown.LinkItem = ({ children, command, ...rest }: LinkProps & { command?: string }) => (
   <DropdownMenu.Item asChild>
     <Link
-      {...props}
-      className="block p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left bg-transparent hover:bg-dark-3"
-    />
+      {...rest}
+      className={classNames(
+        "block p-1 my-1 px-1.5 rounded-md transition-colors w-full text-left bg-transparent hover:bg-dark-3",
+        {
+          "flex items-center justify-between": !!command,
+        },
+      )}
+    >
+      {children}
+
+      {command ? (
+        <span role="" className="p-0.5 px-1.5 rounded-md text-sm bg-dark-5">
+          {command}
+        </span>
+      ) : null}
+    </Link>
   </DropdownMenu.Item>
 );
 Dropdown.Item = ({ children, command, ...rest }: ButtonProps & { command?: string }) => (
@@ -48,7 +61,7 @@ Dropdown.Item = ({ children, command, ...rest }: ButtonProps & { command?: strin
     <Button
       variant="dropdown"
       {...(rest as any)}
-      className={classNames("p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left", {
+      className={classNames("p-1 my-1 px-1.5 rounded-md transition-colors w-full text-left", {
         "flex items-center justify-between": !!command,
       })}
     >

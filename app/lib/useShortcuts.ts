@@ -14,6 +14,7 @@ export function useShortcuts() {
   const { openModal } = useModal();
   const { note } = useActiveNote();
   const { handleClone } = useCloneNote();
+  const navigate = useNavigate();
 
   useHotkeys("shift+n", () => openModal(Modals.CreateNote), OPTIONS);
   useHotkeys("shift+alt+n", () => openModal(Modals.ManageCategory), OPTIONS);
@@ -45,15 +46,20 @@ export function useShortcuts() {
     [note],
   );
 
-  useHotkeys("shift+k", () => openModal(Modals.KeyboardShortcuts), OPTIONS);
-  useHotkeys("shift+a", () => openModal(Modals.ManageAccount), OPTIONS);
   useHotkeys(
-    "shift+alt+l",
+    "shift+alt+o",
     () => {
-      window.location.href = "/auth/logout";
+      if (note && note.public) {
+        navigate(`/share/${note.id}`);
+      }
     },
     OPTIONS,
+    [note],
   );
+
+  useHotkeys("shift+k", () => openModal(Modals.KeyboardShortcuts), OPTIONS);
+  useHotkeys("shift+a", () => openModal(Modals.ManageAccount), OPTIONS);
+  useHotkeys("shift+alt+l", () => navigate("/auth/logout"), OPTIONS);
 
   // dummy function because the app breaks if no object gets returned
   function shortcuts() {
