@@ -70,8 +70,11 @@ export default function Register() {
 
   return (
     <main className="flex items-center justify-center min-w-full min-h-screen">
-      <Form method="post" className="flex flex-col p-4 rounded-md shadow-md bg-dark-1 w-96">
-        <h1 className="mb-5 text-2xl font-semibold text-white">Create an account</h1>
+      <Form
+        method="post"
+        className="flex flex-col p-4 rounded-md shadow-md bg-gray-300/50 dark:bg-dark-1 w-96"
+      >
+        <h1 className="mb-5 text-2xl font-semibold">Create an account</h1>
 
         {error ? (
           <div

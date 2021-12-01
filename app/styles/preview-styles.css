@@ -11,10 +11,14 @@
 #note-preview-area td {
   padding: 10px;
 }
+
 #note-preview-area a {
-  color: #fff;
+  color: #2f2f2f;
   text-decoration: underline;
   cursor: pointer;
+}
+body.dark #note-preview-area a {
+  color: #fff;
 }
 #note-preview-area details {
   margin: 15px 0;
@@ -32,7 +36,7 @@
   transition: background 200ms;
 }
 #note-preview-area summary:hover {
-  background-color: green;
+  background-color: #2f2f2f;
 }
 
 #note-preview-area h1,

@@ -13,6 +13,11 @@ html {
 }
 
 body {
+  color: #181818;
+  background: #fff;
+}
+
+body.dark {
   background: #101010;
   color: white;
 }
@@ -27,8 +32,12 @@ body {
   cursor: default;
 }
 
-.dropdown-button[aria-expanded="true"] {
+body.dark .dropdown-button[aria-expanded="true"] {
   background: #252525;
+}
+
+body .dropdown-button[aria-expanded="true"] {
+  background: rgba(209, 213, 219);
 }
 
 .fadeUp {
@@ -80,7 +89,6 @@ body {
 
 .switch-component[data-state="checked"] {
   transform: translateX(23px);
-  background: #acacac;
 }
 
 .switch-component[data-state="unchecked"] {

@@ -8,11 +8,11 @@ export type ButtonProps = JSX.IntrinsicElements["button"] & {
 };
 
 const variants = {
-  default: "bg-dark-3 hover:bg-dark-4",
+  default: "bg-gray-400/50 dark:bg-dark-3 hover:bg-gray-400 dark:hover:bg-dark-4",
   danger: "bg-red-500 hover:bg-red-600 text-black",
-  icon: "bg-transparent hover:bg-dark-4",
-  dropdown: "bg-transparent hover:bg-dark-3",
-  cancel: "bg-transparent hover:bg-dark-2 mr-1",
+  icon: "bg-transparent hover:bg-gray-400/50 dark:hover:bg-dark-4",
+  dropdown: "bg-transparent hover:bg-gray-400 dark:hover:bg-dark-3",
+  cancel: "bg-transparent hover:bg-gray-400/40 dark:hover:bg-dark-2 mr-1",
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

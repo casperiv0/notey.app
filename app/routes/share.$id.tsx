@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Link, useLoaderData } from "remix";
 import type { Note, User } from ".prisma/client";
 import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
@@ -5,6 +6,8 @@ import { prisma } from "~/lib/prisma.server";
 
 import previewStyles from "~/styles/preview-styles.css";
 import { getUserSession } from "~/lib/auth/session.server";
+import { Editor } from "~/components/editor/Editor";
+import { useUser } from "~/lib/auth/auth";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: previewStyles }];
 
@@ -34,13 +37,18 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 };
 
 export default function SharedNote() {
+  const { setUser } = useUser();
   const { user, note } = useLoaderData<{ note: Note | null; user: User | null }>();
+
+  React.useEffect(() => {
+    user && setUser(user);
+  }, [user]); // eslint-disable-line
 
   const appLink = user?.id === note?.userId && user && note ? `/app/${note.id}` : "/app";
 
   return (
     <main>
-      <header className="border-b-[1.5px] border-dark-4 p-3 sticky top-0 flex items-center justify-between">
+      <header className="border-b-[1.5px] bg-gray-100 dark:bg-dark border-dark-4 p-3 sticky top-0 flex items-center justify-between">
         <div className="space-x-2">
           {user ? (
             <Link to={appLink} className="link">
@@ -68,12 +76,7 @@ export default function SharedNote() {
       </header>
 
       {note ? (
-        <div
-          style={{ maxHeight: "calc(100vh - 3.55rem)", overflowY: "auto" }}
-          className="w-full px-4 py-2 text-lg bg-dark preview-styles"
-          id="note-preview-area"
-          dangerouslySetInnerHTML={{ __html: note?.markdown as string }}
-        />
+        <Editor overwrite={{ note, editMode: false }} />
       ) : (
         <p className="mt-10 text-lg font-medium text-center">Shared note not found.</p>
       )}

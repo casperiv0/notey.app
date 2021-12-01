@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { MetaFunction, LoaderFunction, useLoaderData } from "remix";
@@ -20,13 +21,15 @@ export default function Index() {
   const user = useLoaderData();
   const { setUser } = useUser();
 
+  const minHeight = user ? "calc(100vh - 5rem - 6.5rem)" : "calc(100vh - 5rem - 9.5rem)";
+
   React.useEffect(() => {
     setUser(user ?? { preferences: {} });
   }, [setUser, user]);
 
   return (
     <main className="flex items-center justify-center px-5 lg:px-0">
-      <div id="content" className="flex flex-col w-full max-w-5xl bg-dark">
+      <div id="content" className="flex flex-col w-full max-w-5xl dark:bg-dark">
         <nav className="flex items-center justify-between h-16">
           <h1 className="text-2xl font-bold md:text-3xl">Notey.app</h1>
 
@@ -51,7 +54,7 @@ export default function Index() {
         </nav>
 
         <div
-          style={{ minHeight: "calc(100vh - 5rem - 9.5rem)" }}
+          style={{ minHeight }}
           className="flex flex-col w-full mt-10 md:justify-between md:flex-row md:items-center md:gap-2"
           id="hero"
         >
@@ -59,7 +62,7 @@ export default function Index() {
             <h1 className="mb-5 text-4xl font-bold md:font-black md:text-5xl lg:text-6xl">
               Keep track of important things
             </h1>
-            <h3 className="mb-5 text-2xl font-normal text-gray-400">
+            <h3 className="mb-5 text-2xl font-normal text-dark-4 dark:text-gray-400">
               Notes app to keep track of the most important things securely and easily.
             </h3>
 
@@ -79,7 +82,12 @@ export default function Index() {
           </div>
         </div>
 
-        <footer className="flex items-center justify-between h-32 text-lg">
+        <footer
+          className={classNames(
+            "flex items-center justify-between text-lg",
+            user ? "h-20" : "h-32",
+          )}
+        >
           <p>
             Created by{" "}
             <a href="https://caspertheghost.me" className="underline">

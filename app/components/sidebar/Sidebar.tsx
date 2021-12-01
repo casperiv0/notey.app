@@ -39,7 +39,7 @@ export const Sidebar = () => {
 
   return (
     <>
-      <aside className="w-[300px] p-5 bg-dark-1 min-h-screen shadow-sm responsive-sidebar">
+      <aside className="w-[300px] p-5 bg-gray-200 dark:bg-dark-1 min-h-screen shadow-sm responsive-sidebar">
         <header>
           <section className="flex items-center justify-between">
             <h1

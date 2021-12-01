@@ -28,7 +28,7 @@ export const Modal = ({ id, children, description, title, extra }: Props) => {
 
       <Dialog.Content
         style={{ width, left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
-        className="bg-dark-1 rounded-md shadow-lg fixed max-w-[95%] p-5 modalOpen"
+        className="bg-gray-100 dark:bg-dark-1 rounded-md shadow-lg fixed max-w-[95%] p-5 modalOpen"
       >
         <header className="flex justify-between">
           <Dialog.Title className="mb-1 text-2xl font-semibold">{title}</Dialog.Title>
@@ -42,7 +42,9 @@ export const Modal = ({ id, children, description, title, extra }: Props) => {
         </header>
 
         {description ? (
-          <Dialog.Description className={classNames("text-lg text-gray-400", isAlert && "my-2")}>
+          <Dialog.Description
+            className={classNames("text-lg text-dark-4 dark:text-gray-400", isAlert && "my-2")}
+          >
             {description}
           </Dialog.Description>
         ) : null}
