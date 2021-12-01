@@ -21,7 +21,7 @@ export const Dropdown = ({ trigger: Trigger, children, extra, ...rest }: Props) 
       <DropdownMenu.Content
         sideOffset={3}
         style={{ width: maxWidth, maxWidth }}
-        className="p-2 rounded-md shadow-md bg-dark-4 fadeUp"
+        className="p-2 bg-gray-300 rounded-md shadow-md dark:bg-dark-4 fadeUp"
         align="start"
         {...rest}
       >
@@ -39,7 +39,7 @@ Dropdown.LinkItem = (props: LinkProps) => (
   <DropdownMenu.Item asChild>
     <Link
       {...props}
-      className="block p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left bg-transparent hover:bg-dark-3"
+      className="block p-1 my-0.5 px-1.5 rounded-md transition-colors w-full text-left bg-transparent hover:bg-gray-400 dark:hover:bg-dark-3"
     />
   </DropdownMenu.Item>
 );
@@ -59,7 +59,7 @@ Dropdown.Item = ({ children, command, ...rest }: ButtonProps & { command?: strin
           role=""
           className={classNames(
             "p-0.5 px-1.5 rounded-md text-sm",
-            rest.variant === "danger" ? "bg-red-800 text-white" : "bg-dark-5",
+            rest.variant === "danger" ? "bg-red-800 text-white" : "bg-gray-500/50 dark:bg-dark-5",
           )}
         >
           {command}

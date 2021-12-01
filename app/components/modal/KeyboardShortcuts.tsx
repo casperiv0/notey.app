@@ -30,7 +30,7 @@ const KeyboardShortcut = ({ name, shortcut }: { name: string; shortcut: string }
       {name}
     </p>
     <p>
-      <kbd className="px-1.5 p-1 bg-dark-3 rounded-md">{shortcut}</kbd>
+      <kbd className="px-1.5 p-1 bg-gray-300 dark:bg-dark-3 rounded-md">{shortcut}</kbd>
     </p>
   </div>
 );

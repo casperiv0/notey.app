@@ -29,8 +29,8 @@ export const ListItem = ({ note: { id, title } }: Props) => {
       <Link
         onClick={handleClick}
         className={classNames(
-          "block p-1 px-3 my-1 transition-colors duration-100 rounded-md hover:bg-dark-3",
-          { "bg-dark-3 font-medium": id === note?.id },
+          "block p-1 px-3 my-1 transition-colors duration-100 rounded-md hover:bg-gray-400/50 dark:hover:bg-dark-3",
+          { "bg-gray-400/50 dark:bg-dark-3 font-medium": id === note?.id },
         )}
         to={`/app/${id}`}
       >
