@@ -51,6 +51,22 @@ export default function App() {
   );
 }
 
-export function CatchBoundary() {
-  return <div>oh no!</div>;
+export function ErrorBoundary({ error }: { error: Error }) {
+  const isDev = process.env.NODE_ENV === "development";
+
+  return (
+    <main className="p-5">
+      <h1 className="mb-5 text-3xl font-bold">Whoops!</h1>
+
+      <span className="text-lg">
+        {isDev ? (
+          <pre className="px-4 p-1.5 mb-2 dark:bg-dark-2 bg-gray-300 rounded-md font-mono">
+            {error.message}
+          </pre>
+        ) : null}
+
+        <p>Could not load the editor. Please reload the page or try again later.</p>
+      </span>
+    </main>
+  );
 }

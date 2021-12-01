@@ -117,13 +117,21 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
+  const isDev = process.env.NODE_ENV === "development";
 
   return (
     <Document title="Uh-oh!">
-      <h1>App Error</h1>
-      <pre>{error.message}</pre>
-      <p>Replace this UI with what you want users to see when your app throws uncaught errors.</p>
+      <main className="p-5">
+        <h1 className="mb-5 text-3xl font-bold">App Error</h1>
+
+        <span className="text-lg">
+          {isDev ? (
+            <pre>{error.message}</pre>
+          ) : (
+            <p>An unexpected error occurred. Please reload the page or try again later.</p>
+          )}
+        </span>
+      </main>
     </Document>
   );
 }
