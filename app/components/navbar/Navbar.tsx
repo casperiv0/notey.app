@@ -79,7 +79,7 @@ export const Navbar = () => {
 
   return (
     <header className="relative w-full h-14">
-      <nav className="absolute top-0 left-0 flex items-center justify-between w-full p-4 h-14 border-b-[1.5px] border-dark-5">
+      <nav className="absolute top-0 left-0 flex items-center justify-between w-full p-4 h-14 border-b-[1.5px] border-dark-5 bg-gray-50 dark:bg-dark">
         <div className="flex items-center gap-3">
           <Button
             onClick={() => toggleSidebar()}

@@ -1,7 +1,15 @@
+import type { Note } from ".prisma/client";
 import * as React from "react";
 import { useActiveNote } from "~/lib/note";
 
-export const Editor = () => {
+interface Props {
+  overwrite?: {
+    editMode?: boolean;
+    note?: Note;
+  };
+}
+
+export const Editor = ({ overwrite }: Props) => {
   const { note, editMode, setNote } = useActiveNote();
 
   React.useEffect(() => {
@@ -13,10 +21,10 @@ export const Editor = () => {
 
   if (!note) return null;
 
-  return editMode ? (
+  return overwrite?.editMode ?? editMode ? (
     <textarea
       style={{ height: "calc(100vh - 3.55rem)" }}
-      className="w-full px-4 py-2 bg-dark focus:outline-none"
+      className="w-full px-4 py-2 bg-gray-100 dark:bg-dark focus:outline-none"
       value={note.body}
       onChange={(e) => setNote({ ...note, body: e.target.value })}
       placeholder="Start typing.."
@@ -24,9 +32,9 @@ export const Editor = () => {
   ) : (
     <div
       style={{ height: "calc(100vh - 3.55rem)", overflowY: "auto" }}
-      className="w-full px-4 py-2 text-lg bg-dark preview-styles"
+      className="w-full px-4 py-2 text-lg bg-gray-100 dark:bg-dark preview-styles"
       id="note-preview-area"
-      dangerouslySetInnerHTML={{ __html: note?.markdown as string }}
+      dangerouslySetInnerHTML={{ __html: overwrite?.note?.markdown ?? (note.markdown as string) }}
     />
   );
 };

@@ -36,7 +36,7 @@ export const CategoryItem = ({
               <Button
                 type="submit"
                 variant="cancel"
-                className="px-1 mr-0 text-dark-4 hover:text-gray-400"
+                className="px-1 mr-0 text-gray-400/50 hover:text-gray-400 dark:text-dark-4 dark:hover:text-gray-400"
                 id={foldId}
                 aria-label="Open or close this category"
                 name="fold_folder"
