@@ -53,7 +53,7 @@ export const meta: MetaFunction = () => ({
 });
 
 function Document({ children, title }: { children: React.ReactNode; title?: string }) {
-  const { user } = useLoaderData();
+  const { user } = useLoaderData() ?? {};
   const transition = useTransition();
 
   React.useEffect(() => {
@@ -74,8 +74,8 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
       </head>
       <body
         className={classNames(
-          !user.id || user.preferences?.cursorPointers ? "cursors-pointer" : "cursors-default",
-          user.preferences?.darkTheme && "dark",
+          !user?.id || user?.preferences?.cursorPointers ? "cursors-pointer" : "cursors-default",
+          user?.preferences?.darkTheme && "dark",
         )}
       >
         <IdProvider>

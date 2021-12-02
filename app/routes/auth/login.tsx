@@ -78,7 +78,15 @@ export default function Login() {
         ) : null}
 
         <FormField label="Username">
-          <Input autoFocus autoComplete="username" name="username" id="username" required />
+          <Input
+            // pattern={/^([a-z_.\d]+)*[a-z\d]+$/i.toString()}
+            maxLength={255}
+            autoFocus
+            autoComplete="username"
+            name="username"
+            id="username"
+            required
+          />
         </FormField>
 
         <FormField label="Password">
