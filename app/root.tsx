@@ -1,17 +1,17 @@
 import * as React from "react";
-import type { LinksFunction, MetaFunction } from "remix";
+import { LinksFunction, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import { useTransition, Meta, Links, Scripts, LiveReload, useCatch } from "remix";
 import { Link, Outlet } from "react-router-dom";
 import { SSRProvider } from "@react-aria/ssr";
 import { IdProvider } from "@radix-ui/react-id";
 import NProgress from "nprogress";
 import classNames from "classnames";
-import { useUser } from "./lib/auth/auth";
 
 import tailwindStyles from "./styles/tailwind.css";
 import globalStyles from "./styles/global.css";
 import nProgressStyles from "./styles/nprogress.css";
 import responsiveStyles from "./styles/responsive.css";
+import { getUserSession } from "./lib/auth/session.server";
 
 export const links: LinksFunction = () => {
   return [
@@ -41,6 +41,11 @@ export const links: LinksFunction = () => {
   ];
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await getUserSession(request);
+  return { user };
+};
+
 export const meta: MetaFunction = () => ({
   viewport: "width=device-width, initial-scale=1",
   "google-site-verification": "6LqjGmq_LshCupZ3FdR3meDNGaWcBjRG2snvcRtclSc",
@@ -48,7 +53,7 @@ export const meta: MetaFunction = () => ({
 });
 
 function Document({ children, title }: { children: React.ReactNode; title?: string }) {
-  const { user } = useUser();
+  const { user } = useLoaderData();
   const transition = useTransition();
 
   React.useEffect(() => {
