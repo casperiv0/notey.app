@@ -21,6 +21,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@dnd-kit/core": "^4.0.3",
+    "@dnd-kit/modifiers": "^4.0.0",
     "@prisma/client": "^3.6.0",
     "@radix-ui/react-dialog": "^0.1.1",
     "@radix-ui/react-dropdown-menu": "^0.1.1",

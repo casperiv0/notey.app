@@ -6,7 +6,6 @@ import { useLoaderData } from "remix";
 import { Button } from "~/components/Button";
 import { CategoryForm } from "../forms/CategoryForm";
 import { Modal } from "../modal/Modal";
-import { CategoryItem } from "./Category";
 import { Dropdown } from "~/components/dropdown/Dropdown";
 import { useModal } from "~/lib/useModal";
 import { Modals } from "~/lib/constants";
@@ -16,6 +15,7 @@ import { AccountForm } from "../forms/AccountForm";
 import { toggleSidebar } from "~/lib/utils/client.client";
 import { useSidebarShortcuts } from "~/lib/useShortcuts";
 import { getNotesFromCategories } from "~/routes/app";
+import { DndWrapper } from "./dnd/DndWrapper";
 
 type LoaderData = { noCategoryNotes: Note[]; categories: (Category & { notes: Note[] })[] };
 
@@ -96,23 +96,20 @@ export const Sidebar = () => {
           {categories.length <= 0 && noCategoryNotes.length <= 0 ? (
             <p className="text-gray-400">You do not have any notes yet.</p>
           ) : (
-            <ul role="list">
-              {categories.map((category) => {
-                return <CategoryItem key={category.id} category={category} />;
-              })}
-
-              {noCategoryNotes.length <= 0 ? null : (
-                <CategoryItem
-                  category={{
+            <ul>
+              <DndWrapper
+                categories={[
+                  ...categories,
+                  {
                     userId: "null",
                     id: "no_category",
                     name: "No category",
                     notes: noCategoryNotes,
                     createdAt: new Date(""),
                     folded: false,
-                  }}
-                />
-              )}
+                  },
+                ]}
+              />
             </ul>
           )}
         </section>
