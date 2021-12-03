@@ -17,11 +17,12 @@ export function Draggable(props: Props) {
       }
     : undefined;
 
-  const attr = props.disabled ? {} : attributes;
-  const listrs = props.disabled ? {} : listeners;
+  if (props.disabled) {
+    return <>{props.children}</>;
+  }
 
   return (
-    <div ref={props.disabled ? null : setNodeRef} style={style} {...listrs} {...attr}>
+    <div className="cursor-move" ref={setNodeRef} style={style} {...listeners} {...attributes}>
       {props.children}
     </div>
   );

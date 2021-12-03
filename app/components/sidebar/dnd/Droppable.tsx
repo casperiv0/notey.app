@@ -15,6 +15,10 @@ export function Droppable(props: Props) {
     color: isOver ? "green" : undefined,
   };
 
+  if (props.disabled) {
+    return <>{props.children}</>;
+  }
+
   return (
     <div ref={setNodeRef} style={style}>
       {props.children}
