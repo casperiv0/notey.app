@@ -107,6 +107,7 @@ export const Sidebar = () => {
                     notes: noCategoryNotes,
                     createdAt: new Date(""),
                     folded: false,
+                    position: null,
                   },
                 ]}
               />
