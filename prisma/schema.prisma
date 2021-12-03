@@ -1,67 +1,69 @@
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model User {
-    id                String           @id @default(cuid())
-    username          String           @unique
-    createdAt         DateTime         @default(now())
-    notes             Note[]
-    Category          Category[]
-    preferences       UserPreferences? @relation(fields: [userPreferencesId], references: [id])
-    userPreferencesId String?
+  id                String           @id @default(cuid())
+  username          String           @unique
+  createdAt         DateTime         @default(now())
+  notes             Note[]
+  Category          Category[]
+  preferences       UserPreferences? @relation(fields: [userPreferencesId], references: [id])
+  userPreferencesId String?
 
-    pinCodeHash   Hashed? @relation("pinCodeHash", fields: [pinCodeHashId], references: [id])
-    pinCodeHashId String?
+  pinCodeHash   Hashed? @relation("pinCodeHash", fields: [pinCodeHashId], references: [id])
+  pinCodeHashId String?
 
-    passwordHash   Hashed @relation("passwordHash", fields: [passwordHashId], references: [id])
-    passwordHashId String
+  passwordHash   Hashed @relation("passwordHash", fields: [passwordHashId], references: [id])
+  passwordHashId String
 
 }
 
 model Hashed {
-    id   String @id @default(cuid())
-    hash String
+  id   String @id @default(cuid())
+  hash String
 
-    pinCodes  User[] @relation("pinCodeHash")
-    passwords User[] @relation("passwordHash")
+  pinCodes  User[] @relation("pinCodeHash")
+  passwords User[] @relation("passwordHash")
 }
 
 model UserPreferences {
-    id String @id @default(uuid())
+  id String @id @default(uuid())
 
-    // true = cursor-pointer, false = cursor-default
-    cursorPointers Boolean? @default(false)
-    // true = dark theme, false = light theme
-    darkTheme      Boolean? @default(true)
-    users          User[]
+  // true = cursor-pointer, false = cursor-default
+  cursorPointers Boolean? @default(false)
+  // true = dark theme, false = light theme
+  darkTheme      Boolean? @default(true)
+  users          User[]
 }
 
 model Note {
-    id            String    @id @default(cuid())
-    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId        String
-    category      Category? @relation(fields: [categoryId], references: [id])
-    categoryId    String?
-    title         String    @db.VarChar(40)
-    body          String    @db.Text
-    markdown      String?   @db.Text
-    createdAt     DateTime  @default(now())
-    public        Boolean   @default(false)
-    pinCodeLocked Boolean   @default(false)
+  id            String    @id @default(cuid())
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  category      Category? @relation(fields: [categoryId], references: [id])
+  categoryId    String?
+  title         String    @db.VarChar(40)
+  body          String    @db.Text
+  markdown      String?   @db.Text
+  createdAt     DateTime  @default(now())
+  public        Boolean   @default(false)
+  pinCodeLocked Boolean   @default(false)
+  position      Int?
 }
 
 model Category {
-    id        String   @id @default(cuid())
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId    String
-    name      String   @db.VarChar(40)
-    folded    Boolean  @default(false)
-    createdAt DateTime @default(now())
-    notes     Note[]
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  name      String   @db.VarChar(40)
+  folded    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  notes     Note[]
+  position  Int?
 }

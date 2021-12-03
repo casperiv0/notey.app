@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const DndWrapper = ({ categories: data }: Props) => {
-  const [categories, setCategories] = React.useState(data);
+  const [categories, setCategories] = React.useState(sortCategories(data));
 
   function handleDragEnd({ over, active }: DragEndEvent) {
     const copy = [...categories];
@@ -55,6 +55,22 @@ export const DndWrapper = ({ categories: data }: Props) => {
     </DndContext>
   );
 };
+
+/**
+ * sort the categories and notes by their position
+ */
+function sortCategories(
+  categories: (Category & { notes: Note[] })[],
+): (Category & { notes: Note[] })[] {
+  return categories.sort(sort).map((category) => ({
+    ...category,
+    notes: category.notes.sort(sort),
+  }));
+}
+
+function sort<T extends Category | Note = Category>(a: T, b: T) {
+  return (a.position ?? -1) - (b.position ?? -1);
+}
 
 /* eslint-disable */
 {
