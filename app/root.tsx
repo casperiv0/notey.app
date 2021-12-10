@@ -3,7 +3,6 @@ import { LinksFunction, LoaderFunction, MetaFunction, useLoaderData } from "remi
 import { useTransition, Meta, Links, Scripts, LiveReload, useCatch } from "remix";
 import { Link, Outlet } from "react-router-dom";
 import { SSRProvider } from "@react-aria/ssr";
-import { IdProvider } from "@radix-ui/react-id";
 import NProgress from "nprogress";
 import classNames from "classnames";
 
@@ -78,9 +77,7 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
           (!user?.id || user?.preferences?.darkTheme) && "dark",
         )}
       >
-        <IdProvider>
-          <SSRProvider>{children}</SSRProvider>
-        </IdProvider>
+        <SSRProvider>{children}</SSRProvider>
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
