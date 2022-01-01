@@ -39,7 +39,7 @@
     "jsonwebtoken": "^8.5.1",
     "marked": "^4.0.7",
     "nprogress": "^0.2.0",
-    "prisma": "^3.6.0",
+    "prisma": "^3.7.0",
     "react": "^17.0.2",
     "react-aria": "^3.12.0",
     "react-bootstrap-icons": "^1.6.1",
