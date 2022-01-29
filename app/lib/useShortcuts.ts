@@ -11,54 +11,62 @@ const OPTIONS: Options = {
 };
 
 export function useShortcuts() {
-  const { openModal } = useModal();
+  const { isModalsOpen, openModal } = useModal();
   const { note } = useActiveNote();
   const { handleClone } = useCloneNote();
   const navigate = useNavigate();
 
-  useHotkeys("shift+n", () => openModal(Modals.CreateNote), OPTIONS);
-  useHotkeys("shift+alt+n", () => openModal(Modals.ManageCategory), OPTIONS);
+  useHotkeys("shift+n", () => !isModalsOpen && openModal(Modals.CreateNote), OPTIONS, [
+    isModalsOpen,
+  ]);
+  useHotkeys("shift+alt+n", () => !isModalsOpen && openModal(Modals.ManageCategory), OPTIONS, [
+    isModalsOpen,
+  ]);
 
   useHotkeys(
     "shift+m",
     () => {
-      openModal(Modals.CreateNote, note);
+      !isModalsOpen && openModal(Modals.CreateNote, note);
     },
     OPTIONS,
-    [note],
+    [note, isModalsOpen],
   );
 
   useHotkeys(
     "shift+c",
     () => {
-      handleClone();
+      !isModalsOpen && handleClone();
     },
     OPTIONS,
-    [note],
+    [note, isModalsOpen],
   );
 
   useHotkeys(
     "shift+alt+d",
     () => {
-      openModal(Modals.AlertDeleteNote, note);
+      !isModalsOpen && openModal(Modals.AlertDeleteNote, note);
     },
     OPTIONS,
-    [note],
+    [note, isModalsOpen],
   );
 
   useHotkeys(
     "shift+alt+o",
     () => {
-      if (note && note.public) {
+      if (!isModalsOpen && note && note.public) {
         navigate(`/share/${note.id}`);
       }
     },
     OPTIONS,
-    [note],
+    [note, isModalsOpen],
   );
 
-  useHotkeys("shift+k", () => openModal(Modals.KeyboardShortcuts), OPTIONS);
-  useHotkeys("shift+a", () => openModal(Modals.ManageAccount), OPTIONS);
+  useHotkeys("shift+k", () => !isModalsOpen && openModal(Modals.KeyboardShortcuts), OPTIONS, [
+    isModalsOpen,
+  ]);
+  useHotkeys("shift+a", () => !isModalsOpen && openModal(Modals.ManageAccount), OPTIONS, [
+    isModalsOpen,
+  ]);
   useHotkeys("shift+alt+l", () => navigate("/auth/logout"), OPTIONS);
 
   // dummy function because the app breaks if no object gets returned
@@ -71,13 +79,13 @@ export function useShortcuts() {
 
 export function useSidebarShortcuts(notes: Note[]) {
   const { note, editMode } = useActiveNote();
-  const { openModal } = useModal();
+  const { isModalsOpen, openModal } = useModal();
   const navigate = useNavigate();
 
   useHotkeys(
     "shift+alt+up",
     () => {
-      if (!note) return;
+      if (!note || isModalsOpen) return;
 
       const currentIndex = notes.findIndex((v) => v.id === note.id);
 
@@ -102,13 +110,13 @@ export function useSidebarShortcuts(notes: Note[]) {
       }
     },
     OPTIONS,
-    [notes, note, editMode],
+    [notes, note, isModalsOpen, editMode],
   );
 
   useHotkeys(
     "shift+alt+down",
     () => {
-      if (!note) return;
+      if (!note || isModalsOpen) return;
 
       const currentIndex = notes.findIndex((v) => v.id === note.id);
 
@@ -133,7 +141,7 @@ export function useSidebarShortcuts(notes: Note[]) {
       }
     },
     OPTIONS,
-    [notes, note, editMode],
+    [notes, note, isModalsOpen, editMode],
   );
 
   // dummy function because the app breaks if no object gets returned

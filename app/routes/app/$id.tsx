@@ -14,7 +14,7 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: previewSty
 export const meta: MetaFunction = ({ data }) => {
   const note = data?.note;
 
-  const title = note?.title ? `${note?.title} - Notey.app` : "Notey.app";
+  const title = note?.title ? `${note.title} - Notey.app` : "Notey.app";
   const description = "A simple notes app to keep track of important things.";
 
   return {

@@ -18,6 +18,7 @@ const useModalStore = create<ModalStore>((set, get) => ({
 
 export function useModal() {
   const { open, payload, setOpen, setPayload } = useModalStore();
+  const isModalsOpen = open.length > 0;
 
   function isOpen(id: string) {
     return open.includes(id);
@@ -41,5 +42,5 @@ export function useModal() {
     return setOpen(open.filter((v) => v !== id));
   }
 
-  return { getPayload, openModal, isOpen, closeModal };
+  return { getPayload, openModal, isOpen, closeModal, isModalsOpen };
 }
