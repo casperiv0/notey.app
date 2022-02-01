@@ -61,7 +61,7 @@
     "@types/dompurify": "^2.3.3",
     "@types/jsdom": "^16.2.14",
     "@types/jsonwebtoken": "^8.5.8",
-    "@types/marked": "^4.0.1",
+    "@types/marked": "^4.0.2",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
