@@ -1,3 +1,5 @@
+import "dotenv/config"
+
 /* eslint-disable no-var */
 /**
  * thanks to https://github.com/remix-run/remix-jokes/blob/main/app/utils/db.server.ts

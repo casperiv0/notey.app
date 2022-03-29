@@ -19,10 +19,19 @@ export const Editor = ({ overwrite }: Props) => {
     });
   }, [note?.markdown]);
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+    const key = event.key;
+
+    if (key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      // todo
+    }
+  }
+
   if (!note) return null;
 
   return overwrite?.editMode ?? editMode ? (
     <textarea
+      onKeyDown={handleKeyDown}
       style={{ height: "calc(100vh - 3.55rem)" }}
       className="w-full px-4 py-2 bg-gray-100 dark:bg-dark focus:outline-none"
       value={note.body}
