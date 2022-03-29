@@ -5,7 +5,7 @@ import * as React from "react";
 type Props = JSX.IntrinsicElements["div"] & {
   label: string | null;
   errorMessage?: string;
-  children?: React.ReactElement<any>;
+  children?: React.ReactElement;
   checkbox?: boolean;
   optional?: boolean;
 };

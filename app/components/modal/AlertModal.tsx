@@ -34,7 +34,7 @@ export const AlertModal = (props: Props) => {
       { id: props.dataId },
       {
         action: fullAction,
-        method: method,
+        method,
       },
     );
   }

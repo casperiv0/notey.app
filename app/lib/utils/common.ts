@@ -10,7 +10,7 @@ export async function getBody<T extends JsonValue = JsonValue>(request: Request)
 
 export function exclude<Obj extends object, Values extends keyof Obj>(
   object: Obj,
-  values: Array<Values>,
+  values: Values[],
 ): Omit<Obj, Values> {
   const newObj = { ...object } as Obj;
 

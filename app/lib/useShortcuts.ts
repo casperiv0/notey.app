@@ -1,8 +1,7 @@
 import { useHotkeys, Options } from "react-hotkeys-hook";
 import { Modals } from "./constants";
-import { useActiveNote } from "./note";
+import { useCloneNote, useActiveNote } from "./note";
 import { useModal } from "./useModal";
-import { useCloneNote } from "./note";
 import { Note } from ".prisma/client";
 import { useNavigate } from "react-router";
 
@@ -93,7 +92,7 @@ export function useSidebarShortcuts(notes: Note[]) {
         const lastNote = notes[notes.length - 1];
         const href = `/app/${lastNote.id}`;
 
-        if (editMode === true) {
+        if (editMode) {
           return openModal(Modals.AlertUnsavedChanges, href);
         }
 
@@ -102,7 +101,7 @@ export function useSidebarShortcuts(notes: Note[]) {
         const newNote = notes[currentIndex - 1];
         const href = `/app/${newNote.id}`;
 
-        if (editMode === true) {
+        if (editMode) {
           return openModal(Modals.AlertUnsavedChanges, href);
         }
 
@@ -124,7 +123,7 @@ export function useSidebarShortcuts(notes: Note[]) {
         const [lastNote] = notes;
         const href = `/app/${lastNote.id}`;
 
-        if (editMode === true) {
+        if (editMode) {
           return openModal(Modals.AlertUnsavedChanges, href);
         }
 
@@ -133,7 +132,7 @@ export function useSidebarShortcuts(notes: Note[]) {
         const newNote = notes[currentIndex + 1];
         const href = `/app/${newNote.id}`;
 
-        if (editMode === true) {
+        if (editMode) {
           return openModal(Modals.AlertUnsavedChanges, href);
         }
 

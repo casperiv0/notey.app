@@ -1,5 +1,4 @@
-import { redirect } from "remix";
-import type { LoaderFunction, ActionFunction } from "remix";
+import { redirect, type LoaderFunction, type ActionFunction } from "remix";
 import { prisma } from "~/lib/prisma.server";
 import { z } from "zod";
 import { getBodySafe } from "~/lib/utils/body";

@@ -1,7 +1,6 @@
 import * as React from "react";
-import type { MetaFunction, LoaderFunction } from "remix";
+import { type MetaFunction, type LoaderFunction, Outlet, useLoaderData, redirect } from "remix";
 import type { Note } from ".prisma/client";
-import { Outlet, useLoaderData, redirect } from "remix";
 import { Layout } from "~/components/Layout";
 import { CreditsModal } from "~/components/modal/CreditsModal";
 import { useUser } from "~/lib/auth/auth";

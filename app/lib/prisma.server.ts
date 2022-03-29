@@ -1,4 +1,5 @@
-import "dotenv/config"
+import process from "node:process";
+import "dotenv/config";
 
 /* eslint-disable no-var */
 /**

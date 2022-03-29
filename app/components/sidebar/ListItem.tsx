@@ -16,7 +16,7 @@ export const ListItem = ({ note: { id, title } }: Props) => {
   const { openModal } = useModal();
 
   function handleClick(e: React.MouseEvent) {
-    if (editMode === true) {
+    if (editMode) {
       e.preventDefault();
       openModal(Modals.AlertUnsavedChanges, `/app/${id}`);
     }

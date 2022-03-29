@@ -1,7 +1,14 @@
-import type { ActionFunction, HeadersFunction, MetaFunction } from "remix";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import { useTransition, redirect, useActionData, Form } from "remix";
+import {
+  useTransition,
+  redirect,
+  useActionData,
+  Form,
+  type ActionFunction,
+  type HeadersFunction,
+  type MetaFunction,
+} from "remix";
 import { badRequest } from "remix-utils";
 import { Input } from "~/components/form/Input";
 import { Button } from "~/components/Button";

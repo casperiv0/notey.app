@@ -1,7 +1,12 @@
 import * as React from "react";
-import { Link, useLoaderData } from "remix";
+import {
+  Link,
+  useLoaderData,
+  type LinksFunction,
+  type MetaFunction,
+  type LoaderFunction,
+} from "remix";
 import type { Note, User } from ".prisma/client";
-import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
 import { prisma } from "~/lib/prisma.server";
 
 import previewStyles from "~/styles/preview-styles.css";

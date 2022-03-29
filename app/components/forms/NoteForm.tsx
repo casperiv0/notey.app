@@ -74,7 +74,7 @@ export const NoteForm = () => {
         </Tooltip>
       </FormField>
 
-      {note && note.public ? (
+      {note?.public ? (
         <small className="text-base">
           <a
             rel="noreferrer noopener"
