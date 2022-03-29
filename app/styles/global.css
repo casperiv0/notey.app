@@ -94,3 +94,8 @@ body .dropdown-button[aria-expanded="true"] {
 .switch-component[data-state="unchecked"] {
   transform: translateX(3px);
 }
+
+[data-list-item="true"]::before {
+  content: "•";
+  padding: 0 5px;
+}
