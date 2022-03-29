@@ -32,3 +32,13 @@
     background-color: rgba(0, 0, 0, 0.5);
   }
 }
+
+[data-editor-preview] {
+  width: 100vw;
+}
+
+@media (min-width: 768px) {
+  [data-editor-preview] {
+    width: calc(100vw - 300px);
+  }
+}
