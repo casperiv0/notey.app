@@ -7,23 +7,37 @@ type Props = JSX.IntrinsicElements["div"] & {
   errorMessage?: string;
   children?: React.ReactElement<any>;
   checkbox?: boolean;
+  optional?: boolean;
 };
 
-export const FormField = ({ label, checkbox, errorMessage, children, ...rest }: Props) => {
+export const FormField = ({
+  label,
+  checkbox,
+  errorMessage,
+  children,
+  optional,
+  ...rest
+}: Props) => {
   const { labelProps, fieldProps, errorMessageProps } = useField({ label, errorMessage });
 
-  const element = React.cloneElement(children as React.ReactElement<any>, fieldProps);
+  // first child must be an input, textarea, select, etc. (form elements)
+  const [child, ...otherChildren] = Array.isArray(children) ? children : [children];
+
+  const element = React.cloneElement(child as React.ReactElement, {
+    ...fieldProps,
+  });
 
   return (
     <div {...rest} className={classNames("flex mb-3", !checkbox && "flex-col", rest.className)}>
       <label {...labelProps} className={classNames("mb-1", checkbox && "mr-3")}>
-        {label}
+        {label} {optional ? <span className="text-sm italic">(Optional)</span> : null}
       </label>
 
       {element}
+      {otherChildren}
 
       {errorMessage ? (
-        <span {...errorMessageProps} className="mt-1 font-medium text-red-600">
+        <span {...errorMessageProps} className="mt-1 font-medium text-red-500">
           {errorMessage}
         </span>
       ) : null}

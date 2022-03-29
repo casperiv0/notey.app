@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useLocation } from "react-router";
-import { Form, FormMethod, useTransition } from "remix";
+import { FormMethod, useFetcher } from "remix";
 import { useModal } from "~/lib/useModal";
 import { Button } from "../Button";
-import { Input } from "../form/Input";
 import { Modal } from "./Modal";
 
 interface Props {
@@ -17,33 +16,44 @@ interface Props {
 
 export const AlertModal = (props: Props) => {
   const { closeModal } = useModal();
-  const { state } = useTransition();
   const location = useLocation();
+  const fetcher = useFetcher();
 
   const [method, action] = props.action.split("-") as [FormMethod, string];
   const next = location.pathname;
   const fullAction = `${action}?next=${next}`;
 
   React.useEffect(() => {
-    if (state === "loading") {
+    if (fetcher.state === "loading") {
       closeModal(props.id);
     }
-  }, [state, props.id, closeModal]);
+  }, [fetcher.state, props.id, closeModal]);
+
+  async function handleDelete() {
+    fetcher.submit(
+      { id: props.dataId },
+      {
+        action: fullAction,
+        method: method,
+      },
+    );
+  }
 
   return (
     <Modal {...props} extra={{ isAlert: true, width: 520 }}>
-      <Form action={fullAction} method={method} className="mt-2">
-        <Input className="hidden" defaultValue={props.dataId} id="id" name="id" />
-
-        <div className="flex justify-between">
-          <Button type="button" onClick={() => closeModal(props.id)} variant="cancel">
-            Cancel
-          </Button>
-          <Button loading={state !== "idle"} variant="danger" type="submit">
-            {state !== "idle" ? "Deleting.." : "Delete"}
-          </Button>
-        </div>
-      </Form>
+      <div className="flex justify-between">
+        <Button type="button" onClick={() => closeModal(props.id)} variant="cancel">
+          Cancel
+        </Button>
+        <Button
+          onClick={handleDelete}
+          loading={fetcher.state !== "idle"}
+          variant="danger"
+          type="button"
+        >
+          {fetcher.state !== "idle" ? "Deleting.." : "Delete"}
+        </Button>
+      </div>
     </Modal>
   );
 };
