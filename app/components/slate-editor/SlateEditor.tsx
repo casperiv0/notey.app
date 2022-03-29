@@ -150,32 +150,3 @@ function Element({ attributes, children, element, ...rest }: RenderElementProps)
       return <p {...attributes}>{children}</p>;
   }
 }
-
-export function dataToSlate(
-  data:
-    | {
-        description?: string | null;
-        body?: string | null;
-        descriptionData?: JsonArray | null;
-        bodyData?: JsonArray | null;
-      }
-    | null
-    | undefined,
-) {
-  if (!data) {
-    return DEFAULT_EDITOR_DATA;
-  }
-
-  const descriptionData = data.descriptionData ?? data.bodyData;
-  const description = data.description ?? data.body;
-
-  if (Array.isArray(descriptionData) && !description) {
-    return descriptionData as unknown as Descendant[];
-  }
-
-  if (typeof description === "string") {
-    return [{ type: "paragraph", children: [{ text: description }] }] as Descendant[];
-  }
-
-  return DEFAULT_EDITOR_DATA;
-}

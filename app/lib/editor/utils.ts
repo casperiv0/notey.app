@@ -1,4 +1,4 @@
-import type { SlateEditor } from "~/components/slate-editor/Editor";
+import type { SlateEditor } from "~/components/slate-editor/SlateEditor";
 import type { Text } from "~/components/slate-editor/types";
 import { Editor, Transforms, Element as SlateElement } from "slate";
 

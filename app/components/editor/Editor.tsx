@@ -1,7 +1,7 @@
 import type { Note } from ".prisma/client";
 import * as React from "react";
 import { useActiveNote } from "~/lib/note";
-import { DEFAULT_EDITOR_DATA, SlateEditor } from "../slate-editor/Editor";
+import { DEFAULT_EDITOR_DATA, SlateEditor } from "../slate-editor/SlateEditor";
 
 interface Props {
   overwrite?: {
