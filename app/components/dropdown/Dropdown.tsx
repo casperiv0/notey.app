@@ -49,9 +49,7 @@ Dropdown.LinkItem = ({ children, command, ...rest }: LinkProps & { command?: str
       {children}
 
       {command ? (
-        <span role="" className="p-0.5 px-1.5 rounded-md text-sm bg-dark-5">
-          {command}
-        </span>
+        <span className="p-0.5 px-1.5 rounded-md text-sm bg-dark-5">{command}</span>
       ) : null}
     </Link>
   </DropdownMenu.Item>
