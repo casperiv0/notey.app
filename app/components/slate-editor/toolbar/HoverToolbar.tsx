@@ -1,9 +1,8 @@
 import * as React from "react";
 import * as RToolbar from "@radix-ui/react-toolbar";
 import * as Portal from "@radix-ui/react-portal";
-import { Editor } from "slate";
+import { Range, Editor } from "slate";
 import { useFocused, useSlate } from "slate-react";
-import { Range } from "slate";
 import { MarkButton } from "./Toolbar";
 import { TypeItalic, TypeStrikethrough, TypeUnderline, TypeBold } from "react-bootstrap-icons";
 
