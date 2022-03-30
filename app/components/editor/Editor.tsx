@@ -1,7 +1,7 @@
 import type { Note } from ".prisma/client";
 import * as React from "react";
 import { useActiveNote } from "~/lib/note";
-import { SlateEditor } from "../slate-editor/SlateEditor";
+import { DEFAULT_EDITOR_DATA, SlateEditor } from "../slate-editor/SlateEditor";
 
 interface Props {
   overwrite?: {
@@ -22,10 +22,14 @@ export const Editor = ({ overwrite }: Props) => {
 
   if (!note) return null;
 
+  const body = (overwrite?.note?.body ?? note.body) as any[];
+  const arr = Array.isArray(body) ? body : [{ type: "paragraph", text: String(note.body) }];
+  const value = arr.length <= 0 ? DEFAULT_EDITOR_DATA : arr;
+
   return (
     <SlateEditor
       onChange={(v) => setNote({ ...note, body: v as any })}
-      value={overwrite?.note?.body ?? note.body}
+      value={value}
       isReadonly={!(overwrite?.editMode ?? editMode)}
     />
   );
