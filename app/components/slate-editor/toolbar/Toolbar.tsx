@@ -66,10 +66,10 @@ export function Toolbar() {
         className="flex gap-1"
         type="single"
       >
-        <BlockButton format="text-left" icon={<JustifyLeft aria-label="check-list-item" />} />
-        <BlockButton format="text-right" icon={<JustifyRight aria-label="check-list-item" />} />
-        <BlockButton format="text-center" icon={<TextCenter aria-label="check-list-item" />} />
-        <BlockButton format="text-justify" icon={<Justify aria-label="check-list-item" />} />
+        <BlockButton format="text-left" icon={<JustifyLeft aria-label="text-left" />} />
+        <BlockButton format="text-right" icon={<JustifyRight aria-label="text-right" />} />
+        <BlockButton format="text-center" icon={<TextCenter aria-label="text-center" />} />
+        <BlockButton format="text-justify" icon={<Justify aria-label="text-justify" />} />
       </RToolbar.ToolbarToggleGroup>
     </RToolbar.Root>
   );

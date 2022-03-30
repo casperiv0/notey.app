@@ -72,5 +72,12 @@ export type SlateElements =
   | CheckListItemElement
   | LinkElement;
 
+export type TextBlocks =
+  | ParagraphElement
+  | HeadingOneElement
+  | HeadingTwoElement
+  | HeadingThreeElement
+  | BlockquoteElement;
+
 export type TextAlignment = "text-left" | "text-right" | "text-center" | "text-justify";
 export type SlateFormat = SlateElements["type"] | TextAlignment;
