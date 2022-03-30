@@ -27,6 +27,7 @@ interface EditorProps {
   isReadonly?: boolean;
   value: any;
   onChange?: (value: Descendant[]) => void;
+  isShare?: boolean;
 }
 
 export const DEFAULT_EDITOR_DATA = [
@@ -44,7 +45,7 @@ const HOTKEYS = {
   "mod+c": "code",
 } as const;
 
-export function SlateEditor({ isReadonly, value, onChange }: EditorProps) {
+export function SlateEditor({ isReadonly, value, isShare, onChange }: EditorProps) {
   const { state, type } = useTransition();
   const renderElement = React.useCallback((props) => <EditorElement {...props} />, []);
   const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
@@ -64,7 +65,8 @@ export function SlateEditor({ isReadonly, value, onChange }: EditorProps) {
   return (
     <div
       className="mt-1 px-3"
-      style={{ height: "calc(100vh - 4rem)", overflowY: "auto", width: "calc(100vw - 320px)" }}
+      data-editor-preview={!isShare}
+      style={{ height: "calc(100vh - 4rem)", overflowY: "auto" }}
     >
       <Slate editor={editor} value={value} onChange={handleChange}>
         {isReadonly ? null : (

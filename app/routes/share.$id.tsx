@@ -53,7 +53,7 @@ export default function SharedNote() {
 
   return (
     <main>
-      <header className="border-b-[1.5px] bg-gray-100 dark:bg-dark border-dark-4 p-3 sticky top-0 flex items-center justify-between">
+      <header className="border-b-[1.5px] bg-gray-100 dark:bg-dark border-dark-4 p-3 sticky top-0 flex flex-col sm:flex-row gap-2 items-center justify-between">
         <div className="space-x-2">
           {user ? (
             <Link to={appLink} className="link">
@@ -81,9 +81,9 @@ export default function SharedNote() {
       </header>
 
       {note ? (
-        <Editor overwrite={{ note, editMode: false }} />
+        <Editor isShare overwrite={{ note, editMode: false }} />
       ) : (
-        <p className="mt-10 text-lg font-medium text-center">Shared note not found.</p>
+        <p className="mt-10 text-lg font-medium text-center">Note not found.</p>
       )}
     </main>
   );

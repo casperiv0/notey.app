@@ -4,13 +4,14 @@ import { useActiveNote } from "~/lib/note";
 import { DEFAULT_EDITOR_DATA, SlateEditor } from "../slate-editor/SlateEditor";
 
 interface Props {
+  isShare?: boolean;
   overwrite?: {
     editMode?: boolean;
     note?: Note;
   };
 }
 
-export const Editor = ({ overwrite }: Props) => {
+export const Editor = ({ isShare, overwrite }: Props) => {
   const { note, editMode, setNote } = useActiveNote();
 
   React.useEffect(() => {
@@ -38,6 +39,7 @@ export const Editor = ({ overwrite }: Props) => {
       onChange={(v) => setNote({ ...note, body: v as any })}
       value={value}
       isReadonly={!(overwrite?.editMode ?? editMode)}
+      isShare={isShare}
     />
   );
 };

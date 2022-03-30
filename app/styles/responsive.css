@@ -33,12 +33,12 @@
   }
 }
 
-[data-editor-preview] {
+[data-editor-preview="true"] {
   width: 100vw;
 }
 
 @media (min-width: 768px) {
-  [data-editor-preview] {
+  [data-editor-preview="true"] {
     width: calc(100vw - 300px);
   }
 }
