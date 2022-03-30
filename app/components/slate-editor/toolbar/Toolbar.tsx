@@ -14,6 +14,8 @@ import {
   TypeUnderline,
   JustifyRight,
   JustifyLeft,
+  Code,
+  Link,
 } from "react-bootstrap-icons";
 import { useSlate } from "slate-react";
 import { Button } from "~/components/Button";
@@ -41,6 +43,8 @@ export function Toolbar() {
           format="strikethrough"
           icon={<TypeStrikethrough aria-label="strikethrough" />}
         />
+        <MarkButton format="code" icon={<Code aria-label="inline-code" />} />
+        <LinkButton icon={<Link aria-label="link" />} />
       </RToolbar.ToolbarToggleGroup>
       <RToolbar.Separator className="w-[1px] bg-neutral-400 dark:bg-gray-3 mx-1 text-justify" />
       <RToolbar.ToolbarToggleGroup
