@@ -9,7 +9,7 @@ import {
   withReact,
 } from "slate-react";
 import { type HistoryEditor, withHistory } from "slate-history";
-import { Toolbar } from "./Toolbar";
+import { Toolbar } from "./toolbar/Toolbar";
 import { toggleMark } from "~/lib/editor/utils";
 import isHotkey from "is-hotkey";
 import { withShortcuts } from "~/lib/editor/withShortcuts";
@@ -17,6 +17,7 @@ import { withChecklists } from "~/lib/editor/withChecklists";
 import { CheckListItemElement } from "./ChecklistItem";
 import type { SlateElements, Text } from "./types";
 import { useTransition } from "remix";
+import { HoverToolbar } from "./toolbar/HoverToolbar";
 
 export type SlateEditor = BaseEditor & ReactEditor & HistoryEditor;
 
@@ -71,7 +72,13 @@ export function SlateEditor({ isReadonly, value, onChange }: EditorProps) {
       style={{ height: "calc(100vh - 4rem)", overflowY: "auto", width: "calc(100vw - 320px)" }}
     >
       <Slate editor={editor} value={value} onChange={handleChange}>
-        {isReadonly ? null : <Toolbar />}
+        {isReadonly ? null : (
+          <>
+            <Toolbar />
+            <HoverToolbar />
+          </>
+        )}
+
         <Editable
           spellCheck="false"
           autoComplete="off"
