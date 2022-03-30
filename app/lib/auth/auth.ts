@@ -3,7 +3,7 @@ import create from "zustand";
 
 interface UserStore {
   user: User & { preferences?: UserPreferences };
-  setUser: (user: User) => void;
+  setUser(user: User): void;
 }
 
 export const useUser = create<UserStore>((set) => ({

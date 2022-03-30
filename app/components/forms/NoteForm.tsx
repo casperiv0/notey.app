@@ -13,7 +13,7 @@ import { Tooltip } from "../Tooltip";
 
 export const NoteForm = () => {
   const { closeModal, getPayload } = useModal();
-  const note = getPayload<Note>(Modals.CreateNote);
+  const note = getPayload<Note | null>(Modals.CreateNote);
   const location = useLocation();
 
   const { categories } = useLoaderData<{ categories: Category[] }>();

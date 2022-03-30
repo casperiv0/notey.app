@@ -13,7 +13,7 @@ import { AlertModal } from "../modal/AlertModal";
 export const CategoryForm = () => {
   const { closeModal, openModal, getPayload } = useModal();
   const data = useTransition();
-  const category = getPayload<Category>(Modals.ManageCategory);
+  const category = getPayload<Category | null>(Modals.ManageCategory);
   const location = useLocation();
   const { state } = useTransition();
 

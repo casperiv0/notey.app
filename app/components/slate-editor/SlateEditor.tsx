@@ -26,7 +26,7 @@ declare module "slate" {
 interface EditorProps {
   isReadonly?: boolean;
   value: any;
-  onChange?: (value: Descendant[]) => void;
+  onChange?(value: Descendant[]): void;
   isShare?: boolean;
 }
 

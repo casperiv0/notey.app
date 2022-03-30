@@ -79,7 +79,7 @@ export const action: ActionFunction = async ({ request }) => {
         return badRequest(error);
       }
 
-      const parsedBody = typeof body === "string" ? JSON.parse(body) : body ?? "";
+      const parsedBody = typeof body === "string" ? JSON.parse(body) : body;
       let newTitle = title;
 
       if (isClone) {

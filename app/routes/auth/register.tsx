@@ -55,10 +55,6 @@ export const action: ActionFunction = ({ request }) => {
       }
 
       const user = await registerUser(body);
-      if (!user) {
-        return badRequest({ error: "invalid username or password" });
-      }
-
       if ("error" in user) {
         return badRequest({ error: user.error });
       }

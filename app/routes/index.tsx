@@ -35,11 +35,9 @@ export default function Index() {
 
           <ul className="flex items-center space-x-4">
             {user ? (
-              <>
-                <Link className="link" to="/app">
-                  Open app
-                </Link>
-              </>
+              <Link className="link" to="/app">
+                Open app
+              </Link>
             ) : (
               <>
                 <Link className="hover:underline" to="/auth/login">

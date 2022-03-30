@@ -40,6 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const [firstNote] = getNotesFromCategories([...categories, { notes: noCategoryNotes }]);
   const url = new URL(request.url);
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (firstNote && url.pathname === "/app") {
     return redirect(`/app/${firstNote.id}`);
   }
@@ -55,7 +56,7 @@ export default function App() {
     setUser(user);
   }, [setUser, user]);
 
-  if (!stateUser?.id) {
+  if (!stateUser.id) {
     return null;
   }
 

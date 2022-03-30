@@ -6,10 +6,10 @@ import create from "zustand";
 
 interface NoteStore {
   note: Note | null;
-  setNote: (n: Note | null) => void;
+  setNote(n: Note | null): void;
 
   editMode: boolean;
-  setEditMode: (v: boolean) => void;
+  setEditMode(v: boolean): void;
 }
 
 const useNoteStore = create<NoteStore>((set) => ({
@@ -50,7 +50,7 @@ export function useCloneNote() {
     fd.set("title", note.title);
     fd.set("body", JSON.stringify(note.body));
     fd.set("categoryId", note.categoryId ?? "null");
-    fd.set("isPublic", String(note.public ?? false));
+    fd.set("isPublic", String(note.public));
 
     cloneFetcher.submit(fd, { action: apiUrl, method: "post" });
   }

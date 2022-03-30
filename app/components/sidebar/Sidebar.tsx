@@ -17,7 +17,10 @@ import { toggleSidebar } from "~/lib/utils/client.client";
 import { useSidebarShortcuts } from "~/lib/useShortcuts";
 import { getNotesFromCategories } from "~/routes/app";
 
-type LoaderData = { noCategoryNotes: Note[]; categories: (Category & { notes: Note[] })[] };
+interface LoaderData {
+  noCategoryNotes: Note[];
+  categories: (Category & { notes: Note[] })[];
+}
 
 export const Sidebar = () => {
   const { user } = useUser();
@@ -27,8 +30,8 @@ export const Sidebar = () => {
   const closeId = useId();
 
   const data = useLoaderData<LoaderData>();
-  const categories = data?.categories ?? [];
-  const noCategoryNotes = data?.noCategoryNotes ?? [];
+  const categories = data.categories;
+  const noCategoryNotes = data.noCategoryNotes;
   const navigate = useNavigate();
 
   useSidebarShortcuts(getNotesFromCategories([...categories, { notes: noCategoryNotes }]));
@@ -141,7 +144,7 @@ const ManageNoteModal = () => {
 const ManageCategoryModal = () => {
   const { getPayload } = useModal();
 
-  const payload = getPayload<Category>(Modals.ManageCategory);
+  const payload = getPayload<Category | null>(Modals.ManageCategory);
   const title = payload ? `Manage ${payload.name}` : "Create new category";
 
   return (

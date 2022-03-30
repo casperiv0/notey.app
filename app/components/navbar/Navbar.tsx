@@ -56,7 +56,7 @@ export const Navbar = () => {
       fd.set("id", note.id);
       fd.set("body", JSON.stringify(note.body));
       fd.set("categoryId", note.categoryId ?? "null");
-      fd.set("isPublic", String(note.public ?? false));
+      fd.set("isPublic", String(note.public));
 
       // update
       fetcher.submit(fd, { action: apiUrl, method: "put" });

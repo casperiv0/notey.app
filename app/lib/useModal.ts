@@ -2,10 +2,10 @@ import create from "zustand";
 
 interface ModalStore {
   open: string[];
-  setOpen: (open: string[]) => void;
+  setOpen(open: string[]): void;
 
   payload: Record<string, any>;
-  setPayload: (key: string, data: any) => void;
+  setPayload(key: string, data: any): void;
 }
 
 const useModalStore = create<ModalStore>((set, get) => ({

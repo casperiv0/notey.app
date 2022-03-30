@@ -13,6 +13,7 @@ export function withChecklists(editor: SlateEditor) {
           !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === "check-list-item",
       });
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (match) {
         const [, path] = match;
         const start = Editor.start(editor, path);
