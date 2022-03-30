@@ -9,6 +9,7 @@ const SHORTCUTS = {
   ">": "block-quote",
   "#": "heading-one",
   "##": "heading-two",
+  "###": "heading-three",
   "[]": "check-list-item",
 } as const;
 
