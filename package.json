@@ -8,7 +8,7 @@
     "prebuild": "npm run clean && echo All clean ✨",
     "watch:css": "postcss styles --base styles --dir app/styles -w",
     "build:css": "postcss styles --base styles --dir app/styles --env production",
-    "build": "npm run build:css && remix build",
+    "build": "npm run test-tsc && npm run build:css && remix build",
     "dev:remix": "remix dev",
     "dev": "concurrently \"npm run watch:css\" \"npm run dev:remix\"",
     "watch": "concurrently \"npm run watch:css\" \"remix watch\"",
