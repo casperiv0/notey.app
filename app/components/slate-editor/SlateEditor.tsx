@@ -42,7 +42,6 @@ const HOTKEYS = {
   "mod+i": "italic",
   "mod+u": "underline",
   "mod+s": "strikethrough",
-  "mod+c": "code",
 } as const;
 
 export function SlateEditor({ isReadonly, value, isShare, onChange }: EditorProps) {
