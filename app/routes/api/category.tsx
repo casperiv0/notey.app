@@ -1,4 +1,4 @@
-import { redirect, type LoaderFunction, type ActionFunction } from "remix";
+import { redirect, type LoaderFunction, type ActionFunction, json } from "remix";
 import { prisma } from "~/lib/prisma.server";
 import { z } from "zod";
 import { getBodySafe } from "~/lib/utils/body";
@@ -32,9 +32,11 @@ export const action: ActionFunction = async ({ request }) => {
         return badRequest(error);
       }
 
-      return prisma.category.create({
+      const category = await prisma.category.create({
         data: { name, userId: user.id },
       });
+
+      return json(category);
     },
     async put() {
       const [{ id, name }, error] = await getBodySafe(request, updateSchema);
@@ -51,10 +53,12 @@ export const action: ActionFunction = async ({ request }) => {
         return notFound("Category not found");
       }
 
-      return prisma.category.update({
+      const updated = prisma.category.update({
         where: { id },
         data: { name },
       });
+
+      return json(updated);
     },
     async patch() {
       const [{ id }, error] = await getBodySafe(request, idSchema);
@@ -71,10 +75,12 @@ export const action: ActionFunction = async ({ request }) => {
         return notFound("Category not found");
       }
 
-      return prisma.category.update({
+      const updated = prisma.category.update({
         where: { id },
         data: { folded: !category.folded },
       });
+
+      return json(updated);
     },
     async delete() {
       const [{ id }, error] = await getBodySafe(request, idSchema);
@@ -91,9 +97,11 @@ export const action: ActionFunction = async ({ request }) => {
         return notFound("Category not found");
       }
 
-      return prisma.category.delete({
+      await prisma.category.delete({
         where: { id },
       });
+
+      return json(true);
     },
   });
 };

@@ -15,13 +15,11 @@ export function withLockedNotes<T extends Note[] | Note = Note[]>(notes: T): T {
     return notes.map((note) => ({
       ...note,
       body: note.pinCodeLocked ? LOCKED_NOTE_MSG : note.body,
-      markdown: note.pinCodeLocked ? LOCKED_NOTE_MSG : note.markdown,
     })) as T;
   }
 
   return {
     ...notes,
     body: notes.pinCodeLocked ? LOCKED_NOTE_MSG : notes.body,
-    markdown: notes.pinCodeLocked ? LOCKED_NOTE_MSG : notes.markdown,
   } as T;
 }

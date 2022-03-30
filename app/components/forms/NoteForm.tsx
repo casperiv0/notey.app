@@ -10,6 +10,7 @@ import { Select } from "../form/Select";
 import { useLocation } from "react-router";
 import { Switch } from "../form/Switch";
 import { Tooltip } from "../Tooltip";
+import { useActiveNote } from "~/lib/note";
 
 export const NoteForm = () => {
   const { closeModal, getPayload } = useModal();

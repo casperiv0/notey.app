@@ -1,4 +1,4 @@
-import { redirect, type LinksFunction, type MetaFunction, type LoaderFunction } from "remix";
+import { redirect, type LinksFunction, type MetaFunction, type LoaderFunction, json } from "remix";
 import { Navbar } from "~/components/navbar/Navbar";
 import { prisma } from "~/lib/prisma.server";
 import { Editor } from "~/components/editor/Editor";
@@ -34,7 +34,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     return redirect("/app");
   }
 
-  return { note: withLockedNotes(note) };
+  return json(withLockedNotes(note));
 };
 
 export default function App() {
