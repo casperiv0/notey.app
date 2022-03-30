@@ -10,7 +10,6 @@ interface Props {
   title: string;
   description: string | React.ReactFragment;
   action: `${FormMethod}-${string}`;
-
   dataId: string;
 }
 

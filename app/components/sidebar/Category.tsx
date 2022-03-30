@@ -1,6 +1,5 @@
 import type { Category, Note } from ".prisma/client";
 import { CaretDownFill, Pencil } from "react-bootstrap-icons";
-import { useId } from "react-aria";
 import { Button } from "../Button";
 import { ListItem } from "./ListItem";
 import { useModal } from "~/lib/useModal";
@@ -8,31 +7,30 @@ import { Modals } from "~/lib/constants";
 import { Form, useTransition } from "remix";
 import { useLocation } from "react-router";
 import classNames from "classnames";
+import { useSSRSafeId } from "@react-aria/ssr";
 
 interface Props {
   category: Category & { notes: Note[] };
 }
 
-export const CategoryItem = ({
-  category: { id: categoryId, name, notes, folded, ...rest },
-}: Props) => {
-  const id = useId();
-  const foldId = useId();
+export const CategoryItem = ({ category }: Props) => {
+  const id = useSSRSafeId();
+  const foldId = useSSRSafeId();
   const { openModal } = useModal();
   const location = useLocation();
   const { state } = useTransition();
 
   function handleClick() {
-    openModal(Modals.ManageCategory, { id: categoryId, name, folded, ...rest });
+    openModal(Modals.ManageCategory, category);
   }
 
   return (
     <li className="my-5" role="listitem">
       <header className="flex justify-between">
         <div className="flex items-center gap-1">
-          {categoryId !== "no_category" ? (
+          {category.id !== "no_category" ? (
             <Form action={`/api/category?next=${location.pathname}`} method="patch">
-              <input className="hidden" name="id" defaultValue={categoryId} />
+              <input className="hidden" name="id" defaultValue={category.id} />
               <Button
                 type="submit"
                 variant="cancel"
@@ -45,16 +43,16 @@ export const CategoryItem = ({
                 <CaretDownFill
                   aria-labelledby={foldId}
                   className={classNames("mt-1 fill-current transition-all", {
-                    "-rotate-90": folded,
+                    "-rotate-90": category.folded,
                   })}
                 />
               </Button>
             </Form>
           ) : null}
-          <h1 className="text-lg font-semibold uppercase select-none">{name}</h1>
+          <h1 className="text-lg font-semibold uppercase select-none">{category.name}</h1>
         </div>
 
-        {categoryId !== "no_category" ? (
+        {category.id !== "no_category" ? (
           <Button
             onClick={handleClick}
             className="px-1.5"
@@ -67,9 +65,9 @@ export const CategoryItem = ({
         ) : null}
       </header>
 
-      {folded ? null : (
+      {category.folded ? null : (
         <ul className="mt-1" role="list">
-          {notes.map((note) => (
+          {category.notes.map((note) => (
             <ListItem key={note.id} note={note} />
           ))}
         </ul>

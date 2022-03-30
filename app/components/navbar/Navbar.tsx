@@ -150,7 +150,7 @@ export const Navbar = () => {
 
       <AlertModal
         dataId={note.id}
-        title={"Delete Note"}
+        title="Delete Note"
         id={Modals.AlertDeleteNote}
         action="delete-/api/note"
         description={

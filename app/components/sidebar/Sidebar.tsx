@@ -87,7 +87,7 @@ export const Sidebar = () => {
             </Button>
           </section>
 
-          <Modal extra={{ width: 600 }} title={"User Settings"} id={Modals.ManageAccount}>
+          <Modal extra={{ width: 600 }} title="User Settings" id={Modals.ManageAccount}>
             <AccountForm />
           </Modal>
         </header>

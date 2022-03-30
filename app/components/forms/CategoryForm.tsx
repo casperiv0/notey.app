@@ -57,7 +57,7 @@ export const CategoryForm = () => {
       {category ? (
         <AlertModal
           dataId={category.id}
-          title={"Delete Category"}
+          title="Delete Category"
           id={Modals.AlertDeleteCategory}
           action="delete-/api/category"
           description={

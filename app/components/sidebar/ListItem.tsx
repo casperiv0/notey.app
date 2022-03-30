@@ -11,14 +11,14 @@ interface Props {
   note: Note;
 }
 
-export const ListItem = ({ note: { id, title } }: Props) => {
-  const { note, editMode } = useActiveNote();
+export const ListItem = ({ note }: Props) => {
+  const { note: activeNote, editMode } = useActiveNote();
   const { openModal } = useModal();
 
   function handleClick(e: React.MouseEvent) {
     if (editMode) {
       e.preventDefault();
-      openModal(Modals.AlertUnsavedChanges, `/app/${id}`);
+      openModal(Modals.AlertUnsavedChanges, `/app/${note.id}`);
     }
 
     toggleSidebar(false);
@@ -30,11 +30,11 @@ export const ListItem = ({ note: { id, title } }: Props) => {
         onClick={handleClick}
         className={classNames(
           "block p-1 px-3 my-1 transition-colors duration-100 rounded-md hover:bg-gray-400/50 dark:hover:bg-dark-3",
-          { "bg-gray-400/50 dark:bg-dark-3 font-medium": id === note?.id },
+          { "bg-gray-400/50 dark:bg-dark-3 font-medium": note.id === activeNote?.id },
         )}
-        to={`/app/${id}`}
+        to={`/app/${note.id}`}
       >
-        <h2 className="text-lg">{title}</h2>
+        <h2 className="text-lg">{note.title}</h2>
       </Link>
     </li>
   );

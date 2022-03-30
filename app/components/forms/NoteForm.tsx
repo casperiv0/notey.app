@@ -47,7 +47,7 @@ export const NoteForm = () => {
               {v.name}
             </option>
           ))}
-          <option value={"null"}>No Category</option>
+          <option value="null">No Category</option>
         </Select>
       </FormField>
 

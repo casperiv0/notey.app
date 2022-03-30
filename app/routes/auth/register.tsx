@@ -111,7 +111,7 @@ export default function Register() {
         </FormField>
 
         <Link className="mb-3 underline" to="/auth/login">
-          {"Already have an account? Login here."}
+          Already have an account? Login here.
         </Link>
 
         <Button loading={state === "submitting"}>Register</Button>
