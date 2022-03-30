@@ -20,6 +20,7 @@ import { createSession } from "~/lib/auth/session.server";
 
 export const meta: MetaFunction = () => ({
   title: "Register - Notey.app",
+  description: "A simple notes app to keep track of important things.",
 });
 
 export const headers: HeadersFunction = () => {

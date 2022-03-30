@@ -33,7 +33,7 @@ export default function Index() {
         <nav className="flex items-center justify-between h-16">
           <h1 className="text-2xl font-bold md:text-3xl">Notey.app</h1>
 
-          <ul className="flex items-center space-x-4" role="list">
+          <ul className="flex items-center space-x-4">
             {user ? (
               <>
                 <Link className="link" to="/app">
@@ -62,9 +62,9 @@ export default function Index() {
             <h1 className="mb-5 text-4xl font-bold md:font-black md:text-5xl lg:text-6xl">
               Keep track of important things
             </h1>
-            <h3 className="mb-5 text-2xl font-normal text-dark-4 dark:text-gray-400">
+            <h2 className="mb-5 text-2xl font-normal text-dark-4 dark:text-gray-400">
               Notes app to keep track of the most important things securely and easily.
-            </h3>
+            </h2>
 
             {user ? (
               <Link className="text-lg link large" to="/app">
