@@ -14,11 +14,13 @@ import { toggleMark } from "~/lib/editor/utils";
 import isHotkey from "is-hotkey";
 import { withShortcuts } from "~/lib/editor/withShortcuts";
 import { withChecklists } from "~/lib/editor/withChecklists";
-import { CheckListItemElement } from "./ChecklistItem";
+import { CheckListItemElement } from "./elements/ChecklistItem";
+import { LinkElement } from "./elements/LinkElement";
 import type { SlateElements, Text, TextAlignment } from "./types";
 import { useTransition } from "remix";
 import { HoverToolbar } from "./toolbar/HoverToolbar";
 import classNames from "classnames";
+import { withLinks } from "~/lib/editor/withLinks";
 
 export type SlateEditor = BaseEditor & ReactEditor & HistoryEditor;
 
@@ -55,7 +57,7 @@ export function SlateEditor({ isReadonly, value, onChange }: EditorProps) {
   const renderElement = React.useCallback((props) => <Element {...props} />, []);
   const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
   const editor = React.useMemo(
-    () => withChecklists(withShortcuts(withHistory(withReact(createEditor())))),
+    () => withLinks(withChecklists(withShortcuts(withHistory(withReact(createEditor()))))),
     [],
   );
 
@@ -159,6 +161,8 @@ function Element({ attributes, children, element, ...rest }: RenderElementProps)
           {children}
         </li>
       );
+    case "link":
+      return <LinkElement {...{ attributes, children, element }} />;
     case "check-list-item":
       return <CheckListItemElement {...{ children, attributes, element, ...rest }} />;
     default:

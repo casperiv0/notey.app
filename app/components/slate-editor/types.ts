@@ -1,3 +1,5 @@
+import type { Descendant } from "slate";
+
 export interface Text {
   text: string;
   bold?: boolean;
@@ -9,7 +11,7 @@ export interface Text {
 export interface ParagraphElement {
   type: "paragraph";
   align?: TextAlignment;
-  children: Text[];
+  children: Descendant[];
 }
 
 export interface HeadingOneElement {
@@ -52,6 +54,12 @@ export interface CheckListItemElement {
   children: Text[];
 }
 
+export interface LinkElement {
+  type: "link";
+  url: string;
+  children: Text[];
+}
+
 export type SlateElements =
   | ParagraphElement
   | HeadingOneElement
@@ -60,7 +68,8 @@ export type SlateElements =
   | BlockquoteElement
   | ListItemElement
   | BulletItemElement
-  | CheckListItemElement;
+  | CheckListItemElement
+  | LinkElement;
 
 export type TextAlignment = "text-left" | "text-right" | "text-center" | "text-justify";
 export type SlateFormat = SlateElements["type"] | TextAlignment;
