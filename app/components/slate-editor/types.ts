@@ -8,26 +8,31 @@ export interface Text {
 
 export interface ParagraphElement {
   type: "paragraph";
+  align?: TextAlignment;
   children: Text[];
 }
 
 export interface HeadingOneElement {
   type: "heading-one";
+  align?: TextAlignment;
   children: Text[];
 }
 
 export interface HeadingTwoElement {
   type: "heading-two";
+  align?: TextAlignment;
   children: Text[];
 }
 
 export interface HeadingThreeElement {
   type: "heading-three";
+  align?: TextAlignment;
   children: Text[];
 }
 
 export interface BlockquoteElement {
   type: "block-quote";
+  align?: TextAlignment;
   children: Text[];
 }
 
@@ -56,3 +61,6 @@ export type SlateElements =
   | ListItemElement
   | BulletItemElement
   | CheckListItemElement;
+
+export type TextAlignment = "text-left" | "text-right" | "text-center" | "text-justify";
+export type SlateFormat = SlateElements["type"] | TextAlignment;

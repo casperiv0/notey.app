@@ -15,9 +15,10 @@ import isHotkey from "is-hotkey";
 import { withShortcuts } from "~/lib/editor/withShortcuts";
 import { withChecklists } from "~/lib/editor/withChecklists";
 import { CheckListItemElement } from "./ChecklistItem";
-import type { SlateElements, Text } from "./types";
+import type { SlateElements, Text, TextAlignment } from "./types";
 import { useTransition } from "remix";
 import { HoverToolbar } from "./toolbar/HoverToolbar";
+import classNames from "classnames";
 
 export type SlateEditor = BaseEditor & ReactEditor & HistoryEditor;
 
@@ -123,6 +124,8 @@ function Leaf({ attributes, children, leaf }: RenderLeafProps) {
 }
 
 function Element({ attributes, children, element, ...rest }: RenderElementProps) {
+  const textAlign = "align" in element ? (element.align as TextAlignment) : null;
+
   switch (element.type) {
     case "block-quote":
       return (
@@ -134,19 +137,19 @@ function Element({ attributes, children, element, ...rest }: RenderElementProps)
       return <ul {...attributes}>{children}</ul>;
     case "heading-one":
       return (
-        <h1 {...attributes} className="text-3xl font-semibold">
+        <h1 {...attributes} className={classNames("text-3xl font-semibold", textAlign)}>
           {children}
         </h1>
       );
     case "heading-two":
       return (
-        <h2 {...attributes} className="text-2xl font-semibold">
+        <h2 {...attributes} className={classNames("text-2xl font-semibold", textAlign)}>
           {children}
         </h2>
       );
     case "heading-three":
       return (
-        <h3 {...attributes} className="text-xl font-semibold">
+        <h3 {...attributes} className={classNames("text-xl font-semibold", textAlign)}>
           {children}
         </h3>
       );
@@ -159,6 +162,10 @@ function Element({ attributes, children, element, ...rest }: RenderElementProps)
     case "check-list-item":
       return <CheckListItemElement {...{ children, attributes, element, ...rest }} />;
     default:
-      return <p {...attributes}>{children}</p>;
+      return (
+        <p className={classNames(textAlign)} {...attributes}>
+          {children}
+        </p>
+      );
   }
 }

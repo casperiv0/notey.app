@@ -1,8 +1,10 @@
 import * as RToolbar from "@radix-ui/react-toolbar";
 import {
+  Justify,
   ListCheck,
   ListUl,
   Quote,
+  TextCenter,
   TypeBold,
   TypeH1,
   TypeH2,
@@ -10,12 +12,14 @@ import {
   TypeItalic,
   TypeStrikethrough,
   TypeUnderline,
+  JustifyRight,
+  JustifyLeft,
 } from "react-bootstrap-icons";
 import { useSlate } from "slate-react";
 import { Button } from "~/components/Button";
 import classNames from "classnames";
 import { isBlockActive, toggleMark, toggleBlock, isMarkActive } from "~/lib/editor/utils";
-import type { SlateElements, Text } from "../types";
+import type { SlateFormat, Text } from "../types";
 
 /**
  * mostly example code from: https://github.com/ianstormtaylor/slate/blob/main/site/examples/richtext.tsx
@@ -37,7 +41,7 @@ export function Toolbar() {
           icon={<TypeStrikethrough aria-label="strikethrough" />}
         />
       </RToolbar.ToolbarToggleGroup>
-      <RToolbar.Separator className="w-[1px] bg-neutral-400 dark:bg-gray-3 mx-1" />
+      <RToolbar.Separator className="w-[1px] bg-neutral-400 dark:bg-gray-3 mx-1 text-justify" />
       <RToolbar.ToolbarToggleGroup
         aria-label="Block formatting"
         className="flex gap-1"
@@ -50,12 +54,24 @@ export function Toolbar() {
         <BlockButton format="bulleted-list" icon={<ListUl aria-label="bulleted-list" />} />
         <BlockButton format="check-list-item" icon={<ListCheck aria-label="check-list-item" />} />
       </RToolbar.ToolbarToggleGroup>
+
+      <RToolbar.Separator className="w-[1px] bg-neutral-400 dark:bg-gray-3 mx-1 text-justify" />
+      <RToolbar.ToolbarToggleGroup
+        aria-label="Text formatting"
+        className="flex gap-1"
+        type="single"
+      >
+        <BlockButton format="text-left" icon={<JustifyLeft aria-label="check-list-item" />} />
+        <BlockButton format="text-right" icon={<JustifyRight aria-label="check-list-item" />} />
+        <BlockButton format="text-center" icon={<TextCenter aria-label="check-list-item" />} />
+        <BlockButton format="text-justify" icon={<Justify aria-label="check-list-item" />} />
+      </RToolbar.ToolbarToggleGroup>
     </RToolbar.Root>
   );
 }
 
 interface BlockButtonProps {
-  format: SlateElements["type"];
+  format: SlateFormat;
   icon: React.ReactNode;
 }
 
