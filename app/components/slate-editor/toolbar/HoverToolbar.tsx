@@ -63,10 +63,7 @@ export function HoverToolbar() {
             format="strikethrough"
             icon={<TypeStrikethrough aria-label="strikethrough" />}
           />
-          <LinkButton
-            // format="link"
-            icon={<Link aria-label="link" />}
-          />
+          <LinkButton icon={<Link aria-label="link" />} />
         </RToolbar.ToolbarToggleGroup>
       </RToolbar.Root>
     </Portal.Root>

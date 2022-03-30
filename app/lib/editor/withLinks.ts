@@ -19,8 +19,6 @@ export function withLinks(editor: SlateEditor) {
   editor.insertData = (data) => {
     const text = data.getData("text/plain").replace(/\n/g, "");
 
-    console.log({ text });
-
     if (text && isUrl(text)) {
       wrapLink(editor, text);
     } else {
