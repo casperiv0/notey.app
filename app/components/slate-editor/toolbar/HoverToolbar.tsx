@@ -3,8 +3,14 @@ import * as RToolbar from "@radix-ui/react-toolbar";
 import * as Portal from "@radix-ui/react-portal";
 import { Range, Editor } from "slate";
 import { useFocused, useSlate } from "slate-react";
-import { MarkButton } from "./Toolbar";
-import { TypeItalic, TypeStrikethrough, TypeUnderline, TypeBold } from "react-bootstrap-icons";
+import { LinkButton, MarkButton } from "./Toolbar";
+import {
+  TypeItalic,
+  TypeStrikethrough,
+  TypeUnderline,
+  TypeBold,
+  Link,
+} from "react-bootstrap-icons";
 
 export function HoverToolbar() {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -56,6 +62,10 @@ export function HoverToolbar() {
           <MarkButton
             format="strikethrough"
             icon={<TypeStrikethrough aria-label="strikethrough" />}
+          />
+          <LinkButton
+            // format="link"
+            icon={<Link aria-label="link" />}
           />
         </RToolbar.ToolbarToggleGroup>
       </RToolbar.Root>

@@ -31,7 +31,7 @@ export function withLinks(editor: SlateEditor) {
   return editor;
 }
 
-function wrapLink(editor: SlateEditor, url: string) {
+export function wrapLink(editor: SlateEditor, url: string) {
   if (isLinkActive(editor)) {
     unwrapLink(editor);
   }
@@ -52,13 +52,13 @@ function wrapLink(editor: SlateEditor, url: string) {
   }
 }
 
-function unwrapLink(editor: SlateEditor) {
+export function unwrapLink(editor: SlateEditor) {
   Transforms.unwrapNodes(editor, {
     match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === "link",
   });
 }
 
-function isLinkActive(editor: SlateEditor) {
+export function isLinkActive(editor: SlateEditor) {
   const [link] = Editor.nodes(editor, {
     match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === "link",
   });

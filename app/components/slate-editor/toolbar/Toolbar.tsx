@@ -20,6 +20,7 @@ import { Button } from "~/components/Button";
 import classNames from "classnames";
 import { isBlockActive, toggleMark, toggleBlock, isMarkActive } from "~/lib/editor/utils";
 import type { SlateFormat, Text } from "../types";
+import { isLinkActive, unwrapLink, wrapLink } from "~/lib/editor/withLinks";
 
 /**
  * mostly example code from: https://github.com/ianstormtaylor/slate/blob/main/site/examples/richtext.tsx
@@ -111,6 +112,40 @@ export function MarkButton({ format, icon }: MarkButtonProps) {
         variant={isActive ? null : "default"}
         className={classNames(isActive && "text-white bg-neutral-700")}
         onClick={() => toggleMark(editor, format)}
+      >
+        {icon}
+      </Button>
+    </RToolbar.ToolbarToggleItem>
+  );
+}
+
+export function LinkButton({ icon }: Omit<MarkButtonProps, "format">) {
+  const editor = useSlate();
+  const isActive = isLinkActive(editor);
+
+  function handleAdd() {
+    if (isActive) {
+      // remove the link if it's present
+      unwrapLink(editor);
+      return;
+    }
+
+    const url = window.prompt("Enter the URL of the link:");
+    if (!url) return;
+
+    if (editor.selection) {
+      wrapLink(editor, url);
+    }
+  }
+
+  return (
+    <RToolbar.ToolbarToggleItem asChild value="link">
+      <Button
+        title="Link"
+        type="button"
+        variant={isActive ? null : "default"}
+        className={classNames(isActive && "text-white bg-neutral-700")}
+        onClick={handleAdd}
       >
         {icon}
       </Button>
