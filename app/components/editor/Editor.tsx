@@ -22,8 +22,15 @@ export const Editor = ({ overwrite }: Props) => {
 
   if (!note) return null;
 
-  const body = (overwrite?.note?.body ?? note.body) as any[];
-  const arr = Array.isArray(body) ? body : [{ type: "paragraph", text: String(note.body) }];
+  const body = (overwrite?.note?.body ?? note.body) as any;
+  const arr = Array.isArray(body)
+    ? body
+    : [
+        {
+          type: "paragraph",
+          children: [{ text: body?.toString() ?? "" }],
+        },
+      ];
   const value = arr.length <= 0 ? DEFAULT_EDITOR_DATA : arr;
 
   return (
