@@ -6,7 +6,7 @@ export interface Text {
   underline?: boolean;
   strikethrough?: boolean;
   italic?: boolean;
-  code?: boolean;
+  "inline-code"?: boolean;
 }
 
 export interface ParagraphElement {

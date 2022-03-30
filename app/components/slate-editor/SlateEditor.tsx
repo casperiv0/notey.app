@@ -115,7 +115,7 @@ function Leaf({ attributes, children, leaf }: RenderLeafProps) {
     children = <s>{children}</s>;
   }
 
-  if (leaf.code) {
+  if (leaf["inline-code"]) {
     children = (
       <code className="bg-neutral-300 dark:bg-dark-3 p-0.5 px-1 rounded-md">{children}</code>
     );

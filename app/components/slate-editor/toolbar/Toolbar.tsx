@@ -43,7 +43,7 @@ export function Toolbar() {
           format="strikethrough"
           icon={<TypeStrikethrough aria-label="strikethrough" />}
         />
-        <MarkButton format="code" icon={<Code aria-label="inline-code" />} />
+        <MarkButton format="inline-code" icon={<Code aria-label="inline-code" />} />
         <LinkButton icon={<Link aria-label="link" />} />
       </RToolbar.ToolbarToggleGroup>
       <RToolbar.Separator className="w-[1px] bg-neutral-400 dark:bg-gray-3 mx-1 text-justify" />
