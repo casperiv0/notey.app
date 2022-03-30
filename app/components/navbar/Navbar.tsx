@@ -13,7 +13,7 @@ import { Input } from "../form/Input";
 import { AlertModal } from "../modal/AlertModal";
 
 interface PrevData {
-  body: string;
+  body: any;
   title: string;
 }
 
@@ -54,7 +54,7 @@ export const Navbar = () => {
 
       fd.set("title", note.title);
       fd.set("id", note.id);
-      fd.set("body", note.body);
+      fd.set("body", JSON.stringify(note.body));
       fd.set("categoryId", note.categoryId ?? "null");
       fd.set("isPublic", String(note.public ?? false));
 

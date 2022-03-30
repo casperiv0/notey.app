@@ -19,7 +19,7 @@ Simple notes app to keep track of important things. Built with [Remix.run](https
 - Better understanding of react hooks
 - Authentication in react
 - React portals
-- convert text to markdown using [marked](https://www.npmjs.com/package/marked)
+- Rich text editor using [Slate](https://slatejs.org)
 - Use of React portals
 - Server Side rendering using Next.js
 - Static Site rendering using Next.js

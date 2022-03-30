@@ -6,7 +6,6 @@ import { z } from "zod";
 import { badRequest, unauthorized, notFound } from "remix-utils";
 import { getUserSession } from "~/lib/auth/session.server";
 import { idSchema } from "./category";
-import { sanitizeUserMarkdown } from "~/lib/utils/markdown";
 
 export const booleanLike = z
   .string()
@@ -27,6 +26,7 @@ const createSchema = z.object({
   title: z.string().min(2).max(40),
   categoryId: z.string().optional(),
   body: z.string().optional(),
+  isPublic: booleanLike,
 });
 
 export const action: ActionFunction = async ({ request }) => {
@@ -54,15 +54,14 @@ export const action: ActionFunction = async ({ request }) => {
         return notFound("note not found");
       }
 
-      const markdown = sanitizeUserMarkdown(body ?? note.body);
+      const parsedBody = typeof body === "string" ? JSON.parse(body) : body;
 
       return prisma.note.update({
         where: { id },
         data: {
           title,
           categoryId: parseCategoryId(categoryId),
-          body,
-          markdown,
+          body: parsedBody,
           pinCodeLocked: pinCodeLocked === "true",
           public: isPublic === "true",
         },
@@ -71,13 +70,16 @@ export const action: ActionFunction = async ({ request }) => {
     async post() {
       const url = new URL(request.url);
       const isClone = Boolean(url.searchParams.get("is-clone"));
-      const [{ title, categoryId, body }, error] = await getBodySafe(request, createSchema);
+      const [{ title, categoryId, body, isPublic }, error] = await getBodySafe(
+        request,
+        createSchema,
+      );
 
       if (error) {
         return badRequest(error);
       }
 
-      const markdown = sanitizeUserMarkdown(body ?? "");
+      const parsedBody = typeof body === "string" ? JSON.parse(body) : body ?? "";
       let newTitle = title;
 
       if (isClone) {
@@ -94,9 +96,9 @@ export const action: ActionFunction = async ({ request }) => {
         data: {
           title: newTitle,
           categoryId: parseCategoryId(categoryId),
-          body: body ?? "",
+          body: parsedBody,
           userId: user.id,
-          markdown,
+          public: isPublic === "true",
         },
       });
 

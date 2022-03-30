@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { Spinner } from "./Spinner";
 
 export type ButtonProps = JSX.IntrinsicElements["button"] & {
-  variant?: keyof typeof variants;
+  variant?: keyof typeof variants | null;
   loading?: boolean;
 };
 
@@ -16,22 +16,26 @@ const variants = {
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ loading, ...props }, ref) => (
-    <button
-      {...props}
-      disabled={typeof loading === "boolean" ? loading : props.disabled}
-      className={classNames(
-        "p-1 px-3 rounded-md transition-colors cursor-default",
-        "disabled:opacity-50 disabled:cursor-not-allowed",
-        variants[props.variant ?? "default"],
-        loading && "flex justify-center items-center gap-2",
-        props.className,
-      )}
-      ref={ref}
-    >
-      {loading ? <Spinner /> : null}
+  ({ loading, ...props }, ref) => {
+    const variant = props.variant === null ? null : props.variant ?? "default";
 
-      {props.children}
-    </button>
-  ),
+    return (
+      <button
+        {...props}
+        disabled={typeof loading === "boolean" ? loading : props.disabled}
+        className={classNames(
+          "p-1 px-3 rounded-md transition-colors cursor-default",
+          "disabled:opacity-50 disabled:cursor-not-allowed",
+          variant && variants[variant],
+          loading && "flex justify-center items-center gap-2",
+          props.className,
+        )}
+        ref={ref}
+      >
+        {loading ? <Spinner /> : null}
+
+        {props.children}
+      </button>
+    );
+  },
 );

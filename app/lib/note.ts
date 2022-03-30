@@ -23,6 +23,7 @@ const useNoteStore = create<NoteStore>((set) => ({
 export function useActiveNote() {
   const loaderData = useLoaderData<{ note: Note | null } | null>();
   const { note, setNote, editMode, setEditMode } = useNoteStore();
+  const _note = note;
 
   const location = useLocation();
 
@@ -32,7 +33,7 @@ export function useActiveNote() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, loaderData?.note]);
 
-  return { note, editMode, setNote, setEditMode };
+  return { note: _note, editMode, setNote, setEditMode };
 }
 
 export function useCloneNote() {
@@ -47,7 +48,7 @@ export function useCloneNote() {
     const fd = new FormData();
 
     fd.set("title", note.title);
-    fd.set("body", note.body);
+    fd.set("body", JSON.stringify(note.body));
     fd.set("categoryId", note.categoryId ?? "null");
     fd.set("isPublic", String(note.public ?? false));
 

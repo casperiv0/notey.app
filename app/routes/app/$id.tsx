@@ -1,4 +1,11 @@
-import { redirect, type LinksFunction, type MetaFunction, type LoaderFunction } from "remix";
+import {
+  redirect,
+  type LinksFunction,
+  type MetaFunction,
+  type LoaderFunction,
+  json,
+  useLoaderData,
+} from "remix";
 import { Navbar } from "~/components/navbar/Navbar";
 import { prisma } from "~/lib/prisma.server";
 import { Editor } from "~/components/editor/Editor";
@@ -34,16 +41,17 @@ export const loader: LoaderFunction = async ({ params }) => {
     return redirect("/app");
   }
 
-  return { note: withLockedNotes(note) };
+  return json({ note: withLockedNotes(note) });
 };
 
 export default function App() {
+  const { note } = useLoaderData();
   useShortcuts();
 
   return (
     <div>
       <Navbar />
-      <Editor />
+      <Editor overwrite={{ note }} />
 
       <UnsavedChangesModal />
     </div>

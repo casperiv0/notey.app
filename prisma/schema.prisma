@@ -49,8 +49,7 @@ model Note {
   category      Category? @relation(fields: [categoryId], references: [id])
   categoryId    String?   @db.ObjectId
   title         String
-  body          String
-  markdown      String?
+  body          Json
   createdAt     DateTime  @default(now())
   public        Boolean   @default(false)
   pinCodeLocked Boolean   @default(false)
