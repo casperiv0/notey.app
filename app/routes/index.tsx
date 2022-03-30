@@ -45,7 +45,7 @@ export default function Index() {
                 <Link className="hover:underline" to="/auth/login">
                   Login
                 </Link>
-                <Link className="link" to="/auth/login">
+                <Link className="link" to="/auth/register">
                   Register
                 </Link>
               </>
