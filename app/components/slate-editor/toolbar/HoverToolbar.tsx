@@ -10,6 +10,7 @@ import {
   TypeUnderline,
   TypeBold,
   Link,
+  Code,
 } from "react-bootstrap-icons";
 
 export function HoverToolbar() {
@@ -63,6 +64,7 @@ export function HoverToolbar() {
             format="strikethrough"
             icon={<TypeStrikethrough aria-label="strikethrough" />}
           />
+          <MarkButton format="code" icon={<Code aria-label="inline-code" />} />
           <LinkButton icon={<Link aria-label="link" />} />
         </RToolbar.ToolbarToggleGroup>
       </RToolbar.Root>

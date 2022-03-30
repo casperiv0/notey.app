@@ -1,26 +1,17 @@
 import * as React from "react";
 import { BaseEditor, Descendant, createEditor } from "slate";
-import {
-  Editable,
-  ReactEditor,
-  RenderElementProps,
-  RenderLeafProps,
-  Slate,
-  withReact,
-} from "slate-react";
+import { Editable, ReactEditor, RenderLeafProps, Slate, withReact } from "slate-react";
 import { type HistoryEditor, withHistory } from "slate-history";
 import { Toolbar } from "./toolbar/Toolbar";
 import { toggleMark } from "~/lib/editor/utils";
 import isHotkey from "is-hotkey";
 import { withShortcuts } from "~/lib/editor/withShortcuts";
 import { withChecklists } from "~/lib/editor/withChecklists";
-import { CheckListItemElement } from "./elements/ChecklistItem";
-import { LinkElement } from "./elements/LinkElement";
-import type { SlateElements, Text, TextAlignment } from "./types";
+import type { SlateElements, Text } from "./types";
 import { useTransition } from "remix";
 import { HoverToolbar } from "./toolbar/HoverToolbar";
-import classNames from "classnames";
 import { withLinks } from "~/lib/editor/withLinks";
+import { EditorElement } from "./elements";
 
 export type SlateEditor = BaseEditor & ReactEditor & HistoryEditor;
 
@@ -50,11 +41,12 @@ const HOTKEYS = {
   "mod+i": "italic",
   "mod+u": "underline",
   "mod+s": "strikethrough",
+  "mod+c": "code",
 } as const;
 
 export function SlateEditor({ isReadonly, value, onChange }: EditorProps) {
   const { state, type } = useTransition();
-  const renderElement = React.useCallback((props) => <Element {...props} />, []);
+  const renderElement = React.useCallback((props) => <EditorElement {...props} />, []);
   const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
   const editor = React.useMemo(
     () => withLinks(withChecklists(withShortcuts(withHistory(withReact(createEditor()))))),
@@ -122,54 +114,11 @@ function Leaf({ attributes, children, leaf }: RenderLeafProps) {
     children = <s>{children}</s>;
   }
 
-  return <span {...attributes}>{children}</span>;
-}
-
-function Element({ attributes, children, element, ...rest }: RenderElementProps) {
-  const textAlign = "align" in element ? (element.align as TextAlignment) : null;
-
-  switch (element.type) {
-    case "block-quote":
-      return (
-        <blockquote {...attributes} className="border-l-[3px] dark:border-[#3f3f3f] pl-2">
-          {children}
-        </blockquote>
-      );
-    case "bulleted-list":
-      return <ul {...attributes}>{children}</ul>;
-    case "heading-one":
-      return (
-        <h1 {...attributes} className={classNames("text-3xl font-semibold", textAlign)}>
-          {children}
-        </h1>
-      );
-    case "heading-two":
-      return (
-        <h2 {...attributes} className={classNames("text-2xl font-semibold", textAlign)}>
-          {children}
-        </h2>
-      );
-    case "heading-three":
-      return (
-        <h3 {...attributes} className={classNames("text-xl font-semibold", textAlign)}>
-          {children}
-        </h3>
-      );
-    case "list-item":
-      return (
-        <li {...attributes} data-list-item="true">
-          {children}
-        </li>
-      );
-    case "link":
-      return <LinkElement {...{ attributes, children, element }} />;
-    case "check-list-item":
-      return <CheckListItemElement {...{ children, attributes, element, ...rest }} />;
-    default:
-      return (
-        <p className={classNames(textAlign)} {...attributes}>
-          {children}
-        </p>
-      );
+  if (leaf.code) {
+    children = (
+      <code className="bg-neutral-300 dark:bg-dark-3 p-0.5 px-1 rounded-md">{children}</code>
+    );
   }
+
+  return <span {...attributes}>{children}</span>;
 }
