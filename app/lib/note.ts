@@ -21,19 +21,17 @@ const useNoteStore = create<NoteStore>((set) => ({
 }));
 
 export function useActiveNote() {
-  const loaderData = useLoaderData<Note | null>();
+  const loaderData = useLoaderData<{ note: Note | null } | null>();
   const { note, setNote, editMode, setEditMode } = useNoteStore();
   const _note = note;
-
-  console.log({ loaderData });
 
   const location = useLocation();
 
   React.useEffect(() => {
-    setNote(loaderData ?? null);
+    setNote(loaderData?.note ?? null);
     setEditMode(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, loaderData]);
+  }, [location.pathname, loaderData?.note]);
 
   return { note: _note, editMode, setNote, setEditMode };
 }

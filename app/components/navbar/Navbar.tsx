@@ -13,7 +13,7 @@ import { Input } from "../form/Input";
 import { AlertModal } from "../modal/AlertModal";
 
 interface PrevData {
-  body: string;
+  body: any;
   title: string;
 }
 

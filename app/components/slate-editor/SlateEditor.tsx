@@ -9,7 +9,6 @@ import {
   withReact,
 } from "slate-react";
 import { type HistoryEditor, withHistory } from "slate-history";
-import type { JsonArray } from "type-fest";
 import { Toolbar } from "./Toolbar";
 import { toggleMark } from "~/lib/editor/utils";
 import isHotkey from "is-hotkey";
@@ -17,6 +16,7 @@ import { withShortcuts } from "~/lib/editor/withShortcuts";
 import { withChecklists } from "~/lib/editor/withChecklists";
 import { CheckListItemElement } from "./ChecklistItem";
 import type { SlateElements, Text } from "./types";
+import { useTransition } from "remix";
 
 export type SlateEditor = BaseEditor & ReactEditor & HistoryEditor;
 
@@ -30,7 +30,7 @@ declare module "slate" {
 
 interface EditorProps {
   isReadonly?: boolean;
-  value: Descendant[] | JsonArray;
+  value: any;
   onChange?: (value: Descendant[]) => void;
 }
 
@@ -49,6 +49,7 @@ const HOTKEYS = {
 } as const;
 
 export function SlateEditor({ isReadonly, value, onChange }: EditorProps) {
+  const { state, type } = useTransition();
   const renderElement = React.useCallback((props) => <Element {...props} />, []);
   const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
   const editor = React.useMemo(
@@ -60,12 +61,16 @@ export function SlateEditor({ isReadonly, value, onChange }: EditorProps) {
     onChange?.(value);
   }
 
+  if (state !== "idle" && type === "normalLoad") {
+    return null;
+  }
+
   return (
     <div
       className="mt-1 px-3"
       style={{ height: "calc(100vh - 4rem)", overflowY: "auto", width: "calc(100vw - 320px)" }}
     >
-      <Slate editor={editor} value={value as Descendant[]} onChange={handleChange}>
+      <Slate editor={editor} value={value} onChange={handleChange}>
         {isReadonly ? null : <Toolbar />}
         <Editable
           spellCheck="false"
