@@ -3,7 +3,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { MetaFunction, LoaderFunction, useLoaderData } from "remix";
 import { ShowCase } from "~/components/Showcase";
-import { useUser } from "~/lib/auth/auth";
+import { useUser } from "~/lib/auth/user";
 import { getUserSession } from "~/lib/auth/session.server";
 
 export const meta: MetaFunction = () => ({

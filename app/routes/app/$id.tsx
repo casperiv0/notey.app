@@ -1,21 +1,11 @@
-import {
-  redirect,
-  type LinksFunction,
-  type MetaFunction,
-  type LoaderFunction,
-  json,
-  useLoaderData,
-} from "remix";
+import { redirect, type MetaFunction, type LoaderFunction, json, useLoaderData } from "remix";
 import { Navbar } from "~/components/navbar/Navbar";
 import { prisma } from "~/lib/prisma.server";
 import { Editor } from "~/components/editor/Editor";
 
-import previewStyles from "~/styles/preview-styles.css";
 import { UnsavedChangesModal } from "~/components/modal/UnsavedChangesModal";
 import { withLockedNotes } from "~/lib/utils/note.server";
 import { useShortcuts } from "~/lib/useShortcuts";
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: previewStyles }];
 
 export const meta: MetaFunction = ({ data }) => {
   const note = data?.note;

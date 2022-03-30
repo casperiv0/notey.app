@@ -1,5 +1,4 @@
-import type { Note } from ".prisma/client";
-import * as React from "react";
+import type { Note } from "@prisma/client";
 import { useActiveNote } from "~/lib/note";
 import { DEFAULT_EDITOR_DATA, SlateEditor } from "../slate-editor/SlateEditor";
 
@@ -13,13 +12,6 @@ interface Props {
 
 export const Editor = ({ isShare, overwrite }: Props) => {
   const { note, editMode, setNote } = useActiveNote();
-
-  React.useEffect(() => {
-    document.querySelectorAll<HTMLAnchorElement>("#note-preview-area a").forEach((link) => {
-      link.target = "_blank";
-      link.rel = "noreferrer noopener";
-    });
-  }, [note?.body]);
 
   if (!note) return null;
 

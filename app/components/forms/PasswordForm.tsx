@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Form, useTransition } from "remix";
 import { useLocation } from "react-router";
-import { useUser } from "~/lib/auth/auth";
+import { useUser } from "~/lib/auth/user";
 import { Modals } from "~/lib/constants";
 import { useModal } from "~/lib/useModal";
 import { Button } from "../Button";

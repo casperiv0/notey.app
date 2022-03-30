@@ -1,20 +1,11 @@
 import * as React from "react";
-import {
-  Link,
-  useLoaderData,
-  type LinksFunction,
-  type MetaFunction,
-  type LoaderFunction,
-} from "remix";
+import { Link, useLoaderData, type MetaFunction, type LoaderFunction } from "remix";
 import type { Note, User } from ".prisma/client";
 import { prisma } from "~/lib/prisma.server";
 
-import previewStyles from "~/styles/preview-styles.css";
 import { getUserSession } from "~/lib/auth/session.server";
 import { Editor } from "~/components/editor/Editor";
-import { useUser } from "~/lib/auth/auth";
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: previewStyles }];
+import { useUser } from "~/lib/auth/user";
 
 export const meta: MetaFunction = ({ data }) => {
   const note = data?.note;

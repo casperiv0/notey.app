@@ -11,7 +11,7 @@ import { Dropdown } from "~/components/dropdown/Dropdown";
 import { useModal } from "~/lib/useModal";
 import { Modals } from "~/lib/constants";
 import { NoteForm } from "../forms/NoteForm";
-import { useUser } from "~/lib/auth/auth";
+import { useUser } from "~/lib/auth/user";
 import { AccountForm } from "../forms/AccountForm";
 import { toggleSidebar } from "~/lib/utils/client.client";
 import { useSidebarShortcuts } from "~/lib/useShortcuts";

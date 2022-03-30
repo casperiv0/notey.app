@@ -18,7 +18,7 @@ import classNames from "classnames";
 
 import tailwindStyles from "./styles/tailwind.css";
 import globalStyles from "./styles/global.css";
-import nProgressStyles from "./styles/nprogress.css";
+import NProgressStyles from "./styles/nprogress.css";
 import responsiveStyles from "./styles/responsive.css";
 import { getUserSession } from "./lib/auth/session.server";
 
@@ -45,7 +45,7 @@ export const links: LinksFunction = () => {
       rel: "stylesheet",
       href: "https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap",
     },
-    { rel: "stylesheet", href: nProgressStyles },
+    { rel: "stylesheet", href: NProgressStyles },
     { rel: "stylesheet", href: responsiveStyles },
   ];
 };

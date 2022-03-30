@@ -3,7 +3,7 @@ import { type MetaFunction, type LoaderFunction, Outlet, useLoaderData, redirect
 import type { Note } from ".prisma/client";
 import { Layout } from "~/components/Layout";
 import { CreditsModal } from "~/components/modal/CreditsModal";
-import { useUser } from "~/lib/auth/auth";
+import { useUser } from "~/lib/auth/user";
 import { getUserSession } from "~/lib/auth/session.server";
 import { prisma } from "~/lib/prisma.server";
 import { KeyboardShortcutsModal } from "~/components/modal/KeyboardShortcuts";
