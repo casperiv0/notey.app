@@ -30,7 +30,7 @@ import { isLinkActive, unwrapLink, wrapLink } from "~/lib/editor/withLinks";
 
 export function Toolbar() {
   return (
-    <RToolbar.Root className="flex gap-1 mb-5 mt-2">
+    <RToolbar.Root className="flex flex-wrap gap-1 mb-5 mt-2">
       <RToolbar.ToolbarToggleGroup
         className="flex gap-1"
         type="multiple"
