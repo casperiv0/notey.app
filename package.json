@@ -45,7 +45,7 @@
     "react-dom": "^18.0.0",
     "react-hotkeys-hook": "^3.4.4",
     "react-router": "^6.2.2",
-    "react-router-dom": "6.2.2",
+    "react-router-dom": "6.3.0",
     "remix": "^1.3.3",
     "remix-utils": "^2.11.1",
     "slate": "^0.76.0",
