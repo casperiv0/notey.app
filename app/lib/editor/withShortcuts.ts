@@ -11,6 +11,7 @@ const SHORTCUTS = {
   "##": "heading-two",
   "###": "heading-three",
   "[]": "check-list-item",
+  "---": "delimiter",
 } as const;
 
 export function withShortcuts(editor: SlateEditor) {
