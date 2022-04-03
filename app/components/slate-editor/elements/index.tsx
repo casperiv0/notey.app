@@ -48,6 +48,12 @@ const components: Record<string, ComponentItem> = {
   link: ({ children, attributes, element }) => (
     <LinkElement {...{ attributes, children, element }} />
   ),
+  delimiter: ({ attributes, children }) => (
+    <span {...attributes}>
+      {children}
+      <hr className="w-full select-none border-t-2 rounded-md dark:border-[#3f3f3f]" />
+    </span>
+  ),
 };
 
 export function EditorElement({ attributes, children, element }: RenderElementProps) {

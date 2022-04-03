@@ -16,6 +16,7 @@ import {
   JustifyLeft,
   Code,
   Link,
+  Hr,
 } from "react-bootstrap-icons";
 import { useSlate } from "slate-react";
 import { Button } from "~/components/Button";
@@ -58,6 +59,7 @@ export function Toolbar() {
         <BlockButton format="block-quote" icon={<Quote aria-label="block-quote" />} />
         <BlockButton format="bulleted-list" icon={<ListUl aria-label="bulleted-list" />} />
         <BlockButton format="check-list-item" icon={<ListCheck aria-label="check-list-item" />} />
+        <BlockButton format="delimiter" icon={<Hr aria-label="delimiter" />} />
       </RToolbar.ToolbarToggleGroup>
 
       <RToolbar.Separator className="w-[1px] bg-neutral-400 dark:bg-gray-3 mx-1 text-justify" />

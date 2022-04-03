@@ -61,6 +61,10 @@ export interface LinkElement {
   children: Text[];
 }
 
+export interface DelimiterElement {
+  type: "delimiter";
+}
+
 export type SlateElements =
   | ParagraphElement
   | HeadingOneElement
@@ -70,7 +74,8 @@ export type SlateElements =
   | ListItemElement
   | BulletItemElement
   | CheckListItemElement
-  | LinkElement;
+  | LinkElement
+  | DelimiterElement;
 
 export type TextBlocks =
   | ParagraphElement
