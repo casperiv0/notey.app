@@ -1,5 +1,5 @@
 import type { SlateEditor } from "~/components/slate-editor/SlateEditor";
-import type { SlateFormat, Text } from "~/components/slate-editor/types";
+import type { SlateFormat, Text, TextAlignment } from "~/components/slate-editor/types";
 import { Editor, Transforms, Element as SlateElement } from "slate";
 
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
@@ -12,7 +12,11 @@ export function isMarkActive(editor: SlateEditor, format: keyof Omit<Text, "text
 }
 
 export function toggleBlock(editor: SlateEditor, format: SlateFormat) {
-  const isActive = isBlockActive(editor, format);
+  const isActive = isBlockActive(
+    editor,
+    format,
+    TEXT_ALIGN_TYPES.includes(format) ? "align" : "type",
+  );
   const isList = LIST_TYPES.includes(format);
 
   Transforms.unwrapNodes(editor, {
@@ -24,15 +28,19 @@ export function toggleBlock(editor: SlateEditor, format: SlateFormat) {
     split: true,
   });
 
-  const newProperties = {
-    type: isActive ? "paragraph" : isList ? "list-item" : format,
-    align: isActive ? undefined : format,
-  } as any;
+  let newProperties: Partial<SlateElement>;
+  if (TEXT_ALIGN_TYPES.includes(format)) {
+    newProperties = { align: isActive ? undefined : (format as TextAlignment) };
+  } else {
+    newProperties = {
+      type: isActive ? "paragraph" : isList ? "list-item" : (format as SlateElement["type"]),
+    };
+  }
 
   Transforms.setNodes<SlateElement>(editor, newProperties);
 
   if (!isActive && isList) {
-    const block = { type: format, children: [] } as any;
+    const block = { type: format, children: [] } as SlateElement;
     Transforms.wrapNodes(editor, block);
   }
 }
@@ -47,14 +55,18 @@ export function toggleMark(editor: SlateEditor, format: keyof Omit<Text, "text">
   }
 }
 
-export function isBlockActive(editor: SlateEditor, format: SlateFormat) {
+export function isBlockActive(
+  editor: SlateEditor,
+  format: SlateFormat,
+  blockType: "type" | "align" = "type",
+) {
   const { selection } = editor;
   if (!selection) return false;
 
   const [match] = Array.from(
     Editor.nodes(editor, {
       at: Editor.unhangRange(editor, selection),
-      match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
+      match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n[blockType] === format,
     }),
   );
 

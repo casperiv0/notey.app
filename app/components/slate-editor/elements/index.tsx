@@ -7,8 +7,14 @@ import classNames from "classnames";
 type ComponentItem = (props: RenderElementProps & { element: SlateElements }) => JSX.Element;
 
 const components: Record<string, ComponentItem> = {
-  "block-quote": ({ children, attributes }) => (
-    <blockquote {...attributes} className="border-l-[3px] dark:border-[#3f3f3f] pl-2">
+  "block-quote": ({ children, attributes, element }) => (
+    <blockquote
+      {...attributes}
+      className={classNames(
+        "border-l-[3px] dark:border-[#3f3f3f] pl-2",
+        "align" in element ? element.align : null,
+      )}
+    >
       {children}
     </blockquote>
   ),
