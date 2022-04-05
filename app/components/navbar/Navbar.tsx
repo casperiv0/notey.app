@@ -79,7 +79,7 @@ export const Navbar = () => {
 
   return (
     <header className="relative w-full h-14">
-      <nav className="absolute top-0 left-0 flex items-center justify-between w-full p-4 h-14 border-b-[1.5px] border-dark-5 bg-gray-50 dark:bg-dark">
+      <nav className="absolute top-0 left-0 flex items-center justify-between w-full p-4 h-14 border-b-[1.5px] border-l-[1.5px] border-gray-300 dark:border-dark-5 bg-gray-200 dark:bg-dark">
         <div className="flex items-center gap-3">
           <Button
             onClick={() => toggleSidebar()}
@@ -94,7 +94,7 @@ export const Navbar = () => {
           {editMode ? (
             <Input
               onBlur={(e) => setNote({ ...note, title: e.target.value })}
-              className="p-0 px-1 text-xl font-semibold border-transparent bg-dark focus:border-transparent"
+              className="p-0 px-1 text-xl font-semibold border-transparent focus:border-transparent"
               defaultValue={note.title}
             />
           ) : (

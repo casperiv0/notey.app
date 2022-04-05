@@ -57,7 +57,10 @@ export function SlateEditor({ isReadonly, value, isShare, onChange }: EditorProp
     onChange?.(value);
   }
 
-  if (state !== "idle" && ["normalLoad"].includes(type)) {
+  if (
+    state !== "idle" &&
+    ["normalLoad", "actionSubmission", "actionRedirect", "actionReload"].includes(type)
+  ) {
     return null;
   }
 

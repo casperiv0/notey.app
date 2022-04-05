@@ -50,7 +50,7 @@ export function HoverToolbar() {
           e.preventDefault();
         }}
         ref={ref}
-        className="flex gap-1 mb-5 mt-2 absolute z-50 -top-96 -left-96 bg-dark-6 p-1 rounded-md opacity-0"
+        className="flex gap-1 mb-5 mt-2 absolute z-50 -top-96 -left-96 bg-gray-300 dark:bg-dark-6 p-1 rounded-md opacity-0"
       >
         <RToolbar.ToolbarToggleGroup
           className="flex gap-1"

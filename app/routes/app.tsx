@@ -1,5 +1,12 @@
 import * as React from "react";
-import { type MetaFunction, type LoaderFunction, Outlet, useLoaderData, redirect } from "remix";
+import {
+  type MetaFunction,
+  type LoaderFunction,
+  Outlet,
+  useLoaderData,
+  redirect,
+  ActionFunction,
+} from "remix";
 import type { Note } from ".prisma/client";
 import { Layout } from "~/components/Layout";
 import { CreditsModal } from "~/components/modal/CreditsModal";
@@ -12,6 +19,12 @@ export const meta: MetaFunction = () => ({
   description: "A simple notes app to keep track of important things.",
   title: "Notey.app - Keep track of important things",
 });
+
+export const action: ActionFunction = async ({ request }) => {
+  const action = (await request.formData()).get("_action");
+
+  console.log({ action });
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUserSession(request);
