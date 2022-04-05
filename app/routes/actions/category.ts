@@ -1,10 +1,11 @@
-import { redirect, type LoaderFunction, type ActionFunction, json } from "remix";
+import { type LoaderFunction, type ActionFunction } from "remix";
 import { prisma } from "~/lib/prisma.server";
 import { z } from "zod";
 import { getBodySafe } from "~/lib/utils/body";
 import { badRequest, notFound, unauthorized } from "remix-utils";
 import { getUserSession } from "~/lib/auth/session.server";
 import { handleMethods } from "~/lib/utils/handleMethods";
+import { handleNext } from "~/lib/utils/handleNext.server";
 
 const createSchema = z.object({
   name: z.string().min(2).max(40),
@@ -32,11 +33,11 @@ export const action: ActionFunction = async ({ request }) => {
         return badRequest(error);
       }
 
-      const category = await prisma.category.create({
+      await prisma.category.create({
         data: { name, userId: user.id },
       });
 
-      return json(category);
+      return handleNext(request);
     },
     async put() {
       const [{ id, name }, error] = await getBodySafe(request, updateSchema);
@@ -53,12 +54,12 @@ export const action: ActionFunction = async ({ request }) => {
         return notFound("Category not found");
       }
 
-      const updated = prisma.category.update({
+      await prisma.category.update({
         where: { id },
         data: { name },
       });
 
-      return json(updated);
+      return handleNext(request);
     },
     async patch() {
       const [{ id }, error] = await getBodySafe(request, idSchema);
@@ -75,12 +76,12 @@ export const action: ActionFunction = async ({ request }) => {
         return notFound("Category not found");
       }
 
-      const updated = prisma.category.update({
+      await prisma.category.update({
         where: { id },
         data: { folded: !category.folded },
       });
 
-      return json(updated);
+      return handleNext(request);
     },
     async delete() {
       const [{ id }, error] = await getBodySafe(request, idSchema);
@@ -101,22 +102,9 @@ export const action: ActionFunction = async ({ request }) => {
         where: { id },
       });
 
-      return json(true);
+      return handleNext(request);
     },
   });
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const urlSearch = new URL(request.url).searchParams;
-  const next = urlSearch.get("next");
-
-  if (next) {
-    return redirect(next);
-  }
-
-  return redirect("/app");
-};
-
-export default function Category() {
-  return null;
-}
+export const loader: LoaderFunction = async ({ request }) => handleNext(request);

@@ -19,7 +19,7 @@ export const NoteForm = () => {
   const { categories } = useLoaderData<{ categories: Category[] }>();
   const data = useTransition();
 
-  const apiUrl = `/api/note?next=${location.pathname}`;
+  const apiUrl = `/actions/note?next=${location.pathname}`;
 
   React.useEffect(() => {
     if (data.state === "loading") {
@@ -28,7 +28,7 @@ export const NoteForm = () => {
   }, [closeModal, data.state]);
 
   return (
-    <Form action={note ? apiUrl : "/api/note"} method={note ? "put" : "post"} className="mt-2">
+    <Form action={note ? apiUrl : "/actions/note"} method={note ? "put" : "post"} className="mt-2">
       {note ? <Input className="hidden" defaultValue={note.id} id="id" name="id" /> : null}
 
       <FormField label="Name">

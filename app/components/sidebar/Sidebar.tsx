@@ -1,8 +1,9 @@
+import * as React from "react";
 import type { Category, Note } from ".prisma/client";
 import { useId } from "react-aria";
 import { ThreeDots, X } from "react-bootstrap-icons";
 import { useNavigate } from "react-router";
-import { useLoaderData } from "remix";
+import { useLoaderData, useTransition } from "remix";
 import { Button } from "~/components/Button";
 import { CategoryForm } from "../forms/CategoryForm";
 import { Modal } from "../modal/Modal";
@@ -23,16 +24,38 @@ interface LoaderData {
 }
 
 export const Sidebar = () => {
+  const data = useLoaderData<LoaderData>();
+  const [categories, setCategories] = React.useState(data.categories);
   const { user } = useUser();
   const { openModal } = useModal();
+  const { state, submission } = useTransition();
 
   const dotsId = useId();
   const closeId = useId();
 
-  const data = useLoaderData<LoaderData>();
-  const categories = data.categories;
   const noCategoryNotes = data.noCategoryNotes;
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const isUpdateCategory =
+      submission?.action.includes("/actions/category") &&
+      ["POST", "PATCH"].includes(submission.method);
+
+    if (submission && isUpdateCategory) {
+      const form = Object.fromEntries(submission.formData);
+
+      setCategories((prev) => {
+        const idx = prev.findIndex((v) => v.id === form.id);
+
+        if (prev[idx]) {
+          prev[idx].folded = form.fold_folder !== "true";
+          prev[idx].name = form.name ? String(form.name) : prev[idx].name;
+        }
+
+        return prev;
+      });
+    }
+  }, [state, submission]);
 
   useSidebarShortcuts(getNotesFromCategories([...categories, { notes: noCategoryNotes }]));
 

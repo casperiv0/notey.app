@@ -18,7 +18,7 @@ export const AccountForm = () => {
   const { pathname } = useLocation();
   const { state } = useTransition();
 
-  const apiUrl = `/api/user?next=${pathname}`;
+  const apiUrl = `/actions/user?next=${pathname}`;
 
   React.useEffect(() => {
     if (state === "loading") {
@@ -70,7 +70,7 @@ export const AccountForm = () => {
 
       <AlertModal
         id={Modals.AlertDeleteAccount}
-        action="delete-/api/user"
+        action="delete-/actions/user"
         dataId={user.id}
         title="Delete Account"
         description={

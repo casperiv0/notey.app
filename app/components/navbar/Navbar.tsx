@@ -31,7 +31,7 @@ export const Navbar = () => {
   const fetcher = useFetcher();
   const cloneFetcher = useFetcher();
 
-  const apiUrl = `/api/note?next=${location.pathname}`;
+  const apiUrl = `/actions/note?next=${location.pathname}`;
 
   function handleCancel() {
     if (!note || !prevData) return;
@@ -152,7 +152,7 @@ export const Navbar = () => {
         dataId={note.id}
         title="Delete Note"
         id={Modals.AlertDeleteNote}
-        action="delete-/api/note"
+        action="delete-/actions/note"
         description={
           <>
             Are you sure you want to delete <span className="font-bold">{note.title}</span>? This

@@ -1,4 +1,4 @@
-import type { Category, Note } from ".prisma/client";
+import type { Category, Note } from "@prisma/client";
 import { CaretDownFill, Pencil } from "react-bootstrap-icons";
 import { Button } from "../Button";
 import { ListItem } from "./ListItem";
@@ -29,16 +29,17 @@ export const CategoryItem = ({ category }: Props) => {
       <header className="flex justify-between">
         <div className="flex items-center gap-1">
           {category.id !== "no_category" ? (
-            <Form action={`/api/category?next=${location.pathname}`} method="patch">
+            <Form action={`/actions/category?next=${location.pathname}`} method="patch">
               <input className="hidden" name="id" defaultValue={category.id} />
               <Button
                 type="submit"
                 variant="cancel"
-                className="px-1 mr-0 text-gray-400/50 hover:text-gray-400 dark:text-dark-4 dark:hover:text-gray-400"
+                className="px-1 mr-0 text-gray-400/50 hover:text-gray-400 dark:text-gray-500 dark:hover:text-gray-400"
                 id={foldId}
                 aria-label="Open or close this category"
                 name="fold_folder"
                 disabled={state !== "idle"}
+                value={String(category.folded)}
               >
                 <CaretDownFill
                   aria-labelledby={foldId}

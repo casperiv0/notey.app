@@ -17,7 +17,7 @@ export const CategoryForm = () => {
   const location = useLocation();
   const { state } = useTransition();
 
-  const apiUrl = `/api/category?next=${location.pathname}`;
+  const apiUrl = `/actions/category?next=${location.pathname}`;
 
   React.useEffect(() => {
     if (data.state === "loading") {
@@ -59,7 +59,7 @@ export const CategoryForm = () => {
           dataId={category.id}
           title="Delete Category"
           id={Modals.AlertDeleteCategory}
-          action="delete-/api/category"
+          action="delete-/actions/category"
           description={
             <>
               Are you sure you want to delete <span className="font-bold">{category.name}</span>?

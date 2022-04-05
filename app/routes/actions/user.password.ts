@@ -71,7 +71,3 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return redirect("/app");
 };
-
-export default function User() {
-  return null;
-}

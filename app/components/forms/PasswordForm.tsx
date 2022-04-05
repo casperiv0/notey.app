@@ -16,7 +16,7 @@ export const PasswordForm = () => {
   const { pathname } = useLocation();
   const { state } = useTransition();
 
-  const apiUrl = `/api/user/password?next=${pathname}`;
+  const apiUrl = `/actions/user/password?next=${pathname}`;
 
   React.useEffect(() => {
     if (state === "loading") {
@@ -49,7 +49,7 @@ export const PasswordForm = () => {
 
       <AlertModal
         id={Modals.AlertDeleteAccount}
-        action="delete-/api/user"
+        action="delete-/actions/user"
         dataId={user.id}
         title="Delete Account"
         description={

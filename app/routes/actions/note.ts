@@ -6,6 +6,7 @@ import { z } from "zod";
 import { badRequest, unauthorized, notFound } from "remix-utils";
 import { getUserSession } from "~/lib/auth/session.server";
 import { idSchema } from "./category";
+import { handleNext } from "~/lib/utils/handleNext.server";
 
 export const booleanLike = z
   .string()
@@ -56,7 +57,7 @@ export const action: ActionFunction = async ({ request }) => {
 
       const parsedBody = typeof body === "string" ? JSON.parse(body) : body;
 
-      return prisma.note.update({
+      await prisma.note.update({
         where: { id },
         data: {
           title,
@@ -66,6 +67,8 @@ export const action: ActionFunction = async ({ request }) => {
           public: isPublic === "true",
         },
       });
+
+      return handleNext(request);
     },
     async post() {
       const url = new URL(request.url);
@@ -115,26 +118,12 @@ export const action: ActionFunction = async ({ request }) => {
         where: { id },
       });
 
-      return redirect("/app");
+      return handleNext(request);
     },
   });
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const urlSearch = new URL(request.url).searchParams;
-  const next = urlSearch.get("next");
-
-  if (next) {
-    return redirect(next);
-  }
-
-  return redirect("/app");
-};
-
-export default function Note() {
-  return null;
-}
-
+export const loader: LoaderFunction = async ({ request }) => handleNext(request);
 function parseCategoryId(id: "null" | (string & {}) | undefined) {
   return id === "null" ? null : id;
 }

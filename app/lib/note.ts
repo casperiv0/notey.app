@@ -40,7 +40,7 @@ export function useCloneNote() {
   const { note } = useActiveNote();
   const cloneFetcher = useFetcher();
 
-  const apiUrl = "/api/note?is-clone=true";
+  const apiUrl = "/actions/note?is-clone=true";
 
   function handleClone() {
     if (!note) return;
