@@ -46,7 +46,7 @@ export const Navbar = () => {
     setPrevData(null);
   }
 
-  function handleClick() {
+  const handleClick = React.useCallback(() => {
     if (!note) return;
 
     if (editMode) {
@@ -65,7 +65,22 @@ export const Navbar = () => {
     } else {
       setEditMode(true);
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [note, editMode]);
+
+  React.useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+        handleClick();
+      }
+    };
+
+    document.addEventListener("keydown", handler);
+
+    return () => {
+      document.removeEventListener("keydown", handler);
+    };
+  }, [handleClick]);
 
   React.useEffect(() => {
     if (note && prevData === null) {
