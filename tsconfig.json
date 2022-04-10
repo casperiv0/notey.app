@@ -11,7 +11,6 @@
       "~/*": ["./app/*"]
     },
 
-    "types": ["react/next", "react-dom/next"],
     "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
     "strictNullChecks": true /* Enable strict null checks. */,
     "strictPropertyInitialization": true /* Enable strict checking of property initialization in classes. */,

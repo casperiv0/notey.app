@@ -8,7 +8,7 @@ import { Modal } from "./Modal";
 interface Props {
   id: string;
   title: string;
-  description: string | React.ReactFragment;
+  description: string | React.ReactNode;
   action: `${FormMethod}-${string}`;
   dataId: string;
 }

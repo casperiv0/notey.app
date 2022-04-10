@@ -11,7 +11,7 @@ interface Props {
 
   children: React.ReactNode;
   title: React.ReactFragment | string;
-  description?: React.ReactFragment | string;
+  description?: React.ReactNode | string;
   extra?: { width?: number; isAlert?: boolean; forceOpen?: boolean };
 }
 
