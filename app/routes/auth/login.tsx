@@ -9,7 +9,6 @@ import {
 } from "remix";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import { badRequest } from "remix-utils";
 import { Input } from "~/components/form/Input";
 import { Button } from "~/components/Button";
 import { FormField } from "~/components/form/FormField";
@@ -47,12 +46,18 @@ export const action: ActionFunction = ({ request }) => {
       );
 
       if (error) {
-        return badRequest({ error });
+        return new Response(JSON.stringify({ error }), {
+          headers: { "content-type": "application/json" },
+          status: 400,
+        });
       }
 
       const user = await loginUser(body);
       if (!user) {
-        return badRequest({ error: "invalid username or password" });
+        return new Response(JSON.stringify({ error: "invalid username or password" }), {
+          headers: { "content-type": "application/json" },
+          status: 400,
+        });
       }
 
       const headers = await createSession(user);

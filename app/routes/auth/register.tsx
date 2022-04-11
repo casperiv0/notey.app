@@ -9,7 +9,6 @@ import {
   type HeadersFunction,
   type MetaFunction,
 } from "remix";
-import { badRequest } from "remix-utils";
 import { Input } from "~/components/form/Input";
 import { Button } from "~/components/Button";
 import { FormField } from "~/components/form/FormField";
@@ -47,16 +46,25 @@ export const action: ActionFunction = ({ request }) => {
       const [body, error] = await getBodySafe(request, registerSchema);
 
       if (error) {
-        return badRequest({ error });
+        return new Response(JSON.stringify({ error }), {
+          headers: { "content-type": "application/json" },
+          status: 400,
+        });
       }
 
       if (body.confirm_password !== body.password) {
-        return badRequest({ error: "passwords do not match" });
+        return new Response(JSON.stringify({ error: "passwords do not match" }), {
+          headers: { "content-type": "application/json" },
+          status: 400,
+        });
       }
 
       const user = await registerUser(body);
       if ("error" in user) {
-        return badRequest({ error: user.error });
+        return new Response(JSON.stringify({ error: user.error }), {
+          headers: { "content-type": "application/json" },
+          status: 400,
+        });
       }
 
       const headers = await createSession(user);
