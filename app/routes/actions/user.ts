@@ -73,6 +73,14 @@ export const action: ActionFunction = async ({ request }) => {
         },
       });
 
+      const existingWithUsername = await prisma.user.findFirst({
+        where: { username: { equals: username, mode: "insensitive" } },
+      });
+
+      if (existingWithUsername) {
+        return badRequest({ error: "username in use" });
+      }
+
       return prisma.user.update({
         where: { id: user.id },
         data: { username },
