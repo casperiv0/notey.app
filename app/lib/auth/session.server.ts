@@ -1,4 +1,4 @@
-import { createCookie } from "remix";
+import { createCookie } from "@remix-run/node";
 import { sign, verify } from "jsonwebtoken";
 import type { Prisma, User } from ".prisma/client";
 import { prisma } from "../prisma.server";

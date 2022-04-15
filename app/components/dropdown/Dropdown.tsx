@@ -1,6 +1,6 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import classNames from "classnames";
-import { Link, LinkProps } from "remix";
+import { Link, LinkProps } from "@remix-run/react";
 import { Button, ButtonProps } from "~/components/Button";
 
 interface Props extends DropdownMenu.MenuContentProps {

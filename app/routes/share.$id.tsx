@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Link, useLoaderData, type MetaFunction, type LoaderFunction } from "remix";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 import type { Note, User } from ".prisma/client";
 import { prisma } from "~/lib/prisma.server";
 

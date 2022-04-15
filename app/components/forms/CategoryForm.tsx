@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Category } from ".prisma/client";
-import { Form, useTransition } from "remix";
+import { Form, useTransition } from "@remix-run/react";
 import { useModal } from "~/lib/useModal";
 import { Button } from "../Button";
 import { FormField } from "../form/FormField";

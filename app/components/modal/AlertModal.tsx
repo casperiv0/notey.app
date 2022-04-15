@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useLocation } from "react-router";
-import { FormMethod, useFetcher } from "remix";
+import { FormMethod, useFetcher } from "@remix-run/react";
 import { useModal } from "~/lib/useModal";
 import { Button } from "../Button";
 import { Modal } from "./Modal";

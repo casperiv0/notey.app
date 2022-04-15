@@ -1,16 +1,6 @@
 import * as React from "react";
-import {
-  type LinksFunction,
-  type LoaderFunction,
-  type MetaFunction,
-  useLoaderData,
-  useTransition,
-  Meta,
-  Links,
-  Scripts,
-  LiveReload,
-  useCatch,
-} from "remix";
+import { LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Links, LiveReload, Meta, Scripts, useCatch, useLoaderData, useTransition } from "@remix-run/react";
 import { Link, Outlet } from "react-router-dom";
 import { SSRProvider } from "@react-aria/ssr";
 import NProgress from "nprogress";

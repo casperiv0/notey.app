@@ -8,7 +8,7 @@ import isHotkey from "is-hotkey";
 import { withShortcuts } from "~/lib/editor/withShortcuts";
 import { withChecklists } from "~/lib/editor/withChecklists";
 import type { SlateElements, Text } from "./types";
-import { useTransition } from "remix";
+import { useTransition } from "@remix-run/react";
 import { HoverToolbar } from "./toolbar/HoverToolbar";
 import { withLinks } from "~/lib/editor/withLinks";
 import { EditorElement } from "./elements";

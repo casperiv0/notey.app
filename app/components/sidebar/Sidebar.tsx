@@ -3,7 +3,7 @@ import type { Category, Note } from ".prisma/client";
 import { useId } from "react-aria";
 import { ThreeDots, X } from "react-bootstrap-icons";
 import { useNavigate } from "react-router";
-import { useLoaderData, useTransition } from "remix";
+import { useLoaderData, useTransition } from "@remix-run/react";
 import { Button } from "~/components/Button";
 import { CategoryForm } from "../forms/CategoryForm";
 import { Modal } from "../modal/Modal";

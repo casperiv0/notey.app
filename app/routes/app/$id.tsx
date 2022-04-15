@@ -1,4 +1,5 @@
-import { redirect, type MetaFunction, type LoaderFunction, json, useLoaderData } from "remix";
+import { json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { Navbar } from "~/components/navbar/Navbar";
 import { prisma } from "~/lib/prisma.server";
 import { Editor } from "~/components/editor/Editor";

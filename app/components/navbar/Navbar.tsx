@@ -2,7 +2,7 @@ import * as React from "react";
 import { useId } from "react-aria";
 import { List, ThreeDots } from "react-bootstrap-icons";
 import { useLocation } from "react-router";
-import { useFetcher } from "remix";
+import { useFetcher } from "@remix-run/react";
 import { Modals } from "~/lib/constants";
 import { useActiveNote, useCloneNote } from "~/lib/note";
 import { useModal } from "~/lib/useModal";

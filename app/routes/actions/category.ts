@@ -1,4 +1,4 @@
-import { type LoaderFunction, type ActionFunction } from "remix";
+import { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { prisma } from "~/lib/prisma.server";
 import { z } from "zod";
 import { getBodySafe } from "~/lib/utils/body";

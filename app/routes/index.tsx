@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { MetaFunction, LoaderFunction, useLoaderData } from "remix";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { ShowCase } from "~/components/Showcase";
 import { useUser } from "~/lib/auth/user";
 import { getUserSession } from "~/lib/auth/session.server";

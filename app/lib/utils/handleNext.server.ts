@@ -1,4 +1,4 @@
-import { redirect } from "remix";
+import { redirect } from "@remix-run/node";
 
 export function handleNext(request: Request) {
   const urlSearch = new URL(request.url).searchParams;

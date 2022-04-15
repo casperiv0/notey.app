@@ -1,7 +1,7 @@
 import type * as React from "react";
 import type { Note } from ".prisma/client";
 import classNames from "classnames";
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 import { useActiveNote } from "~/lib/note";
 import { useModal } from "~/lib/useModal";
 import { Modals } from "~/lib/constants";
