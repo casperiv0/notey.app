@@ -47,7 +47,7 @@
     "react-hotkeys-hook": "^3.4.4",
     "react-router": "^6.3.0",
     "react-router-dom": "6.3.0",
-    "remix-utils": "^3.0.0",
+    "remix-utils": "^3.1.0",
     "slate": "^0.78.0",
     "slate-history": "^0.66.0",
     "slate-react": "^0.77.4",
