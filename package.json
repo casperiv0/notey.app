@@ -47,7 +47,7 @@
     "react-hotkeys-hook": "^3.4.4",
     "react-router": "^6.3.0",
     "react-router-dom": "6.3.0",
-    "remix-utils": "^3.0.0",
+    "remix-utils": "^3.1.0",
     "slate": "^0.78.0",
     "slate-history": "^0.66.0",
     "slate-react": "^0.77.4",
@@ -55,7 +55,7 @@
     "zustand": "^3.7.2"
   },
   "devDependencies": {
-    "@casper124578/eslint-config": "^4.2.0",
+    "@casper124578/eslint-config": "^4.3.0",
     "@casper124578/eslint-config-react": "^4.2.0",
     "@remix-run/dev": "^1.4.3",
     "@remix-run/server-runtime": "^1.4.3",
@@ -71,7 +71,7 @@
     "dotenv": "^16.0.0",
     "eslint": "^8.14.0",
     "husky": "^7.0.4",
-    "postcss": "^8.4.12",
+    "postcss": "^8.4.13",
     "postcss-cli": "^9.1.0",
     "prettier": "^2.6.2",
     "pretty-quick": "^3.1.3",
