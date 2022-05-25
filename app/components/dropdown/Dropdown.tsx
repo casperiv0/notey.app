@@ -48,9 +48,7 @@ Dropdown.LinkItem = ({ children, command, ...rest }: LinkProps & { command?: str
     >
       {children}
 
-      {command ? (
-        <span className="p-0.5 px-1.5 rounded-md text-sm bg-dark-5">{command}</span>
-      ) : null}
+      {command ? <CommandItem command={command} {...rest} /> : null}
     </Link>
   </DropdownMenu.Item>
 );
@@ -65,17 +63,21 @@ Dropdown.Item = ({ children, command, ...rest }: ButtonProps & { command?: strin
     >
       {children}
 
-      {command ? (
-        <span
-          role=""
-          className={classNames(
-            "p-0.5 px-1.5 rounded-md text-sm",
-            rest.variant === "danger" ? "bg-red-800 text-white" : "bg-gray-500/50 dark:bg-dark-5",
-          )}
-        >
-          {command}
-        </span>
-      ) : null}
+      {command ? <CommandItem command={command} {...rest} /> : null}
     </Button>
   </DropdownMenu.Item>
 );
+
+function CommandItem({ command, variant }: { command: string } & Pick<ButtonProps, "variant">) {
+  return (
+    <span
+      role=""
+      className={classNames(
+        "p-0.5 px-1.5 rounded-md text-sm",
+        variant === "danger" ? "bg-red-800 text-white" : "bg-gray-500/50 dark:bg-dark-5",
+      )}
+    >
+      {command}
+    </span>
+  );
+}

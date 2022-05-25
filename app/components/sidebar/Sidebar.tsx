@@ -32,8 +32,8 @@ export const Sidebar = () => {
 
   const dotsId = useId();
   const closeId = useId();
-
   const noCategoryNotes = data.noCategoryNotes;
+
   const navigate = useNavigate();
 
   React.useEffect(() => {

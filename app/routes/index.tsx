@@ -1,11 +1,12 @@
 import classNames from "classnames";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { redirect, json, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { ShowCase } from "~/components/Showcase";
 import { useUser } from "~/lib/auth/user";
 import { getUserSession } from "~/lib/auth/session.server";
+import type { DefaultLoaderReturn } from "~/root";
 
 export const meta: MetaFunction = () => ({
   description: "A simple notes app to keep track of important things.",
@@ -14,18 +15,23 @@ export const meta: MetaFunction = () => ({
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUserSession(request);
+  if (!user) {
+    return redirect("/auth/login");
+  }
 
-  return user;
+  return json({ user });
 };
 
 export default function Index() {
-  const user = useLoaderData();
+  const { user } = useLoaderData<DefaultLoaderReturn>();
   const { setUser } = useUser();
 
   const minHeight = user ? "calc(100vh - 5rem - 6.5rem)" : "calc(100vh - 5rem - 9.5rem)";
 
   React.useEffect(() => {
-    setUser(user ?? { preferences: {} });
+    if (user) {
+      setUser(user);
+    }
   }, [setUser, user]);
 
   return (

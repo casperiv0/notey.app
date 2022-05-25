@@ -1,5 +1,5 @@
 import * as React from "react";
-import { LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json, LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -19,6 +19,7 @@ import globalStyles from "./styles/global.css";
 import NProgressStyles from "./styles/nprogress.css";
 import responsiveStyles from "./styles/responsive.css";
 import { getUserSession } from "./lib/auth/session.server";
+import { User, UserPreferences } from "@prisma/client";
 
 export const links: LinksFunction = () => {
   return [
@@ -50,7 +51,7 @@ export const links: LinksFunction = () => {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUserSession(request);
-  return { user };
+  return json({ user });
 };
 
 export const meta: MetaFunction = () => ({
@@ -59,16 +60,25 @@ export const meta: MetaFunction = () => ({
   "og:image": "https://notey.caspertheghost.me/icons/notey-app-144.png",
 });
 
+export interface DefaultLoaderReturn<UserNullable = true> {
+  user: UserNullable extends true
+    ? (User & { preferences?: UserPreferences }) | null
+    : User & { preferences?: UserPreferences };
+}
+
 function Document({ children, title }: { children: React.ReactNode; title?: string }) {
-  const { user } = useLoaderData() ?? {};
+  const { user } = useLoaderData<DefaultLoaderReturn>();
   const transition = useTransition();
 
+  const showCursorPointers = !user || !!user.preferences?.cursorPointers;
+  const isDarkTheme = !user || !!user.preferences?.darkTheme;
+
   React.useEffect(() => {
-    // when the state is idle then we can to complete the progress bar
-    if (transition.state === "idle") NProgress.done();
-    // and when it's something else it means it's either submitting a form or
-    // waiting for the loaders of the next location so we start it
-    else NProgress.start();
+    if (transition.state === "idle") {
+      NProgress.done();
+    } else {
+      NProgress.start();
+    }
   }, [transition.state]);
 
   return (
@@ -81,8 +91,8 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
       </head>
       <body
         className={classNames(
-          !user?.id || user?.preferences?.cursorPointers ? "cursors-pointer" : "cursors-default",
-          (!user?.id || user?.preferences?.darkTheme) && "dark",
+          showCursorPointers ? "cursors-pointer" : "cursors-default",
+          isDarkTheme && "dark",
         )}
       >
         <SSRProvider>{children}</SSRProvider>

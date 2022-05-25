@@ -7,6 +7,7 @@ import { Editor } from "~/components/editor/Editor";
 import { UnsavedChangesModal } from "~/components/modal/UnsavedChangesModal";
 import { withLockedNotes } from "~/lib/utils/note.server";
 import { useShortcuts } from "~/lib/useShortcuts";
+import { getUserSession } from "~/lib/auth/session.server";
 
 export const meta: MetaFunction = ({ data }) => {
   const note = data?.note;
@@ -20,7 +21,12 @@ export const meta: MetaFunction = ({ data }) => {
   };
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const user = await getUserSession(request);
+  if (!user) {
+    return redirect("/auth/login");
+  }
+
   const id = params.id;
   const note = id
     ? await prisma.note.findUnique({

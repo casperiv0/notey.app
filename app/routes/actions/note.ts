@@ -105,7 +105,7 @@ export const action: ActionFunction = async ({ request }) => {
         },
       });
 
-      return redirect(`/app/${note.id}`);
+      return redirect(`/app/${note.id}`, 301);
     },
     async delete() {
       const [{ id }, error] = await getBodySafe(request, idSchema);
@@ -118,7 +118,7 @@ export const action: ActionFunction = async ({ request }) => {
         where: { id },
       });
 
-      return handleNext(request);
+      return handleNext(request, true);
     },
   });
 };

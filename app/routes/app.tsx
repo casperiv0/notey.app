@@ -1,24 +1,19 @@
 import * as React from "react";
-import { ActionFunction, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import { json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import type { Note } from ".prisma/client";
+import type { Category, Note } from "@prisma/client";
 import { Layout } from "~/components/Layout";
 import { CreditsModal } from "~/components/modal/CreditsModal";
 import { useUser } from "~/lib/auth/user";
 import { getUserSession } from "~/lib/auth/session.server";
 import { prisma } from "~/lib/prisma.server";
 import { KeyboardShortcutsModal } from "~/components/modal/KeyboardShortcuts";
+import { DefaultLoaderReturn } from "~/root";
 
 export const meta: MetaFunction = () => ({
   description: "A simple notes app to keep track of important things.",
   title: "Notey.app - Keep track of important things",
 });
-
-export const action: ActionFunction = async ({ request }) => {
-  const action = (await request.formData()).get("_action");
-
-  console.log({ action });
-};
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUserSession(request);
@@ -35,7 +30,6 @@ export const loader: LoaderFunction = async ({ request }) => {
         notes: true,
       },
     }),
-
     await prisma.note.findMany({
       where: {
         categoryId: null,
@@ -52,11 +46,16 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect(`/app/${firstNote.id}`);
   }
 
-  return { user, categories, noCategoryNotes };
+  return json({ user, categories, noCategoryNotes });
 };
 
+interface AppLoaderReturn extends DefaultLoaderReturn<false> {
+  categories: (Category & { notes: Note[] })[];
+  noCategoryNotes: Note[];
+}
+
 export default function App() {
-  const { user } = useLoaderData();
+  const { user } = useLoaderData<AppLoaderReturn>();
   const { setUser, user: stateUser } = useUser();
 
   React.useEffect(() => {
