@@ -48,7 +48,7 @@
     "react-router": "^6.3.0",
     "react-router-dom": "6.3.0",
     "remix-utils": "^3.2.0",
-    "slate": "^0.78.0",
+    "slate": "^0.80.0",
     "slate-history": "^0.66.0",
     "slate-react": "^0.79.0",
     "zod": "^3.17.0",
