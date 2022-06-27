@@ -27,6 +27,7 @@ export const Modal = ({ id, children, description, title, extra }: Props) => {
       <Dialog.Overlay className="fixed inset-0 bg-black/20 z-50" />
 
       <Dialog.Content
+        onInteractOutside={(e) => e.preventDefault()}
         style={{ width, left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
         className="bg-gray-100 dark:bg-dark-1 rounded-md shadow-lg fixed max-w-[95%] p-5 modalOpen z-50"
       >
