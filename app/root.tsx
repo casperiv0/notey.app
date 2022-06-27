@@ -66,8 +66,15 @@ export interface DefaultLoaderReturn<UserNullable = true> {
     : User & { preferences?: UserPreferences };
 }
 
-function Document({ children, title }: { children: React.ReactNode; title?: string }) {
-  const { user } = useLoaderData<DefaultLoaderReturn>();
+function Document({
+  children,
+  title,
+  user,
+}: {
+  user: DefaultLoaderReturn["user"];
+  children: React.ReactNode;
+  title?: string;
+}) {
   const transition = useTransition();
 
   const showCursorPointers = !user || !!user.preferences?.cursorPointers;
@@ -104,8 +111,10 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
 }
 
 export default function App() {
+  const { user } = useLoaderData<DefaultLoaderReturn>();
+
   return (
-    <Document>
+    <Document user={user}>
       <Outlet />
     </Document>
   );
@@ -118,7 +127,7 @@ export function CatchBoundary() {
     case 401:
     case 404:
       return (
-        <Document title={`${caught.status} ${caught.statusText}`}>
+        <Document user={null} title={`${caught.status} ${caught.statusText}`}>
           <main className="p-5">
             <h1>
               {caught.status} {caught.statusText}
@@ -140,7 +149,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
   const isDev = process.env.NODE_ENV === "development";
 
   return (
-    <Document title="Uh-oh!">
+    <Document user={null} title="Uh-oh!">
       <main className="p-5">
         <h1 className="mb-5 text-3xl font-bold">App Error</h1>
 
