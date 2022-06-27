@@ -14,7 +14,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,css,json}\" --ignore-path .gitignore",
     "format:quick": "pretty-quick --staged --pattern \"**/*.{js,jsx,ts,tsx,md,css,json}\"",
     "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
-    "start": "npx prisma migrate deploy && remix-serve api/build",
+    "start": "remix-serve api/build",
     "prepare": "husky install"
   },
   "dependencies": {
