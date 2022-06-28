@@ -42,7 +42,10 @@ export default function Index() {
 
           <ul className="flex items-center space-x-4">
             {user ? (
-              <Link className="link" to="/app">
+              <Link
+                className="p-1 px-3 transition-colors rounded-md cursor-default bg-gray-400/50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-dark-3 hover:bg-gray-400 dark:hover:bg-dark-4"
+                to="/app"
+              >
                 Open app
               </Link>
             ) : (
@@ -50,7 +53,10 @@ export default function Index() {
                 <Link className="hover:underline" to="/auth/login">
                   Login
                 </Link>
-                <Link className="link" to="/auth/register">
+                <Link
+                  className="p-1 px-3 transition-colors rounded-md cursor-default bg-gray-400/50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-dark-3 hover:bg-gray-400 dark:hover:bg-dark-4"
+                  to="/auth/register"
+                >
                   Register
                 </Link>
               </>
@@ -72,11 +78,17 @@ export default function Index() {
             </h2>
 
             {user ? (
-              <Link className="text-lg link large" to="/app">
+              <Link
+                className="text-lg p-1 px-3 transition-colors rounded-md cursor-default bg-gray-400/50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-dark-3 hover:bg-gray-400 dark:hover:bg-dark-4"
+                to="/app"
+              >
                 Open app
               </Link>
             ) : (
-              <Link className="text-lg link large" to="/auth/login">
+              <Link
+                className="text-lg p-1 px-3 transition-colors rounded-md cursor-default bg-gray-400/50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-dark-3 hover:bg-gray-400 dark:hover:bg-dark-4"
+                to="/auth/login"
+              >
                 Login
               </Link>
             )}
