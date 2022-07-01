@@ -29,7 +29,7 @@
     "@react-aria/label": "^3.3.1",
     "@react-aria/ssr": "^3.2.0",
     "@remix-run/node": "^1.6.2",
-    "@remix-run/react": "^1.6.2",
+    "@remix-run/react": "^1.6.3",
     "@remix-run/serve": "^1.6.2",
     "@remix-run/vercel": "^1.6.2",
     "bcrypt": "^5.0.1",
@@ -54,7 +54,7 @@
   "devDependencies": {
     "@casper124578/eslint-config": "^4.4.0",
     "@casper124578/eslint-config-react": "^4.4.0",
-    "@remix-run/dev": "^1.6.2",
+    "@remix-run/dev": "^1.6.3",
     "@remix-run/server-runtime": "^1.6.2",
     "@types/bcrypt": "^5.0.0",
     "@types/is-url": "^1.2.30",
