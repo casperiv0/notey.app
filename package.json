@@ -23,7 +23,7 @@
     "@radix-ui/react-dropdown-menu": "^0.1.6",
     "@radix-ui/react-id": "^0.1.5",
     "@radix-ui/react-portal": "^0.1.4",
-    "@radix-ui/react-switch": "^0.1.5",
+    "@radix-ui/react-switch": "^1.0.0",
     "@radix-ui/react-toolbar": "^0.1.5",
     "@radix-ui/react-tooltip": "^0.1.7",
     "@react-aria/label": "^3.3.1",
