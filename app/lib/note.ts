@@ -12,7 +12,7 @@ interface NoteStore {
   setEditMode(v: boolean): void;
 }
 
-const useNoteStore = create<NoteStore>((set) => ({
+const useNoteStore = create<NoteStore>()((set) => ({
   note: null,
   setNote: (n) => set({ note: n }),
 
@@ -21,7 +21,7 @@ const useNoteStore = create<NoteStore>((set) => ({
 }));
 
 export function useActiveNote() {
-  const loaderData = useLoaderData<{ note: Note | null } | null>();
+  const loaderData = useLoaderData() as { note: Note | null } | null;
   const { note, setNote, editMode, setEditMode } = useNoteStore();
   const _note = note;
 

@@ -24,7 +24,7 @@ interface LoaderData {
 }
 
 export const Sidebar = () => {
-  const data = useLoaderData<LoaderData>();
+  const data = useLoaderData<unknown>() as LoaderData;
   const [categories, setCategories] = React.useState(data.categories);
   const { user } = useUser();
   const { openModal } = useModal();

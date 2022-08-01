@@ -111,7 +111,7 @@ function Document({
 }
 
 export default function App() {
-  const { user } = useLoaderData<DefaultLoaderReturn>();
+  const { user } = useLoaderData() as DefaultLoaderReturn;
 
   return (
     <Document user={user}>

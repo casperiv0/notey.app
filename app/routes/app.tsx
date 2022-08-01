@@ -55,7 +55,7 @@ interface AppLoaderReturn extends DefaultLoaderReturn<false> {
 }
 
 export default function App() {
-  const { user } = useLoaderData<AppLoaderReturn>();
+  const { user } = useLoaderData<unknown>() as AppLoaderReturn;
   const { setUser, user: stateUser } = useUser();
 
   React.useEffect(() => {

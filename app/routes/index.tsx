@@ -23,7 +23,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const { user } = useLoaderData<DefaultLoaderReturn>();
+  const { user } = useLoaderData() as DefaultLoaderReturn;
   const { setUser } = useUser();
 
   const minHeight = user ? "calc(100vh - 5rem - 6.5rem)" : "calc(100vh - 5rem - 9.5rem)";

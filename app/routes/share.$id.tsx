@@ -35,7 +35,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function SharedNote() {
   const { setUser } = useUser();
-  const { user, note } = useLoaderData<{ note: Note | null; user: User | null }>();
+  const { user, note } = useLoaderData<unknown>() as { note: Note | null; user: User | null };
 
   React.useEffect(() => {
     user && setUser(user);

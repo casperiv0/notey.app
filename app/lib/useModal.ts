@@ -8,7 +8,7 @@ interface ModalStore {
   setPayload(key: string, data: any): void;
 }
 
-const useModalStore = create<ModalStore>((set, get) => ({
+const useModalStore = create<ModalStore>()((set, get) => ({
   open: [],
   setOpen: (open: string[]) => set({ open }),
 
