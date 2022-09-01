@@ -58,7 +58,7 @@
     "@remix-run/server-runtime": "^1.6.8",
     "@types/bcrypt": "^5.0.0",
     "@types/is-url": "^1.2.30",
-    "@types/jsonwebtoken": "^8.5.8",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.7.8",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^18.0.17",
