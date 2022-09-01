@@ -29,7 +29,7 @@
     "@react-aria/label": "^3.4.0",
     "@react-aria/ssr": "^3.3.0",
     "@remix-run/node": "^1.6.8",
-    "@remix-run/react": "^1.6.8",
+    "@remix-run/react": "^1.7.0",
     "@remix-run/serve": "^1.6.8",
     "@remix-run/vercel": "^1.6.8",
     "bcrypt": "^5.0.1",
