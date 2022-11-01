@@ -55,7 +55,7 @@
     "@casper124578/eslint-config": "^4.4.0",
     "@casper124578/eslint-config-react": "^4.4.0",
     "@remix-run/dev": "^1.7.0",
-    "@remix-run/server-runtime": "^1.7.0",
+    "@remix-run/server-runtime": "^1.7.4",
     "@types/bcrypt": "^5.0.0",
     "@types/is-url": "^1.2.30",
     "@types/jsonwebtoken": "^8.5.9",
