@@ -21,7 +21,7 @@ export const Dropdown = ({ trigger: Trigger, children, extra, ...rest }: Props) 
       <DropdownMenu.Content
         sideOffset={3}
         style={{ width: maxWidth, maxWidth }}
-        className="p-2 bg-gray-300 rounded-md shadow-md dark:bg-dark-4 fadeUp"
+        className="p-2 bg-gray-300 rounded-md shadow-md dark:bg-dark-4 fadeUp z-50"
         align="start"
         {...rest}
       >

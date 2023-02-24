@@ -8,7 +8,7 @@ import { Button } from "~/components/Button";
 import { CategoryForm } from "../forms/CategoryForm";
 import { Modal } from "../modal/Modal";
 import { CategoryItem } from "./Category";
-import { Dropdown } from "~/components/dropdown/Dropdown";
+import { Dropdown } from "~/components/dropdown";
 import { useModal } from "~/lib/useModal";
 import { Modals } from "~/lib/constants";
 import { NoteForm } from "../forms/NoteForm";
@@ -122,7 +122,7 @@ export const Sidebar = () => {
           {categories.length <= 0 && noCategoryNotes.length <= 0 ? (
             <p className="text-gray-400">You do not have any notes yet.</p>
           ) : (
-            <ul role="list">
+            <ul>
               {categories.map((category) => {
                 return <CategoryItem key={category.id} category={category} />;
               })}

@@ -8,7 +8,6 @@ import isHotkey from "is-hotkey";
 import { withShortcuts } from "~/lib/editor/withShortcuts";
 import { withChecklists } from "~/lib/editor/withChecklists";
 import type { SlateElements, Text } from "./types";
-import { useTransition } from "@remix-run/react";
 import { HoverToolbar } from "./toolbar/HoverToolbar";
 import { withLinks } from "~/lib/editor/withLinks";
 import { EditorElement } from "./elements";
@@ -45,7 +44,6 @@ const HOTKEYS = {
 } as const;
 
 export function SlateEditor({ isReadonly, value, isShare, onChange }: EditorProps) {
-  const { state, type } = useTransition();
   const renderElement = React.useCallback((props) => <EditorElement {...props} />, []);
   const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
   const editor = React.useMemo(
@@ -57,12 +55,11 @@ export function SlateEditor({ isReadonly, value, isShare, onChange }: EditorProp
     onChange?.(value);
   }
 
-  if (
-    state !== "idle" &&
-    ["normalLoad", "actionSubmission", "actionRedirect", "actionReload"].includes(type)
-  ) {
-    return null;
-  }
+  // handle state changes
+  React.useEffect(() => {
+    editor.children = value;
+    editor.onChange();
+  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div

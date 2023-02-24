@@ -5,8 +5,8 @@ import { useUser } from "~/lib/auth/user";
 import { Modals } from "~/lib/constants";
 import { useModal } from "~/lib/useModal";
 import { Button } from "../Button";
-import { FormField } from "../form/FormField";
-import { Input } from "../form/Input";
+import { FormField } from "../form/form-field";
+import { Input } from "../form/input";
 import { AlertModal } from "../modal/AlertModal";
 import { Modal } from "../modal/Modal";
 

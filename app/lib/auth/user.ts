@@ -1,5 +1,5 @@
 import { User, UserPreferences } from ".prisma/client";
-import create from "zustand";
+import { create } from "zustand";
 
 interface UserStore {
   user: User & { preferences?: UserPreferences };

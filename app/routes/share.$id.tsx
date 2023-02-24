@@ -5,7 +5,7 @@ import type { Note, User } from ".prisma/client";
 import { prisma } from "~/lib/prisma.server";
 
 import { getUserSession } from "~/lib/auth/session.server";
-import { Editor } from "~/components/editor/Editor";
+import { Editor } from "~/components/editor";
 import { useUser } from "~/lib/auth/user";
 
 export const meta: MetaFunction = ({ data }) => {

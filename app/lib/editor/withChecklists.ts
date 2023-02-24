@@ -1,5 +1,5 @@
 import { Editor, Transforms, Range, Point, Element as SlateElement } from "slate";
-import type { SlateEditor } from "~/components/slate-editor/SlateEditor";
+import type { SlateEditor } from "~/components/slate-editor/slate-editor";
 
 export function withChecklists(editor: SlateEditor) {
   const { deleteBackward } = editor;

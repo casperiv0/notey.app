@@ -2,9 +2,9 @@ import { ActionFunction, HeadersFunction, MetaFunction, redirect } from "@remix-
 import { Form, useActionData, useTransition } from "@remix-run/react";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import { Input } from "~/components/form/Input";
+import { Input } from "~/components/form/input";
 import { Button } from "~/components/Button";
-import { FormField } from "~/components/form/FormField";
+import { FormField } from "~/components/form/form-field";
 import { handleMethods } from "~/lib/utils/handleMethods";
 import { loginUser } from "~/lib/auth/auth.server";
 import { getBodySafe } from "~/lib/utils/body";

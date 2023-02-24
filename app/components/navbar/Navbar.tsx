@@ -8,8 +8,8 @@ import { useActiveNote, useCloneNote } from "~/lib/note";
 import { useModal } from "~/lib/useModal";
 import { toggleSidebar } from "~/lib/utils/client.client";
 import { Button } from "../Button";
-import { Dropdown } from "../dropdown/Dropdown";
-import { Input } from "../form/Input";
+import { Dropdown } from "../dropdown";
+import { Input } from "../form/input";
 import { AlertModal } from "../modal/AlertModal";
 
 interface PrevData {
@@ -129,7 +129,7 @@ export const Navbar = () => {
           </Button>
 
           <Dropdown
-            sideOffset={10}
+            side="left"
             extra={{ maxWidth: 240 }}
             trigger={
               <Button className="px-1" variant="dropdown" id={dotsId} aria-label="More Settings">

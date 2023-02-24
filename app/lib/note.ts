@@ -2,7 +2,7 @@ import { Note } from ".prisma/client";
 import React from "react";
 import { useLocation } from "react-router";
 import { useFetcher, useLoaderData } from "@remix-run/react";
-import create from "zustand";
+import { create } from "zustand";
 
 interface NoteStore {
   note: Note | null;

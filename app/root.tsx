@@ -14,10 +14,10 @@ import { SSRProvider } from "@react-aria/ssr";
 import NProgress from "nprogress";
 import classNames from "classnames";
 
-import tailwindStyles from "./styles/tailwind.css";
 import globalStyles from "./styles/global.css";
 import NProgressStyles from "./styles/nprogress.css";
 import responsiveStyles from "./styles/responsive.css";
+
 import { getUserSession } from "./lib/auth/session.server";
 import { User, UserPreferences } from "@prisma/client";
 
@@ -28,15 +28,12 @@ export const links: LinksFunction = () => {
       sizes: "180x180",
       href: "https://notey.caspertheghost.me/icons/apple-touch-icon.png",
     },
-
     {
       rel: "shortcut icon",
       type: "image/x-icon",
       href: "https://notey.caspertheghost.me/icons/notey-app-144.png",
     },
-
     { rel: "manifest", href: "https://notey.caspertheghost.me/manifest.json" },
-    { rel: "stylesheet", href: tailwindStyles },
     { rel: "stylesheet", href: globalStyles },
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -125,7 +122,7 @@ export function CatchBoundary() {
 
   switch (caught.status) {
     case 401:
-    case 404:
+    case 404: {
       return (
         <Document user={null} title={`${caught.status} ${caught.statusText}`}>
           <main className="p-5">
@@ -139,9 +136,10 @@ export function CatchBoundary() {
           </main>
         </Document>
       );
-
-    default:
+    }
+    default: {
       throw new Error(`Unexpected caught response with status: ${caught.status}`);
+    }
   }
 }
 

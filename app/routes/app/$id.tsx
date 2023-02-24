@@ -2,7 +2,7 @@ import { json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Navbar } from "~/components/navbar/Navbar";
 import { prisma } from "~/lib/prisma.server";
-import { Editor } from "~/components/editor/Editor";
+import { Editor } from "~/components/editor";
 
 import { UnsavedChangesModal } from "~/components/modal/UnsavedChangesModal";
 import { withLockedNotes } from "~/lib/utils/note.server";

@@ -25,7 +25,7 @@ export const CategoryItem = ({ category }: Props) => {
   }
 
   return (
-    <li className="my-5" role="listitem">
+    <li className="my-5">
       <header className="flex justify-between">
         <div className="flex items-center gap-1">
           {category.id !== "no_category" ? (
@@ -67,7 +67,7 @@ export const CategoryItem = ({ category }: Props) => {
       </header>
 
       {category.folded ? null : (
-        <ul className="mt-1" role="list">
+        <ul className="mt-1">
           {category.notes.map((note) => (
             <ListItem key={note.id} note={note} />
           ))}

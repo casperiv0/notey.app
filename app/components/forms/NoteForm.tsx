@@ -3,12 +3,12 @@ import { Category, Note } from ".prisma/client";
 import { Form, useLoaderData, useTransition } from "@remix-run/react";
 import { useModal } from "~/lib/useModal";
 import { Button } from "../Button";
-import { FormField } from "../form/FormField";
-import { Input } from "../form/Input";
+import { FormField } from "../form/form-field";
+import { Input } from "../form/input";
 import { Modals } from "~/lib/constants";
-import { Select } from "../form/Select";
+import { Select } from "../form/select";
 import { useLocation } from "react-router";
-import { Switch } from "../form/Switch";
+import { Switch } from "../form/switch";
 import { Tooltip } from "../Tooltip";
 
 export const NoteForm = () => {

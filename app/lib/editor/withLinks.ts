@@ -1,4 +1,4 @@
-import type { SlateEditor } from "~/components/slate-editor/SlateEditor";
+import type { SlateEditor } from "~/components/slate-editor/slate-editor";
 import isUrl from "is-url";
 import { Editor, Transforms, Element as SlateElement, Range } from "slate";
 import type { LinkElement } from "~/components/slate-editor/types";

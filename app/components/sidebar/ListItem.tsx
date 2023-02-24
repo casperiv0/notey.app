@@ -25,7 +25,7 @@ export const ListItem = ({ note }: Props) => {
   }
 
   return (
-    <li role="listitem">
+    <li>
       <Link
         onClick={handleClick}
         className={classNames(

@@ -1,6 +1,6 @@
 import type { Note } from "@prisma/client";
 import { useActiveNote } from "~/lib/note";
-import { DEFAULT_EDITOR_DATA, SlateEditor } from "../slate-editor/SlateEditor";
+import { DEFAULT_EDITOR_DATA, SlateEditor } from "./slate-editor/slate-editor";
 
 interface Props {
   isShare?: boolean;
